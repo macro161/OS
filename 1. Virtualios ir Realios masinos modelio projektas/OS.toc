@@ -10,4 +10,12 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.3.}Procesoriaus registrai}{2}{subsection.1.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.}Virtuali mašina}{3}{section.2}
+\contentsline {subsection}{\numberline {1.4.}Atmintys}{3}{subsection.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.5.}I/O}{3}{subsection.1.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.6.}Puslapiavimo mechanizmas}{3}{subsection.1.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.7.}Duomenų perdavimo kanalai}{3}{subsection.1.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.}Virtuali mašina}{4}{section.2}

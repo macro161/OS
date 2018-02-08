@@ -2,4 +2,8 @@
 \BOOKMARK [2][-]{subsection.1.1}{Techninės įrangos elementai sudarantys realią mašiną}{section.1}% 2
 \BOOKMARK [2][-]{subsection.1.2}{Centrinis\040procesorius}{section.1}% 3
 \BOOKMARK [2][-]{subsection.1.3}{Procesoriaus\040registrai}{section.1}% 4
-\BOOKMARK [1][-]{section.2}{Virtuali mašina}{}% 5
+\BOOKMARK [2][-]{subsection.1.4}{Atmintys}{section.1}% 5
+\BOOKMARK [2][-]{subsection.1.5}{I/O}{section.1}% 6
+\BOOKMARK [2][-]{subsection.1.6}{Puslapiavimo\040mechanizmas}{section.1}% 7
+\BOOKMARK [2][-]{subsection.1.7}{Duomenų perdavimo kanalai}{section.1}% 8
+\BOOKMARK [1][-]{section.2}{Virtuali mašina}{}% 9

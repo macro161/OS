@@ -55,6 +55,34 @@
 \subsection{Centrinis procesorius}
 	Centrinio procesoriaus paskirtis yra skaityti komandas iš atminties ir jas interpretuoti. Procesorius gali dirbti dviem rėžimais - supervizoriaus ir vartotojo. Supervizoriaus rėžime komandos yra apdorojamos aukšto lygio procesoriaus. Komandos vykdomos supervizoriaus režime yra skirtos operacinės sistemos funkcionavimui palaikyti. Procesorius persijungia į šį rėžimą pertaukimais arba sisteminiais kreipiniais.
 \subsection{Procesoriaus registrai}
+\begin{itemize}
+	\item{R1, R2, R3, R4 - 4 baitų bendros paskirties registrai}
+	\item{IC - 2 baitų komandų skaitiklis}
+	\item{C - 1 baito loginis registras (TRUE arba FALSE)}
+	\item{SF - 1 baito požymių registras CF OF XX XXXZF - carry flag, overflow flag, zero flag}
+	\item{PTR - 4 baitų puslapių lentelės registras(naudojamo puslapių lentelės numeris)}
+	\item{MODE - registras, kurio reikšmė nusako procesoriaus darbo režimą(supervizorinis, vartotojo)}
+	\item{PI - programinių pertraukimų registras}
+	\item{SI - supervizorinių pertraukimų registras}
+	\item{TI - taimerio registras}
+	\item{CHST[1]...CHST[3] - kanalų būsenos registrai }
+	\item{IOI - 2 baitų įvedimo ir išvedimo pertraukimų registras}
+\end{itemize}
+
+\subsection{Atmintys}
+Pagrindinę realios mašinos atmintį dalinasi vartotojo ir supervizorinė atmintis. Kaskart sukuriant naują virtualią mašiną panaudojama dalis realios mašinos atminties. Atminties dydis 16 blokų po 16 žodžių. Žodžio ilgis 4 baitai. Supervizorinę atmintį naudoja aukšto lygio procesorius, tačiau šios atminties savo rašomoje programoje nenaudosim. Taip pat yra išorinė atmintis kietojo disko pavidalu.
+
+\subsection{I/O}
+Komandų įvedimui naudojamas ,,flash atmintinių" nuskaitymo įrenginys. Išvedimui naudojamas spausdintuvas.
+
+\subsection{Puslapiavimo mechanizmas}
+Puslapiavimo mechanizmas yra metodas skirtas virtualios atminties adreso parodymui į realios atminties adresą. Kiekvienai virtualiai mašinai skiriama 4 atminties blokai. Paskutinis lentelės blokas yra užpildomas realiais adresais. Naudojamas PTR(4 baitų a0,a1,a2,a3) registras kuriame laikomas puslapių lentelės bloko realūs adresai. Pagal a2 ir a3 baitus surandame bloką. Pagal virtualaus adreso x1 ir x2 yra nustatomas puslapis. Bloko adresas kur x1 randamas [4*(4*a2 a3)+x1], o prie bloko adreso pridėjus x2 gauname virtualų adresą: 4*[4*(4*a2 a3)+x1]x2.
+
+\subsection{Duomenų perdavimo kanalai}
+Skirti I/O ir atminties valdymui. Modelyje egzistuoja trys kanalai iš kurie kiekvienas atsakingas už skirtingus dalykus. Kanale vyksta arba rašymas arba skaitymas ir pabaigęs darbąą jis informuoja centrinį procesorių ir sukelia pertraukimą padidindamas IOI registro reikšmę. Kanalų būsenos yra saugomos CHST[1]...CHST[3] registruose.
+
+
+
 
 
 \section{Virtuali mašina}
