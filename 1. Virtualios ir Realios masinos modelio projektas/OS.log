@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99998 (MiKTeX 2.9.6500 64-bit) (preloaded format=xelatex 2017.12.4)  9 FEB 2018 12:56
+This is XeTeX, Version 3.14159265-2.6-0.99998 (MiKTeX 2.9.6500 64-bit) (preloaded format=xelatex 2017.12.4)  10 FEB 2018 00:58
 entering extended mode
 **./OS.tex
 (OS.tex
@@ -1400,25 +1400,30 @@ File: RealiMasina.png Graphic file (type bmp)
  [2
 
 ] [3] [4]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 102.
+File: VMAtmintis.png Graphic file (type bmp)
+<VMAtmintis.png>
+File: VMProcesorius.png Graphic file (type bmp)
+<VMProcesorius.png>
  [5
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 102.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 139.
+ [6]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 139.
  (OS.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 102.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 102.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 139.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 139.
 Package logreq Info: Writing requests to 'OS.run.xml'.
 \openout1 = `OS.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 29971 strings out of 427839
- 547388 string characters out of 3152538
- 1048283 words of memory out of 3000000
- 33644 multiletter control sequences out of 15000+200000
+ 29984 strings out of 427839
+ 547652 string characters out of 3152538
+ 1049283 words of memory out of 3000000
+ 33655 multiletter control sequences out of 15000+200000
  543558 words of font info for 89 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
- 67i,11n,96p,10536b,3426s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 67i,12n,96p,10536b,3426s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on OS.pdf (6 pages).
+Output written on OS.pdf (7 pages).

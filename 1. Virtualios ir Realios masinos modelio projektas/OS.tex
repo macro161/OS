@@ -66,6 +66,8 @@
 \subsection{Procesoriaus registrai}
 \begin{itemize}
 	\item{R1, R2, R3, R4 - 4 baitų bendros paskirties registrai}
+	\item{DS - registras rodantis duomenų segmento adresą}
+	\item{CS - registras rodantis kodo segmento adresą}
 	\item{IC - 2 baitų komandų skaitiklis}
 	\item{C - 1 baito loginis registras (TRUE arba FALSE)}
 	\item{SF - 1 baito požymių registras CF OF XX XXXZF - carry flag, overflow flag, zero flag}
@@ -95,6 +97,41 @@ Skirti I/O ir atminties valdymui. Modelyje egzistuoja trys kanalai iš kurie kie
 
 
 \section{Virtuali mašina}
+
+\subsection{Funkcija}
+Virtuali mašina yra skirta paslepti realios mašinos sudėtingumą ir suteikti vartotojui instrukcijų sąrašą su kuriuo jis galėtų dirbti. Todėl operacinės sistemos paskirtis ir yra paslėpti realią mašiną ir duoti mums virtualią. Virtuali mašina taip pat suteikia darbų pasidalijimą kurio dėk galima paleisti kelias virtualias mašinas ir tokiu būdu ant kiekvienos iš jų atlikti skirtingas užduotis.
+
+ \subsection{Modeliuojamos virtualios mašinos loginių komponentų aprašymas}
+	\subsubsection{Atmintis}
+	\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{VMAtmintis.png}
+	\caption{Virtualios mašinos atmintis}
+	\label{fig:Virtualios mašinos atmintis}
+\end{figure}
+
+	Virtualios mašinos atmintis susideda iš 4 blokų po 16 žodžių iš viso 64 žodžiai po 4 baitus arba 32 bitus. Pirmi du atminties blokai bus paskirti duomenų segmentui(DS), o paskutiniai du blokai kodo segmentui(CS). Norint pasinaudoti puslapiavimo mechanizmu pirmas blokas bus išskiriamas surašyti realiems adresams. Naudosime registrą PTR(4 baitai a0 a1 a2 a3) kuriame laikomas puslapių lentelės bloko realūs adresai. Per a2 ir a3 surandame bloką. Pagal x1 ir x2 nustatomas puslapis. Bloko adresas, kur yra x1 randamas pagal formulę [4*(4*a2 a3)+x1]x2, o prie bloko adreso pridėjus x2 gauname vistualų adresą 4*[4*(4*a2 a3)+x1]x2 .Efektyviai naudotis Virtualia atmintimi įvesime du papildomus registus DS ir CS. DS registro reikšmė bus rodyklė į duomenų segmento atmintį, o CS reišmė rodyklė į kodo segmento atmintė.
+
+	\subsubsection{Procesorius}
+\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{VMProcesorius.png}
+	\caption{Virtualios mašinos procesorius}
+	\label{fig:Virtualios mašinos procesorius}
+\end{figure}
+Registrai:
+\begin{itemize}
+	\item{R1...R4 - Bendros paskirties registrai}
+	\item{IC - komandos skaitliukas, rodo sekančios komandos adresą }
+	\item{SF - status flagas rodantis programos būseną}
+	\item{C - loginis registras(TRUE arba FALSE)}
+	\item{DS - rodo į duomenų segmentą atmintyje}
+	\item{CS - rodo į kodo segmentą atmintyje}
+\end{itemize}
+
+	
+	
+
 
 
 
