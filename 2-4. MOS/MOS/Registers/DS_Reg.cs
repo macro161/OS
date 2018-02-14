@@ -6,21 +6,20 @@ using System.Threading.Tasks;
 
 namespace Registers
 {
-    class PTR_Reg
+    class DS_Reg // Rodo i duometu segmento pradzia
     {
-        private int _ptr;
+        private int _ds;
 
-        public PTR_Reg(int adress)
+        public DS_Reg(int register)
         {
-            _ptr = adress;
+            _ds = register;
         }
 
-        public int PTR
+        public int DS
         {
-            get { return _ptr; }
+            get { return _ds; }
         }
 
-       
 
     }
 }
