@@ -15,10 +15,10 @@ namespace Registers
             {
                 switch (value)
                 {
-                    case "S":       
+                    case 1:       
                         _mode = 1;
                         break;
-                    case "U":
+                    case 0:
                         _mode = 0; // user
                         break;
                     default:

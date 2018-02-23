@@ -12,6 +12,10 @@ namespace RealMachine
 {
     public partial class RealMachineGUI : Form
     {
+        ReadProgram readProgram = new ReadProgram();
+        
+        RealMachineInit rm = new RealMachineInit();
+
         public RealMachineGUI()
         {
             InitializeComponent();
@@ -70,6 +74,16 @@ namespace RealMachine
         private void Stop_Program_Button_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void Load_Program_Button_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void RealMachineGUI_Load(object sender, EventArgs e)
+        {
+            rm.HandleSomethingHappening();
         }
     }
 }

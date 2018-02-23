@@ -8,9 +8,7 @@ namespace VirtualMachine
 {
     static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        //RM entry point
         [STAThread]
         static void Main()
         {
