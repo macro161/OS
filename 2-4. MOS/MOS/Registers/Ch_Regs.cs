@@ -11,9 +11,9 @@ namespace Registers
 
         public Ch_regs()
         {
-            _ch1 = 0;
-            _ch2 = 0;
-            _ch3 = 0;
+            _ch1 = false;
+            _ch2 = false;
+            _ch3 = false;
         }
 
         public static Boolean CH1

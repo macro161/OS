@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Registers
 {
-    class CS_Reg
+    class PI_Reg
     {
-        private int _cs;
+        private short _pi;
 
-        public CS_Reg(int adress)
+        public PI_Reg()
         {
-            _cs = adress;
+            _pi = 0;
         }
 
-        public int DS
+        public void Int_1()
         {
-            get { return _cs; }
+            _pi = 1;
         }
     }
 }

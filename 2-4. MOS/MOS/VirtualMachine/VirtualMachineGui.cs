@@ -8,13 +8,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RealMachine
+namespace VirtualMachine
 {
-    public partial class Form1 : Form
+    public partial class VirtualMachineGUI : Form
     {
-        public Form1()
+        public VirtualMachineGUI()
         {
             InitializeComponent();
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -24,5 +24,10 @@ namespace Registers
                 return _ti;
             }
         }
+
+        public void DecrementTI()
+        {
+            _ti--;
+        }
     }
 }

@@ -3,23 +3,23 @@ namespace Registers
 {
     class Mode_Reg
     {
-        private static char _mode;
+        private static byte _mode;
 
         public Mode_Reg()
         {
-            _mode = 'S'; // default - supervisor
+            _mode = 1; // default - supervisor
         }
 
-        public static char Mode {
+        public static byte Mode {
             set
             {
                 switch (value)
                 {
-                    case 'S':
-                        _mode = 'S';
+                    case "S":       
+                        _mode = 1;
                         break;
-                    case 'U':
-                        _mode = 'U'; // user
+                    case "U":
+                        _mode = 0; // user
                         break;
                     default:
                         break;

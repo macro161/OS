@@ -41,15 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Ch_Regs.cs" />
     <Compile Include="CS_Reg.cs" />
     <Compile Include="C_Reg.cs" />
     <Compile Include="DS_Reg.cs" />
     <Compile Include="IC_Reg.cs" />
     <Compile Include="IOI_Reg.cs" />
+    <Compile Include="Mode_Reg.cs" />
+    <Compile Include="PI_Reg.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PTR_Reg.cs" />
+    <Compile Include="R_Reg.cs" />
     <Compile Include="SF_Reg.cs" />
+    <Compile Include="SI_Reg.cs" />
+    <Compile Include="TI_Reg.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
