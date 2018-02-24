@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Registers
 {
-    class DS_Reg // Rodo i duometu segmento pradzia
+    public class DS_Reg // Rodo i duometu segmento pradzia
     {
-        private int _ds;
+        public int _ds;
 
         public DS_Reg(int register)
         {

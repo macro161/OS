@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Registers
 {
-    class IOI_Reg
+    public class IOI_Reg
     {
-        private byte _ioi;
+        public byte _ioi;
 
         public IOI_Reg()
         {

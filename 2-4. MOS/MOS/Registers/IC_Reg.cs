@@ -8,7 +8,7 @@ using MOS;
 
 namespace Registers
 {
-    class IC_Reg
+    public class IC_Reg
     {
         private ushort _ic;
 

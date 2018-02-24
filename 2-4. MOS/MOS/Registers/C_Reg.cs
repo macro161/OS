@@ -6,8 +6,13 @@ using System.Threading.Tasks;
 
 namespace Registers
 {
-    class C_Reg
+    public class C_Reg
     {
+        public C_Reg()
+        {
+            _c = false;
+        }
+
         private bool _c;
 
         public bool C

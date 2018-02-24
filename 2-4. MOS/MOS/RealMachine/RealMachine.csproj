@@ -45,17 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entry.cs" />
-    <Compile Include="ReadProgram.cs" />
+    <Compile Include="PowerOn.cs" />
     <Compile Include="RealMachineGUI.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="RealMachineGUI.Designer.cs">
       <DependentUpon>RealMachineGUI.cs</DependentUpon>
     </Compile>
-    <Compile Include="RealMachineInit.cs" />
+    <Compile Include="RealMachineModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RealMemory.cs" />
     <EmbeddedResource Include="RealMachineGUI.resx">
       <DependentUpon>RealMachineGUI.cs</DependentUpon>
     </EmbeddedResource>
@@ -80,6 +78,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Registers\Registers.csproj">
+      <Project>{f9aa881d-0d48-4240-9fac-1beeb00bfca3}</Project>
+      <Name>Registers</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

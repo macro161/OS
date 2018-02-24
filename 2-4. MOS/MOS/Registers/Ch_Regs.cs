@@ -3,7 +3,7 @@
 namespace Registers
 {
     // 0 - laisvas, 1 - uzimtas
-    class Ch_regs
+    public class Ch_regs
     {
         private static bool _ch1;
         private static bool _ch2;
@@ -16,7 +16,7 @@ namespace Registers
             _ch3 = false;
         }
 
-        public static Boolean CH1
+        public Boolean CH1
         {
             get
             {
@@ -27,7 +27,7 @@ namespace Registers
                 _ch1 = value;
             }
         }
-        public static Boolean CH2
+        public Boolean CH2
         {
             get
             {
@@ -38,7 +38,7 @@ namespace Registers
                 _ch2 = value;
             }
         }
-        public static Boolean CH3
+        public Boolean CH3
         {
             get
             {

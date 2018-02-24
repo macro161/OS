@@ -7,10 +7,10 @@ using System.Windows.Forms;
 
 namespace RealMachine
 {
-    class Entry
+    class PowerOn
     {
         [STAThread]
-        static void Main()
+        public static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

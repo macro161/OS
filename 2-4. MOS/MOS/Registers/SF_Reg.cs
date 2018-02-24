@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Registers
 {
-    class SF_Reg
+    public class SF_Reg
     {
         private byte _sf; // CF OF XX XXX ZF
 

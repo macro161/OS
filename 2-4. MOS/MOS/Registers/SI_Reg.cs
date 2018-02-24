@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Registers
 {
-    class SI_Reg
+    public class SI_Reg
     {
-        private short _si;
+        public short _si;
 
         public SI_Reg()
         {

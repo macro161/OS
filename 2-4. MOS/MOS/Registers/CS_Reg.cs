@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Registers
 {
-    class CS_Reg
+    public class CS_Reg
     {
-        private int _cs;
+        public int _cs;
 
         public CS_Reg(int adress)
         {

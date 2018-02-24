@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Registers
 {
-    class PI_Reg
+    public class PI_Reg
     {
-        private short _pi;
+        public short _pi;
 
         public PI_Reg()
         {

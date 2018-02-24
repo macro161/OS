@@ -1,16 +1,16 @@
 ﻿
 namespace Registers
 {
-    class Mode_Reg
+    public class Mode_Reg
     {
-        private static byte _mode;
+        private byte _mode;
 
         public Mode_Reg()
         {
             _mode = 1; // default - supervisor
         }
 
-        public static byte Mode {
+        public byte Mode {
             set
             {
                 switch (value)

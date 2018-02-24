@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Registers
 {
-    class PTR_Reg
+    public class PTR_Reg
     {
         private int _ptr;
 
