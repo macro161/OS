@@ -196,7 +196,7 @@
             this.C_Value_Box.AccessibleName = "C_Value_Box";
             this.C_Value_Box.Location = new System.Drawing.Point(55, 163);
             this.C_Value_Box.Name = "C_Value_Box";
-            this.C_Value_Box.Size = new System.Drawing.Size(114, 20);
+            this.C_Value_Box.Size = new System.Drawing.Size(47, 20);
             this.C_Value_Box.TabIndex = 10;
             this.C_Value_Box.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -266,23 +266,23 @@
             this.CH1_Value_Box.AccessibleName = "CH1_Value_Box";
             this.CH1_Value_Box.Location = new System.Drawing.Point(55, 283);
             this.CH1_Value_Box.Name = "CH1_Value_Box";
-            this.CH1_Value_Box.Size = new System.Drawing.Size(25, 20);
+            this.CH1_Value_Box.Size = new System.Drawing.Size(47, 20);
             this.CH1_Value_Box.TabIndex = 18;
             // 
             // CH2_Value_Box
             // 
             this.CH2_Value_Box.AccessibleName = "CH2_Value_Box";
-            this.CH2_Value_Box.Location = new System.Drawing.Point(130, 283);
+            this.CH2_Value_Box.Location = new System.Drawing.Point(161, 283);
             this.CH2_Value_Box.Name = "CH2_Value_Box";
-            this.CH2_Value_Box.Size = new System.Drawing.Size(25, 20);
+            this.CH2_Value_Box.Size = new System.Drawing.Size(47, 20);
             this.CH2_Value_Box.TabIndex = 19;
             // 
             // CH3_Value_Box
             // 
             this.CH3_Value_Box.AccessibleName = "CH3_Value_Box";
-            this.CH3_Value_Box.Location = new System.Drawing.Point(209, 283);
+            this.CH3_Value_Box.Location = new System.Drawing.Point(269, 283);
             this.CH3_Value_Box.Name = "CH3_Value_Box";
-            this.CH3_Value_Box.Size = new System.Drawing.Size(25, 20);
+            this.CH3_Value_Box.Size = new System.Drawing.Size(48, 20);
             this.CH3_Value_Box.TabIndex = 20;
             // 
             // CH1
@@ -298,7 +298,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(93, 286);
+            this.label9.Location = new System.Drawing.Point(124, 286);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(31, 13);
             this.label9.TabIndex = 22;
@@ -307,7 +307,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(172, 286);
+            this.label10.Location = new System.Drawing.Point(232, 286);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(31, 13);
             this.label10.TabIndex = 23;
