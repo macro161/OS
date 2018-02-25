@@ -26,6 +26,9 @@ namespace RealMachine
         public SI_Reg si = new SI_Reg();
         public TI_Reg ti = new TI_Reg();
 
+
+
+
         
         
 

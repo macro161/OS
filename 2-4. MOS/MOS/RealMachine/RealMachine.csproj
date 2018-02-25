@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="RealMachineModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserMemory.cs" />
     <EmbeddedResource Include="RealMachineGUI.resx">
       <DependentUpon>RealMachineGUI.cs</DependentUpon>
     </EmbeddedResource>
