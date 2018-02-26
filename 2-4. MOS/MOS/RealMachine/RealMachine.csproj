@@ -45,6 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FlashMemory.cs" />
+    <Compile Include="InputChannel.cs" />
+    <Compile Include="PageTable.cs" />
     <Compile Include="PowerOn.cs" />
     <Compile Include="RealMachineGUI.cs">
       <SubType>Form</SubType>

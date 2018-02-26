@@ -12,8 +12,7 @@ namespace RealMachine
 {
     public partial class RealMachineGUI : Form
     {
-        
-        
+
         RealMachineModel rm = new RealMachineModel();
 
         public RealMachineGUI()
@@ -73,17 +72,19 @@ namespace RealMachine
 
         private void Stop_Program_Button_Click(object sender, EventArgs e)
         {
-
+            rm.InsertFlash();
+            ReDrawRMGUI();
         }
 
         private void Load_Program_Button_Click(object sender, EventArgs e)
         {
             ReDrawRMGUI();
+
         }
 
         private void RealMachineGUI_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         private void ReDrawRMGUI()
@@ -107,6 +108,30 @@ namespace RealMachine
             DS_Value_Box.Text = rm.ds._ds.ToString();
             CS_Value_Box.Text = rm.cs._cs.ToString();
 
+            MessageBox.Show(JoinStrings(rm.memory.userMemory, 1));
+
+            Block1_Value_Box.Text = JoinStrings(rm.memory.userMemory, 1);
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private string JoinStrings(string[,] data, int blockNumber)
+        {
+            string joinedString = "";
+
+            MessageBox.Show(data[0,0] + "nigger");
+
+            for (int i = 0; i < 16 ; i++)
+            {
+                joinedString += data[blockNumber-1, i];
+                
+            }
+
+            return joinedString;
         }
     }
 }

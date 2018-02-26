@@ -100,6 +100,7 @@
             this.Play_Program_Button = new System.Windows.Forms.Button();
             this.Stop_Program_Button = new System.Windows.Forms.Button();
             this.Next_Step_Button = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // R1_Value_Box
@@ -729,11 +730,22 @@
             this.Next_Step_Button.Text = "Next step";
             this.Next_Step_Button.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(254, 183);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(99, 23);
+            this.button1.TabIndex = 72;
+            this.button1.Text = "Insert Flash";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // RealMachineGUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 452);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.Next_Step_Button);
             this.Controls.Add(this.Stop_Program_Button);
             this.Controls.Add(this.Play_Program_Button);
@@ -888,6 +900,7 @@
         private System.Windows.Forms.Button Play_Program_Button;
         private System.Windows.Forms.Button Stop_Program_Button;
         private System.Windows.Forms.Button Next_Step_Button;
+        private System.Windows.Forms.Button button1;
     }
 }
 
