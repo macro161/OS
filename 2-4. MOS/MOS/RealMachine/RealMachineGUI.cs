@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace RealMachine
+namespace RealMachine // INotify property https://docs.microsoft.com/en-us/dotnet/framework/wpf/data/how-to-implement-property-change-notification
 {
     public partial class RealMachineGUI : Form
     {
