@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealMachine
+namespace VirtualMachine
 {
     class PageTable
     {
+        int Ptr;
+        public PageTable(int Ptr)
+        {
+            this.Ptr = Ptr;
+        }
     }
 }

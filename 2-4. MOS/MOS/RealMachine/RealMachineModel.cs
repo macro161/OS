@@ -26,8 +26,6 @@ namespace RealMachine
         public SI_Reg si = new SI_Reg();
         public TI_Reg ti = new TI_Reg();
 
-        
-        public PageTable pageTable = new PageTable();
         public UserMemory memory = new UserMemory();
         public InputChannel channleOne = new InputChannel();
         
@@ -37,7 +35,10 @@ namespace RealMachine
         {
             
         }
-
+        public byte[] GetMemory()
+        {
+            return memory.getMemory();
+        }
         public void InsertFlash()
         {
             channleOne.GetData(memory);

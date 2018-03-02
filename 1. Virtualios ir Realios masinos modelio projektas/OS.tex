@@ -149,7 +149,7 @@ RR =) R:=R+R2, R2=R-R2, R=R-R2;
 \item AD – suma – prie esamos registro R reikšmės prideda reikšmę esančią x1x2 atminties
 baite, rezultatas patalpinamas registre R:
 AD x1x2 =) r1:=r1+[x1x2];
-\item SB – atimtis – iš esamos registro R reikšmės atimama reikšmė esanti x1x2 atminties
+\item SB – atimtis – iš esamos registro R1 reikšmės atimama reikšmė esanti x1x2 atminties
 baite, rezultatas patalpinamas registre R:
 SB x1x2 =) r1:=r1-[x1x2];
 \item CR – palyginimas – esamą registro R reikšmė yra lyginama su reikšme esančią x1x2
@@ -189,10 +189,10 @@ LM x1x2 =) R:= [16*[16*(16*a2 a3)+x1]x2] (pagal puslapiavimo mechanizmą);
 \end{enumerate}
 \item Įvedimo/Išvedimo:
 \begin{enumerate}
-\item GD – įvedimas – iš įvedimo srauto paima 1 žodžio srautą ir jį įveda į atmintį
-pradedant atminties baitu 16*x1+x2:
+\item GD – įvedimas – iš įvedimo srauto paima 10 žodžų srautą ir jį įveda į atmintį
+pradedant atminties baitu 16*x1:
 GD x1x2
-\item PD – išvedimas – iš atminties, pradedant atminties baitu 16*x1+x2 paima 1 žodžio
+\item PD – išvedimas – iš atminties, pradedant atminties baitu 16*x1 paima 10 žodžių
 srautą ir jį išveda į ekraną:
 PD x1x2
 \end{enumerate}

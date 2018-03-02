@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="VirtualMachine.cs" />
     <Compile Include="VirtualMachineGUI.cs">
       <SubType>Form</SubType>
     </Compile>

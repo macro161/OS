@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using VirtualMachine;
 
 namespace RealMachine // INotify property https://docs.microsoft.com/en-us/dotnet/framework/wpf/data/how-to-implement-property-change-notification
 {
@@ -67,7 +68,7 @@ namespace RealMachine // INotify property https://docs.microsoft.com/en-us/dotne
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            VirtualMachinem vm = new VirtualMachinem(rm.GetMemory(), 0);
         }
 
         private void Stop_Program_Button_Click(object sender, EventArgs e)
