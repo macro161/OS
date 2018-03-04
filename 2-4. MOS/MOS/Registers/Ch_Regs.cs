@@ -3,13 +3,13 @@
 namespace Registers
 {
     // 0 - laisvas, 1 - uzimtas
-    public class Ch_regs
+    public class Ch_Regs
     {
         private static bool _ch1;
         private static bool _ch2;
         private static bool _ch3;
 
-        public Ch_regs()
+        public Ch_Regs()
         {
             _ch1 = false;
             _ch2 = false;

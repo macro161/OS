@@ -10,7 +10,7 @@ namespace RealMachine
     class RealMachineModel
     {
         public C_Reg c = new C_Reg();
-        public Ch_regs ch = new Ch_regs();
+        public Ch_Regs ch = new Ch_Regs();
         public CS_Reg cs = new CS_Reg(1234);
         public DS_Reg ds = new DS_Reg(1234);
         public IC_Reg ic = new IC_Reg();
