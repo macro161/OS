@@ -14,7 +14,7 @@ namespace MOS // INotify property https://docs.microsoft.com/en-us/dotnet/framew
     public partial class RealMachineGUI : Form
     {
 
-        RealMachineModel rm = new RealMachineModel();
+        RealMachine rm = new RealMachine();
 
         public RealMachineGUI()
         {

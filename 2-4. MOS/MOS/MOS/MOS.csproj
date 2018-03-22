@@ -51,52 +51,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Ch_Regs.cs" />
-    <Compile Include="CS_Reg.cs" />
-    <Compile Include="C_Reg.cs" />
-    <Compile Include="DS_Reg.cs" />
-    <Compile Include="FlashMemory.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Registers\Ch_Regs.cs" />
+    <Compile Include="Registers\CS_Reg.cs" />
+    <Compile Include="Registers\C_Reg.cs" />
+    <Compile Include="Registers\DS_Reg.cs" />
+    <Compile Include="RealMachine\FlashMemory.cs" />
+    <Compile Include="Registers\IC_Reg.cs" />
+    <Compile Include="RealMachine\InputChannel.cs" />
+    <Compile Include="Registers\IOI_Reg.cs" />
+    <Compile Include="RealMachine\LoggerTextBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="IC_Reg.cs" />
-    <Compile Include="InputChannel.cs" />
-    <Compile Include="IOI_Reg.cs" />
-    <Compile Include="LoggerTextBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LoggerTextBox.Designer.cs">
+    <Compile Include="RealMachine\LoggerTextBox.Designer.cs">
       <DependentUpon>LoggerTextBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mode_Reg.cs" />
-    <Compile Include="PI_Reg.cs" />
-    <Compile Include="RealMachineGUI.cs">
+    <Compile Include="Registers\Mode_Reg.cs" />
+    <Compile Include="Registers\PI_Reg.cs" />
+    <Compile Include="RealMachine\RealMachineGUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RealMachineGUI.Designer.cs" />
-    <Compile Include="RMStartPoint.cs" />
+    <Compile Include="RealMachine\RealMachineGUI.Designer.cs" />
+    <Compile Include="RealMachine\RMStartPoint.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PTR_Reg.cs" />
-    <Compile Include="RealMachineModel.cs" />
-    <Compile Include="R_Reg.cs" />
-    <Compile Include="SF_Reg.cs" />
-    <Compile Include="SI_Reg.cs" />
-    <Compile Include="TextBoxAppender.cs" />
-    <Compile Include="TI_Reg.cs" />
-    <Compile Include="UserMemory.cs" />
-    <Compile Include="VirtualMachineGui.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="VirtualMachineGui.Designer.cs" />
-    <Compile Include="VMStartPoint.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LoggerTextBox.resx">
+    <Compile Include="Registers\PTR_Reg.cs" />
+    <Compile Include="RealMachine\RealMachine.cs" />
+    <Compile Include="Registers\R_Reg.cs" />
+    <Compile Include="Registers\SF_Reg.cs" />
+    <Compile Include="Registers\SI_Reg.cs" />
+    <Compile Include="RealMachine\TextBoxAppender.cs" />
+    <Compile Include="Registers\TI_Reg.cs" />
+    <Compile Include="RealMachine\UserMemory.cs" />
+    <Compile Include="VirtualMachine\PageTable.cs" />
+    <Compile Include="VirtualMachine\VirtualMachine.cs" />
+    <EmbeddedResource Include="RealMachine\LoggerTextBox.resx">
       <DependentUpon>LoggerTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -108,8 +97,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="RealMachineGUI.resx" />
-    <EmbeddedResource Include="VirtualMachineGui.resx" />
+    <EmbeddedResource Include="RealMachine\RealMachineGUI.resx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -126,5 +114,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

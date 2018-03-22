@@ -6,40 +6,46 @@ using System.Threading.Tasks;
 
 namespace MOS
 {
-    class UserMemory
+    public class UserMemory
     {
-        private byte[, ,] userMemory = new byte[272,16, 4]; // 272 takeliai po 16 žodžių po baitus.
-        private bool[] isEmpty = new bool[272]; // skirstant takelius pasižymim, kurie jau užimti, kai atsilaisvins vėl pažimėsim true. 
-
+        private string[,] userMemory = new string[255,16]; // 255 takeliai po 16 žodžių po 4 baitus.
+        private bool[] isUsed = new bool[255]; // skirstant takelius pasižymim, kurie jau užimti, kai atsilaisvins vėl pažimėsim true. 
+        Random rand = new Random();
         public int GetRandomBlock()
         {
-            int i = (new Random()).Next(0, 273);
-            while(isEmpty[i] == false)
+            int i = rand.Next(0, 256);
+            while(isUsed[i] == true)
             {
-                if (i == 272)
+                if (i == 255)
                 {
                     i = 0;
                 }
+                i++;
             }
-            isEmpty[i] = false;
+            isUsed[i] = true;
             return i;
         }
-        public byte[] getMemory()
+        public string getMemory() // gražina ptr registrą, kuris rodo į puslapių lentelę
         {
             int ptr = GetRandomBlock();
-            userMemory[ptr, 0, 0] = IntToByte(ptr)[0];
-            userMemory[ptr, 0, 1] = IntToByte(ptr)[1];
-            userMemory[ptr, 0, 2] = IntToByte(ptr)[2];
-            userMemory[ptr, 0, 3] = IntToByte(ptr)[3];
-            for (int i = 1; i < 16; i++)
+            string Ptr = "00" + (ptr / 16 % 16).ToHex() + (ptr % 16).ToHex();
+
+            for (int i = 0; i < 16; i++)
             {
                 int p = GetRandomBlock();
-                userMemory[ptr, i, 0] = IntToByte(p)[0];
-                userMemory[ptr, i, 1] = IntToByte(p)[1];
-                userMemory[ptr, i, 2] = IntToByte(p)[2];
-                userMemory[ptr, i, 3] = IntToByte(p)[3];
+                userMemory[ptr, i] = p.ToString("X4");
             }
-            return IntToByte(ptr); ;
+            return Ptr;
+        }
+
+        public string StringAt(int x, int y) // 
+        {
+            return userMemory[x, y];
+        }
+
+        public void WriteAt(int x, int y, string word)
+        {
+            userMemory[x, y] = word.Substring(0, 4);
         }
 
         public static byte[] IntToByte(int a)
@@ -66,6 +72,7 @@ namespace MOS
             return l;
 
         }
+        
         public void TakeData(string data)
         {
             int count = 0;

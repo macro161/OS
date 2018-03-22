@@ -8,27 +8,18 @@ namespace MOS
 {
     public class R_Reg
     {
-        private int _r;
+        private string _r;
 
         public R_Reg()
         {
-            _r = 0;
+            _r = "0000";
         }
 
-        public int R
+        public string R
         {
             get { return _r; }
             set { _r = value; }
         }
 
-        public void Increment_R()
-        {
-            _r++;
-        }
-
-        public void Decrement_R()
-        {
-            _r--;
-        }
     }
 }

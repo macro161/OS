@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace MOS
 {
-    class RealMachineModel
+    public class RealMachine
     {
         public C_Reg c = new C_Reg();
         public Ch_Regs ch = new Ch_Regs();
@@ -25,8 +25,8 @@ namespace MOS
         public SI_Reg si = new SI_Reg();
         public TI_Reg ti = new TI_Reg();
 
-        public UserMemory memory = new UserMemory();
-        public InputChannel channleOne = new InputChannel();
+        public static UserMemory memory = new UserMemory();
+        //public InputChannel channleOne = new InputChannel();
         
         
 
@@ -34,13 +34,10 @@ namespace MOS
         {
             
         }
-        public byte[] GetMemory()
-        {
-            return memory.getMemory();
-        }
+
         public void InsertFlash()
         {
-            channleOne.GetData(memory);
+           // channleOne.GetData(memory);
         }
 
         public void LoadProgram()
