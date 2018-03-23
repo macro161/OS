@@ -86,7 +86,7 @@ Komandų įvedimui naudojamas ,,flash atmintinių" nuskaitymo įrenginys. Išved
 
 \subsection{Puslapiavimo mechanizmas}
 Puslapiavimo mechanizmas yra metodas skirtas virtualios atminties adreso parodymui į realios atminties adresą. Kiekvienai virtualiai mašinai skiriama 16 atminties blokų. Sukuriant virtualią mašiną sukuriama puslapių lentelė. Naudojamas PTR(4 baitų a0,a1,a2,a3) registras kuriame laikomas puslapių lentelės adresas. Baitas a0 yra nenaudojamas, a1 puslapių lentelės ilgis
-atėmus 1 o štai a2 * 10 + a3 žymi puslapių lentelės adresą. Dabar galime pateikti formulę, kuri virtualiam adresui x1x2 gražina realų adresą: Realus adresas = 10*[10*(10 * a2 + a3) + x1] + x2.
+atėmus 1 o štai a2 * 16 + a3 žymi puslapių lentelės adresą. Dabar galime pateikti formulę, kuri virtualiam adresui x1x2 gražina realų adresą: Realus adresas = 16*[16*(16 * a2 + a3) + x1] + x2.
 \subsection{Garso kolonėlė}
 Vartotojui įvedus atitinkamą komandą kompiuterio garso kolonėlė supypsi x1 kartų.
 
@@ -122,9 +122,9 @@ Virtuali mašina yra skirta paslepti realios mašinos sudėtingumą ir suteikti 
 
 	Virtualios mašinos atmintis susideda iš 16 blokų po 16 žodžių iš viso 256 žodžiai po 4 baitus arba 32 bitus. Naudosime registrą PTR(4 baitai a0 a1 a2 a3) kuriame laikomas adresas į puslapių lentelę. Baitas a0 yra nenaudojamas, a1 puslapių lentelės ilgis
 atėmus 1 , o
-štai a2 * 10 + a3 žymi puslapių lentelės adresą. Dabar galime pateikti formulę, kuri virtualiam
+štai a2 * 16 + a3 žymi puslapių lentelės adresą. Dabar galime pateikti formulę, kuri virtualiam
 adresui x1x2 gražina realų adresą:
-Realus adresas = 10*[10*(10 * a2 + a3) + x1] + x2
+Realus adresas = 16*[16*(16 * a2 + a3) + x1] + x2
 
 	\subsubsection{Procesorius}
 \begin{figure}[H]
