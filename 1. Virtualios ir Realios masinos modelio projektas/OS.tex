@@ -55,9 +55,10 @@
 	\item{Vartotojo atmintis}
 	\item{Supervizorinė atmintis}
 	\item{Išorinė atmintis}
-	\item{Duomenų perdavimo kanalai}
+	\item{Duomenų perdavimo kanalas}
 	\item{Įvedimo įrenginys - flash atmintinis}
 	\item{Išvedimo įrenginys - spausdintuvas}
+	\item{Papildomas išvedimo įrenginys - garso kolonėlė}
 	\item{Puslapiavimo mechanizmas}
 \end{itemize}
 
@@ -65,40 +66,50 @@
 	Centrinio procesoriaus paskirtis yra skaityti komandas iš atminties ir jas interpretuoti. Procesorius gali dirbti dviem rėžimais - supervizoriaus ir vartotojo. Supervizoriaus rėžime komandos yra apdorojamos aukšto lygio procesoriaus. Komandos vykdomos supervizoriaus režime yra skirtos operacinės sistemos funkcionavimui palaikyti. Procesorius persijungia į šį rėžimą pertaukimais arba sisteminiais kreipiniais.
 \subsection{Procesoriaus registrai}
 \begin{itemize}
-	\item{R1, R2, R3, R4 - 4 baitų bendros paskirties registrai}
-	\item{DS - registras rodantis duomenų segmento adresą}
-	\item{CS - registras rodantis kodo segmento adresą}
+	\item{R1, R2, R3, R4 - 4 baitų bendros paskirties registrai}  
 	\item{IC - 2 baitų komandų skaitiklis}
 	\item{C - 1 baito loginis registras (TRUE arba FALSE)}
-	\item{SF - 1 baito požymių registras CF OF XX XXXZF - carry flag, overflow flag, zero flag}
-	\item{PTR - 4 baitų puslapių lentelės registras(naudojamo puslapių lentelės numeris)}
+	\item{SF - 1 baito požymių registras CF ZF SF IF OF XXX - carry flag, zero flag, sign flag, interupt flag, overflow flag}
+	\item{PTR - 4 baitų puslapių lentelės registras(naudojamo puslapių lentelės adresas)}
 	\item{MODE - registras, kurio reikšmė nusako procesoriaus darbo režimą(supervizorinis, vartotojo)}
 	\item{PI - programinių pertraukimų registras}
 	\item{SI - supervizorinių pertraukimų registras}
 	\item{TI - taimerio registras}
-	\item{CHST[1]...CHST[3] - kanalų būsenos registrai }
 	\item{IOI - 2 baitų įvedimo ir išvedimo pertraukimų registras}
 \end{itemize}
 
 \subsection{Atmintys}
-Pagrindinę realios mašinos atmintį dalinasi vartotojo ir supervizorinė atmintis. Kaskart sukuriant naują virtualią mašiną panaudojama dalis realios mašinos atminties. Atminties dydis 16 blokų po 16 žodžių. Žodžio ilgis 4 baitai. Supervizorinę atmintį naudoja aukšto lygio procesorius, tačiau šios atminties savo rašomoje programoje nenaudosim. Taip pat yra išorinė atmintis kietojo disko pavidalu.
+Pagrindinę realios mašinos atmintį dalinasi vartotojo ir supervizorinė atmintis. Kaskart sukuriant naują virtualią mašiną panaudojama dalis realios mašinos atminties. Atminties dydis 256 blokų po 16 žodžių. Žodžio ilgis 4 baitai. Supervizorinę atmintį naudoja aukšto lygio procesorius, tačiau šios atminties savo rašomoje programoje nenaudosim. Taip pat yra išorinė atmintis kietojo disko pavidalu.
 
 \subsection{I/O}
-Komandų įvedimui naudojamas ,,flash atmintinių" nuskaitymo įrenginys. Išvedimui naudojamas spausdintuvas.
+Komandų įvedimui naudojamas ,,flash atmintinių" nuskaitymo įrenginys. Išvedimui naudojamas spausdintuvas. Abu šie įrenginiai tėra modeliai ir didelio skirtumo nedarys.
 
 \subsection{Puslapiavimo mechanizmas}
-Puslapiavimo mechanizmas yra metodas skirtas virtualios atminties adreso parodymui į realios atminties adresą. Kiekvienai virtualiai mašinai skiriama 16 atminties blokų. Paskutinis lentelės blokas yra užpildomas realiais adresais. Naudojamas PTR(4 baitų a0,a1,a2,a3) registras kuriame laikomas puslapių lentelės bloko realūs adresai. Pagal a2 ir a3 baitus surandame bloką. Pagal virtualaus adreso x1 ir x2 yra nustatomas puslapis. Bloko adresas kur x1 randamas [4*(4*a2a3)+x1], o prie bloko adreso pridėjus x2 gauname virtualų adresą: 10*[10*(10*a2a3)+x1] + x2.
-
+Puslapiavimo mechanizmas yra metodas skirtas virtualios atminties adreso parodymui į realios atminties adresą. Kiekvienai virtualiai mašinai skiriama 16 atminties blokų. Sukuriant virtualią mašiną sukuriama puslapių lentelė. Naudojamas PTR(4 baitų a0,a1,a2,a3) registras kuriame laikomas puslapių lentelės adresas. Baitas a0 yra nenaudojamas, a1 puslapių lentelės ilgis
+atėmus 1 o štai a2 * 10 + a3 žymi puslapių lentelės adresą. Dabar galime pateikti formulę, kuri virtualiam adresui x1x2 gražina realų adresą: Realus adresas = 10*[10*(10 * a2 + a3) + x1] + x2.
 \subsection{Garso kolonėlė}
 Vartotojui įvedus atitinkamą komandą kompiuterio garso kolonėlė supypsi x1 kartų.
 
 \subsection{Duomenų perdavimo kanalai}
-Skirti I/O ir atminties valdymui. Modelyje egzistuoja keturi kanalai iš kurie kiekvienas atsakingas už skirtingus dalykus. Kanale vyksta arba rašymas arba skaitymas ir pabaigęs darbą jis informuoja centrinį procesorių ir sukelia pertraukimą padidindamas IOI registro reikšmę. Kanalų būsenos yra saugomos CHST[1]...CHST[4] registruose.
+Skirti I/O ir atminties valdymui.Modelyje yra vienas kanalas kuriam galima padaryti skirtingas paskirtis: rašyti, skaityti arba abu. Duomenys eina per kanalą ir pats kanalo įrenginys juos nukreipia į reikiamą kryptį ir pasako kiek duomenų gali pasiimti o kiek reikia nukirpti. Kanalų įrenginio registrai:\newline
+\newline SB: Takelio, iš kurio kopijuosime numeris.
+\newline DB: Takelio, į kurį kopijuosime numeris
+\newline ST: Objekto, iš kurio kopijuosime, numeris
+\newline 1. Vartotojo atmintis;
+\newline 2. Supervizorinė atmintis;
+\newline 3. Išorinė atmintis;
+\newline 4. Įvedimo srautas;
+\newline DT: Objekto, į kurį kopijuosime, numeris
+\newline 1. Vartotojo atmintis;
+\newline 2. Supervizorinė atmintis;
+\newline  3. Išorinė atmintis;
+\newline 4. Išvedimo srautas; 
+
 
 \section{Virtuali mašina}
 
 \subsection{Funkcija}
-Virtuali mašina yra skirta paslepti realios mašinos sudėtingumą ir suteikti vartotojui instrukcijų sąrašą su kuriuo jis galėtų dirbti. Todėl operacinės sistemos paskirtis ir yra paslėpti realią mašiną ir duoti mums virtualią. Virtuali mašina taip pat suteikia darbų pasidalijimą kurio dėk galima paleisti kelias virtualias mašinas ir tokiu būdu ant kiekvienos iš jų atlikti skirtingas užduotis.
+Virtuali mašina yra skirta paslepti realios mašinos sudėtingumą ir suteikti vartotojui instrukcijų sąrašą su kuriuo jis galėtų dirbti. Todėl operacinės sistemos paskirtis ir yra paslėpti realią mašiną ir duoti mums virtualią. Virtuali mašina taip pat suteikia darbų pasidalijimą kurio dėka galima paleisti kelias virtualias mašinas ir tokiu būdu ant kiekvienos iš jų atlikti skirtingas užduotis.
 
  \subsection{Modeliuojamos virtualios mašinos loginių komponentų aprašymas}
 	\subsubsection{Atmintis}
@@ -109,7 +120,11 @@ Virtuali mašina yra skirta paslepti realios mašinos sudėtingumą ir suteikti 
 	\label{fig:Virtualios mašinos atmintis}
 \end{figure}
 
-	Virtualios mašinos atmintis susideda iš 16 blokų po 16 žodžių iš viso 256 žodžiai po 4 baitus arba 32 bitus. Nuo 1 iki 5 bloko yra duomenų segmentas(DS) ir nuo 6 iki 16 kodo segmentas(CS). Norint pasinaudoti puslapiavimo mechanizmu realios mašinos atmintyje yra išskiriamas vienas takelis Virtualios-realos mašinos adresams saugoti. Naudosime registrą PTR(4 baitai a0 a1 a2 a3) kuriame laikomas puslapių lentelės bloko realus adresas. Per a2 ir a3 surandame bloką. Pagal x1 ir x2 nustatomas puslapis. Bloko adresas, kur yra x1 randamas pagal formulę [16*(16*a2 a3)+x1]x2, o prie bloko adreso pridėjus x2 gauname vistualų adresą 16*[16*(16*a2 a3)+x1]x2 .Efektyviai naudotis Virtualia atmintimi įvesime du papildomus registus DS ir CS. DS registro reikšmė bus rodyklė į duomenų segmento atmintį, o CS reišmė rodyklė į kodo segmento atmintė.
+	Virtualios mašinos atmintis susideda iš 16 blokų po 16 žodžių iš viso 256 žodžiai po 4 baitus arba 32 bitus. Naudosime registrą PTR(4 baitai a0 a1 a2 a3) kuriame laikomas adresas į puslapių lentelę. Baitas a0 yra nenaudojamas, a1 puslapių lentelės ilgis
+atėmus 1 , o
+štai a2 * 10 + a3 žymi puslapių lentelės adresą. Dabar galime pateikti formulę, kuri virtualiam
+adresui x1x2 gražina realų adresą:
+Realus adresas = 10*[10*(10 * a2 + a3) + x1] + x2
 
 	\subsubsection{Procesorius}
 \begin{figure}[H]
@@ -124,8 +139,7 @@ Registrai:
 	\item{IC - komandos skaitliukas, rodo sekančios komandos adresą }
 	\item{SF - status flagas rodantis programos būseną}
 	\item{C - loginis registras(TRUE arba FALSE)}
-	\item{DS - rodo į duomenų segmentą atmintyje}
-	\item{CS - rodo į kodo segmentą atmintyje}
+
 \end{itemize}
 	\subsubsection{Virtualios mašinos komandų sistema}
 Kiekvieną virtualios mašinos komandą sudaro 4B, tačiau priklausomai nuo komandos ne visi
