@@ -87,10 +87,10 @@ Pagrindinę realios mašinos atmintį dalinasi vartotojo ir supervizorinė atmin
 Komandų įvedimui naudojamas ,,flash atmintinių" nuskaitymo įrenginys. Išvedimui naudojamas spausdintuvas.
 
 \subsection{Puslapiavimo mechanizmas}
-Puslapiavimo mechanizmas yra metodas skirtas virtualios atminties adreso parodymui į realios atminties adresą. Kiekvienai virtualiai mašinai skiriama 4 atminties blokai. Paskutinis lentelės blokas yra užpildomas realiais adresais. Naudojamas PTR(4 baitų a0,a1,a2,a3) registras kuriame laikomas puslapių lentelės bloko realūs adresai. Pagal a2 ir a3 baitus surandame bloką. Pagal virtualaus adreso x1 ir x2 yra nustatomas puslapis. Bloko adresas kur x1 randamas [4*(4*a2 a3)+x1], o prie bloko adreso pridėjus x2 gauname virtualų adresą: 4*[4*(4*a2 a3)+x1]x2.
+Puslapiavimo mechanizmas yra metodas skirtas virtualios atminties adreso parodymui į realios atminties adresą. Kiekvienai virtualiai mašinai skiriama 16 atminties blokų. Paskutinis lentelės blokas yra užpildomas realiais adresais. Naudojamas PTR(4 baitų a0,a1,a2,a3) registras kuriame laikomas puslapių lentelės bloko realūs adresai. Pagal a2 ir a3 baitus surandame bloką. Pagal virtualaus adreso x1 ir x2 yra nustatomas puslapis. Bloko adresas kur x1 randamas [4*(4*a2a3)+x1], o prie bloko adreso pridėjus x2 gauname virtualų adresą: 10*[10*(10*a2a3)+x1] + x2.
 
 \subsection{Garso kolonėlė}
-Reali mašina perduoda signala ketvirtam kanamui apie įvykusius procesus(sekmingai įvykdytas kodas, sukurta virtuali mašina, blogas kodas, įjungiama/išjungiama reali mašina) ir pagal pranešimo tipą ketvirtas garso kolonėlei perduoda kokią muzikėlę sugroti.
+Vartotojui įvedus atitinkamą komandą kompiuterio garso kolonėlė supypsi x1 kartų.
 
 \subsection{Duomenų perdavimo kanalai}
 Skirti I/O ir atminties valdymui. Modelyje egzistuoja keturi kanalai iš kurie kiekvienas atsakingas už skirtingus dalykus. Kanale vyksta arba rašymas arba skaitymas ir pabaigęs darbą jis informuoja centrinį procesorių ir sukelia pertraukimą padidindamas IOI registro reikšmę. Kanalų būsenos yra saugomos CHST[1]...CHST[4] registruose.
@@ -109,7 +109,7 @@ Virtuali mašina yra skirta paslepti realios mašinos sudėtingumą ir suteikti 
 	\label{fig:Virtualios mašinos atmintis}
 \end{figure}
 
-	Virtualios mašinos atmintis susideda iš 16 blokų po 16 žodžių iš viso 256 žodžiai po 4 baitus arba 32 bitus. Pirmas atminties blokas skirtas Realios mašinos adresams, nuo antro iki 5 bloko yra duomenų segmentas(DS) ir nuo šešto iki šešiolikto kodo segmentas(CS). Norint pasinaudoti puslapiavimo mechanizmu pirmas blokas bus išskiriamas surašyti realiems adresams. Naudosime registrą PTR(4 baitai a0 a1 a2 a3) kuriame laikomas puslapių lentelės bloko realūs adresai. Per a2 ir a3 surandame bloką. Pagal x1 ir x2 nustatomas puslapis. Bloko adresas, kur yra x1 randamas pagal formulę [16*(16*a2 a3)+x1]x2, o prie bloko adreso pridėjus x2 gauname vistualų adresą 16*[16*(16*a2 a3)+x1]x2 .Efektyviai naudotis Virtualia atmintimi įvesime du papildomus registus DS ir CS. DS registro reikšmė bus rodyklė į duomenų segmento atmintį, o CS reišmė rodyklė į kodo segmento atmintė.
+	Virtualios mašinos atmintis susideda iš 16 blokų po 16 žodžių iš viso 256 žodžiai po 4 baitus arba 32 bitus. Nuo 1 iki 5 bloko yra duomenų segmentas(DS) ir nuo 6 iki 16 kodo segmentas(CS). Norint pasinaudoti puslapiavimo mechanizmu realios mašinos atmintyje yra išskiriamas vienas takelis Virtualios-realos mašinos adresams saugoti. Naudosime registrą PTR(4 baitai a0 a1 a2 a3) kuriame laikomas puslapių lentelės bloko realus adresas. Per a2 ir a3 surandame bloką. Pagal x1 ir x2 nustatomas puslapis. Bloko adresas, kur yra x1 randamas pagal formulę [16*(16*a2 a3)+x1]x2, o prie bloko adreso pridėjus x2 gauname vistualų adresą 16*[16*(16*a2 a3)+x1]x2 .Efektyviai naudotis Virtualia atmintimi įvesime du papildomus registus DS ir CS. DS registro reikšmė bus rodyklė į duomenų segmento atmintį, o CS reišmė rodyklė į kodo segmento atmintė.
 
 	\subsubsection{Procesorius}
 \begin{figure}[H]
@@ -163,6 +163,7 @@ if r1<[x1x2] then cf:=1;
 \end{enumerate}
 \item Valdymo perdavimo:
 \begin{enumerate}
+\item PY x1 - Garso kolonėlė supypsi x1 kartų.
 \item JU – besąlyginio valdymo perdavimas – valdymas perduodamas adresu 16*x1+x2:
 JU x1x2 =) IC:=16*x1+x2;
 \item JG – sąlyginio valdymo perdavimas (jeigu daugiau) – valdymas perduodamas jeigu
@@ -179,9 +180,9 @@ JL x1x2 =) If C=2 then IC:= 16*x1+x2;
 leidžia į ją rašyti ir skaityti; sritis apsaugoma semaforais):
 \begin{enumerate}
 \item SM – registro R įrašymas į bendrąją atmintį:
-SM x1x2 =)[16*[16*(16*a2 a3)+x1]x2]:=R (pagal puslapiavimo mechanizmą);
+SM x1x2 =)[16*[16*(16*a2 + a3)+x1]x2]:=R (pagal puslapiavimo mechanizmą);
 \item LM – iš bendrosios atminties įrašomas žodis į registrą R:
-LM x1x2 =) R:= [16*[16*(16*a2 a3)+x1]x2] (pagal puslapiavimo mechanizmą);
+LM x1x2 =) R:= [16*[16*(16*a2 + a3)+x1]x2] (pagal puslapiavimo mechanizmą);
 \end{enumerate}
 \item Programos pabaigos:
 \begin{enumerate}
@@ -189,10 +190,10 @@ LM x1x2 =) R:= [16*[16*(16*a2 a3)+x1]x2] (pagal puslapiavimo mechanizmą);
 \end{enumerate}
 \item Įvedimo/Išvedimo:
 \begin{enumerate}
-\item GD – įvedimas – iš įvedimo srauto paima 10 žodžų srautą ir jį įveda į atmintį
+\item GD – įvedimas – iš įvedimo srauto paima 16 žodžų srautą ir jį įveda į atmintį
 pradedant atminties baitu 16*x1:
 GD x1x2
-\item PD – išvedimas – iš atminties, pradedant atminties baitu 16*x1 paima 10 žodžių
+\item PD – išvedimas – iš atminties, pradedant atminties baitu 16*x1 paima 16 žodžių
 srautą ir jį išveda į ekraną:
 PD x1x2
 \end{enumerate}

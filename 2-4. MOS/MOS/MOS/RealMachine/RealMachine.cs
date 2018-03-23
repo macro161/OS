@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
-namespace MOS
+﻿namespace MOS.RealMachine
 {
     public class RealMachine
     {
@@ -16,7 +10,6 @@ namespace MOS
         public IOI_Reg ioi = new IOI_Reg();
         public Mode_Reg mode = new Mode_Reg();
         public PI_Reg pi = new PI_Reg();
-        public PTR_Reg ptr = new PTR_Reg(1234);
         public R_Reg r1 = new R_Reg();
         public R_Reg r2 = new R_Reg();
         public R_Reg r3 = new R_Reg();
@@ -24,11 +17,17 @@ namespace MOS
         public SF_Reg sf = new SF_Reg();
         public SI_Reg si = new SI_Reg();
         public TI_Reg ti = new TI_Reg();
-
+        string ptr;
         public static UserMemory memory = new UserMemory();
+        VirtualMachine.VirtualMachine vm;
+
+        public RealMachine()
+        {
+            this.ptr = memory.getMemory();
+            vm = new VirtualMachine.VirtualMachine(ptr);
+        }
+
         //public InputChannel channleOne = new InputChannel();
-        
-        
 
         public void Start()
         {
@@ -57,4 +56,3 @@ namespace MOS
 
 
     }
-}

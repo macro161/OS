@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MOS.RealMachine;
 
 namespace MOS.VirtualMachine
 {
@@ -13,59 +14,66 @@ namespace MOS.VirtualMachine
         IC_Reg IC;
         C_Reg C;
         R_Reg R1, R2, R3, R4;
+        SF_Reg sf;
         public VirtualMachine(string ptr)
         {
             this.ptr = ptr;
             pt = new PageTable(ptr);
             IC = new IC_Reg();
-            C = new C_Reg();
+            C  = new C_Reg();
             R1 = new R_Reg();
             R2 = new R_Reg();
             R3 = new R_Reg();
             R4 = new R_Reg();
+            sf = new SF_Reg();
         }
 
 
         private void DoTask(String com)
         {
             string c = com[0].ToString() + com[1].ToString();
+            string x1x2 = "    ";
+            if (com.Length == 4)
+            {
+                x1x2 = com[2].ToString() + com[3].ToString();
+            }
             switch (c)
             {
                 case "LR":
-                    lr();
+                    lr(x1x2);
                     break;
                 case "SR":
-                    sr();
+                    sr(x1x2);
                     break;
                 case "RR":
                     rr();
                     break;
                 case "AD":
-                    ad();
+                    ad(x1x2);
                     break;
                 case "SB":
-                    sb();
+                    sb(x1x2);
                     break;
                 case "CR":
-                    cr();
+                    cr(x1x2);
                     break;
                 case "MU":
-                    mu();
+                    mu(x1x2);
                     break;
                 case "DI":
-                    di();
+                    di(x1x2);
                     break;
                 case "JU":
-                    ju();
+                    ju(x1x2);
                     break;
-                case: "JG":
-                    jg();
+                case "JG":
+                    jg(x1x2);
                     break;
                 case "JE":
-                    je();
+                    je(x1x2);
                     break;
                 case "JL":
-                    jl();
+                    jl(x1x2);
                     break;
                 case "SM":
                     sm();
@@ -108,7 +116,7 @@ namespace MOS.VirtualMachine
             int addr = x1x2.ToHex();
             int x1 = addr / 16;
             int x2 = addr / 16 % 16;
-            R1.R = RealMachine.memory.StringAt(pt.RealAddress(x1), x2);       
+            R1.R = RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2);       
         }
 
         private void sr(string x1x2)
@@ -116,7 +124,7 @@ namespace MOS.VirtualMachine
             int addr = x1x2.ToHex();
             int x1 = addr / 16;
             int x2 = addr / 16 % 16;
-            RealMachine.memory.WriteAt(pt.RealAddress(x1), x2, R1.R);
+            RealMachine.RealMachine.memory.WriteAt(pt.RealAddress(x1), x2, R1.R);
         }
         
         private void rr()
@@ -131,7 +139,7 @@ namespace MOS.VirtualMachine
             int addr = x1x2.ToHex();
             int x1 = addr / 16;
             int x2 = addr / 16 % 16;
-            R1.R = (R1.R.ToHex() + RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
+            R1.R = (R1.R.ToHex() + RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
         }
 
         private void sb(string x1x2)
@@ -139,7 +147,7 @@ namespace MOS.VirtualMachine
             int addr = x1x2.ToHex();
             int x1 = addr / 16;
             int x2 = addr / 16 % 16;
-            R1.R = (R1.R.ToHex() - RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
+            R1.R = (R1.R.ToHex() - RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
         }
 
         private void cr(string x1x2)
@@ -147,10 +155,10 @@ namespace MOS.VirtualMachine
             int addr = x1x2.ToHex();
             int x1 = addr / 16;
             int x2 = addr / 16 % 16;
-            if (R1.R.ToHex() > RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex())
-                C.C = false;
+            if (R1.R.ToHex() == RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex())
+                C.C = true;
             else
-                RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
+                C.C = false;
         }
 
         private void mu(string x1x2)
@@ -158,7 +166,7 @@ namespace MOS.VirtualMachine
             int addr = x1x2.ToHex();
             int x1 = addr / 16;
             int x2 = addr / 16 % 16;
-            R1.R = (R1.R.ToHex() * RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
+            R1.R = (R1.R.ToHex() * RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
         }
 
         private void di(string x1x2)
@@ -166,8 +174,8 @@ namespace MOS.VirtualMachine
             int addr = x1x2.ToHex();
             int x1 = addr / 16;
             int x2 = addr / 16 % 16;
-            R1.R = (R1.R.ToHex() / RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
-            R2.R = (R2.R.ToHex() % RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
+            R1.R = (R1.R.ToHex() / RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
+            R2.R = (R2.R.ToHex() % RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
         }
 
         private void ju(string x1x2)
@@ -177,13 +185,20 @@ namespace MOS.VirtualMachine
 
         private void jg(string x1x2)
         {
-            if (C.C == false)
+            if ()
             {
                 IC.IC = (ushort)x1x2.ToHex();
             }
         }
 
         private void je(string x1x2)
+        {
+            if (C.C == true)
+            {
+                IC.IC = (ushort)x1x2.ToHex();
+            }
+        }
+        private void jl(string x1x2)
         {
             if (C.C == true)
             {
