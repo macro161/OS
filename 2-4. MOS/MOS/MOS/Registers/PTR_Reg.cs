@@ -1,24 +1,14 @@
-﻿namespace MOS.Registers
+﻿using System.Dynamic;
+
+namespace MOS.Registers
 {
     public class PTR_Reg
     {
-        private int _ptr;
-
-        public PTR_Reg(int adress)
-        {
-            _ptr = adress;
-        }
-
-        public int PTR => _ptr;
-
-        public string Hex()
-        {
-            return _ptr.ToString("X");
-        }
+        public string _ptr { get; set; }
 
         public void Clear()
         {
-            _ptr = 0;
+            _ptr = "";
         }
 
     }

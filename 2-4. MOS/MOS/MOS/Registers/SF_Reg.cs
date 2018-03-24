@@ -9,6 +9,11 @@
             _sf = 0;
         }
 
+        public byte Return_Status_Flag()
+        {
+            return _sf;
+        }
+
         public void Clear_Reg()
         {
             _sf = 0;

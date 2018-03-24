@@ -5,24 +5,22 @@ namespace MOS.VirtualMachine
 {
     class VirtualMachine
     {
-        string ptr;
+        PTR_Reg ptr;
         PageTable pt;
         IC_Reg IC;
         C_Reg C;
         R_Reg R1, R2, R3, R4;
         SF_Reg sf;
 
-        public VirtualMachine(string ptr)
+        public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf, C_Reg c)
         {
             this.ptr = ptr;
-            pt = new PageTable(ptr);
-            IC = new IC_Reg();
-            C = new C_Reg();
-            R1 = new R_Reg();
-            R2 = new R_Reg();
-            R3 = new R_Reg();
-            R4 = new R_Reg();
-            sf = new SF_Reg();
+            pt = new PageTable(ptr._ptr);      
+        }
+
+        public void RunCode()
+        {
+
         }
 
         private void DoTask(String com)

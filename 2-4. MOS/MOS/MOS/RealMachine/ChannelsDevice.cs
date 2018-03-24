@@ -1,6 +1,6 @@
 ﻿namespace MOS.RealMachine
 {
-    class ChannelsDevice
+    public class ChannelsDevice
     {
         private int SB = 0; //Takelio,iš kurio kopijuosime numeris. 
         private int DB = 0; //Takelio,į kurį kopijuosime numeris 

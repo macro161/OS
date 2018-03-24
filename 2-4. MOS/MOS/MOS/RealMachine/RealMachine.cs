@@ -5,6 +5,7 @@ namespace MOS.RealMachine
 {
     public class RealMachine
     {
+        public ChannelsDevice cd = new ChannelsDevice(); 
         public C_Reg c = new C_Reg();
         public IC_Reg ic = new IC_Reg();
         public IOI_Reg ioi = new IOI_Reg();
@@ -17,7 +18,7 @@ namespace MOS.RealMachine
         public SF_Reg sf = new SF_Reg();
         public SI_Reg si = new SI_Reg();
         public TI_Reg ti = new TI_Reg();
-        string _ptr;
+        public PTR_Reg ptr = new PTR_Reg();
         public static UserMemory memory = new UserMemory();
         private bool run = true;
 
@@ -33,7 +34,7 @@ namespace MOS.RealMachine
                 switch (Console.ReadLine())
                 {
                     case "1":
-
+                        LoadTestProgram();
                         break;
                     case "2":
                         break;
@@ -48,9 +49,17 @@ namespace MOS.RealMachine
             }
         }
 
+        private void LoadTestProgram()
+        {
+            cd.ReadFlash("test.txt");  //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
+            ptr._ptr = memory.getMemory(); //isskiriami laisvi atminties blokai programai
+            VirtualMachine.VirtualMachine vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c); //sukuriama virtuali masina
+            vm.RunCode(); //virtualiai pasinai pasakoma vykdyti koda
+        }
+
         public RealMachine()
         {
-            _ptr = memory.getMemory();
+            
         }
 
         //public InputChannel channleOne = new InputChannel();
@@ -69,5 +78,28 @@ namespace MOS.RealMachine
         {
 
         }
+
+        public void PrintRegisters()
+        {
+            Console.WriteLine("C - : " + c.C.ToString()); //ic, ioi, mode, pi, r1, r2, r3, r4, sf, si, ti, ptr, 
+            Console.WriteLine("IC - " + ic.IC.ToString());
+            Console.WriteLine("IOI - " + ioi.IOI.ToString());
+            Console.WriteLine("MODE - " + mode.Mode.ToString());
+            Console.WriteLine("PI - " + pi._pi.ToString());
+            Console.WriteLine("R1 - " + r1.R.ToString());
+            Console.WriteLine("R2 - " + r2.R.ToString());
+            Console.WriteLine("R3 - " + r3.R.ToString());
+            Console.WriteLine("R4 - " + r4.R.ToString());
+            Console.WriteLine("SF - " + sf.Return_Status_Flag().ToString());
+            Console.WriteLine("SI - " + si._si.ToString());
+            Console.WriteLine("TI - " + ti._ti.ToString());
+            Console.WriteLine("PTR - " + ptr._ptr.ToString());
+        }
+
+        public void PrintMemory()
+        {
+
+        }
+
     }
 }

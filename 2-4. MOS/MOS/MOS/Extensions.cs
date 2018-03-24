@@ -14,9 +14,6 @@ namespace MOS
             return Int32.Parse(str, System.Globalization.NumberStyles.HexNumber);  // šita naudojam visada, paverčia int į string(jį interpretuoja kaip hex)
         }
 
-        
-
-
         public static int TwoLastSymbolsToHex(this String str)
         {
             return Int32.Parse(str.Substring(2, 2), System.Globalization.NumberStyles.HexNumber); // čia dėl ptr registro
