@@ -79,7 +79,7 @@ namespace MOS.RealMachine
                 for (int j = 0; j < 16; j++) // x - 256 y - 16
                 {
                    // Console.WriteLine(ptr._ptr.ToHex());
-
+                   Console.Write(flash[i,j]);
                     memory.WriteAt(memory.IntAt(ptr._ptr.ToHex(),i),j,flash[i,j]);
                 }
             }
