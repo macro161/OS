@@ -31,9 +31,6 @@ namespace MOS.VirtualMachine
 
             string x1x2 = com.Substring(2, 3);
 
-
-
-
             if (com == "HALT")
             {
                 //DO SOMETHING
@@ -51,7 +48,6 @@ namespace MOS.VirtualMachine
                     not();
                     break;
             }
-
 
             switch (c)
             {
