@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using MOS.Registers;
 
 namespace MOS.RealMachine
@@ -32,9 +31,7 @@ namespace MOS.RealMachine
                 Console.WriteLine("3. Print registers");
                 Console.WriteLine("4. Print Real machine memory");
 
-            string h;
-
-            h = Console.ReadLine().ToString();
+            var h = Console.ReadLine();
 
                 switch (h)
                 {
@@ -67,6 +64,7 @@ namespace MOS.RealMachine
             TransferProgramToMemory(flashOutput);
 
             PrintMemory();
+            PrintRegisters();
 
             VirtualMachine.VirtualMachine vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c); //sukuriama virtuali masina
             vm.RunCode(); //virtualiai pasinai pasakoma vykdyti koda
@@ -106,6 +104,8 @@ namespace MOS.RealMachine
             Console.WriteLine("SI - " + si._si.ToString());
             Console.WriteLine("TI - " + ti._ti.ToString());
             Console.WriteLine("PTR - " + ptr._ptr);
+
+            Console.ReadLine();
         }
 
         public void PrintMemory()

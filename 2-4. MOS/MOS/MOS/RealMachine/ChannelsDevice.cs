@@ -31,6 +31,15 @@ namespace MOS.RealMachine
                 return null;
             }
             makeMatrix(flash);
+
+            for (int i = 0; i < 16; i++)
+            {
+                for (int j = 0; j < 16; j++)
+                {
+                    Console.Write(matrix[i,j]);
+                }
+            }
+
             return matrix;
         }
 
@@ -43,6 +52,8 @@ namespace MOS.RealMachine
                 return null;
             }
             makeMatrix(flash);
+
+            
             return matrix;
         }
 
@@ -52,9 +63,7 @@ namespace MOS.RealMachine
             bool isCode = false;
             bool isHalt = false;
             bool isOff = false;
-            bool isSize = false;
-            if (array.Length < 256)
-                isSize = true;
+            bool isSize = array.Length < 256;
 
             StringBuilder builder = new StringBuilder();
             foreach (string value in array)

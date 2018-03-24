@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using MOS.RealMachine;
 
 
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
