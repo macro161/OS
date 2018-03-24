@@ -12,7 +12,7 @@ namespace MOS.RealMachine
         private static string[,] output;
         private static StreamWriter writer = new StreamWriter("printerOutput.txt");
 
-        static void PrintStuff(string [,] output)
+        public static void PrintStuff(string [,] output)
         {
             for (int i = 0; i < output.GetLength(0); i++)
             {

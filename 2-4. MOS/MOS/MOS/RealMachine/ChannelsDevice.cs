@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,17 +15,16 @@ namespace MOS.RealMachine
         private int DT = 0; //Objekto,įkurįkopijuosime,numeris
         // 1. Vartotojoatmintis; 2. Supervizorinėatmintis; 3. Išorinėatmintis; 4. Įvedimosrautas; 
 
-        public string [,] ReadFlash(string [,] input)
+        public string [,] ReadFlash(string flashName)
         {
             string[,] flashOutput = null;
 
             return flashOutput;
         }
 
-        public void PrinterOutuput()
+        public void PrinterOutuput(string [,] input)
         {
-            string[,] printerOut = null;
-
+            Printer.PrintStuff(input);
         }
 
         public void DoTheBeep()
