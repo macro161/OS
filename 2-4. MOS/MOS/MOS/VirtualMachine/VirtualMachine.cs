@@ -29,7 +29,7 @@ namespace MOS.VirtualMachine
         {
             string c = com.Substring(0, 1);
 
-            string x1x2 = com.Substring(2, 3); ;
+            string x1x2 = com.Substring(2, 3);
 
 
 
