@@ -54,8 +54,20 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="RealMachine\ChannelsDevice.cs" />
     <Compile Include="RealMachine\FlashMemory.cs" />
+    <Compile Include="RealMachine\Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RealMachine\Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="RealMachine\Printer.cs" />
     <Compile Include="RealMachine\Speaker.cs" />
+    <Compile Include="RealMachine\UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RealMachine\UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Registers\C_Reg.cs" />
     <Compile Include="Registers\IC_Reg.cs" />
     <Compile Include="Registers\IOI_Reg.cs" />
@@ -79,6 +91,9 @@
     <Compile Include="RealMachine\UserMemory.cs" />
     <Compile Include="VirtualMachine\PageTable.cs" />
     <Compile Include="VirtualMachine\VirtualMachine.cs" />
+    <EmbeddedResource Include="RealMachine\Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RealMachine\LoggerTextBox.resx">
       <DependentUpon>LoggerTextBox.cs</DependentUpon>
     </EmbeddedResource>

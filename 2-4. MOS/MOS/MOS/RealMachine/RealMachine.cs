@@ -39,8 +39,10 @@ namespace MOS.RealMachine
                     case "2":
                         break;
                     case "3":
+                        PrintRegisters();
                         break;
                     case "4":
+                        PrintMemory();
                         break;
                     default:
                         Console.WriteLine("Bad input");
