@@ -17,26 +17,13 @@ namespace MOS.RealMachine
         private int DT = 0; //Objekto,įkurįkopijuosime,numeris
         // 1. Vartotojoatmintis; 2. Supervizorinėatmintis; 3. Išorinėatmintis; 4. Įvedimosrautas; 
 
-        public string [,] ReadFlash(string flashName)
-        {
+
             string[,] flashOutput = null;
 
-        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data.txt");
-        string[,] matrix = new string[16, 16];
-        string[] flash;
-        FlashMemory flashMemory = new FlashMemory();
-
-        public string[,] ReadFromFlash()
-        {
-            flash = flashMemory.getFlashData(filePath);
-            if (!CheckValidity(flash))
-            {
-                Debug.WriteLine("Bad input!");
-                return null;
-            }
-            makeMatrix(flash);
-            return matrix;
-        }
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data.txt");
+            string[,] matrix = new string[16, 16];
+            string[] flash;
+            FlashMemory flashMemory = new FlashMemory();
 
         public string[,] ReadFromFlash(string path)
         {
@@ -185,7 +172,6 @@ namespace MOS.RealMachine
             //    }
             //    Debug.WriteLine("");
             //}
-            return flashOutput;
         }
 
         public void PrinterOutuput(string [,] input)
