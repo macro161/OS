@@ -20,12 +20,15 @@ namespace MOS
             realMachine.PowerOn();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            log.Info("Bla");
-            var logging = new LoggerTextBox();
+
+            var file = new ChannelsDevice();
+            file.ReadFromFlash();
+            log.Info("So far only logs to bin/Debug/mylog");
+            //var logging = new LoggerTextBox();
             //Application.Run(logging);
-            Thread BackgroundThread = new Thread(()=> Application.Run(logging));
-            BackgroundThread.Start();
-            log.Info("_log info");
+            //Thread BackgroundThread = new Thread(()=> Application.Run(logging));
+            //BackgroundThread.Start();
+            //log.Info("_log info");
             //logging.Update();
             //Application.Run(new Form1());
         }
