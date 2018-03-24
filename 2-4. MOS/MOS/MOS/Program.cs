@@ -20,8 +20,8 @@ namespace MOS
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var file = new ChannelsDevice();
-            file.ReadFromFlash();
+            //var file = new ChannelsDevice();
+            //file.ReadFromFlash();
             log.Info("So far only logs to bin/Debug/mylog");
             //var logging = new LoggerTextBox();
             //Application.Run(logging);

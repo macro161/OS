@@ -9,7 +9,7 @@ namespace MOS.RealMachine
         Random rand = new Random();
         public int GetRandomBlock()
         {
-            int i = rand.Next(0, 257);
+            int i = rand.Next(0, 256);
             while (isUsed[i])
             {
                 if (i == 256)
@@ -41,6 +41,7 @@ namespace MOS.RealMachine
 
         public int IntAt(int x, int y)
         {
+
             return int.Parse(userMemory[x, y], System.Globalization.NumberStyles.HexNumber);
         }
 
@@ -51,7 +52,7 @@ namespace MOS.RealMachine
 
         public void WriteAt(int x, int y, string word)
         {
-            userMemory[x, y] = word.Substring(0, 4);
+            userMemory[x, y] = word;
         }
 
         public static byte[] IntToByte(int a)

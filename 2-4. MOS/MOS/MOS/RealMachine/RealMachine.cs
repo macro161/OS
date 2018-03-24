@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using MOS.Registers;
 
 namespace MOS.RealMachine
@@ -24,14 +25,18 @@ namespace MOS.RealMachine
 
         public void PowerOn()
         {
-            while (run)
-            {
+           // while (run)
+           // {
                 Console.WriteLine("1. Load test program");
                 Console.WriteLine("2. Load by name");
                 Console.WriteLine("3. Print registers");
                 Console.WriteLine("4. Print Real machine memory");
 
-                switch (Console.ReadLine())
+            string h;
+
+            h = Console.ReadLine().ToString();
+
+                switch (h)
                 {
                     case "1":
                         LoadTestProgram();
@@ -48,28 +53,38 @@ namespace MOS.RealMachine
                         Console.WriteLine("Bad input");
                         break;
                 }
-            }
+           // }
         }
 
         private void LoadTestProgram()
         {
-            //cd.ReadFlash("test.txt");  //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
+            string [,] flashOutput = new string[16,16];           
+            flashOutput = cd.ReadFromFlash();  //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
+            Console.Write(flashOutput);
+
             ptr._ptr = memory.getMemory(); //isskiriami laisvi atminties blokai programai
+
+            TransferProgramToMemory(flashOutput);
+
+            PrintMemory();
+
             VirtualMachine.VirtualMachine vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c); //sukuriama virtuali masina
             vm.RunCode(); //virtualiai pasinai pasakoma vykdyti koda
         }
 
-        //public InputChannel channleOne = new InputChannel();
-
-        public void Start()
+        public void TransferProgramToMemory(string[,] flash)
         {
+            for (int i = 0; i < 16; i++)
+            {
+                for (int j = 0; j < 16; j++) // x - 256 y - 16
+                {
+                   // Console.WriteLine(ptr._ptr.ToHex());
 
+                    memory.WriteAt(memory.IntAt(ptr._ptr.ToHex(),i),j,flash[i,j]);
+                }
+            }
         }
 
-        public void InsertFlash()
-        {
-            // channleOne.GetData(memory);
-        }
 
         public void LoadProgram()
         {
@@ -98,13 +113,15 @@ namespace MOS.RealMachine
             Console.WriteLine("0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F");
             for (int i = 0; i < 256; i++)
             {
-                Console.Write(i.ToString("X"));
+                Console.Write(i.ToString("X") + " ");
                 for (int j = 0; j < 16; j++)
                 {
                     Console.Write(memory.StringAt(i, j) + " ");
                 }
                 Console.WriteLine("");
             }
+
+            Console.ReadLine();
         }
 
     }

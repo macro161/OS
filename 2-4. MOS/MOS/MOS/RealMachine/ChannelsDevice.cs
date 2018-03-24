@@ -52,7 +52,9 @@ namespace MOS.RealMachine
             bool isCode = false;
             bool isHalt = false;
             bool isOff = false;
-            bool isSize = array.Length < 256;
+            bool isSize = false;
+            if (array.Length < 256)
+                isSize = true;
 
             StringBuilder builder = new StringBuilder();
             foreach (string value in array)

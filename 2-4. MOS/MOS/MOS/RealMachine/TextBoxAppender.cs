@@ -25,7 +25,7 @@ namespace MOS.RealMachine
 
         internal static void ConfigureTextBoxAppender(object textBox)
         {
-            throw new NotImplementedException();
+          //  throw new NotImplementedException();
         }
 
         public static void ConfigureTextBoxAppender(TextBox textBox)
@@ -58,8 +58,8 @@ namespace MOS.RealMachine
                 if (_textBox == null)
                     return;
                 //Debug.WriteLine("++++++++++++++");
-                var del = new Action<string>(s => _textBox.AppendText(s));
-                _textBox.BeginInvoke(del, msg);
+              //  var del = new Action<string>(s => _textBox.AppendText(s));
+               // _textBox.BeginInvoke(del, msg);
             }
         }
     }
