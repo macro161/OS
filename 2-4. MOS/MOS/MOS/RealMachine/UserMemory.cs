@@ -44,10 +44,10 @@ namespace MOS.RealMachine
             return int.Parse(userMemory[x, y], System.Globalization.NumberStyles.HexNumber);
         }
 
-        public string HexAt(int x, int y)
+        /*public string HexAt(int x, int y)
         {
             return Int32.Parse(userMemory[x,y]).ToString("X");
-        }
+        }*/
 
         public void WriteAt(int x, int y, string word)
         {
