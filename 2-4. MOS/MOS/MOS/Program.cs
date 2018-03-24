@@ -3,6 +3,7 @@ using System.Threading;
 using System.Windows.Forms;
 using MOS.RealMachine;
 
+
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 namespace MOS
 {
@@ -15,6 +16,8 @@ namespace MOS
         [STAThread]
         static void Main()
         {
+            RealMachine.RealMachine realMachine = new RealMachine.RealMachine();
+            realMachine.PowerOn();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             log.Info("Bla");

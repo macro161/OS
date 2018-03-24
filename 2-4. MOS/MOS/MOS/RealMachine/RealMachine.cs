@@ -1,4 +1,5 @@
-﻿using MOS.Registers;
+﻿using System;
+using MOS.Registers;
 
 namespace MOS.RealMachine
 {
@@ -18,7 +19,33 @@ namespace MOS.RealMachine
         public TI_Reg ti = new TI_Reg();
         string _ptr;
         public static UserMemory memory = new UserMemory();
-        
+        private bool run = true;
+
+        public void PowerOn()
+        {
+            while (run)
+            {
+                Console.WriteLine("1. Load test program");
+                Console.WriteLine("2. Load by name");
+                Console.WriteLine("3. Print registers");
+                Console.WriteLine("4. Print Real machine memory");
+
+                switch (Console.ReadLine())
+                {
+                    case "1":
+                        break;
+                    case "2":
+                        break;
+                    case "3":
+                        break;
+                    case "4":
+                        break;
+                    default:
+                        Console.WriteLine("Bad input");
+                        break;
+                }
+            }
+        }
 
         public RealMachine()
         {
