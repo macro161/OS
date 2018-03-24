@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace MOS.RealMachine
 {
-    static class Printer
+    static class Printer //Jeigu reiks pabaigsim
     {
         private static string[,] output;
         private static StreamWriter writer = new StreamWriter("printerOutput.txt");
-
 
         static void PrintStuff(string [,] output)
         {

@@ -14,33 +14,22 @@ namespace MOS.RealMachine
         private int DT = 0; //Objekto,įkurįkopijuosime,numeris
         // 1. Vartotojoatmintis; 2. Supervizorinėatmintis; 3. Išorinėatmintis; 4. Įvedimosrautas; 
 
-        public void CopyUserMemory(int sb)
+        public string [,] ReadFlash(string [,] input)
         {
-            ST = 1;
+            string[,] flashOutput = null;
+
+            return flashOutput;
         }
 
-        public void CopySupervisorMemory(int sb)
+        public void PrinterOutuput()
         {
-            ST = 2;
+            string[,] printerOut = null;
+
         }
 
-        public void CopyExternalMemory(int sb)
+        public void DoTheBeep()
         {
-            ST = 3;
+            Speaker.Beep();
         }
-
-        public void CopyInputStream(int sb)
-        {
-            ST = 4;
-        }
-
-
-
-
-
-
-
-
-
     }
 }
