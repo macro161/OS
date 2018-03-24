@@ -204,10 +204,10 @@ LM x1x2 =) R:= [16*[16*(16*a2 + a3)+x1]x2] (pagal puslapiavimo mechanizmą);
 \end{enumerate}
 \item Įvedimo/Išvedimo:
 \begin{enumerate}
-\item GD – įvedimas – iš įvedimo srauto paima 16 žodžų srautą ir jį įveda į atmintį
-pradedant atminties baitu 16*x1:
+\item GD – įvedimas – iš įvedimo srauto paima 4 žodžų srautą ir jį įveda į atmintį
+pradedant atminties baitu 16*x1+x2:
 GD x1x2
-\item PD – išvedimas – iš atminties, pradedant atminties baitu 16*x1 paima 16 žodžių
+\item PD – išvedimas – iš atminties, pradedant atminties baitu 16*x1+x2  paima 4 žodžių
 srautą ir jį išveda į ekraną:
 PD x1x2
 \end{enumerate}
@@ -217,16 +217,6 @@ PD x1x2
 \item XOR – r1 := r1 xor r2
 \item OR - r1 := r1 or r2.
 \item NOT - r1 := not r1.
-\end{enumerate}
-\item Operavimo failais:
-\begin{enumerate}
-\item FC - uždaromas failas, kurio handleris yra r1.
-\item FO x1x2 – atidaromas [x1x2[ pavadinimo failas. Handleris įrašomas į r1.
-\item FR x1x2 – r1 – handleris, r2 – adresas, iš kur skaitome. 16*x1+x2 – virtualios atminties
-vieta, į kurią įrašysime.
-\item FW x1x2 – handleris, r2 – adresas, iš kur skaitome. 16*x1+x2 – virtualios atminties
-vieta, iš kurios rašysime į failą.
-\item FD – ištrinamas failas, kurio handleris yra r1.
 \end{enumerate}
 \end{enumerate}
 \subsection{Virtualios mašinos bendravimo su įvedimo/išvedimo įrenginiais mechanizmo aprašymas.}
