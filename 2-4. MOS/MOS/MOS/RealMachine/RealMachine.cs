@@ -5,7 +5,7 @@ namespace MOS.RealMachine
 {
     public class RealMachine
     {
-        public ChannelsDevice cd = new ChannelsDevice(); 
+        public ChannelsDevice cd = new ChannelsDevice();
         public C_Reg c = new C_Reg();
         public IC_Reg ic = new IC_Reg();
         public IOI_Reg ioi = new IOI_Reg();
@@ -53,7 +53,7 @@ namespace MOS.RealMachine
 
         private void LoadTestProgram()
         {
-            cd.ReadFlash("test.txt");  //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
+            //cd.ReadFlash("test.txt");  //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
             ptr._ptr = memory.getMemory(); //isskiriami laisvi atminties blokai programai
             VirtualMachine.VirtualMachine vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c); //sukuriama virtuali masina
             vm.RunCode(); //virtualiai pasinai pasakoma vykdyti koda
@@ -101,7 +101,7 @@ namespace MOS.RealMachine
                 Console.Write(i.ToString("X"));
                 for (int j = 0; j < 16; j++)
                 {
-                    Console.Write(memory.StringAt(i,j) + " ");
+                    Console.Write(memory.StringAt(i, j) + " ");
                 }
                 Console.WriteLine("");
             }

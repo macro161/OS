@@ -15,12 +15,13 @@ namespace MOS.Registers
             return _mode.ToString("X");
         }
 
-        public byte Mode {
+        public byte Mode
+        {
             set
             {
                 switch (value)
                 {
-                    case 1:       
+                    case 1:
                         _mode = 1;
                         break;
                     case 0:
@@ -31,5 +32,5 @@ namespace MOS.Registers
             get => _mode;
         }
 
-    }   
+    }
 }

@@ -15,7 +15,7 @@ namespace MOS.VirtualMachine
         public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf, C_Reg c)
         {
             this.ptr = ptr;
-            pt = new PageTable(ptr._ptr);      
+            pt = new PageTable(ptr._ptr);
         }
 
         public void RunCode()
@@ -85,7 +85,7 @@ namespace MOS.VirtualMachine
                 case "JL":
                     jl(x1x2);
                     break;
-                case "SM": 
+                case "SM":
                     sm(x1x2);
                     break;
                 case "LM":

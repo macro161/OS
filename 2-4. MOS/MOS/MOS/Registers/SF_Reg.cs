@@ -46,7 +46,7 @@
 
         public bool Get_OF()// CF ZF SF IF OF XXX
         {
-            return (_sf & (1 << 4)) !=0;
+            return (_sf & (1 << 4)) != 0;
         }
 
         public bool Get_IF()

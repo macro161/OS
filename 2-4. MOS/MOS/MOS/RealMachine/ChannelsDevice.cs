@@ -1,11 +1,8 @@
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace MOS.RealMachine
 {
@@ -15,15 +12,27 @@ namespace MOS.RealMachine
         private int DB = 0; //Takelio,į kurį kopijuosime numeris 
         private int ST = 0; //Objekto,iš kurio kopijuosime numeris 
         private int DT = 0; //Objekto,įkurįkopijuosime,numeris
-        // 1. Vartotojoatmintis; 2. Supervizorinėatmintis; 3. Išorinėatmintis; 4. Įvedimosrautas; 
+                            // 1. Vartotojoatmintis; 2. Supervizorinėatmintis; 3. Išorinėatmintis; 4. Įvedimosrautas; 
+
+        string[,] flashOutput = null;
+
+        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data.txt");
+        string[,] matrix = new string[16, 16];
+        string[] flash;
+        FlashMemory flashMemory = new FlashMemory();
 
 
-            string[,] flashOutput = null;
-
-            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data.txt");
-            string[,] matrix = new string[16, 16];
-            string[] flash;
-            FlashMemory flashMemory = new FlashMemory();
+        public string[,] ReadFromFlash()
+        {
+            flash = flashMemory.getFlashData(filePath);
+            if (!CheckValidity(flash))
+            {
+                Debug.WriteLine("Bad input!");
+                return null;
+            }
+            makeMatrix(flash);
+            return matrix;
+        }
 
         public string[,] ReadFromFlash(string path)
         {
@@ -43,10 +52,7 @@ namespace MOS.RealMachine
             bool isCode = false;
             bool isHalt = false;
             bool isOff = false;
-            bool isSize = false;
-
-            if (array.Length < 256)
-                isSize = true;
+            bool isSize = array.Length < 256;
 
             StringBuilder builder = new StringBuilder();
             foreach (string value in array)
@@ -172,9 +178,10 @@ namespace MOS.RealMachine
             //    }
             //    Debug.WriteLine("");
             //}
+
         }
 
-        public void PrinterOutuput(string [,] input)
+        public void PrinterOutuput(string[,] input)
         {
             Printer.PrintStuff(input);
         }

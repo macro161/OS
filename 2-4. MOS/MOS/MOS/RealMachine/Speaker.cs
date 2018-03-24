@@ -6,7 +6,7 @@ namespace MOS.RealMachine
     {
         public static void Beep()
         {
-            Console.Beep(5000,1000);
+            Console.Beep(5000, 1000);
         }
     }
 }

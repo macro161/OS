@@ -1,5 +1,4 @@
-﻿
-namespace MOS.Registers
+﻿namespace MOS.Registers
 // jei TI = 0, issaukiamas pertraukimas
 // TI galima nustatyti/pakeisti supervisor rezime
 {
