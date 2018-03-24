@@ -143,6 +143,21 @@ namespace MOS.VirtualMachine
             throw new NotImplementedException();
         }
 
+        private void lm(string x1x2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void jg(string x1x2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void sm(string x1x2)
+        {
+            throw new NotImplementedException();
+        }
+
         private void not()
         {
             R1.R = ~R1.R;
@@ -163,15 +178,8 @@ namespace MOS.VirtualMachine
             R1.R = R1.R + R2.R;
         }
 
-        private void lm(string x1x2)
-        {
-            throw new NotImplementedException();
-        }
-
-        //dabar bus komandoms apdoroti skirti metodai.
         private void lr(string x1x2)
         {
-
             int x1 = x1x2.Substring(0, 1).ToHex();
             int x2 = x1x2.Substring(2, 3).ToHex();
             R1.R = RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
@@ -232,10 +240,6 @@ namespace MOS.VirtualMachine
             IC.IC = (ushort)x1x2.ToHex();
         }
 
-        private void jg(string x1x2)
-        {
-
-        }
 
         private void je(string x1x2)
         {
@@ -250,11 +254,6 @@ namespace MOS.VirtualMachine
             {
                 IC.IC = (ushort)x1x2.ToHex();
             }
-        }
-
-        private void sm(string x1x2)
-        {
-
         }
     }
 }
