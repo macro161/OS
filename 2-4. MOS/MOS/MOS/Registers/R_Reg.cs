@@ -2,7 +2,7 @@
 {
     public class R_Reg
     {
-        private int _r;
+        private int _r; //Gal reiks padaryt unsigned
 
         public R_Reg()
         {

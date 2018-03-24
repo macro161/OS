@@ -10,14 +10,14 @@ namespace MOS.VirtualMachine
         IC_Reg IC;
         C_Reg C;
         R_Reg R1, R2, R3, R4;
-        SF_Reg sf; 
+        SF_Reg sf;
 
         public VirtualMachine(string ptr)
         {
             this.ptr = ptr;
             pt = new PageTable(ptr);
             IC = new IC_Reg();
-            C  = new C_Reg();
+            C = new C_Reg();
             R1 = new R_Reg();
             R2 = new R_Reg();
             R3 = new R_Reg();
@@ -27,35 +27,31 @@ namespace MOS.VirtualMachine
 
         private void DoTask(String com)
         {
-            string c = com.Substring(0,1);
-            string x1x2 = "";
+            string c = com.Substring(0, 1);
 
-            if (com.Length == 4)
-            {
-                x1x2 = com.Substring(2,3);
-            }
+            string x1x2 = com.Substring(2, 3); ;
+
+
+
 
             if (com == "HALT")
             {
                 //DO SOMETHING
-            }else
-
-            {
-                string c3 = com.Substring(0,2);
-
-                switch (c3)
-                {
-                    case "AND":
-                        and();
-                        break;
-                    case "XOR":
-                        xor();
-                        break;
-                    case "NOT":
-                        not();
-                        break;
-                }
             }
+
+            switch (com.Substring(0, 2))
+            {
+                case "AND":
+                    and();
+                    break;
+                case "XOR":
+                    xor();
+                    break;
+                case "NOT":
+                    not();
+                    break;
+            }
+
 
             switch (c)
             {
@@ -95,12 +91,12 @@ namespace MOS.VirtualMachine
                 case "JL":
                     jl(x1x2);
                     break;
-                case "SM": //padaryta iki cia
+                case "SM": 
                     sm(x1x2);
                     break;
                 case "LM":
                     lm(x1x2);
-                    break;           
+                    break;
                 case "OR":
                     or();
                     break;
@@ -149,22 +145,22 @@ namespace MOS.VirtualMachine
 
         private void not()
         {
-            throw new NotImplementedException();
+            R1.R = ~R1.R;
         }
 
         private void or()
         {
-            throw new NotImplementedException();
+            R1.R = R1.R | R2.R;
         }
 
         private void xor()
         {
-            throw new NotImplementedException();
+            R1.R = R1.R ^ R2.R;
         }
 
         private void and()
         {
-            throw new NotImplementedException();
+            R1.R = R1.R + R2.R;
         }
 
         private void lm(string x1x2)
@@ -175,8 +171,8 @@ namespace MOS.VirtualMachine
         //dabar bus komandoms apdoroti skirti metodai.
         private void lr(string x1x2)
         {
-            
-            int x1 = x1x2.Substring(0,1).ToHex();
+
+            int x1 = x1x2.Substring(0, 1).ToHex();
             int x2 = x1x2.Substring(2, 3).ToHex();
             R1.R = RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
         }
@@ -187,7 +183,7 @@ namespace MOS.VirtualMachine
             int x2 = x1x2.Substring(2, 3).ToHex();
             RealMachine.RealMachine.memory.WriteAt(pt.RealAddress(x1), x2, R1.Hex());
         }
-        
+
         private void rr()
         {
             R1.R = R1.R + R2.R;
