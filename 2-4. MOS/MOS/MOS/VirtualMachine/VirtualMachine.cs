@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MOS.RealMachine;
+using MOS.Registers;
 
 namespace MOS.VirtualMachine
 {
@@ -14,7 +10,8 @@ namespace MOS.VirtualMachine
         IC_Reg IC;
         C_Reg C;
         R_Reg R1, R2, R3, R4;
-        SF_Reg sf;
+        SF_Reg sf; 
+
         public VirtualMachine(string ptr)
         {
             this.ptr = ptr;
@@ -28,15 +25,38 @@ namespace MOS.VirtualMachine
             sf = new SF_Reg();
         }
 
-
         private void DoTask(String com)
         {
-            string c = com[0].ToString() + com[1].ToString();
-            string x1x2 = "    ";
+            string c = com.Substring(0,1);
+            string x1x2 = "";
+
             if (com.Length == 4)
             {
-                x1x2 = com[2].ToString() + com[3].ToString();
+                x1x2 = com.Substring(2,3);
             }
+
+            if (com == "HALT")
+            {
+                //DO SOMETHING
+            }else
+
+            {
+                string c3 = com.Substring(0,2);
+
+                switch (c3)
+                {
+                    case "AND":
+                        and();
+                        break;
+                    case "XOR":
+                        xor();
+                        break;
+                    case "NOT":
+                        not();
+                        break;
+                }
+            }
+
             switch (c)
             {
                 case "LR":
@@ -75,107 +95,140 @@ namespace MOS.VirtualMachine
                 case "JL":
                     jl(x1x2);
                     break;
-                case "SM":
-                    sm();
+                case "SM": //padaryta iki cia
+                    sm(x1x2);
                     break;
                 case "LM":
-                    lm();
-                    break;
-                case "AND":
-                    and();
-                    break;
-                case "XOR":
-                    xor();
-                    break;
+                    lm(x1x2);
+                    break;           
                 case "OR":
                     or();
-                    break;
-                case "NOT":
-                    not();
                     break;
                 case "FC":
                     fc();
                     break;
                 case "FO":
-                    fo();
+                    fo(x1x2);
                     break;
                 case "FR":
-                    fr();
+                    fr(x1x2);
                     break;
                 case "FW":
-                    fw();
+                    fw(x1x2);
                     break;
                 case "FD":
                     fd();
                     break;
             }
         }
+
+        private void fd()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void fw(string x1x2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void fr(string x1x2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void fo(string x1x2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void fc()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void not()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void or()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void xor()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void and()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void lm(string x1x2)
+        {
+            throw new NotImplementedException();
+        }
+
         //dabar bus komandoms apdoroti skirti metodai.
         private void lr(string x1x2)
         {
-            int addr = x1x2.ToHex();
-            int x1 = addr / 16;
-            int x2 = addr / 16 % 16;
-            R1.R = RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2);       
+            
+            int x1 = x1x2.Substring(0,1).ToHex();
+            int x2 = x1x2.Substring(2, 3).ToHex();
+            R1.R = RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
         }
 
         private void sr(string x1x2)
         {
-            int addr = x1x2.ToHex();
-            int x1 = addr / 16;
-            int x2 = addr / 16 % 16;
-            RealMachine.RealMachine.memory.WriteAt(pt.RealAddress(x1), x2, R1.R);
+            int x1 = x1x2.Substring(0, 1).ToHex();
+            int x2 = x1x2.Substring(2, 3).ToHex();
+            RealMachine.RealMachine.memory.WriteAt(pt.RealAddress(x1), x2, R1.Hex());
         }
         
         private void rr()
         {
-            R1.R = (R1.R.ToHex() + R2.R.ToHex()).ToHex();
-            R2.R = (R1.R.ToHex() - R2.R.ToHex()).ToHex();
-            R1.R = (R1.R.ToHex() - R2.R.ToHex()).ToHex();
+            R1.R = R1.R + R2.R;
+            R2.R = R1.R - R2.R;
+            R1.R = R1.R - R2.R;
         }
 
         private void ad(string x1x2)
         {
-            int addr = x1x2.ToHex();
-            int x1 = addr / 16;
-            int x2 = addr / 16 % 16;
-            R1.R = (R1.R.ToHex() + RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
+            int x1 = x1x2.Substring(0, 1).ToHex();
+            int x2 = x1x2.Substring(2, 3).ToHex();
+            R1.R = R1.R + RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
         }
 
         private void sb(string x1x2)
         {
-            int addr = x1x2.ToHex();
-            int x1 = addr / 16;
-            int x2 = addr / 16 % 16;
-            R1.R = (R1.R.ToHex() - RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
+            int x1 = x1x2.Substring(0, 1).ToHex();
+            int x2 = x1x2.Substring(2, 3).ToHex();
+            R1.R = R1.R - RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
         }
 
         private void cr(string x1x2)
         {
-            int addr = x1x2.ToHex();
-            int x1 = addr / 16;
-            int x2 = addr / 16 % 16;
-            if (R1.R.ToHex() == RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex())
-                C.C = true;
-            else
-                C.C = false;
+            int x1 = x1x2.Substring(0, 1).ToHex();
+            int x2 = x1x2.Substring(2, 3).ToHex();
+            C.C = R1.Hex() == RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2);
         }
 
         private void mu(string x1x2)
         {
-            int addr = x1x2.ToHex();
-            int x1 = addr / 16;
-            int x2 = addr / 16 % 16;
-            R1.R = (R1.R.ToHex() * RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
+            int x1 = x1x2.Substring(0, 1).ToHex();
+            int x2 = x1x2.Substring(2, 3).ToHex();
+            R1.R = R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
         }
 
         private void di(string x1x2)
         {
-            int addr = x1x2.ToHex();
-            int x1 = addr / 16;
-            int x2 = addr / 16 % 16;
-            R1.R = (R1.R.ToHex() / RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
-            R2.R = (R2.R.ToHex() % RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex()).ToHex();
+            int x1 = x1x2.Substring(0, 1).ToHex();
+            int x2 = x1x2.Substring(2, 3).ToHex();
+            R1.R = R1.R / RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
+            R2.R = R2.R % RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
         }
 
         private void ju(string x1x2)
@@ -185,25 +238,27 @@ namespace MOS.VirtualMachine
 
         private void jg(string x1x2)
         {
-            if ()
-            {
-                IC.IC = (ushort)x1x2.ToHex();
-            }
+
         }
 
         private void je(string x1x2)
         {
-            if (C.C == true)
+            if (C.C)
             {
                 IC.IC = (ushort)x1x2.ToHex();
             }
         }
         private void jl(string x1x2)
         {
-            if (C.C == true)
+            if (C.C)
             {
                 IC.IC = (ushort)x1x2.ToHex();
             }
+        }
+
+        private void sm(string x1x2)
+        {
+
         }
     }
 }

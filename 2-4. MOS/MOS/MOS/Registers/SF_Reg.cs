@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MOS
+﻿namespace MOS.Registers
 {
     public class SF_Reg
     {
-        private byte _sf; // CF OF XX XXX ZF
+        private byte _sf; // CF ZF SF IF OF XXX
 
         public SF_Reg()
         {
@@ -25,15 +19,26 @@ namespace MOS
             _sf = (byte)(_sf | 128);
         }
 
-        public void Set_OF()
+        public void Set_ZF()
         {
             _sf = (byte)(_sf | 64);
         }
 
-        public void Set_ZF()
+        public void Set_SF()
         {
-            _sf = (byte)(_sf | 1);
+            _sf = (byte)(_sf | 32);
         }
+
+        public void Set_IF()
+        {
+            _sf = (byte)(_sf | 16);
+        }
+
+        public void Set_OF()
+        {
+            _sf = (byte)(_sf | 8);
+        }
+
 
         public byte Get_SF()
         {

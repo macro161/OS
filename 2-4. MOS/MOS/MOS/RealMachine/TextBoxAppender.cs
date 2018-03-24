@@ -3,9 +3,8 @@ using System.Windows.Forms;
 using log4net;
 using log4net.Appender;
 using log4net.Repository.Hierarchy;
-using System.Diagnostics;
 
-namespace MOS
+namespace MOS.RealMachine
 {
     public class TextBoxAppender : IAppender
     {

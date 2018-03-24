@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MOS
+﻿namespace MOS.Registers
 {
     public class PI_Reg
     {
@@ -18,6 +12,16 @@ namespace MOS
         public void Int_1()
         {
             _pi = 1;
+        }
+
+        public void Clear()
+        {
+            _pi = 0;
+        }
+
+        public string Hex()
+        {
+            return _pi.ToString("X");
         }
     }
 }

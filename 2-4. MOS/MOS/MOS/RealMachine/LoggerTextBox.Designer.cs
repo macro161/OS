@@ -1,4 +1,4 @@
-﻿namespace MOS
+﻿namespace MOS.RealMachine
 {
     partial class LoggerTextBox
     {

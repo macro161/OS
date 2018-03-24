@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MOS.VirtualMachine
 {
@@ -18,12 +14,11 @@ namespace MOS.VirtualMachine
         public int getPtr()
         {
                 return ptr.TwoLastSymbolsToHex();
-
         }
 
         public int RealAddress(int x)
         {
-            return Int32.Parse(RealMachine.memory.StringAt(getPtr(), x));
+            return Int32.Parse(RealMachine.RealMachine.memory.StringAt(getPtr(), x));
         }
     }
 }

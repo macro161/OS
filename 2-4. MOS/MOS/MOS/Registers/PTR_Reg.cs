@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MOS
+﻿namespace MOS.Registers
 {
     public class PTR_Reg
     {
@@ -15,12 +9,17 @@ namespace MOS
             _ptr = adress;
         }
 
-        public int PTR
+        public int PTR => _ptr;
+
+        public string Hex()
         {
-            get { return _ptr; }
+            return _ptr.ToString("X");
         }
 
-       
+        public void Clear()
+        {
+            _ptr = 0;
+        }
 
     }
 }

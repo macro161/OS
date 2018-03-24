@@ -1,5 +1,5 @@
 ﻿
-namespace MOS
+namespace MOS.Registers
 // jei TI = 0, issaukiamas pertraukimas
 // TI galima nustatyti/pakeisti supervisor rezime
 {
@@ -14,20 +14,24 @@ namespace MOS
 
         public ushort TI
         {
-            set
-            {
-                //if(Mode_Reg.Mode == 'S')
-                  //  _ti = value;
-            }
-            get
-            {
-                return _ti;
-            }
+            set => _ti = value;
+            get => _ti;
         }
 
         public void DecrementTI()
         {
             _ti--;
         }
+
+        public void Clear()
+        {
+            _ti = 0;
+        }
+
+        public string Hex()
+        {
+            return _ti.ToString("X");
+        }
+
     }
 }

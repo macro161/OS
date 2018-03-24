@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MOS;
-
-
-namespace MOS
+﻿namespace MOS.Registers
 {
     public class IC_Reg
     {
@@ -19,13 +11,18 @@ namespace MOS
 
         public ushort IC
         {
-            set { _ic = value; }
-            get { return _ic; }
+            set => _ic = value;
+            get => _ic;
         }
 
-        public void Clean_IC()
+        public void Clear()
         {
             _ic = 0;
+        }
+
+        public string Hex()
+        {
+            return _ic.ToString("X");
         }
     }
 }

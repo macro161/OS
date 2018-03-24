@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MOS.RealMachine;
+
 [assembly: log4net.Config.XmlConfigurator(Watch = true)]
 namespace MOS
 {
@@ -21,7 +20,7 @@ namespace MOS
             log.Info("Bla");
             var logging = new LoggerTextBox();
             //Application.Run(logging);
-            Thread BackgroundThread = new Thread(new ThreadStart(()=> Application.Run(logging)));
+            Thread BackgroundThread = new Thread(()=> Application.Run(logging));
             BackgroundThread.Start();
             log.Info("_log info");
             //logging.Update();

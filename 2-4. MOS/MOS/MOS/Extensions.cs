@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MOS
 {
@@ -15,8 +11,10 @@ namespace MOS
 
         public static int ToHex(this String str)
         {
-            return Int32.Parse(str.Substring(0, 4), System.Globalization.NumberStyles.HexNumber);  // šita naudojam visada, paverčia int į string(jį interpretuoja kaip hex)
+            return Int32.Parse(str, System.Globalization.NumberStyles.HexNumber);  // šita naudojam visada, paverčia int į string(jį interpretuoja kaip hex)
         }
+
+        
 
 
         public static int TwoLastSymbolsToHex(this String str)
@@ -31,7 +29,7 @@ namespace MOS
     {
         public static string ToHex(this int a)
         {
-            return string.Format("{0:x}", a); // paverčia int į hex(jis int laiko kaip dešimtainį skaičių)
+            return $"{a:x}"; // paverčia int į hex(jis int laiko kaip dešimtainį skaičių)
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿
-namespace MOS
+namespace MOS.Registers
 {
     public class Mode_Reg
     {
@@ -8,6 +8,11 @@ namespace MOS
         public Mode_Reg()
         {
             _mode = 1; // default - supervisor
+        }
+
+        public string Hex()
+        {
+            return _mode.ToString("X");
         }
 
         public byte Mode {
@@ -21,14 +26,9 @@ namespace MOS
                     case 0:
                         _mode = 0; // user
                         break;
-                    default:
-                        break;
                 }
             }
-            get
-            {
-                return _mode;
-            }
+            get => _mode;
         }
 
     }   

@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MOS
+﻿namespace MOS.Registers
 {
     public class R_Reg
     {
-        private string _r;
+        private int _r;
 
         public R_Reg()
         {
-            _r = "0000";
+            _r = 0;
         }
 
-        public string R
+        public int R
         {
-            get { return _r; }
-            set { _r = value; }
+            get => _r;
+            set => _r = value;
+        }
+
+        public string Hex()
+        {
+            return _r.ToString("X");
         }
 
     }

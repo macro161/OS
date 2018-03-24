@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MOS
+namespace MOS.RealMachine
 {
     public class UserMemory
     {
-        private string[,] userMemory = new string[255,16]; // 255 takeliai po 16 žodžių po 4 baitus.
+        private string[,] userMemory = new string[255, 16]; // 255 takeliai po 16 žodžių po 4 baitus.
         private bool[] isUsed = new bool[255]; // skirstant takelius pasižymim, kurie jau užimti, kai atsilaisvins vėl pažimėsim true. 
         Random rand = new Random();
         public int GetRandomBlock()
         {
             int i = rand.Next(0, 256);
-            while(isUsed[i] == true)
+            while (isUsed[i])
             {
                 if (i == 255)
                 {
@@ -43,6 +39,16 @@ namespace MOS
             return userMemory[x, y];
         }
 
+        public int IntAt(int x, int y)
+        {
+            return int.Parse(userMemory[x, y], System.Globalization.NumberStyles.HexNumber);
+        }
+
+        public string HexAt(int x, int y)
+        {
+            return Int32.Parse(userMemory[x,y]).ToString("X");
+        }
+
         public void WriteAt(int x, int y, string word)
         {
             userMemory[x, y] = word.Substring(0, 4);
@@ -56,9 +62,8 @@ namespace MOS
             result[2] = (byte)(a >> 8);
             result[3] = (byte)(a);
             return result;
-            
         }
-       
+
         public static int ByteToInt(byte[] a)
         {
             int l = 0;
@@ -70,16 +75,15 @@ namespace MOS
             l <<= 8;
             l |= a[3] & 0xFF;
             return l;
-
         }
-        
+
         public void TakeData(string data)
         {
             int count = 0;
 
-            for (int i = 0; i < 16 ; i++)
+            for (int i = 0; i < 16; i++)
             {
-                for (int j = 0; j < 16 ; j++ )
+                for (int j = 0; j < 16; j++)
                 {
                     if (count + 4 < data.Length)
                     {
@@ -92,8 +96,6 @@ namespace MOS
                     }
                 }
             }
-
-
         }
     }
 }

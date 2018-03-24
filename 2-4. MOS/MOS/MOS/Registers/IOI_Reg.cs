@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MOS
+﻿namespace MOS.Registers
 {
     public class IOI_Reg
     {
@@ -29,17 +23,19 @@ namespace MOS
                 if (value == 3)
                 {
                     _ioi = (byte)(_ioi | 4); //uzrasom i trecia bita 1 parodant kad trecias kanalas atidarytas XXXX X1XX
-                }
-            
-            
-            
+                }   
             }
-            get { return _ioi; }
+            get => _ioi;
         }
 
-        public void Clean_IOI()
+        public void Clear()
         {
             _ioi = 0;
+        }
+
+        public string Hex()
+        {
+            return _ioi.ToString("X");
         }
     }
 }

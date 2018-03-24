@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MOS
+﻿namespace MOS.Registers
 {
     public class C_Reg
     {
@@ -17,8 +11,8 @@ namespace MOS
 
         public bool C
         {
-            get { return _c; }
-            set { _c = value; }
+            get => _c;
+            set => _c = value;
         }
 
         public void Clear()
