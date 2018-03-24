@@ -33,6 +33,7 @@ namespace MOS.RealMachine
                 switch (Console.ReadLine())
                 {
                     case "1":
+
                         break;
                     case "2":
                         break;

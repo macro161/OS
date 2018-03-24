@@ -29,34 +29,39 @@
             _sf = (byte)(_sf | 32);
         }
 
-        public void Set_IF()
+        public void Set_OF()
         {
             _sf = (byte)(_sf | 16);
         }
 
-        public void Set_OF()
+        public void Set_IF()
         {
             _sf = (byte)(_sf | 8);
         }
 
-        public bool Get_IF()
+        public bool Get_OF()// CF ZF SF IF OF XXX
         {
             return (_sf & (1 << 4)) !=0;
         }
 
-        public bool Get_SF()
+        public bool Get_IF()
         {
-            return (_sf & (1 << 5)) != 0;
+            return (_sf & (1 << 5)) != 0; //Original mato Savickio kodas, tikrai nevogtas is Stack overflow  https://stackoverflow.com/questions/2431732/checking-if-a-bit-is-set-or-not
         }
 
-        public bool Get_ZF()
+        public bool Get_SF()
         {
             return (_sf & (1 << 6)) != 0;
         }
 
-        public bool Get_CF()
+        public bool Get_ZF()
         {
             return (_sf & (1 << 7)) != 0;
+        }
+
+        public bool Get_CF()
+        {
+            return (_sf & (1 << 8)) != 0;
         }
     }
 }
