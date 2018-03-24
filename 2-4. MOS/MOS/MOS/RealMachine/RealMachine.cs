@@ -57,11 +57,6 @@ namespace MOS.RealMachine
             vm.RunCode(); //virtualiai pasinai pasakoma vykdyti koda
         }
 
-        public RealMachine()
-        {
-            
-        }
-
         //public InputChannel channleOne = new InputChannel();
 
         public void Start()
@@ -93,7 +88,7 @@ namespace MOS.RealMachine
             Console.WriteLine("SF - " + sf.Return_Status_Flag().ToString());
             Console.WriteLine("SI - " + si._si.ToString());
             Console.WriteLine("TI - " + ti._ti.ToString());
-            Console.WriteLine("PTR - " + ptr._ptr.ToString());
+            Console.WriteLine("PTR - " + ptr._ptr);
         }
 
         public void PrintMemory()

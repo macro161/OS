@@ -1,6 +1,4 @@
-﻿using System.Dynamic;
-
-namespace MOS.Registers
+﻿namespace MOS.Registers
 {
     public class PTR_Reg
     {

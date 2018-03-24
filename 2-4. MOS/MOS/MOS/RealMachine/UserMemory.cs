@@ -4,15 +4,15 @@ namespace MOS.RealMachine
 {
     public class UserMemory
     {
-        private string[,] userMemory = new string[255, 16]; // 255 takeliai po 16 žodžių po 4 baitus.
-        private bool[] isUsed = new bool[255]; // skirstant takelius pasižymim, kurie jau užimti, kai atsilaisvins vėl pažimėsim true. 
+        private string[,] userMemory = new string[256, 16]; // 255 takeliai po 16 žodžių po 4 baitus.
+        private bool[] isUsed = new bool[256]; // skirstant takelius pasižymim, kurie jau užimti, kai atsilaisvins vėl pažimėsim true. 
         Random rand = new Random();
         public int GetRandomBlock()
         {
-            int i = rand.Next(0, 256);
+            int i = rand.Next(0, 257);
             while (isUsed[i])
             {
-                if (i == 255)
+                if (i == 256)
                 {
                     i = 0;
                 }
