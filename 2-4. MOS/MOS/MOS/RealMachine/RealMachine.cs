@@ -98,7 +98,16 @@ namespace MOS.RealMachine
 
         public void PrintMemory()
         {
-
+            Console.WriteLine("0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F");
+            for (int i = 0; i < 256; i++)
+            {
+                Console.Write(i.ToString("X"));
+                for (int j = 0; j < 16; j++)
+                {
+                    Console.Write(memory.StringAt(i,j) + " ");
+                }
+                Console.WriteLine("");
+            }
         }
 
     }
