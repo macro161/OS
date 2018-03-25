@@ -24,7 +24,7 @@ namespace MOS.VirtualMachine
             C = c; 
             PTR = ptr;
             
-            pt = new PageTable(PTR._ptr);
+            pt = new PageTable(PTR._ptr.ToString());
         }
 
         public void RunCode()
