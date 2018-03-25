@@ -1,40 +1,58 @@
 ﻿using System;
+using System.Drawing.Imaging;
 using MOS.Registers;
 
 namespace MOS.VirtualMachine
 {
     class VirtualMachine
     {
-        PTR_Reg ptr;
+        PTR_Reg PTR;
         PageTable pt;
         IC_Reg IC;
         C_Reg C;
         R_Reg R1, R2, R3, R4;
-        SF_Reg sf;
+        SF_Reg SF;
 
         public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf, C_Reg c)
         {
-            this.ptr = ptr;
-            pt = new PageTable(ptr._ptr);
+            R1 = r1;
+            R2 = r2;
+            R3 = r3;
+            R4 = r4;
+            IC = ic;
+            SF = sf;
+            C = c; 
+            PTR = ptr;
+            
+            pt = new PageTable(PTR._ptr);
         }
 
         public void RunCode()
         {
+            for (int i = 8; i < 16; i++)
+            {
+                for (int j = 0; j < 16; j++)
+                {
+                    DoTask(RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.IntAt(PTR._ptr.ToHex(),i),j));
+                }
+            }
+
+
 
         }
 
         private void DoTask(String com)
         {
-            string c = com.Substring(0, 1);
+            string c = com.Substring(0, 2);
 
-            string x1x2 = com.Substring(2, 3);
+            string x1x2 = com.Substring(2, 2);
 
             if (com == "HALT")
             {
                 //DO SOMETHING
             }
 
-            switch (com.Substring(0, 2))
+            switch (com.Substring(0, 3))
             {
                 case "AND":
                     and();
@@ -175,14 +193,14 @@ namespace MOS.VirtualMachine
         private void lr(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
-            int x2 = x1x2.Substring(2, 3).ToHex();
+            int x2 = x1x2.Substring(1, 1).ToHex();
             R1.R = RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
         }
 
         private void sr(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
-            int x2 = x1x2.Substring(2, 3).ToHex();
+            int x2 = x1x2.Substring(1, 1).ToHex();
             RealMachine.RealMachine.memory.WriteAt(pt.RealAddress(x1), x2, R1.Hex());
         }
 
@@ -196,35 +214,35 @@ namespace MOS.VirtualMachine
         private void ad(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
-            int x2 = x1x2.Substring(2, 3).ToHex();
+            int x2 = x1x2.Substring(1, 1).ToHex();
             R1.R = R1.R + RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
         }
 
         private void sb(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
-            int x2 = x1x2.Substring(2, 3).ToHex();
+            int x2 = x1x2.Substring(1, 1).ToHex();
             R1.R = R1.R - RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
         }
 
         private void cr(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
-            int x2 = x1x2.Substring(2, 3).ToHex();
+            int x2 = x1x2.Substring(1, 1).ToHex();
             C.C = R1.Hex() == RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2);
         }
 
         private void mu(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
-            int x2 = x1x2.Substring(2, 3).ToHex();
+            int x2 = x1x2.Substring(1, 1).ToHex();
             R1.R = R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
         }
 
         private void di(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
-            int x2 = x1x2.Substring(2, 3).ToHex();
+            int x2 = x1x2.Substring(1, 1).ToHex();
             R1.R = R1.R / RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
             R2.R = R2.R % RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
         }
@@ -233,7 +251,6 @@ namespace MOS.VirtualMachine
         {
             IC.IC = (ushort)x1x2.ToHex();
         }
-
 
         private void je(string x1x2)
         {

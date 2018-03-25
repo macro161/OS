@@ -24,8 +24,8 @@ namespace MOS.RealMachine
 
         public void PowerOn()
         {
-           // while (run)
-           // {
+            while (run)
+            {
                 Console.WriteLine("1. Load test program");
                 Console.WriteLine("2. Load by name");
                 Console.WriteLine("3. Print registers");
@@ -50,7 +50,7 @@ namespace MOS.RealMachine
                         Console.WriteLine("Bad input");
                         break;
                 }
-           // }
+            }
         }
 
         private void LoadTestProgram()
@@ -63,9 +63,6 @@ namespace MOS.RealMachine
 
             TransferProgramToMemory(flashOutput);
 
-            PrintMemory();
-            PrintRegisters();
-
             VirtualMachine.VirtualMachine vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c); //sukuriama virtuali masina
             vm.RunCode(); //virtualiai pasinai pasakoma vykdyti koda
         }
@@ -76,17 +73,9 @@ namespace MOS.RealMachine
             {
                 for (int j = 0; j < 16; j++) // x - 256 y - 16
                 {
-                   // Console.WriteLine(ptr._ptr.ToHex());
-                   Console.Write(flash[i,j]);
                     memory.WriteAt(memory.IntAt(ptr._ptr.ToHex(),i),j,flash[i,j]);
                 }
             }
-        }
-
-
-        public void LoadProgram()
-        {
-
         }
 
         public void PrintRegisters()
@@ -123,6 +112,5 @@ namespace MOS.RealMachine
 
             Console.ReadLine();
         }
-
     }
 }
