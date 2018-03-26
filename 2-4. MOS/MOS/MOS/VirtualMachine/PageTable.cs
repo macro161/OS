@@ -13,7 +13,7 @@ namespace MOS.VirtualMachine
 
         public int getPtr()
         {
-            return ptr.TwoLastSymbolsToHex();
+            return ptr.TwoLastbytesToHex();
         }
 
         public int RealAddress(int x)

@@ -33,23 +33,26 @@ namespace MOS.RealMachine
 
             var h = Console.ReadLine();
 
-                switch (h)
-                {
-                    case "1":
-                        LoadTestProgram();
-                        break;
-                    case "2":
-                        break;
-                    case "3":
-                        PrintRegisters();
-                        break;
-                    case "4":
-                        PrintMemory();
-                        break;
-                    default:
-                        Console.WriteLine("Bad input");
-                        break;
-                }
+                /* switch (h)
+                 {
+                     case "1":
+                         LoadTestProgram();
+                         break;
+                     case "2":
+                         break;
+                     case "3":
+                         PrintRegisters();
+                         break;
+                     case "4":
+                         PrintMemory();
+                         break;
+                     default:
+                         Console.WriteLine("Bad input");
+                         break;
+                 }*/
+                ptr._ptr = memory.getMemory();
+                Console.WriteLine(ptr._ptr);
+                Console.WriteLine(ptr._ptr.TwoLastbytesToHex());
             }
         }
 
@@ -100,7 +103,7 @@ namespace MOS.RealMachine
         public void PrintMemory()
         {
             Console.WriteLine("0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F");
-            for (int i = 0; i < 256; i++)
+            for (int i = 0; i < 0x255; i++)
             {
                 Console.Write(i.ToString("X") + " ");
                 for (int j = 0; j < 16; j++)

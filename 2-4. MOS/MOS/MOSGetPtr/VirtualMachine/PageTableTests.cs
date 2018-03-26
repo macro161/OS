@@ -42,7 +42,7 @@ namespace MOSGetPtr.VirtualMachine
             TestContext.WriteLine(ptr);
             for (int i = 0; i < 16; i++)
             {
-                t[i]= MOS.RealMachine.RealMachine.memory.StringAt(ptr.TwoLastSymbolsToHex(), i);
+                t[i]= MOS.RealMachine.RealMachine.memory.StringAt(ptr.TwoLastbytesToHex(), i);
                 TestContext.WriteLine(t[i].ToHex().ToString());
             }
             PageTable pt = new PageTable(ptr);
