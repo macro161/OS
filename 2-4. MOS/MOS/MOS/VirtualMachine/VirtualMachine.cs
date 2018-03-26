@@ -40,8 +40,7 @@ namespace MOS.VirtualMachine
                 else
                 {
                     DoTask(command);
-                }
-                
+                } 
             }
         }
         private void halt()
@@ -56,7 +55,7 @@ namespace MOS.VirtualMachine
 
             if (com == "HALT")
             {
-                //DO SOMETHING
+                RealMachine.RealMachine.si._si = 3;
             }
 
             switch (com.Substring(0, 3))
@@ -110,69 +109,31 @@ namespace MOS.VirtualMachine
                 case "JL":
                     jl(x1x2);
                     break;
-                case "SM":
-                    sm(x1x2);
+                case "GD":
+                    gd(x1x2);
                     break;
-                case "LM":
-                    lm(x1x2);
+                case "PD":
+                    pd(x1x2);
                     break;
                 case "OR":
                     or();
                     break;
-                case "FC":
-                    fc();
-                    break;
-                case "FO":
-                    fo(x1x2);
-                    break;
-                case "FR":
-                    fr(x1x2);
-                    break;
-                case "FW":
-                    fw(x1x2);
-                    break;
-                case "FD":
-                    fd();
-                    break;
             }
         }
 
-        private void fd()
+        private void gd(string x1x2)
         {
-            throw new NotImplementedException();
+            R1.R = x1x2.ToHex();
+            RealMachine.RealMachine.si._si = 1;
+        }
+        private void pd(string x1x2)
+        {
+            R1.R = x1x2.ToHex();
+            RealMachine.RealMachine.si._si = 2;
         }
 
-        private void fw(string x1x2)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void fr(string x1x2)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void fo(string x1x2)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void fc()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void lm(string x1x2)
-        {
-            throw new NotImplementedException();
-        }
 
         private void jg(string x1x2)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void sm(string x1x2)
         {
             throw new NotImplementedException();
         }
