@@ -29,18 +29,25 @@ namespace MOS.VirtualMachine
 
         public void RunCode()
         {
-            for (int i = 8; i < 16; i++)
+            while (true)
             {
-                for (int j = 0; j < 16; j++)
+                string command = RealMachine.RealMachine.memory.StringAt(pt.RealAddress(IC.GetX()), IC.GetY());
+                IC.Increase();
+                if (command[0] == 'H' && command[1] == 'A')
                 {
-                    DoTask(RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.IntAt(PTR._ptr.ToHex(),i),j));
+                    halt();
                 }
+                else
+                {
+                    DoTask(command);
+                }
+                
             }
-
-
+        }
+        private void halt()
+        {
 
         }
-
         private void DoTask(String com)
         {
             string c = com.Substring(0, 2);
@@ -249,11 +256,21 @@ namespace MOS.VirtualMachine
 
         private void ju(string x1x2)
         {
+            if (x1x2.ToHex() < 0x80 || x1x2.ToHex() > 0xFF)
+            {
+                Console.WriteLine("negalima šokti ne į kodo segmentą!");
+                return;
+            }
             IC.IC = (ushort)x1x2.ToHex();
         }
 
         private void je(string x1x2)
         {
+            if (x1x2.ToHex() < 0x80 || x1x2.ToHex() > 0xFF)
+            {
+                Console.WriteLine("negalima šokti ne į kodo segmentą!");
+                return;
+            }
             if (C.C)
             {
                 IC.IC = (ushort)x1x2.ToHex();
@@ -261,6 +278,11 @@ namespace MOS.VirtualMachine
         }
         private void jl(string x1x2)
         {
+            if (x1x2.ToHex() < 0x80 || x1x2.ToHex() > 0xFF)
+            {
+                Console.WriteLine("negalima šokti ne į kodo segmentą!");
+                return;
+            }
             if (C.C)
             {
                 IC.IC = (ushort)x1x2.ToHex();
