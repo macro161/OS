@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace MOS.RealMachine
@@ -36,7 +37,7 @@ namespace MOS.RealMachine
             {
                 for (int j = 0; j < 16; j++)
                 {
-                    Console.Write(matrix[i,j]);
+                    Console.Write(matrix[i, j]);
                 }
             }
 
@@ -62,7 +63,6 @@ namespace MOS.RealMachine
             bool isData = false;
             bool isCode = false;
             bool isHalt = false;
-            bool isOff = false;
             bool isSize = array.Length < 256;
 
             StringBuilder builder = new StringBuilder();
@@ -80,10 +80,8 @@ namespace MOS.RealMachine
                 isCode = true;
             if (arrayStr.Contains("HALT"))
                 isHalt = true;
-            if (arrayStr.Contains("0FF"))
-                isOff = true;
 
-            if (isData && isCode && isHalt && isOff && isSize)
+            if (isData && isCode && isHalt && isSize)
                 return true;
             else return false;
         }
@@ -117,23 +115,24 @@ namespace MOS.RealMachine
 
         void makeMatrix(string[] array)
         {
-            string[] array2 = array;
+            //string[] array2 = array.ToList<string>();
+            List<string> list = array.ToList();
             List<string> data = new List<string>();
             List<string> code = new List<string>();
+            bool flag = false;
 
             int i = 0, j = 0, k = 0;
 
-            foreach (string str in array)
+            foreach (string str in list.ToList())
             {
-                if (str.Length > 6)
-                {
-                    array2[i] = str.Substring(6);
+                if(flag) list.RemoveAt(i);
+                if (str.Contains("HALT"))
+                    flag = true;
                     i++;
-                }
             }
 
-            bool flag = false;
-            foreach (string str in array2)
+            flag = false;
+            foreach (string str in list)
             {
                 if (str.Contains("CODE"))
                 {
@@ -142,7 +141,7 @@ namespace MOS.RealMachine
                 }
                 if (!flag && !str.Contains("DATA"))
                     data.Add(str);
-                else if (flag && !str.Contains("0FF"))
+                else if (flag)
                     code.Add(str);
             }
 

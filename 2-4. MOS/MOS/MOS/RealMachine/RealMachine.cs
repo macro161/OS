@@ -60,7 +60,7 @@ namespace MOS.RealMachine
         {
             string [,] flashOutput = new string[16,16];           
             flashOutput = cd.ReadFromFlash();  //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
-            Console.Write(flashOutput);
+            //Console.Write(flashOutput);
 
             ptr._ptr = memory.getMemory(); //isskiriami laisvi atminties blokai programai
 
