@@ -1,9 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
 using MOS.Registers;
 
 namespace MOS.RealMachine
 {
-    public class RealMachine
+    public class RealMachine : INotifyPropertyChanged
     {
         public ChannelsDevice cd = new ChannelsDevice();
         public C_Reg c = new C_Reg();
@@ -22,6 +23,20 @@ namespace MOS.RealMachine
         public static UserMemory memory = new UserMemory();
         private bool run = true;
 
+        public int R1 { get { return r1.R; } set { r1.R = value; InvokePropertyChanged(new PropertyChangedEventArgs("R1")); } }
+        public int R2 { get { return r2.R; } set { r2.R = value; InvokePropertyChanged(new PropertyChangedEventArgs("R2")); } }
+        public int R3 { get { return r3.R; } set { r3.R = value; InvokePropertyChanged(new PropertyChangedEventArgs("R3")); } }
+        public int R4 { get { return r4.R; } set { r4.R = value; InvokePropertyChanged(new PropertyChangedEventArgs("R4")); } }
+        public byte SF { get { return sf.SF; } set { sf.SF = value; InvokePropertyChanged(new PropertyChangedEventArgs("SF")); } }
+        public short SI { get { return si.SI; } set { si.SI = value; InvokePropertyChanged(new PropertyChangedEventArgs("SI")); } }
+        public ushort TI { get { return ti.TI; } set { ti.TI = value; InvokePropertyChanged(new PropertyChangedEventArgs("TI")); } }
+        public string PTR { get { return ptr.PTR; } set { ptr.PTR = value; InvokePropertyChanged(new PropertyChangedEventArgs("PTR")); } }
+        public bool C { get { return c.C; } set { c.C = value; InvokePropertyChanged(new PropertyChangedEventArgs("C")); } }
+        public ushort IC { get { return ic.IC; } set { ic.IC = value; InvokePropertyChanged(new PropertyChangedEventArgs("IC")); } }
+        public ushort IOI { get { return ioi.IOI; } set { ioi.IOI = value; InvokePropertyChanged(new PropertyChangedEventArgs("IOI")); } }
+        public byte MODE { get { return mode.Mode; } set { mode.Mode = value; InvokePropertyChanged(new PropertyChangedEventArgs("MODE")); } }
+        public short PI { get { return pi.PI; } set { pi.PI = value; InvokePropertyChanged(new PropertyChangedEventArgs("PI")); } }
+
         public void PowerOn()
         {
             while (run)
@@ -31,9 +46,12 @@ namespace MOS.RealMachine
                 Console.WriteLine("3. Print registers");
                 Console.WriteLine("4. Print Real machine memory");
 
-            var h = Console.ReadLine();
+                var h = Console.ReadLine();
+
+
 
                  switch (h)
+
                  {
                      case "1":
                          LoadTestProgram();
@@ -49,6 +67,12 @@ namespace MOS.RealMachine
                      default:
                          Console.WriteLine("Bad input");
                          break;
+
+                 }
+                //PTR = memory.getMemory();
+                //Console.WriteLine(ptr.PTR);
+                //Console.WriteLine(ptr.PTR.TwoLastbytesToHex());
+
                  }
                 ptr._ptr = memory.getMemory();
                 Console.WriteLine(ptr._ptr);
@@ -58,11 +82,10 @@ namespace MOS.RealMachine
 
         private void LoadTestProgram()
         {
-            string [,] flashOutput = new string[16,16];           
+            string[,] flashOutput = new string[16, 16];
             flashOutput = cd.ReadFromFlash();  //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
 
-
-            ptr._ptr = memory.getMemory(); //isskiriami laisvi atminties blokai programai
+            PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
 
             TransferProgramToMemory(flashOutput);
 
@@ -77,7 +100,7 @@ namespace MOS.RealMachine
             {
                 for (int j = 0; j < 16; j++) // x - 256 y - 16
                 {
-                    memory.WriteAt(memory.IntAt(ptr._ptr.ToHex(),i),j,flash[i,j]);
+                    memory.WriteAt(memory.IntAt(PTR.ToHex(), i), j, flash[i, j]);
                 }
             }
         }
@@ -88,15 +111,15 @@ namespace MOS.RealMachine
             Console.WriteLine("IC - " + ic.IC.ToString());
             Console.WriteLine("IOI - " + ioi.IOI.ToString());
             Console.WriteLine("MODE - " + mode.Mode.ToString());
-            Console.WriteLine("PI - " + pi._pi.ToString());
-            Console.WriteLine("R1 - " + r1.R.ToString());
-            Console.WriteLine("R2 - " + r2.R.ToString());
-            Console.WriteLine("R3 - " + r3.R.ToString());
-            Console.WriteLine("R4 - " + r4.R.ToString());
-            Console.WriteLine("SF - " + sf.Return_Status_Flag().ToString());
-            Console.WriteLine("SI - " + si._si.ToString());
-            Console.WriteLine("TI - " + ti._ti.ToString());
-            Console.WriteLine("PTR - " + ptr._ptr);
+            Console.WriteLine("PI - " + PI.ToString());
+            Console.WriteLine("R1 - " + R1.ToString());
+            Console.WriteLine("R2 - " + R2.ToString());
+            Console.WriteLine("R3 - " + R3.ToString());
+            Console.WriteLine("R4 - " + R4.ToString());
+            Console.WriteLine("SF - " + SF.ToString());
+            Console.WriteLine("SI - " + SI.ToString());
+            Console.WriteLine("TI - " + TI.ToString());
+            Console.WriteLine("PTR - " + ptr);
 
             Console.ReadLine();
         }
@@ -116,5 +139,14 @@ namespace MOS.RealMachine
 
             Console.ReadLine();
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public void InvokePropertyChanged(PropertyChangedEventArgs e)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, e);
+        }
+
     }
 }

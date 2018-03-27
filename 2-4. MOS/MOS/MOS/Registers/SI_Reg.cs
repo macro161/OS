@@ -2,7 +2,9 @@
 {
     public class SI_Reg
     {
-        public short _si;
+        private short _si;
+
+        public short SI { get => _si; set => _si = value; }
 
         public SI_Reg()
         {

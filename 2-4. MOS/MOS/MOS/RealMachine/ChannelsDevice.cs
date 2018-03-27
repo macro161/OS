@@ -15,8 +15,6 @@ namespace MOS.RealMachine
         private int DT = 0; //Objekto,įkurįkopijuosime,numeris
                             // 1. Vartotojoatmintis; 2. Supervizorinėatmintis; 3. Išorinėatmintis; 4. Įvedimosrautas; 
 
-        string[,] flashOutput = null;
-
         string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data.txt");
         string[,] matrix = new string[16, 16];
         string[] flash;

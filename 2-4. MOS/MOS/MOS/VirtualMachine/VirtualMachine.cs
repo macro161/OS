@@ -24,7 +24,7 @@ namespace MOS.VirtualMachine
             C = c; 
             PTR = ptr;
             
-            pt = new PageTable(PTR._ptr.ToString());
+            pt = new PageTable(PTR.PTR.ToString());
         }
 
         public void RunCode()
@@ -58,7 +58,7 @@ namespace MOS.VirtualMachine
 
             if (com == "HALT")
             {
-                RealMachine.RealMachine.si._si = 3;
+                RealMachine.RealMachine.si.SI = 3;
             }
 
             switch (com.Substring(0, 3))
@@ -127,12 +127,12 @@ namespace MOS.VirtualMachine
         private void gd(string x1x2)
         {
             R1.R = x1x2.ToHex();
-            RealMachine.RealMachine.si._si = 1;
+            RealMachine.RealMachine.si.SI = 1;
         }
         private void pd(string x1x2)
         {
             R1.R = x1x2.ToHex();
-            RealMachine.RealMachine.si._si = 2;
+            RealMachine.RealMachine.si.SI = 2;
         }
 
 

@@ -2,7 +2,9 @@
 {
     public class PTR_Reg
     {
-        public string _ptr { get; set; }
+        private string _ptr;
+
+        public string PTR { get => _ptr; set => _ptr = value; }
 
         public void Clear()
         {

@@ -15,9 +15,11 @@ namespace MOS
         static void Main()
         {
             RealMachine.RealMachine realMachine = new RealMachine.RealMachine();
-            realMachine.PowerOn();
+            //realMachine.PowerOn();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            Application.Run(new GUI.RMform(realMachine));
 
             //var file = new ChannelsDevice();
             //file.ReadFromFlash();

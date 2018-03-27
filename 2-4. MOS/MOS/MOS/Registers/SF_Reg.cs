@@ -4,6 +4,8 @@
     {
         private byte _sf; // CF ZF SF IF OF XXX
 
+        public byte SF { get => _sf; set => _sf = value; }
+
         public SF_Reg()
         {
             _sf = 0;

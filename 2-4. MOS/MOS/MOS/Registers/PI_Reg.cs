@@ -2,7 +2,9 @@
 {
     public class PI_Reg
     {
-        public short _pi;
+        private short _pi;
+
+        public short PI { get => _pi; set => _pi = value; }
 
         public PI_Reg()
         {

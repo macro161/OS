@@ -8,6 +8,9 @@ namespace MOS.RealMachine
         private bool[] isUsed = new bool[0x256]; // skirstant takelius pasižymim, kurie jau užimti, kai atsilaisvins vėl pažimėsim true. 
         Random rand = new Random();
         private int free = 0x256;
+
+        public string[,] UserMemoryProp { get => userMemory; set => userMemory = value; }
+
         public int GetRandomBlock()
         {
             int i = rand.Next(0, 0x255);
