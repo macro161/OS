@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing.Imaging;
 using MOS.Registers;
 
 namespace MOS.VirtualMachine
@@ -24,7 +23,7 @@ namespace MOS.VirtualMachine
             C = c; 
             PTR = ptr;
             
-            pt = new PageTable(PTR.PTR.ToString());
+            pt = new PageTable(PTR.PTR);
         }
 
         public void RunCode()
@@ -34,8 +33,8 @@ namespace MOS.VirtualMachine
                 if (RealMachine.RealMachine.test())
                 {
                     return;
+                    // Console.WriteLine("Command: " + command););
                 }
-                Console.Write("IC X:" + IC.GetX() + "IC Y;" + IC.GetY());
                 string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR.PTR.ToHex(),IC.GetX()).ToHex(),IC.GetY());
                 Console.WriteLine("Command: " + command);
                 IC.Increase();
