@@ -29,18 +29,21 @@ namespace MOS.VirtualMachine
 
         public void RunCode()
         {
-            while (true)
+            int C = 0;
+            while (C < 200)
             {
-                string command = RealMachine.RealMachine.memory.StringAt(pt.RealAddress(IC.GetX()), IC.GetY());
+                string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR._ptr.ToHex(),IC.GetX()).ToHex(),IC.GetY());
+                Console.WriteLine("Command: " + command);
                 IC.Increase();
-                if (command[0] == 'H' && command[1] == 'A')
-                {
-                    halt();
-                }
-                else
-                {
-                    DoTask(command);
-                } 
+               // if (command[0] == 'H' && command[1] == 'A')
+               //// {
+               //     halt();
+              //  }
+               // else
+              //  {
+                   // DoTask(command);
+             //   } 
+                C++;
             }
         }
         private void halt()

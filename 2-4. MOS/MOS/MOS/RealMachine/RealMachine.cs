@@ -33,7 +33,7 @@ namespace MOS.RealMachine
 
             var h = Console.ReadLine();
 
-                /* switch (h)
+                 switch (h)
                  {
                      case "1":
                          LoadTestProgram();
@@ -49,7 +49,7 @@ namespace MOS.RealMachine
                      default:
                          Console.WriteLine("Bad input");
                          break;
-                 }*/
+                 }
                 ptr._ptr = memory.getMemory();
                 Console.WriteLine(ptr._ptr);
                 Console.WriteLine(ptr._ptr.TwoLastbytesToHex());
@@ -60,12 +60,13 @@ namespace MOS.RealMachine
         {
             string [,] flashOutput = new string[16,16];           
             flashOutput = cd.ReadFromFlash();  //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
-            //Console.Write(flashOutput);
+
 
             ptr._ptr = memory.getMemory(); //isskiriami laisvi atminties blokai programai
 
             TransferProgramToMemory(flashOutput);
 
+          
             VirtualMachine.VirtualMachine vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c); //sukuriama virtuali masina
             vm.RunCode(); //virtualiai pasinai pasakoma vykdyti koda
         }

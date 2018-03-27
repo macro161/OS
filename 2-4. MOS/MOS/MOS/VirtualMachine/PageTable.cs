@@ -19,6 +19,7 @@ namespace MOS.VirtualMachine
         public int RealAddress(int x)
         {
             return Int32.Parse(RealMachine.RealMachine.memory.StringAt(getPtr(), x));
+
         }
     }
 }
