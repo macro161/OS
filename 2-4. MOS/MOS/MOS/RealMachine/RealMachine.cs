@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using MOS.Registers;
+using MOS.VirtualMachine;
 
 namespace MOS.RealMachine
 {
@@ -54,7 +55,8 @@ namespace MOS.RealMachine
 
                  {
                      case "1":
-                         LoadTestProgram();
+                        Console.WriteLine( memory.getMemory());
+                        ic.IC++;
                          break;
                      case "2":
                          break;
@@ -73,18 +75,17 @@ namespace MOS.RealMachine
                 //Console.WriteLine(ptr.PTR);
                 //Console.WriteLine(ptr.PTR.TwoLastbytesToHex());
 
-                 }
-                ptr._ptr = memory.getMemory();
+                 
+                ptr.PTR = memory.getMemory();
             }
         }
 
         private void LoadTestProgram()
         {
 
-            ptr._ptr = memory.getMemory();
+            ptr.PTR = memory.getMemory();
             string [,] flashOutput = new string[16,16];           
 
-            string[,] flashOutput = new string[16, 16];
 
             flashOutput = cd.ReadFromFlash();  //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
             Console.WriteLine("Good mem");
@@ -98,7 +99,7 @@ namespace MOS.RealMachine
                 }
             }
 
-            ptr._ptr = memory.getMemory(); //isskiriami laisvi atminties blokai programai
+            ptr.PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
 
             PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
 
@@ -139,7 +140,112 @@ namespace MOS.RealMachine
 
             Console.ReadLine();
         }
+        public bool Test() // metodas apdorojantis pertraukimus, cont kintamasis parodo, ar tęsime VM veiklą atsižvelgiant į pertraukimų tipus.
+        {
+            bool cont = true;
+            switch (pi.PI)
+            {
+                case 1:
+                    Printer.PrintToScreen("Neteisingai įvestas adresas!");
+                    cont = false;
+                    break;
+                case 2:
+                    Printer.PrintToScreen("Neteisingas operacijos kodas!");
+                    cont = false;
+                    break;
+                case 3:
+                    Printer.PrintToScreen("Negalimas priskyrimas!");
+                    cont = false;
+                    break;
+                case 4:
+                    Printer.PrintToScreen("overflow!");
+                    break;
+            }
+            switch (si.SI)
+            {
+                case 1:
+                    GetData(r1.R, r2.R);
+                    break;
+                case 2:
+                    WriteData(r1.R, r2.R);
+                    break;
+                case 3:
+                    Halt();
+                    cont = false;
+                    break;
+            }
+            if (ti.TI == 0)
+            {
+                Printer.PrintToScreen("Taimerio pertraukimas!");
+            }
+            return cont;
+        }
+        private void Halt()
+        {
+            PageTable pt = new PageTable(ptr.PTR);
+            for (int i = 0; i < 16; i++)
+            {
+                int x = pt.RealAddress(i);
+                for (int j = 0; j < 16; j++)
+                {
+                    memory.WriteAt(x, j, "");
+                }
+                memory.WriteAt(ptr.PTR.TwoLastbytesToHex(), i, "");
+                memory.SetFree(x);
+            }
+            memory.SetFree(ptr.PTR.TwoLastbytesToHex());
+            ptr.Clear();
+        }
+        private void GetData(int x1, int x2)
+        {
+            
+        }
+        private void WriteData(int x1, int x2)
+        {
+            string output = "";
+            output += memory.StringAt(x1, x2);
+            x2++;
+            if (x2 > 15)
+            {
+                x2 = 0;
+                x1++;
+            }
+            output += memory.StringAt(x1, x2);
+            x2++;
+            if (x2 > 15)
+            {
+                x2 = 0;
+                x1++;
+            }
+            output += memory.StringAt(x1, x2);
+            x2++;
+            if (x2 > 15)
+            {
+                x2 = 0;
+                x1++;
+            }
+            output += memory.StringAt(x1, x2);
+            x2++;
+            if (x2 > 15)
+            {
+                x2 = 0;
+                x1++;
+            }
+            Printer.PrintToScreen(output);
+        }
 
+        public static bool test()
+        {
+            ti.DecrementTI();
+            if (((pi.PI + si.SI) > 0) || (ti.TI == 0))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public void PrintMemory()
         {
             Console.WriteLine("0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F");

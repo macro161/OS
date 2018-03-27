@@ -29,33 +29,25 @@ namespace MOS.VirtualMachine
 
         public void RunCode()
         {
-            Console.WriteLine("VM'e:                        ");
-
-            for (int i = 0; i < 16; i++)
+            while (true)
             {
-                for (int j = 0; j < 16; j++)
+                if (RealMachine.RealMachine.test())
                 {
-                    Console.Write(RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR._ptr.ToHex(), i).ToHex(), j));
-                    // Console.WriteLine("Command: " + command););
+                    return;
                 }
-            }
-
-            int C = 0;
-            while (C < 200)
-            {
                 Console.Write("IC X:" + IC.GetX() + "IC Y;" + IC.GetY());
-                //string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR._ptr.ToHex(),IC.GetX()).ToHex(),IC.GetY());
-               // Console.WriteLine("Command: " + command);
+                string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR.PTR.ToHex(),IC.GetX()).ToHex(),IC.GetY());
+                Console.WriteLine("Command: " + command);
                 IC.Increase();
-               // if (command[0] == 'H' && command[1] == 'A')
-               //// {
-               //     halt();
-              //  }
-               // else
-              //  {
-                   // DoTask(command);
-             //   } 
-                C++;
+                if (command[0] == 'H' && command[1] == 'A')
+                {
+                  halt();
+                }
+                else
+                {
+                    DoTask(command);
+             } 
+
             }
         }
         private void halt()
@@ -138,12 +130,20 @@ namespace MOS.VirtualMachine
 
         private void gd(string x1x2)
         {
-            R1.R = x1x2.ToHex();
+            int x1 = x1x2.Substring(0, 1).ToHex();
+            int x2 = x1x2.Substring(1, 1).ToHex();
+            x1 = pt.RealAddress(x1);
+            R1.R = x1;
+            R2.R = x2;
             RealMachine.RealMachine.si.SI = 1;
         }
         private void pd(string x1x2)
         {
-            R1.R = x1x2.ToHex();
+            int x1 = x1x2.Substring(0, 1).ToHex();
+            int x2 = x1x2.Substring(1, 1).ToHex();
+            x1 = pt.RealAddress(x1);
+            R1.R = x1;
+            R2.R = x2;
             RealMachine.RealMachine.si.SI = 2;
         }
 

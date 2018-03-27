@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace MOS.RealMachine
 {
@@ -17,6 +18,10 @@ namespace MOS.RealMachine
                 }
                 writer.WriteLine("");
             }
+        }
+        public static void PrintToScreen(string output)
+        {
+            Console.WriteLine(output);
         }
     }
 }

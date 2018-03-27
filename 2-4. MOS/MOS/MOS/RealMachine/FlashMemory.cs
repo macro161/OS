@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.IO;
+using System;
 
 namespace MOS.RealMachine
 {
@@ -18,6 +19,15 @@ namespace MOS.RealMachine
                 Debug.WriteLine(e.ToString());
             }
             return flash;
+        }
+        public string GetFromScreen(int kiekis)
+        {
+            string s = Console.ReadLine();
+            if (s.Length > 15)
+            {
+                return s.Substring(0, 16);
+            }
+            return s;
         }
     }
 }

@@ -26,6 +26,11 @@ namespace MOS.RealMachine
             isUsed[i] = true;
             return i;
         }
+        public void SetFree(int nr)
+        {
+            isUsed[nr] = false;
+            free++;
+        }
         public string getMemory() // gražina ptr registrą, kuris rodo į puslapių lentelę
         {
             if (free < 18)
