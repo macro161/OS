@@ -23,19 +23,135 @@ namespace MOS.RealMachine
         public static UserMemory memory = new UserMemory();
         private bool run = true;
 
-        public int R1 { get { return r1.R; } set { r1.R = value; InvokePropertyChanged(new PropertyChangedEventArgs("R1")); } }
-        public int R2 { get { return r2.R; } set { r2.R = value; InvokePropertyChanged(new PropertyChangedEventArgs("R2")); } }
-        public int R3 { get { return r3.R; } set { r3.R = value; InvokePropertyChanged(new PropertyChangedEventArgs("R3")); } }
-        public int R4 { get { return r4.R; } set { r4.R = value; InvokePropertyChanged(new PropertyChangedEventArgs("R4")); } }
-        public byte SF { get { return sf.SF; } set { sf.SF = value; InvokePropertyChanged(new PropertyChangedEventArgs("SF")); } }
-        public short SI { get { return si.SI; } set { si.SI = value; InvokePropertyChanged(new PropertyChangedEventArgs("SI")); } }
-        public ushort TI { get { return ti.TI; } set { ti.TI = value; InvokePropertyChanged(new PropertyChangedEventArgs("TI")); } }
-        public string PTR { get { return ptr.PTR; } set { ptr.PTR = value; InvokePropertyChanged(new PropertyChangedEventArgs("PTR")); } }
-        public bool C { get { return c.C; } set { c.C = value; InvokePropertyChanged(new PropertyChangedEventArgs("C")); } }
-        public ushort IC { get { return ic.IC; } set { ic.IC = value; InvokePropertyChanged(new PropertyChangedEventArgs("IC")); } }
-        public ushort IOI { get { return ioi.IOI; } set { ioi.IOI = value; InvokePropertyChanged(new PropertyChangedEventArgs("IOI")); } }
-        public byte MODE { get { return mode.Mode; } set { mode.Mode = value; InvokePropertyChanged(new PropertyChangedEventArgs("MODE")); } }
-        public short PI { get { return pi.PI; } set { pi.PI = value; InvokePropertyChanged(new PropertyChangedEventArgs("PI")); } }
+        public int R1
+        {
+            get => r1.R;
+            set
+            {
+                r1.R = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("R1"));
+            }
+        }
+
+        public int R2
+        {
+            get => r2.R;
+            set
+            {
+                r2.R = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("R2"));
+            }
+        }
+
+        public int R3
+        {
+            get => r3.R;
+            set
+            {
+                r3.R = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("R3"));
+            }
+        }
+
+        public int R4
+        {
+            get => r4.R;
+            set
+            {
+                r4.R = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("R4"));
+            }
+        }
+
+        public byte SF
+        {
+            get => sf.SF;
+            set
+            {
+                sf.SF = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("SF"));
+            }
+        }
+
+        public short SI
+        {
+            get => si.SI;
+            set
+            {
+                si.SI = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("SI"));
+            }
+        }
+
+        public ushort TI
+        {
+            get => ti.TI;
+            set
+            {
+                ti.TI = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("TI"));
+            }
+        }
+
+        public string PTR
+        {
+            get => ptr.PTR;
+            set
+            {
+                ptr.PTR = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("PTR"));
+            }
+        }
+
+        public bool C
+        {
+            get => c.C;
+            set
+            {
+                c.C = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("C"));
+            }
+        }
+
+        public ushort IC
+        {
+            get => ic.IC;
+            set
+            {
+                ic.IC = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("IC"));
+            }
+        }
+
+        public ushort IOI
+        {
+            get => ioi.IOI;
+            set
+            {
+                ioi.IOI = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("IOI"));
+            }
+        }
+
+        public byte MODE
+        {
+            get => mode.Mode;
+            set
+            {
+                mode.Mode = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("MODE"));
+            }
+        }
+
+        public short PI
+        {
+            get => pi.PI;
+            set
+            {
+                pi.PI = value;
+                InvokePropertyChanged(new PropertyChangedEventArgs("PI"));
+            }
+        }
 
         public void PowerOn()
         {
@@ -50,43 +166,42 @@ namespace MOS.RealMachine
 
 
 
-                 switch (h)
+                switch (h)
 
-                 {
-                     case "1":
-                         LoadTestProgram();
-                         break;
-                     case "2":
-                         break;
-                     case "3":
-                         PrintRegisters();
-                         break;
-                     case "4":
-                         PrintMemory();
-                         break;
-                     default:
-                         Console.WriteLine("Bad input");
-                         break;
+                {
+                    case "1":
+                        LoadTestProgram();
+                        break;
+                    case "2":
+                        break;
+                    case "3":
+                        PrintRegisters();
+                        break;
+                    case "4":
+                        PrintMemory();
+                        break;
+                    default:
+                        Console.WriteLine("Bad input");
+                        break;
 
-                 }
+                }
                 //PTR = memory.getMemory();
                 //Console.WriteLine(ptr.PTR);
                 //Console.WriteLine(ptr.PTR.TwoLastbytesToHex());
 
-                 }
-                ptr._ptr = memory.getMemory();
             }
+
+            ptr.PTR = memory.getMemory();
         }
+
 
         private void LoadTestProgram()
         {
 
-            ptr._ptr = memory.getMemory();
-            string [,] flashOutput = new string[16,16];           
-
+            ptr.PTR = memory.getMemory();
             string[,] flashOutput = new string[16, 16];
 
-            flashOutput = cd.ReadFromFlash();  //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
+            flashOutput = cd.ReadFromFlash(); //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
             Console.WriteLine("Good mem");
 
 
@@ -98,15 +213,16 @@ namespace MOS.RealMachine
                 }
             }
 
-            ptr._ptr = memory.getMemory(); //isskiriami laisvi atminties blokai programai
+            ptr.PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
 
             PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
 
 
             TransferProgramToMemory(flashOutput);
 
-          
-            VirtualMachine.VirtualMachine vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c); //sukuriama virtuali masina
+
+            VirtualMachine.VirtualMachine
+                vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c); //sukuriama virtuali masina
             vm.RunCode(); //virtualiai pasinai pasakoma vykdyti koda
         }
 
@@ -150,6 +266,7 @@ namespace MOS.RealMachine
                 {
                     Console.Write(memory.StringAt(i, j) + " ");
                 }
+
                 Console.WriteLine("");
             }
 
@@ -161,8 +278,9 @@ namespace MOS.RealMachine
         public void InvokePropertyChanged(PropertyChangedEventArgs e)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, e);
+            handler?.Invoke(this, e);
         }
 
     }
 }
+

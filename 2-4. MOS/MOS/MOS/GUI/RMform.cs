@@ -1,14 +1,6 @@
 ﻿using MOS.RealMachine;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using MOS.Registers;
 
 namespace MOS.GUI
 {
@@ -16,7 +8,7 @@ namespace MOS.GUI
     {
         //public static UserMemory memory = RealMachine.RealMachine.memory;
         //public static string[,] memoryArray = memory.UserMemoryProp;
-        public RealMachine.RealMachine RM = new RealMachine.RealMachine();
+        public RealMachine.RealMachine RM;
 
         public RMform(RealMachine.RealMachine rm)
         {
