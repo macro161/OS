@@ -75,17 +75,33 @@ namespace MOS.RealMachine
 
                  }
                 ptr._ptr = memory.getMemory();
-                Console.WriteLine(ptr._ptr);
-                Console.WriteLine(ptr._ptr.TwoLastbytesToHex());
             }
         }
 
         private void LoadTestProgram()
         {
+
+            ptr._ptr = memory.getMemory();
+            string [,] flashOutput = new string[16,16];           
+
             string[,] flashOutput = new string[16, 16];
+
             flashOutput = cd.ReadFromFlash();  //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
+            Console.WriteLine("Good mem");
+
+
+            for (int i = 0; i < 16; i++)
+            {
+                for (int j = 0; j < 16; j++)
+                {
+                    Console.Write(flashOutput[i, j]);
+                }
+            }
+
+            ptr._ptr = memory.getMemory(); //isskiriami laisvi atminties blokai programai
 
             PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
+
 
             TransferProgramToMemory(flashOutput);
 

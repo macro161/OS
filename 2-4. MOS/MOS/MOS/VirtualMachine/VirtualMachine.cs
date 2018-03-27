@@ -29,11 +29,23 @@ namespace MOS.VirtualMachine
 
         public void RunCode()
         {
+            Console.WriteLine("VM'e:                        ");
+
+            for (int i = 0; i < 16; i++)
+            {
+                for (int j = 0; j < 16; j++)
+                {
+                    Console.Write(RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR._ptr.ToHex(), i).ToHex(), j));
+                    // Console.WriteLine("Command: " + command););
+                }
+            }
+
             int C = 0;
             while (C < 200)
             {
-                string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR._ptr.ToHex(),IC.GetX()).ToHex(),IC.GetY());
-                Console.WriteLine("Command: " + command);
+                Console.Write("IC X:" + IC.GetX() + "IC Y;" + IC.GetY());
+                //string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR._ptr.ToHex(),IC.GetX()).ToHex(),IC.GetY());
+               // Console.WriteLine("Command: " + command);
                 IC.Increase();
                // if (command[0] == 'H' && command[1] == 'A')
                //// {

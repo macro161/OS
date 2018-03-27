@@ -35,7 +35,7 @@ namespace MOS.RealMachine
             {
                 for (int j = 0; j < 16; j++)
                 {
-                    Console.Write(matrix[i, j]);
+                    //Console.Write(matrix[i, j]);
                 }
             }
 
@@ -97,7 +97,6 @@ namespace MOS.RealMachine
                     {
                         string strCom = str.Substring(0, 2);
                         string strAdd = str.Substring(2, 2);
-                        //Debug.WriteLine(strCom + "*" + strAdd);
                         if (strCom == command && System.Text.RegularExpressions.Regex.IsMatch(strAdd, @"\A\b[0-9a-fA-F]+\b\Z"))
                         {
                             isCorrect = true;
@@ -145,11 +144,7 @@ namespace MOS.RealMachine
 
             if (!checkCommands(code))
                 Debug.WriteLine("Bad input!");
-            //else Debug.WriteLine("GOOD INPUT!!");
-            //foreach (string str in data)
-            //    Debug.WriteLine(str);
-            //foreach (string str in code)
-            //    Debug.WriteLine(str);
+ 
 
             foreach (string str in data.ToArray())
             {
@@ -177,16 +172,6 @@ namespace MOS.RealMachine
                     break;
                 k++;
             }
-
-            //for (int z = 0; z < 16; z++)
-            //{
-            //    for (int f = 0; f < 16; f++)
-            //    {
-            //        Debug.Write(matrix[z, f]);
-            //    }
-            //    Debug.WriteLine("");
-            //}
-
         }
 
         public void PrinterOutuput(string[,] input)
