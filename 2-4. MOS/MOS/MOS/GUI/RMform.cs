@@ -14,10 +14,6 @@ namespace MOS.GUI
         {
             RM = rm;
             InitializeComponent();
-        }
-
-        private void RMform_Load(object sender, EventArgs e)
-        {
             R1text.DataBindings.Add("Text", RM, "R1");
             R2text.DataBindings.Add("Text", RM, "R2");
             R3text.DataBindings.Add("Text", RM, "R3");
@@ -31,8 +27,13 @@ namespace MOS.GUI
             IOItext.DataBindings.Add("Text", RM, "IOI");
             MODEtext.DataBindings.Add("Text", RM, "MODE");
             PItext.DataBindings.Add("Text", RM, "PI");
-            
+
             LoadRMMemory();
+        }
+
+        private void RMform_Load(object sender, EventArgs e)
+        {
+            
         }
 
         private void label2_Click(object sender, EventArgs e)
@@ -65,6 +66,10 @@ namespace MOS.GUI
             }
             RMmemory.Update();
         }
-        
+
+        private void R2label_Click(object sender, EventArgs e)
+        {
+           // RM.PowerOn();
+        }
     }
 }

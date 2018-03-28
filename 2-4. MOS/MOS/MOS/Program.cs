@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Windows.Forms;
 
 
@@ -16,10 +17,14 @@ namespace MOS
         {
             RealMachine.RealMachine realMachine = new RealMachine.RealMachine();
             //realMachine.PowerOn();
+            Thread t = new Thread(new ThreadStart(realMachine.PowerOn));
+            t.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
+            new Thread(() => {
             Application.Run(new GUI.RMform(realMachine));
+        }).Start();
+            
 
             //var file = new ChannelsDevice();
             //file.ReadFromFlash();

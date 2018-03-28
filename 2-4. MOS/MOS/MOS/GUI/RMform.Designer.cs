@@ -137,6 +137,7 @@
             this.R2label.Size = new System.Drawing.Size(21, 13);
             this.R2label.TabIndex = 10;
             this.R2label.Text = "R2";
+            this.R2label.Click += new System.EventHandler(this.R2label_Click);
             // 
             // R3label
             // 

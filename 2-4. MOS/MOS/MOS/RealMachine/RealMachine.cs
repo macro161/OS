@@ -23,14 +23,14 @@ namespace MOS.RealMachine
         public PTR_Reg ptr = new PTR_Reg();
         public static UserMemory memory = new UserMemory();
         private bool run = true;
-
+        #region gui
         public int R1
         {
             get => r1.R;
             set
             {
                 r1.R = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("R1"));
+                this.RaisePropertyChangedEvent("R1");
             }
         }
 
@@ -40,7 +40,7 @@ namespace MOS.RealMachine
             set
             {
                 r2.R = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("R2"));
+                this.RaisePropertyChangedEvent("R2");
             }
         }
 
@@ -50,7 +50,7 @@ namespace MOS.RealMachine
             set
             {
                 r3.R = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("R3"));
+                this.RaisePropertyChangedEvent("R3");
             }
         }
 
@@ -60,7 +60,7 @@ namespace MOS.RealMachine
             set
             {
                 r4.R = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("R4"));
+                this.RaisePropertyChangedEvent("R4");
             }
         }
 
@@ -70,7 +70,7 @@ namespace MOS.RealMachine
             set
             {
                 sf.SF = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("SF"));
+                this.RaisePropertyChangedEvent("SF");
             }
         }
 
@@ -80,7 +80,7 @@ namespace MOS.RealMachine
             set
             {
                 si.SI = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("SI"));
+                this.RaisePropertyChangedEvent("SI");
             }
         }
 
@@ -90,7 +90,7 @@ namespace MOS.RealMachine
             set
             {
                 ti.TI = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("TI"));
+                this.RaisePropertyChangedEvent("TI");
             }
         }
 
@@ -100,7 +100,7 @@ namespace MOS.RealMachine
             set
             {
                 ptr.PTR = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("PTR"));
+                this.RaisePropertyChangedEvent("PTR");
             }
         }
 
@@ -110,7 +110,7 @@ namespace MOS.RealMachine
             set
             {
                 c.C = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("C"));
+                this.RaisePropertyChangedEvent("C");
             }
         }
 
@@ -120,7 +120,7 @@ namespace MOS.RealMachine
             set
             {
                 ic.IC = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("IC"));
+                this.RaisePropertyChangedEvent("IC");
             }
         }
 
@@ -130,7 +130,7 @@ namespace MOS.RealMachine
             set
             {
                 ioi.IOI = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("IOI"));
+                this.RaisePropertyChangedEvent("IOI");
             }
         }
 
@@ -140,7 +140,7 @@ namespace MOS.RealMachine
             set
             {
                 mode.Mode = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("MODE"));
+                this.RaisePropertyChangedEvent("MODE");
             }
         }
 
@@ -150,10 +150,10 @@ namespace MOS.RealMachine
             set
             {
                 pi.PI = value;
-                InvokePropertyChanged(new PropertyChangedEventArgs("PI"));
+                this.RaisePropertyChangedEvent("PI");
             }
         }
-
+        #endregion
         public void PowerOn()
         {
             while (run)
@@ -171,7 +171,11 @@ namespace MOS.RealMachine
 
                 {
                     case "1":
-                        LoadTestProgram();
+                        ptr.PTR = memory.getMemory();
+                        Console.WriteLine(ptr.PTR);
+                        Console.WriteLine(ptr.PTR.TwoLastbytesToHex());
+                        ic.IC++;
+                        //LoadTestProgram();
                         break;
                     case "2":
                         break;
@@ -186,12 +190,12 @@ namespace MOS.RealMachine
                         break;
 
                 }
-                //PTR = memory.getMemory();
-                //Console.WriteLine(ptr.PTR);
-                //Console.WriteLine(ptr.PTR.TwoLastbytesToHex());
+                
             }
+            ic.IC++;
 
-            ptr.PTR = memory.getMemory();
+            Console.WriteLine(ptr.PTR = memory.getMemory());
+            PrintRegisters();
         }
 
 
@@ -252,7 +256,7 @@ namespace MOS.RealMachine
             Console.WriteLine("SF - " + SF.ToString());
             Console.WriteLine("SI - " + SI.ToString());
             Console.WriteLine("TI - " + TI.ToString());
-            Console.WriteLine("PTR - " + ptr);
+            Console.WriteLine("PTR - " + ptr.PTR);
 
             Console.ReadLine();
         }
@@ -296,6 +300,7 @@ namespace MOS.RealMachine
             }
             return cont;
         }
+
         private void Halt()
         {
             PageTable pt = new PageTable(ptr.PTR);
@@ -381,12 +386,13 @@ namespace MOS.RealMachine
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void InvokePropertyChanged(PropertyChangedEventArgs e)
+        private void RaisePropertyChangedEvent(string propertyName)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            handler?.Invoke(this, e);
+            PropertyChangedEventHandler handler = this.PropertyChanged;
+            if (PropertyChanged != null) handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
 
-    }
+
+}
 }
 
