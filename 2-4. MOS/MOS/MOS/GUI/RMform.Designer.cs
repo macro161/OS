@@ -54,7 +54,9 @@
             this.IOIlabel = new System.Windows.Forms.Label();
             this.TIlabel = new System.Windows.Forms.Label();
             this.SIlabel = new System.Windows.Forms.Label();
-            this.RMmemory = new System.Windows.Forms.TextBox();
+            this.dataGrid = new System.Windows.Forms.DataGridView();
+            this.button1 = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             this.SuspendLayout();
             // 
             // R1text
@@ -267,22 +269,32 @@
             this.SIlabel.TabIndex = 25;
             this.SIlabel.Text = "SI";
             // 
-            // RMmemory
+            // dataGrid
             // 
-            this.RMmemory.Location = new System.Drawing.Point(114, 12);
-            this.RMmemory.Multiline = true;
-            this.RMmemory.Name = "RMmemory";
-            this.RMmemory.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.RMmemory.Size = new System.Drawing.Size(847, 383);
-            this.RMmemory.TabIndex = 26;
-            this.RMmemory.TextChanged += new System.EventHandler(this.RMmemory_TextChanged);
+            this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGrid.Location = new System.Drawing.Point(114, 12);
+            this.dataGrid.Name = "dataGrid";
+            this.dataGrid.Size = new System.Drawing.Size(662, 385);
+            this.dataGrid.TabIndex = 27;
+            this.dataGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGrid_CellContentClick);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 28;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // RMform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(971, 412);
-            this.Controls.Add(this.RMmemory);
+            this.ClientSize = new System.Drawing.Size(776, 402);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.dataGrid);
             this.Controls.Add(this.SIlabel);
             this.Controls.Add(this.TIlabel);
             this.Controls.Add(this.IOIlabel);
@@ -312,6 +324,7 @@
             this.Name = "RMform";
             this.Text = "RMform";
             this.Load += new System.EventHandler(this.RMform_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -345,6 +358,7 @@
         private System.Windows.Forms.Label IOIlabel;
         private System.Windows.Forms.Label TIlabel;
         private System.Windows.Forms.Label SIlabel;
-        private System.Windows.Forms.TextBox RMmemory;
+        private System.Windows.Forms.DataGridView dataGrid;
+        private System.Windows.Forms.Button button1;
     }
 }

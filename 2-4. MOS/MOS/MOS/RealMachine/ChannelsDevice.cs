@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -17,6 +18,15 @@ namespace MOS.RealMachine
 
         string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data.txt");
         string[,] matrix = new string[16, 16];
+        public string[,] Matrix
+        {
+            get => matrix;
+            set
+            {
+                matrix = value;
+                this.RaisePropertyChangedEvent("matrix");
+            }
+        }
         string[] flash;
         FlashMemory flashMemory = new FlashMemory();
 
@@ -182,6 +192,14 @@ namespace MOS.RealMachine
         public void DoTheBeep()
         {
             Speaker.Beep();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void RaisePropertyChangedEvent(string propertyName)
+        {
+            PropertyChangedEventHandler handler = this.PropertyChanged;
+            if (PropertyChanged != null) handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
         }
     }
 }

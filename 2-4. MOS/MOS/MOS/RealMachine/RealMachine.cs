@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Data;
 using MOS.Registers;
 using MOS.VirtualMachine;
 
@@ -23,7 +24,20 @@ namespace MOS.RealMachine
         public PTR_Reg ptr = new PTR_Reg();
         public static UserMemory memory = new UserMemory();
         private bool run = true;
+        public string[,] mematrix = new string[16, 16];
         #region gui
+        public string[,] Memory
+        {
+            //get => memory.UserMemoryProp;
+            get => mematrix;
+            set
+            {
+                //memory.UserMemoryProp = value;
+                mematrix = value;
+                this.RaisePropertyChangedEvent("Memory");
+            }
+        }
+
         public int R1
         {
             get => r1.R;
@@ -153,6 +167,7 @@ namespace MOS.RealMachine
                 this.RaisePropertyChangedEvent("PI");
             }
         }
+
         #endregion
         public void PowerOn()
         {
@@ -164,18 +179,15 @@ namespace MOS.RealMachine
                 Console.WriteLine("4. Print Real machine memory");
 
                 var h = Console.ReadLine();
-
-
-
+                
                 switch (h)
-
                 {
                     case "1":
                         ptr.PTR = memory.getMemory();
                         Console.WriteLine(ptr.PTR);
                         Console.WriteLine(ptr.PTR.TwoLastbytesToHex());
                         ic.IC++;
-                        //LoadTestProgram();
+                        LoadTestProgram();
                         break;
                     case "2":
                         break;
@@ -188,28 +200,22 @@ namespace MOS.RealMachine
                     default:
                         Console.WriteLine("Bad input");
                         break;
-
                 }
-                
             }
             ic.IC++;
 
             Console.WriteLine(ptr.PTR = memory.getMemory());
             PrintRegisters();
         }
-
-
+        
         private void LoadTestProgram()
         {
-
             ptr.PTR = memory.getMemory();
-            string [,] flashOutput = new string[16,16];           
-
-
+            string[,] flashOutput = new string[16, 16];
+            
             flashOutput = cd.ReadFromFlash(); //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
             Console.WriteLine("Good mem");
-
-
+            
             for (int i = 0; i < 16; i++)
             {
                 for (int j = 0; j < 16; j++)
@@ -217,14 +223,9 @@ namespace MOS.RealMachine
                     Console.Write(flashOutput[i, j]);
                 }
             }
-
-            ptr.PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
-
+            //ptr.PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
             PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
-
-
             TransferProgramToMemory(flashOutput);
-
 
             VirtualMachine.VirtualMachine
                 vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c); //sukuriama virtuali masina
@@ -319,7 +320,7 @@ namespace MOS.RealMachine
         }
         private void GetData(int x1, int x2)
         {
-            
+
         }
         private void WriteData(int x1, int x2)
         {
@@ -389,10 +390,10 @@ namespace MOS.RealMachine
         private void RaisePropertyChangedEvent(string propertyName)
         {
             PropertyChangedEventHandler handler = this.PropertyChanged;
-            if (PropertyChanged != null) handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            if (PropertyChanged != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 
 
-}
+    }
 }
 

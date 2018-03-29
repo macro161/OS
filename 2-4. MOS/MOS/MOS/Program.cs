@@ -21,13 +21,13 @@ namespace MOS
             t.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            new Thread(() => {
-            Application.Run(new GUI.RMform(realMachine));
-        }).Start();
+        //    var file = new RealMachine.ChannelsDevice();
+        //    file.ReadFromFlash();
+        //    new Thread(() => {
+        //    Application.Run(new GUI.RMform(realMachine));
+        //}).Start();
             
 
-            //var file = new ChannelsDevice();
-            //file.ReadFromFlash();
             log.Info("So far only logs to bin/Debug/mylog");
             //var logging = new LoggerTextBox();
             //Application.Run(logging);
