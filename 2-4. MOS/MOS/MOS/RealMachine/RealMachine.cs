@@ -193,6 +193,9 @@ namespace MOS.RealMachine
                     case "4":
                         PrintMemory();
                         break;
+                    case "5":
+                        zingsninis();
+                        break;
                     default:
                         Console.WriteLine("Bad input");
                         break;
@@ -203,7 +206,30 @@ namespace MOS.RealMachine
             Console.WriteLine(ptr.PTR = memory.getMemory());
             PrintRegisters();
         }
-        
+        public void zingsninis()
+        {
+            string[,] flashOutput = new string[16, 16];
+            flashOutput = cd.ReadFromFlash(); //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
+
+            ptr.PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
+            TransferProgramToMemory(flashOutput);
+            VirtualMachine.VirtualMachine
+                vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c);
+            while (true)
+            {   
+                vm.RunCommand();
+                if (test())
+                {
+                    if (!Test())
+                    {
+                        break;
+                    }
+                }
+                Console.ReadLine();
+            }
+            
+
+        }
         private void LoadTestProgram()
         {
             string[,] flashOutput = new string[16, 16];
@@ -297,7 +323,7 @@ namespace MOS.RealMachine
             }
             pi.PI = 0;
             si.SI = 0;
-            ti.TI = 2;
+            ti.TI = 10;
             return cont;
         }
 

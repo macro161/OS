@@ -85,15 +85,24 @@ Pagrindinę realios mašinos atmintį dalinasi vartotojo ir supervizorinė atmin
 Komandų įvedimui naudojamas ,,flash atmintinių" nuskaitymo įrenginys. Išvedimui naudojamas spausdintuvas. Abu šie įrenginiai tėra modeliai ir didelio skirtumo nedarys.
 
 \subsection{Puslapiavimo mechanizmas}
-Puslapiavimo mechanizmas yra metodas skirtas virtualios atminties adreso parodymui į realios atminties adresą. Kiekvienai virtualiai mašinai skiriama 16 atminties blokų. Sukuriant virtualią mašiną sukuriama puslapių lentelė. Naudojamas PTR(4 baitų a0,a1,a2,a3) registras kuriame laikomas puslapių lentelės adresas. Baitas a0 yra nenaudojamas, a1 puslapių lentelės ilgis
-atėmus 1 o štai a2 * 16 + a3 žymi puslapių lentelės adresą. Dabar galime pateikti formulę, kuri virtualiam adresui x1x2 gražina realų adresą: Realus adresas = 16*[16*(16 * a2 + a3) + x1] + x2.
+Puslapiavimo mechanizmas yra metodas skirtas virtualios atminties adreso parodymui į realios atminties adresą. Kiekvienai virtualiai mašinai skiriama 16 atminties blokų. Sukuriant virtualią mašiną sukuriama puslapių lentelė. Naudojamas PTR(4 baitų a0,a1,a2,a3) registras kuriame laikomas puslapių lentelės adresas. Baitai a0 ir a1 yra nenaydojami, o a2 * 16 + a3 žymi puslapių lentelės adresą. Dabar galime pateikti formulę, kuri virtualiam adresui x1x2 gražina realų adresą: Realus adresas = 16*[16*(16 * a2 + a3) + x1] + x2.
 \subsection{Garso kolonėlė}
 Vartotojui įvedus atitinkamą komandą kompiuterio garso kolonėlė supypsi x1 kartų.
-
+\subsection{Pertraukimų mechanizmas}
+Vykdant komandą virtualioje mašinos gali kilti pertraukimai, tuo atvėju nustatoma atitinkamu registrų reikšė ir nutraukiamas komandos vykdymas. Kviečiant test() metodą, patikrinama ar įvyko pertraukimas, jam įvykus nutraukiamas virtualios mašinos darbas ir kviečiamas metodas Test(), kuris apdorojo pertraukimą. Apdorojus pertraukimą sprendžiama ar grąžinti darbą atgal virtualiai mašinai. Galimi pertraukimai:
+\begin{itemize}
+\item Operacijos GD, PD, PY ir HALT iššauks supervizorinius pertraukimus. SI = 1 - komanda
+GD, SI = 2 - komanda PD, SI = 3 - komanda PY, SI = 4 – komanda HALT.
+\item Programiniai pertraukimai:PI = 1 – neteisingas adresas, PI = 2 – neteisingas operacijos
+kodas, PI = 3 – neteisingas priskyrimas, PI = 4 – perpildymas (overflow).
+\item Esant TI = 0 bus fiksuojamas taimerio pertraukimas.
+\end{itemize}
+\subsection{Timerio mechanizmas}
+Vygdant virtualią mašiną kas komandą mažinama timerio registro reikšmė, jai pasiekus 0 įvyksta pertraukimas, o jį apdorojus timerio reikšmė nustatoma 10.
 \subsection{Duomenų perdavimo kanalai}
 Skirti I/O ir atminties valdymui.Modelyje yra vienas kanalas kuriam galima padaryti skirtingas paskirtis: rašyti, skaityti arba abu. Duomenys eina per kanalą ir pats kanalo įrenginys juos nukreipia į reikiamą kryptį ir pasako kiek duomenų gali pasiimti o kiek reikia nukirpti. Kanalų įrenginio registrai:\newline
-\newline SB: Takelio, iš kurio kopijuosime numeris.
-\newline DB: Takelio, į kurį kopijuosime numeris
+\newline SB: Žodžio, nuo kurio kopijuosime numeris.
+\newline DB: Žodžio, į kurį pradėsime rašyti numeris
 \newline ST: Objekto, iš kurio kopijuosime, numeris
 \newline 1. Vartotojo atmintis;
 \newline 2. Supervizorinė atmintis;
@@ -120,9 +129,7 @@ Virtuali mašina yra skirta paslepti realios mašinos sudėtingumą ir suteikti 
 	\label{fig:Virtualios mašinos atmintis}
 \end{figure}
 
-	Virtualios mašinos atmintis susideda iš 16 blokų po 16 žodžių iš viso 256 žodžiai po 4 baitus arba 32 bitus. Naudosime registrą PTR(4 baitai a0 a1 a2 a3) kuriame laikomas adresas į puslapių lentelę. Baitas a0 yra nenaudojamas, a1 puslapių lentelės ilgis
-atėmus 1 , o
-štai a2 * 16 + a3 žymi puslapių lentelės adresą. Dabar galime pateikti formulę, kuri virtualiam
+	Virtualios mašinos atmintis susideda iš 16 blokų po 16 žodžių iš viso 256 žodžiai po 4 baitus arba 32 bitus. Naudosime registrą PTR(4 baitai a0 a1 a2 a3) kuriame laikomas adresas į puslapių lentelę. Baitai a0 ir a1 nenaudojami, o a2 * 16 + a3 žymi puslapių lentelės adresą. Dabar galime pateikti formulę, kuri virtualiam
 adresui x1x2 gražina realų adresą:
 Realus adresas = 16*[16*(16 * a2 + a3) + x1] + x2
 
@@ -181,22 +188,14 @@ if r1<[x1x2] then cf:=1;
 \item JU – besąlyginio valdymo perdavimas – valdymas perduodamas adresu 16*x1+x2:
 JU x1x2 =) IC:=16*x1+x2;
 \item JG – sąlyginio valdymo perdavimas (jeigu daugiau) – valdymas perduodamas jeigu
-C=0, valdymas perduodamas adresu 16*x1+x2:
-JG x1x2 =) If C=0 then IC:= 16*x1+x2;
-\item JE – sąlyginio valdymo perdavimas (jeigu lygu) – valdymas perduodamas jeigu C=1,
-valdymas perduodamas adresu 16*x1+x2:
-JE x1x2 =) If C=1 then IC:= 16*x1+x2;
+SF bitai ZF == 0 ir SF == OF. Valdymas perduodamas adresu 16*x1+x2:
+JG x1x2 =) If ZF == 0 && SF == OF then IC:= 16*x1+x2;
+\item JE – sąlyginio valdymo perdavimas (jeigu lygu) – valdymas perduodamas jeigu SF bitas ZF == 1.
+Valdymas perduodamas adresu 16*x1+x2:
+JE x1x2 =) If ZF == 1 then IC:= 16*x1+x2;
 \item JL – sąlyginio valdymo perdavimas (jeigu mažiau) – valdymas perduodamas jeigu
-C=2, valdymas perduodamas adresu 16*x1+x2:
-JL x1x2 =) If C=2 then IC:= 16*x1+x2;
-\end{enumerate}
-\item Darbo su bendra atminties sritimi (prieinama visoms vartotojo programoms; komandos
-leidžia į ją rašyti ir skaityti; sritis apsaugoma semaforais):
-\begin{enumerate}
-\item SM – registro R įrašymas į bendrąją atmintį:
-SM x1x2 =)[16*[16*(16*a2 + a3)+x1]x2]:=R (pagal puslapiavimo mechanizmą);
-\item LM – iš bendrosios atminties įrašomas žodis į registrą R:
-LM x1x2 =) R:= [16*[16*(16*a2 + a3)+x1]x2] (pagal puslapiavimo mechanizmą);
+SF bitai SF ir OF nelygūs, valdymas perduodamas adresu 16*x1+x2:
+JL x1x2 =) If SF != OF then IC:= 16*x1+x2;
 \end{enumerate}
 \item Programos pabaigos:
 \begin{enumerate}
@@ -234,11 +233,6 @@ CODESEG\newline
 HALT\newline
 Atmintis yra išdėstyta nuosekliai: 128 žodžiai skirti DATASEG (nuo 0 iki 127) ir 128 žodžiai\newline
 CODESEG (nuo 128 iki 255).\newline
-Duomenų segmento apraše galimi tokie atvejai:\newline
-DW - Išskiriamas vienas tuščias žodis skaitinei reikšmei.\newline
-DW X - Išskiriamas vienas žodis ir į jį talpinama nurodyta skaitinė reikšmė.\newline
-DB ssss - Išskiriamas vienas žodis ir į jį talpinami keturi nurodyti simboliai.\newline
-%DB nnnn - Tai rezervuota simbolinė konstanta, reiškianti ?????????? papildyti !!!!!!! .\newline
 Programa apskaičiuoja reiškinio „100 + 20 – 80“ reikšmę, bei ją išveda į ekraną.\newline
 000 | DATA\newline
 001 | 100\newline

@@ -25,7 +25,19 @@ namespace MOS.VirtualMachine
             
             pt = new PageTable(PTR.PTR);
         }
-
+        public void RunCommand()
+        {
+            string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR.PTR.ToHex(), IC.GetX()).ToHex(), IC.GetY());
+            IC.Increase();
+            if (command[0] == 'H' && command[1] == 'A')
+            {
+                halt();
+            }
+            else
+            {
+                DoTask(command);
+            }
+        }
         public void RunCode()
         {
             while (true)
