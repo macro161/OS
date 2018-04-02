@@ -20,13 +20,9 @@ namespace MOS.RealMachine
             }
             return flash;
         }
-        public string GetFromScreen(int kiekis)
+        public string GetFromScreen()
         {
             string s = Console.ReadLine();
-            if (s.Length > 15)
-            {
-                return s.Substring(0, 16);
-            }
             return s;
         }
     }

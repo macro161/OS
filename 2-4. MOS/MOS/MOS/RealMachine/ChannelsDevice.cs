@@ -10,14 +10,15 @@ namespace MOS.RealMachine
 {
     public class ChannelsDevice
     {
-        private int SB = 0; //Takelio,iš kurio kopijuosime numeris. 
+       /* private int SB = 0; //Takelio,iš kurio kopijuosime numeris. 
         private int DB = 0; //Takelio,į kurį kopijuosime numeris 
         private int ST = 0; //Objekto,iš kurio kopijuosime numeris 
         private int DT = 0; //Objekto,įkurįkopijuosime,numeris
-                            // 1. Vartotojoatmintis; 2. Supervizorinėatmintis; 3. Išorinėatmintis; 4. Įvedimosrautas; 
-
+                  FlashMemory flashMemory = new FlashMemory();           // 1. Vartotojoatmintis; 2. Supervizorinėatmintis; 3. Išorinėatmintis; 4. Įvedimosrautas; 
+*/
         string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data.txt");
         string[,] matrix = new string[16, 16];
+        FlashMemory flashMemory = new FlashMemory();
         public string[,] Matrix
         {
             get => matrix;
@@ -27,8 +28,44 @@ namespace MOS.RealMachine
                 this.RaisePropertyChangedEvent("matrix");
             }
         }
+        private int _sb;
+        private int _db;
+        private int _st;
+        private int _dt;
+        public int SB { get => _sb; set => _sb = value; }
+        public int DB { get => _db; set => _db = value; }
+        public int ST { get => _st; set => _st = value; }
+        public int DT { get => _dt; set => _dt = value; }
+
+        public void XCHG()
+        {
+            string returnString = "";
+            if (ST == 1 && DT == 4) //išvedimas į vartotojo ekraną, turi kreiptis į spausdintuvą, dėl išvedimo.
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    returnString += RealMachine.memory.StringAt(DB / 16, DB % 16);
+                    DB++;
+                }
+                Printer.PrintToScreen(returnString);
+            }
+            if (ST == 4 && DT == 1) //skaitymas iš ekrano, kreipiasi į flash dėl duomenų.
+            {
+                returnString = flashMemory.GetFromScreen();
+                while (returnString.Length < 16)
+                {
+                    returnString += " ";
+                }
+                for (int i = 0; i < 4; i++)
+                {
+                    RealMachine.memory.WriteAt(SB / 16, SB % 16, returnString.Substring(4*i, 4));
+                    SB++;
+                }
+            }
+        }
+
         string[] flash;
-        FlashMemory flashMemory = new FlashMemory();
+       
 
 
         public string[,] ReadFromFlash()

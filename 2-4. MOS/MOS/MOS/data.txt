@@ -1,0 +1,15 @@
+DATA
+100
+20
+80
+Rezu
+ltat
+as y
+ra:
+CODE
+LR01
+AD02
+SB03
+PD04
+SR10
+PD10

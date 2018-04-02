@@ -30,13 +30,8 @@ namespace MOS.VirtualMachine
         {
             while (true)
             {
-                if (RealMachine.RealMachine.test())
-                {
-                    return;
-                    // Console.WriteLine("Command: " + command););
-                }
                 string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR.PTR.ToHex(),IC.GetX()).ToHex(),IC.GetY());
-                Console.WriteLine("Command: " + command);
+               // Console.WriteLine("Command: " + command);
                 IC.Increase();
                 if (command[0] == 'H' && command[1] == 'A')
                 {
@@ -44,14 +39,17 @@ namespace MOS.VirtualMachine
                 }
                 else
                 {
-                    DoTask(command);
-             } 
-
+                   DoTask(command);
+                }
+                if (RealMachine.RealMachine.test())
+                {
+                    return;
+                }
             }
         }
         private void halt()
         {
-
+            RealMachine.RealMachine.si.SI = 3;
         }
         private void DoTask(String com)
         {
@@ -132,8 +130,7 @@ namespace MOS.VirtualMachine
             int x1 = x1x2.Substring(0, 1).ToHex();
             int x2 = x1x2.Substring(1, 1).ToHex();
             x1 = pt.RealAddress(x1);
-            R1.R = x1;
-            R2.R = x2;
+            R4.R = x1 * 16 + x2;
             RealMachine.RealMachine.si.SI = 1;
         }
         private void pd(string x1x2)
@@ -141,8 +138,7 @@ namespace MOS.VirtualMachine
             int x1 = x1x2.Substring(0, 1).ToHex();
             int x2 = x1x2.Substring(1, 1).ToHex();
             x1 = pt.RealAddress(x1);
-            R1.R = x1;
-            R2.R = x2;
+            R4.R = x1 * 16 + x2;
             RealMachine.RealMachine.si.SI = 2;
         }
 
@@ -175,14 +171,34 @@ namespace MOS.VirtualMachine
         private void lr(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
+            if (x1 > 8 || x1 < 0)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             int x2 = x1x2.Substring(1, 1).ToHex();
+            if (x2 > 16)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             R1.R = RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
         }
 
         private void sr(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
+            if (x1 > 8 || x1 < 0)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             int x2 = x1x2.Substring(1, 1).ToHex();
+            if (x2 > 16)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             RealMachine.RealMachine.memory.WriteAt(pt.RealAddress(x1), x2, R1.Hex());
         }
 
@@ -196,35 +212,85 @@ namespace MOS.VirtualMachine
         private void ad(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
+            if (x1 > 8 || x1 < 0)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             int x2 = x1x2.Substring(1, 1).ToHex();
+            if (x2 > 16)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             R1.R = R1.R + RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
         }
 
         private void sb(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
+            if (x1 > 8 || x1 < 0)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             int x2 = x1x2.Substring(1, 1).ToHex();
+            if (x2 > 16)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             R1.R = R1.R - RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
         }
 
         private void cr(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
+            if (x1 > 8 || x1 < 0)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             int x2 = x1x2.Substring(1, 1).ToHex();
+            if (x2 > 16)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             C.C = R1.Hex() == RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2);
         }
 
         private void mu(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
+            if (x1 > 8 || x1 < 0)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             int x2 = x1x2.Substring(1, 1).ToHex();
+            if (x2 > 16)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             R1.R = R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
         }
 
         private void di(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
+            if (x1 > 8 || x1 < 0)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             int x2 = x1x2.Substring(1, 1).ToHex();
+            if (x2 > 16)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
             R1.R = R1.R / RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
             R2.R = R2.R % RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
         }
@@ -233,7 +299,7 @@ namespace MOS.VirtualMachine
         {
             if (x1x2.ToHex() < 0x80 || x1x2.ToHex() > 0xFF)
             {
-                Console.WriteLine("negalima šokti ne į kodo segmentą!");
+                RealMachine.RealMachine.pi.PI = 1;
                 return;
             }
             IC.IC = (ushort)x1x2.ToHex();
@@ -243,7 +309,7 @@ namespace MOS.VirtualMachine
         {
             if (x1x2.ToHex() < 0x80 || x1x2.ToHex() > 0xFF)
             {
-                Console.WriteLine("negalima šokti ne į kodo segmentą!");
+                RealMachine.RealMachine.pi.PI = 1;
                 return;
             }
             if (C.C)
@@ -255,7 +321,7 @@ namespace MOS.VirtualMachine
         {
             if (x1x2.ToHex() < 0x80 || x1x2.ToHex() > 0xFF)
             {
-                Console.WriteLine("negalima šokti ne į kodo segmentą!");
+                RealMachine.RealMachine.pi.PI = 1;
                 return;
             }
             if (C.C)

@@ -183,10 +183,6 @@ namespace MOS.RealMachine
                 switch (h)
                 {
                     case "1":
-                        ptr.PTR = memory.getMemory();
-                        Console.WriteLine(ptr.PTR);
-                        Console.WriteLine(ptr.PTR.TwoLastbytesToHex());
-                        ic.IC++;
                         LoadTestProgram();
                         break;
                     case "2":
@@ -210,26 +206,25 @@ namespace MOS.RealMachine
         
         private void LoadTestProgram()
         {
-            ptr.PTR = memory.getMemory();
             string[,] flashOutput = new string[16, 16];
             
             flashOutput = cd.ReadFromFlash(); //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
-            Console.WriteLine("Good mem");
-            
-            for (int i = 0; i < 16; i++)
-            {
-                for (int j = 0; j < 16; j++)
-                {
-                    Console.Write(flashOutput[i, j]);
-                }
-            }
-            //ptr.PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
-            PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
+           
+            ptr.PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
             TransferProgramToMemory(flashOutput);
 
             VirtualMachine.VirtualMachine
                 vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c); //sukuriama virtuali masina
+            //PrintMemory();
+            while (true)
+            {
             vm.RunCode(); //virtualiai pasinai pasakoma vykdyti koda
+                if (!Test())
+                {
+                    break;
+                }      
+            }
+
         }
 
         public void TransferProgramToMemory(string[,] flash)
@@ -285,20 +280,24 @@ namespace MOS.RealMachine
             switch (si.SI)
             {
                 case 1:
-                    GetData(r1.R, r2.R);
+                    GetData(r4.R);
                     break;
                 case 2:
-                    WriteData(r1.R, r2.R);
+                    WriteData(r4.R);
                     break;
                 case 3:
+                    Console.WriteLine(Environment.NewLine + "halt");
                     Halt();
                     cont = false;
                     break;
             }
             if (ti.TI == 0)
             {
-                Printer.PrintToScreen("Taimerio pertraukimas!");
+                Printer.PrintToScreen(Environment.NewLine + "Taimerio pertraukimas!");
             }
+            pi.PI = 0;
+            si.SI = 0;
+            ti.TI = 2;
             return cont;
         }
 
@@ -318,42 +317,21 @@ namespace MOS.RealMachine
             memory.SetFree(ptr.PTR.TwoLastbytesToHex());
             ptr.Clear();
         }
-        private void GetData(int x1, int x2)
-        {
 
-        }
-        private void WriteData(int x1, int x2)
+        private void GetData(int x1x2) // perskaito 4 žodžius ir įrašo pradedant x1 * 16 + x2
         {
-            string output = "";
-            output += memory.StringAt(x1, x2);
-            x2++;
-            if (x2 > 15)
-            {
-                x2 = 0;
-                x1++;
-            }
-            output += memory.StringAt(x1, x2);
-            x2++;
-            if (x2 > 15)
-            {
-                x2 = 0;
-                x1++;
-            }
-            output += memory.StringAt(x1, x2);
-            x2++;
-            if (x2 > 15)
-            {
-                x2 = 0;
-                x1++;
-            }
-            output += memory.StringAt(x1, x2);
-            x2++;
-            if (x2 > 15)
-            {
-                x2 = 0;
-                x1++;
-            }
-            Printer.PrintToScreen(output);
+            cd.ST = 4;
+            cd.DT = 1;
+            cd.SB = x1x2;
+            cd.XCHG();
+        }
+
+        private void WriteData(int x1x2)  // išveda 4 žodžius pradedant x1*16 + x2
+        {
+            cd.ST = 1;
+            cd.DT = 4;
+            cd.DB = x1x2;
+            cd.XCHG();
         }
 
         public static bool test()

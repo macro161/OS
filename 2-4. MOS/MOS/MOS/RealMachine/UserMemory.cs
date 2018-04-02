@@ -56,7 +56,7 @@ namespace MOS.RealMachine
 
         public int IntAt(int x, int y)
         {
-
+            var t = userMemory[x, y];
             return int.Parse(userMemory[x, y], System.Globalization.NumberStyles.HexNumber);
         }
 

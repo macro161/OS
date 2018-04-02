@@ -21,7 +21,7 @@ namespace MOS.RealMachine
         }
         public static void PrintToScreen(string output)
         {
-            Console.WriteLine(output);
+            Console.Write(output);
         }
     }
 }
