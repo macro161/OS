@@ -4,20 +4,14 @@
     {
         public C_Reg()
         {
-            _c = false;
+            C = false;
         }
 
-        private bool _c;
-
-        public bool C
-        {
-            get => _c;
-            set => _c = value;
-        }
+        public bool C { get; set; }
 
         public void Clear()
         {
-            _c = false;
+            C = false;
         }
 
     }

@@ -4,12 +4,11 @@ namespace MOS.RealMachine
 {
     public class UserMemory
     {
-        private string[,] userMemory = new string[0x256, 0x10]; // 255 takeliai po 0x10 žodžių po 4 baitus.
-        private bool[] isUsed = new bool[0x256]; // skirstant takelius pasižymim, kurie jau užimti, kai atsilaisvins vėl pažimėsim true. 
-        Random rand = new Random();
+        private readonly bool[] isUsed = new bool[0x256]; // skirstant takelius pasižymim, kurie jau užimti, kai atsilaisvins vėl pažimėsim true. 
+        readonly Random rand = new Random();
         private int free = 0x256;
 
-        public string[,] UserMemoryProp { get => userMemory; set => userMemory = value; }
+        public string[,] UserMemoryProp { get; set; } = new string[0x256, 0x10];
 
         public int GetRandomBlock()
         {
@@ -44,20 +43,20 @@ namespace MOS.RealMachine
             for (int i = 0; i < 0x10; i++)
             {
                 int p = GetRandomBlock();
-                userMemory[ptr, i] = p.ToString("X8");
+                UserMemoryProp[ptr, i] = p.ToString("X8");
             }
             return Ptr;
         }
 
         public string StringAt(int x, int y) // 
         {
-            return userMemory[x, y];
+            return UserMemoryProp[x, y];
         }
 
         public int IntAt(int x, int y)
         {
-            var t = userMemory[x, y];
-            return int.Parse(userMemory[x, y], System.Globalization.NumberStyles.HexNumber);
+            var t = UserMemoryProp[x, y];
+            return int.Parse(UserMemoryProp[x, y], System.Globalization.NumberStyles.HexNumber);
         }
 
         /*public string HexAt(int x, int y)
@@ -67,7 +66,7 @@ namespace MOS.RealMachine
 
         public void WriteAt(int x, int y, string word)
         {
-            userMemory[x, y] = word;
+            UserMemoryProp[x, y] = word;
         }
 
         public static byte[] IntToByte(int a)

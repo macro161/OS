@@ -2,73 +2,71 @@
 {
     public class SF_Reg
     {
-        private byte _sf; // CF ZF SF IF OF XXX
-
-        public byte SF { get => _sf; set => _sf = value; }
+        public byte SF { get; set; }
 
         public SF_Reg()
         {
-            _sf = 0;
+            SF = 0;
         }
 
         public byte Return_Status_Flag()
         {
-            return _sf;
+            return SF;
         }
 
         public void Clear_Reg()
         {
-            _sf = 0;
+            SF = 0;
         }
 
         public void Set_CF()
         {
-            _sf = (byte)(_sf | 128);
+            SF = (byte)(SF | 128);
         }
 
         public void Set_ZF()
         {
-            _sf = (byte)(_sf | 64);
+            SF = (byte)(SF | 64);
         }
 
         public void Set_SF()
         {
-            _sf = (byte)(_sf | 32);
+            SF = (byte)(SF | 32);
         }
 
         public void Set_OF()
         {
-            _sf = (byte)(_sf | 16);
+            SF = (byte)(SF | 16);
         }
 
         public void Set_IF()
         {
-            _sf = (byte)(_sf | 8);
+            SF = (byte)(SF | 8);
         }
 
         public bool Get_OF()// CF ZF SF IF OF XXX
         {
-            return (_sf & (1 << 4)) != 0;
+            return (SF & (1 << 4)) != 0;
         }
 
         public bool Get_IF()
         {
-            return (_sf & (1 << 5)) != 0; //Original mato Savickio kodas, tikrai nevogtas is Stack overflow  https://stackoverflow.com/questions/2431732/checking-if-a-bit-is-set-or-not
+            return (SF & (1 << 5)) != 0; //Original mato Savickio kodas, tikrai nevogtas is Stack overflow  https://stackoverflow.com/questions/2431732/checking-if-a-bit-is-set-or-not
         }
 
         public bool Get_SF()
         {
-            return (_sf & (1 << 6)) != 0;
+            return (SF & (1 << 6)) != 0;
         }
 
         public bool Get_ZF()
         {
-            return (_sf & (1 << 7)) != 0;
+            return (SF & (1 << 7)) != 0;
         }
 
         public bool Get_CF()
         {
-            return (_sf & (1 << 8)) != 0;
+            return (SF & (1 << 8)) != 0;
         }
     }
 }

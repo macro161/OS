@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Data;
 using MOS.Registers;
 using MOS.VirtualMachine;
 
@@ -23,7 +22,7 @@ namespace MOS.RealMachine
         public static TI_Reg ti = new TI_Reg();
         public PTR_Reg ptr = new PTR_Reg();
         public static UserMemory memory = new UserMemory();
-        private bool run = true;
+        private readonly bool run = true;
         public string[,] mematrix = new string[16, 16];
         #region gui
         public string[,] Memory
@@ -34,7 +33,7 @@ namespace MOS.RealMachine
             {
                 //memory.UserMemoryProp = value;
                 mematrix = value;
-                this.RaisePropertyChangedEvent("Memory");
+                RaisePropertyChangedEvent("Memory");
             }
         }
 
@@ -44,7 +43,7 @@ namespace MOS.RealMachine
             set
             {
                 r1.R = value;
-                this.RaisePropertyChangedEvent("R1");
+                RaisePropertyChangedEvent("R1");
             }
         }
 
@@ -54,7 +53,7 @@ namespace MOS.RealMachine
             set
             {
                 r2.R = value;
-                this.RaisePropertyChangedEvent("R2");
+                RaisePropertyChangedEvent("R2");
             }
         }
 
@@ -64,7 +63,7 @@ namespace MOS.RealMachine
             set
             {
                 r3.R = value;
-                this.RaisePropertyChangedEvent("R3");
+                RaisePropertyChangedEvent("R3");
             }
         }
 
@@ -74,7 +73,7 @@ namespace MOS.RealMachine
             set
             {
                 r4.R = value;
-                this.RaisePropertyChangedEvent("R4");
+                RaisePropertyChangedEvent("R4");
             }
         }
 
@@ -84,7 +83,7 @@ namespace MOS.RealMachine
             set
             {
                 sf.SF = value;
-                this.RaisePropertyChangedEvent("SF");
+                RaisePropertyChangedEvent("SF");
             }
         }
 
@@ -94,7 +93,7 @@ namespace MOS.RealMachine
             set
             {
                 si.SI = value;
-                this.RaisePropertyChangedEvent("SI");
+                RaisePropertyChangedEvent("SI");
             }
         }
 
@@ -104,7 +103,7 @@ namespace MOS.RealMachine
             set
             {
                 ti.TI = value;
-                this.RaisePropertyChangedEvent("TI");
+                RaisePropertyChangedEvent("TI");
             }
         }
 
@@ -114,7 +113,7 @@ namespace MOS.RealMachine
             set
             {
                 ptr.PTR = value;
-                this.RaisePropertyChangedEvent("PTR");
+                RaisePropertyChangedEvent("PTR");
             }
         }
 
@@ -124,7 +123,7 @@ namespace MOS.RealMachine
             set
             {
                 c.C = value;
-                this.RaisePropertyChangedEvent("C");
+                RaisePropertyChangedEvent("C");
             }
         }
 
@@ -134,7 +133,7 @@ namespace MOS.RealMachine
             set
             {
                 ic.IC = value;
-                this.RaisePropertyChangedEvent("IC");
+                RaisePropertyChangedEvent("IC");
             }
         }
 
@@ -144,7 +143,7 @@ namespace MOS.RealMachine
             set
             {
                 ioi.IOI = value;
-                this.RaisePropertyChangedEvent("IOI");
+                RaisePropertyChangedEvent("IOI");
             }
         }
 
@@ -154,7 +153,7 @@ namespace MOS.RealMachine
             set
             {
                 mode.Mode = value;
-                this.RaisePropertyChangedEvent("MODE");
+                RaisePropertyChangedEvent("MODE");
             }
         }
 
@@ -164,7 +163,7 @@ namespace MOS.RealMachine
             set
             {
                 pi.PI = value;
-                this.RaisePropertyChangedEvent("PI");
+                RaisePropertyChangedEvent("PI");
             }
         }
 
@@ -208,8 +207,7 @@ namespace MOS.RealMachine
         }
         public void zingsninis()
         {
-            string[,] flashOutput = new string[16, 16];
-            flashOutput = cd.ReadFromFlash(); //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
+            var flashOutput = cd.ReadFromFlash();
 
             ptr.PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
             TransferProgramToMemory(flashOutput);
@@ -232,9 +230,7 @@ namespace MOS.RealMachine
         }
         private void LoadTestProgram()
         {
-            string[,] flashOutput = new string[16, 16];
-            
-            flashOutput = cd.ReadFromFlash(); //naudojames kanalu irenginiu pasiimti programa, ivyksta tikrinimas ar korektiskas kodas
+            var flashOutput = cd.ReadFromFlash();
            
             ptr.PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
             TransferProgramToMemory(flashOutput);
@@ -266,18 +262,18 @@ namespace MOS.RealMachine
 
         public void PrintRegisters()
         {
-            Console.WriteLine("C - : " + c.C.ToString()); //ic, ioi, mode, pi, r1, r2, r3, r4, sf, si, ti, ptr, 
-            Console.WriteLine("IC - " + ic.IC.ToString());
-            Console.WriteLine("IOI - " + ioi.IOI.ToString());
-            Console.WriteLine("MODE - " + mode.Mode.ToString());
-            Console.WriteLine("PI - " + PI.ToString());
-            Console.WriteLine("R1 - " + R1.ToString());
-            Console.WriteLine("R2 - " + R2.ToString());
-            Console.WriteLine("R3 - " + R3.ToString());
-            Console.WriteLine("R4 - " + R4.ToString());
-            Console.WriteLine("SF - " + SF.ToString());
-            Console.WriteLine("SI - " + SI.ToString());
-            Console.WriteLine("TI - " + TI.ToString());
+            Console.WriteLine("C - : " + c.C); //ic, ioi, mode, pi, r1, r2, r3, r4, sf, si, ti, ptr, 
+            Console.WriteLine("IC - " + ic.IC);
+            Console.WriteLine("IOI - " + ioi.IOI);
+            Console.WriteLine("MODE - " + mode.Mode);
+            Console.WriteLine("PI - " + PI);
+            Console.WriteLine("R1 - " + R1);
+            Console.WriteLine("R2 - " + R2);
+            Console.WriteLine("R3 - " + R3);
+            Console.WriteLine("R4 - " + R4);
+            Console.WriteLine("SF - " + SF);
+            Console.WriteLine("SI - " + SI);
+            Console.WriteLine("TI - " + TI);
             Console.WriteLine("PTR - " + ptr.PTR);
 
             Console.ReadLine();
@@ -367,10 +363,8 @@ namespace MOS.RealMachine
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
         public void PrintMemory()
         {
@@ -393,7 +387,7 @@ namespace MOS.RealMachine
 
         private void RaisePropertyChangedEvent(string propertyName)
         {
-            PropertyChangedEventHandler handler = this.PropertyChanged;
+            PropertyChangedEventHandler handler = PropertyChanged;
             if (PropertyChanged != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
 

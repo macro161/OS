@@ -6,7 +6,7 @@ namespace MOS.RealMachine
     static class Printer //Jeigu reiks pabaigsim
     {
         private static string[,] output;
-        private static StreamWriter writer = new StreamWriter("printerOutput.txt");
+        private static readonly StreamWriter writer = new StreamWriter("printerOutput.txt");
 
         public static void PrintStuff(string[,] outputForPrinter)
         {

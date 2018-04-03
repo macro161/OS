@@ -2,32 +2,26 @@
 {
     public class IC_Reg
     {
-        private ushort _ic;
-
         public IC_Reg()
         {
-            _ic = 0x80;
+            IC = 0x80;
         }
 
-        public ushort IC
-        {
-            set => _ic = value;
-            get => _ic;
-        }
+        public ushort IC { set; get; }
 
         public int GetX()
         {
-            return _ic / 16;
+            return IC / 16;
         }
 
         public int GetY()
         {
-            return _ic % 16;
+            return IC % 16;
         }
 
         public void Clear()
         {
-            _ic = 0;
+            IC = 0;
         }
         public void Increase()
         {
@@ -35,7 +29,7 @@
         }
         public string Hex()
         {
-            return _ic.ToString("X");
+            return IC.ToString("X");
         }
     }
 }

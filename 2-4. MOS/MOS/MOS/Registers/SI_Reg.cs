@@ -2,28 +2,26 @@
 {
     public class SI_Reg
     {
-        private short _si;
-
-        public short SI { get => _si; set => _si = value; }
+        public short SI { get; set; }
 
         public SI_Reg()
         {
-            _si = 0;
+            SI = 0;
         }
 
         public void Int_1() //Add more in future
         {
-            _si = 1;
+            SI = 1;
         }
 
         public void Clear()
         {
-            _si = 0;
+            SI = 0;
         }
 
         public string Hex()
         {
-            return _si.ToString("X");
+            return SI.ToString("X");
         }
     }
 }

@@ -2,13 +2,11 @@
 {
     public class PTR_Reg
     {
-        private string _ptr;
-
-        public string PTR { get => _ptr; set => _ptr = value; }
+        public string PTR { get; set; }
 
         public void Clear()
         {
-            _ptr = "";
+            PTR = "";
         }
 
     }

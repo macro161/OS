@@ -5,11 +5,14 @@ namespace MOS.VirtualMachine
 {
     class VirtualMachine
     {
-        PTR_Reg PTR;
-        PageTable pt;
-        IC_Reg IC;
-        C_Reg C;
-        R_Reg R1, R2, R3, R4;
+        readonly PTR_Reg PTR;
+        readonly PageTable pt;
+        readonly IC_Reg IC;
+        readonly C_Reg C;
+        readonly R_Reg R1;
+        readonly R_Reg R2;
+        R_Reg R3;
+        readonly R_Reg R4;
         SF_Reg SF;
 
         public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf, C_Reg c)

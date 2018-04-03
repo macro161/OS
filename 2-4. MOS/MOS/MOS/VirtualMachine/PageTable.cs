@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace MOS.VirtualMachine
+﻿namespace MOS.VirtualMachine
 {
     public class PageTable
     {
-        string ptr;
+        readonly string ptr;
 
         public PageTable(string ptr)
         {

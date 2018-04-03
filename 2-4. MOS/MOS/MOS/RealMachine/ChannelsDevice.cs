@@ -16,26 +16,26 @@ namespace MOS.RealMachine
         private int DT = 0; //Objekto,įkurįkopijuosime,numeris
                   FlashMemory flashMemory = new FlashMemory();           // 1. Vartotojoatmintis; 2. Supervizorinėatmintis; 3. Išorinėatmintis; 4. Įvedimosrautas; 
 */
-        string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data.txt");
+        readonly string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "data.txt");
         string[,] matrix = new string[16, 16];
-        FlashMemory flashMemory = new FlashMemory();
+        readonly FlashMemory flashMemory = new FlashMemory();
         public string[,] Matrix
         {
             get => matrix;
             set
             {
                 matrix = value;
-                this.RaisePropertyChangedEvent("matrix");
+                RaisePropertyChangedEvent("matrix");
             }
         }
-        private int _sb;
-        private int _db;
-        private int _st;
-        private int _dt;
-        public int SB { get => _sb; set => _sb = value; }
-        public int DB { get => _db; set => _db = value; }
-        public int ST { get => _st; set => _st = value; }
-        public int DT { get => _dt; set => _dt = value; }
+
+        public int SB { get; set; }
+
+        public int DB { get; set; }
+
+        public int ST { get; set; }
+
+        public int DT { get; set; }
 
         public void XCHG()
         {
@@ -235,8 +235,10 @@ namespace MOS.RealMachine
 
         private void RaisePropertyChangedEvent(string propertyName)
         {
-            PropertyChangedEventHandler handler = this.PropertyChanged;
-            if (PropertyChanged != null) handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (PropertyChanged != null)
+                if (handler != null)
+                    handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -2,22 +2,16 @@
 {
     public class R_Reg
     {
-        private int _r; //Gal reiks padaryt unsigned
-
         public R_Reg()
         {
-            _r = 0;
+            R = 0;
         }
 
-        public int R
-        {
-            get => _r;
-            set => _r = value;
-        }
+        public int R { get; set; }
 
         public string Hex()
         {
-            return _r.ToString("X");
+            return R.ToString("X");
         }
 
     }
