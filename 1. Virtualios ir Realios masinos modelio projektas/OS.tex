@@ -114,7 +114,6 @@ Skirti I/O ir atminties valdymui.Modelyje yra vienas kanalas kuriam galima padar
 \newline  3. Išorinė atmintis;
 \newline 4. Išvedimo srautas; 
 
-
 \section{Virtuali mašina}
 
 \subsection{Funkcija}
@@ -185,17 +184,11 @@ if r1<[x1x2] then cf:=1;
 \item Valdymo perdavimo:
 \begin{enumerate}
 \item PY x1 - Garso kolonėlė supypsi x1 kartų.
-\item JU – besąlyginio valdymo perdavimas – valdymas perduodamas adresu 16*x1+x2:
-JU x1x2 =) IC:=16*x1+x2;
-\item JG – sąlyginio valdymo perdavimas (jeigu daugiau) – valdymas perduodamas jeigu
-SF bitai ZF == 0 ir SF == OF. Valdymas perduodamas adresu 16*x1+x2:
-JG x1x2 =) If ZF == 0 && SF == OF then IC:= 16*x1+x2;
-\item JE – sąlyginio valdymo perdavimas (jeigu lygu) – valdymas perduodamas jeigu SF bitas ZF == 1.
-Valdymas perduodamas adresu 16*x1+x2:
-JE x1x2 =) If ZF == 1 then IC:= 16*x1+x2;
-\item JL – sąlyginio valdymo perdavimas (jeigu mažiau) – valdymas perduodamas jeigu
-SF bitai SF ir OF nelygūs, valdymas perduodamas adresu 16*x1+x2:
-JL x1x2 =) If SF != OF then IC:= 16*x1+x2;
+\item PYC - Patikrina garso kolonėlės užimtumą.(1 - užimta , 0 - laisva).
+\item JU – besąlyginio valdymo perdavimas – valdymas perduodamas adresu 16*x1+x2:JU x1x2 =) IC:=16*x1+x2;
+\item JG – sąlyginio valdymo perdavimas (jeigu daugiau) – valdymas perduodamas jeigu SF bitai ZF == 0 ir SF == OF. Valdymas perduodamas adresu 16*x1+x2:JG x1x2 =) If ZF == 0 AND SF == OF then IC:= 16*x1+x2;
+\item JE – sąlyginio valdymo perdavimas (jeigu lygu) – valdymas perduodamas jeigu SF bitas ZF == 1.Valdymas perduodamas adresu 16*x1+x2:JE x1x2 =) If ZF == 1 then IC:= 16*x1+x2;
+\item JL – sąlyginio valdymo perdavimas (jeigu mažiau) – valdymas perduodamas jeigu SF bitai SF ir OF nelygūs, valdymas perduodamas adresu 16*x1+x2:JL x1x2 =) If SF != OF then IC:= 16*x1+x2;
 \end{enumerate}
 \item Programos pabaigos:
 \begin{enumerate}
@@ -206,6 +199,7 @@ JL x1x2 =) If SF != OF then IC:= 16*x1+x2;
 \item GD – įvedimas – iš įvedimo srauto paima 4 žodžų srautą ir jį įveda į atmintį
 pradedant atminties baitu 16*x1+x2:
 GD x1x2
+\item CKP - patikrina printerio užimtumą.(1 - užimta, 0 - laisva)
 \item PD – išvedimas – iš atminties, pradedant atminties baitu 16*x1+x2  paima 4 žodžių
 srautą ir jį išveda į ekraną:
 PD x1x2
