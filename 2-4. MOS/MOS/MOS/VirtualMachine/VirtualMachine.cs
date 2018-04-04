@@ -335,16 +335,21 @@ namespace MOS.VirtualMachine
                 return;
             }
 
-            if (R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2) > 2147483647 || R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2) < -2147483648)
+            checked
             {
-                SF.Get_CF();
-            }
-            else
-            {
-                SF.Unset_CF();
+                try
+                {
+                    SF.Unset_OF();
+                    R1.R = R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
+                }
+                catch (OverflowException)
+                {
+                    SF.Set_OF();
+                }
+                
             }
 
-            R1.R = R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
+            //R1.R = R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
             Modify_SF(R1.R);
             Modify_ZF(R1.R);
 
@@ -365,29 +370,38 @@ namespace MOS.VirtualMachine
                 return;
             }
 
-            if (R1.R / RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex() > 2147483647 || R1.R / RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex() < -2147483648)
+            checked
             {
-                SF.Get_CF();
-            }
-            else
-            {
-                SF.Unset_CF();
+                try
+                {
+                    SF.Unset_OF();
+                    R1.R = R1.R / RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
+                }
+                catch (OverflowException)
+                {
+                    SF.Set_OF();
+                }
+
             }
 
-            R1.R = R1.R / RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
+            
 
             Modify_SF(R1.R);
             Modify_ZF(R1.R);
 
-            if (R2.R % RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex() > 2147483647 || R2.R % RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex() < -2147483648)
+            checked
             {
-                SF.Get_CF();
+                try
+                {
+                    SF.Unset_OF();
+                    R2.R = R2.R % RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
+                }
+                catch (OverflowException)
+                {
+                    SF.Set_OF();
+                }
             }
-            else
-            {
-                SF.Unset_CF();
-            }
-            R2.R = R2.R % RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
+            
 
             Modify_SF(R2.R);
             Modify_ZF(R2.R);
@@ -451,7 +465,9 @@ namespace MOS.VirtualMachine
 
         private void Modify_CF(int value, int command)
         {
-            if (value + command > 2147483647 || value + command < -2147483648)
+            long sum = value + command;
+
+            if (sum > 2147483647 || sum < -2147483648)
             {
                 SF.Get_CF();
             }
