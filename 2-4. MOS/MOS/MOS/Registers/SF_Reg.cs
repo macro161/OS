@@ -44,6 +44,31 @@
             SF = (byte)(SF | 8);
         }
 
+        public void Unset_CF()
+        {
+            SF = (byte)(SF ^ 128);
+        }
+
+        public void Unset_ZF()
+        {
+            SF = (byte)(SF ^ 64);
+        }
+
+        public void Unset_SF()
+        {
+            SF = (byte)(SF ^ 32);
+        }
+
+        public void Unset_OF()
+        {
+            SF = (byte)(SF ^ 16);
+        }
+
+        public void Unset_IF()
+        {
+            SF = (byte)(SF ^ 8);
+        }
+
         public bool Get_OF()// CF ZF SF IF OF XXX
         {
             return (SF & (1 << 4)) != 0;
