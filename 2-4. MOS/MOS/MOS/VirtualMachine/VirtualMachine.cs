@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using MOS.Registers;
 
 namespace MOS.VirtualMachine
@@ -88,6 +89,15 @@ namespace MOS.VirtualMachine
                 case "NOT":
                     not();
                     break;
+                case "LOP":
+                    loop(x1x2);
+                    break;
+                case "PYC":
+                    pyc();
+                    break;
+                case "CKP":
+                    ckp();
+                    break;
             }
 
             switch (c)
@@ -137,10 +147,25 @@ namespace MOS.VirtualMachine
                 case "OR":
                     or();
                     break;
-                case "LOOP":
-                    loop(x1x2);
+                case "PY":
+                    py();
                     break;
             }
+        }
+
+        private void ckp()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void pyc()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void py()
+        {
+            throw new NotImplementedException();
         }
 
         private void loop(string x1x2)
