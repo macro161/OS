@@ -137,7 +137,15 @@ namespace MOS.VirtualMachine
                 case "OR":
                     or();
                     break;
+                case "LOOP":
+                    loop(x1x2);
+                    break;
             }
+        }
+
+        private void loop(string x1x2)
+        {
+            throw new NotImplementedException();
         }
 
         private void gd(string x1x2) // CF ZF SF
