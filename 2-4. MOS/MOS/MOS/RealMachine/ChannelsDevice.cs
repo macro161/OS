@@ -237,8 +237,9 @@ namespace MOS.RealMachine
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (PropertyChanged != null)
-                if (handler != null)
-                    handler(this, new PropertyChangedEventArgs(propertyName));
+            {
+                handler?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
         }
     }
 }
