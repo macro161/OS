@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using MOS.Registers;
 using MOS.VirtualMachine;
@@ -23,16 +24,29 @@ namespace MOS.RealMachine
         public static UserMemory memory = new UserMemory();
         private readonly bool run = true;
         public string[,] mematrix = new string[16, 16];
+        private List<string[]> ptrArray = new List<string[]>();
         #region gui
         public string[,] Memory
         {
+            get => memory.UserMemoryProp;
+            //get => mematrix;
+            set
+            {
+                memory.UserMemoryProp = value;
+                //mematrix = value;
+                RaisePropertyChangedEvent("Memory");
+            }
+        }
+
+        public List<string[]> VMMemory
+        {
             //get => memory.UserMemoryProp;
-            get => mematrix;
+            get => ptrArray;
             set
             {
                 //memory.UserMemoryProp = value;
-                mematrix = value;
-                RaisePropertyChangedEvent("Memory");
+                ptrArray = value;
+                RaisePropertyChangedEvent("VMMemory");
             }
         }
 
@@ -217,7 +231,7 @@ namespace MOS.RealMachine
             
 
         }
-        private void LoadTestProgram()
+         public void LoadTestProgram()
         {
             var flashOutput = cd.ReadFromFlash();
            
@@ -245,6 +259,12 @@ namespace MOS.RealMachine
                 for (int j = 0; j < 16; j++) // x - 256 y - 16
                 {
                     memory.WriteAt(memory.IntAt(PTR.ToHex(), i), j, flash[i, j]);
+                    var str = new string[3];
+                    str[0] = memory.IntAt(PTR.ToHex(), i).ToString();
+                    str[1] = j.ToString();
+                    str[2] = flash[i, j];
+                    ptrArray.Add(str);
+                    //Console.WriteLine(str[0]+str[1]+str[2]);
                 }
             }
         }
@@ -377,8 +397,6 @@ namespace MOS.RealMachine
             PropertyChangedEventHandler handler = PropertyChanged;
             if (PropertyChanged != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
-
-
     }
 }
 

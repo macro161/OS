@@ -1,5 +1,5 @@
-﻿using MOS.RealMachine;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -9,14 +9,18 @@ namespace MOS.GUI
     public partial class RMform : Form
     {
         //public static UserMemory memory = RealMachine.RealMachine.memory;
-        //public static string[,] memoryArray = memory.UserMemoryProp;
+        public string[,] memoryArray;
+        public string[,] memoryArray2 = new string[0x256, 0x10];
+        public string[,] VMArray = new string[16, 16];
         public RealMachine.RealMachine Rm;
         DataTable _table = new DataTable();
+        DataTable _table2 = new DataTable();
+        private List<string[]> ptrList = new List<string[]>();
 
         public RMform(RealMachine.RealMachine rm)
         {
             Rm = rm;
-            Rm.PropertyChanged += (sender, args) => { if(args.PropertyName == "Memory" && sender!=this) HandleMemoryChanged(); };
+            Rm.PropertyChanged += (sender, args) => { if (args.PropertyName == "Memory" && sender != this) HandleMemoryChanged(); };
             InitializeComponent();
             R1text.DataBindings.Add("Text", Rm, "R1");
             R2text.DataBindings.Add("Text", Rm, "R2");
@@ -26,107 +30,155 @@ namespace MOS.GUI
             SItext.DataBindings.Add("Text", Rm, "SI");
             TItext.DataBindings.Add("Text", Rm, "TI");
             PTRtext.DataBindings.Add("Text", Rm, "PTR");
-            Ctext.DataBindings.Add("Text", Rm, "C");
             ICtext.DataBindings.Add("Text", Rm, "IC");
             IOItext.DataBindings.Add("Text", Rm, "IOI");
             MODEtext.DataBindings.Add("Text", Rm, "MODE");
             PItext.DataBindings.Add("Text", Rm, "PI");
-            LoadDataGrid();
         }
 
         private void HandleMemoryChanged()
         {
-            Debug.WriteLine("*******");
+            //Debug.WriteLine("*******");
+            ptrList = Rm.VMMemory;
             UpdateTable();
         }
 
         void UpdateTable()
         {
             _table = new DataTable();
-            for (int block = 0; block < 16; block++)
-                _table.Columns.Add(block.ToHex());
-            for (int outerIndex = 0; outerIndex < 16; outerIndex++)
-            {
-                DataRow newRow = _table.NewRow();
-                for (int innerIndex = 0; innerIndex < 16; innerIndex++)
-                {
-                    newRow[innerIndex] = Rm.Memory[outerIndex, innerIndex];
-                }
-                _table.Rows.Add(newRow);
-            }
-            dataGrid.DataSource = _table;
+            MakeVMTable();
         }
 
         private void RMform_Load(object sender, EventArgs e)
         {
-            
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
 
         }
 
-        private void RMmemory_TextChanged(object sender, EventArgs e)
+        private void MakeVMTable()
         {
-
-        }
-
-        private void LoadDataGrid()
-        {
-            var file = new ChannelsDevice();
-            string[,] memoryArray = file.ReadFromFlash();
-            
             for (int block = 0; block < 16; block++)
-               _table.Columns.Add(block.ToHex());
+                _table.Columns.Add(block.ToHex().ToUpper());
+
+            int a = 0, b = 0;
+            foreach (string[] cell in ptrList)
+            {
+                VMArray[a, b] = memoryArray[Int32.Parse(cell[0]), Int32.Parse(cell[1])];
+                b++;
+                if (b == 16)
+                {
+                    b = 0;
+                    a++;
+                    Debug.WriteLine(cell[0]);
+                }
+
+            }
+
+            //for (int i = 0; i < 16; i++)
+            //{
+            //    for (int j = 0; j < 16; j++)
+            //    {
+            //        Debug.WriteLine(VMArray[i, j]);
+            //    }
+            //}
 
             for (int outerIndex = 0; outerIndex < 16; outerIndex++)
             {
                 DataRow newRow = _table.NewRow();
                 for (int innerIndex = 0; innerIndex < 16; innerIndex++)
                 {
-                    newRow[innerIndex] = memoryArray[outerIndex, innerIndex];
+                    newRow[innerIndex] = VMArray[outerIndex, innerIndex];
                 }
                 _table.Rows.Add(newRow);
             }
+
             dataGrid.DataSource = _table;
-            for(var i = 0;i<16;i++)
+            for (var i = 0; i < 16; i++)
                 dataGrid.Columns[i].Width = 37;
             _table.RowChanged += Row_Changed;
-            Rm.Memory = memoryArray;
-            string[,] whatever = Rm.Memory;
-            whatever[0, 1] = "5";
-            Rm.Memory = whatever;
-            //Debug.WriteLine(RM.Memory[0, 1]);
+            //Rm.LoadTestProgram();
         }
+
+        private void LoadDataGrid()
+        {
+            memoryArray = Rm.Memory;
+
+            for (int i = 0; i < 0x256; i++)
+                for (int j = 0; j < 16; j++)
+                    memoryArray2[i, j] = memoryArray[i, j];
+            MakeVMTable();
+        }
+
         private void Row_Changed(object sender, DataRowChangeEventArgs e)
         {
-            string[,] arr = new string[16, 16];
-
-            for (int i = 0; i < 16; i++)
+            string[,] arr = new string[0x256, 16];
+            int a = 0, b = 0;
+            foreach (string[] cell in ptrList)
             {
-                for (int j = 0; j < 16; j++)
+                arr[Int32.Parse(cell[0]), Int32.Parse(cell[1])] = _table.Rows[a][b].ToString();
+                b++;
+                if (b == 16)
                 {
-                    arr[i, j] = _table.Rows[i][j].ToString();
+                    b = 0;
+                    a++;
                 }
             }
+            //for (int i = 0; i < 16; i++)
+            //{
+            //    for (int j = 0; j < 16; j++)
+            //    {
+            //        arr[i, j] = _table.Rows[i][j].ToString();
+            //    }
+            //}
             //RealMachine.RealMachine.memory.UserMemoryProp = arr;
             Rm.Memory = arr;
         }
 
-        private void R2label_Click(object sender, EventArgs e)
-        {
-           // RM.PowerOn();
-        }
-
-        private void dataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine(Rm.Memory[0, 0]);
+            var flashOutput = Rm.cd.ReadFromFlash();
+
+            Rm.ptr.PTR = RealMachine.RealMachine.memory.getMemory(); //isskiriami laisvi atminties blokai programai
+            Rm.TransferProgramToMemory(flashOutput);
+            ptrList = Rm.VMMemory;
+            LoadDataGrid();
+            VirtualMachine.VirtualMachine
+                vm = new VirtualMachine.VirtualMachine(Rm.ptr, Rm.r1, Rm.r2, Rm.r3, Rm.r4, Rm.ic, Rm.sf); //sukuriama virtuali masina
+            while (true)
+            {
+                vm.RunCode(); //virtualiai masinai pasakoma vykdyti koda
+                if (!Rm.Test())
+                {
+                    break;
+                }
+            }
+        }
+
+        private void ViewBlocktext_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void viewBlockButton_Click(object sender, EventArgs e)
+        {
+            int block = Int32.Parse(ViewBlocktext.Text);
+
+            _table2 = new DataTable();
+
+            for (int b = 0; b < 16; b++)
+                _table2.Columns.Add(b.ToHex().ToUpper());
+
+            DataRow newRow = _table2.NewRow();
+            for (int i = 0; i < 16; i++)
+            {
+                newRow[i] = memoryArray2[block, i];
+                if (newRow[i] == null)
+                    newRow[i] = "";
+            }
+            _table2.Rows.Add(newRow);
+            Debug.WriteLine(_table2.Rows.Count);
+            viewBlockGrid.DataSource = _table2;
+            for (var i = 0; i < 16; i++)
+                viewBlockGrid.Columns[i].Width = 37;
         }
     }
 }

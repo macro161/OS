@@ -62,7 +62,6 @@
     <Compile Include="RealMachine\FlashMemory.cs" />
     <Compile Include="RealMachine\Printer.cs" />
     <Compile Include="RealMachine\Speaker.cs" />
-    <Compile Include="Registers\C_Reg.cs" />
     <Compile Include="Registers\IC_Reg.cs" />
     <Compile Include="Registers\IOI_Reg.cs" />
     <Compile Include="RealMachine\LoggerTextBox.cs">
