@@ -469,7 +469,7 @@ namespace MOS.VirtualMachine
             }
             RealMachine.RealMachine.ti.DecrementTI();
         }
-
+        #region{Flags}
         private void Modify_ZF(int value)
         {
             if (value == 0)
@@ -507,5 +507,6 @@ namespace MOS.VirtualMachine
                 SF.Unset_SF();
             }
         }
+        #endregion
     }
 }
