@@ -9,14 +9,13 @@ namespace MOS.VirtualMachine
         readonly PTR_Reg PTR;
         readonly PageTable pt;
         readonly IC_Reg IC;
-        readonly C_Reg C;
         readonly R_Reg R1;
         readonly R_Reg R2;
         R_Reg R3;
         readonly R_Reg R4;
         SF_Reg SF;
 
-        public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf, C_Reg c)
+        public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf)
         {
             R1 = r1;
             R2 = r2;
@@ -24,7 +23,6 @@ namespace MOS.VirtualMachine
             R4 = r4;
             IC = ic;
             SF = sf;
-            C = c;
             PTR = ptr;
 
             pt = new PageTable(PTR.PTR);
@@ -89,15 +87,6 @@ namespace MOS.VirtualMachine
                 case "NOT":
                     not();
                     break;
-                case "LOP":
-                    loop(x1x2);
-                    break;
-                case "PYC":
-                    pyc();
-                    break;
-                case "CKP":
-                    ckp();
-                    break;
             }
 
             switch (c)
@@ -150,27 +139,20 @@ namespace MOS.VirtualMachine
                 case "PY":
                     py();
                     break;
+                case "LO":
+                    loop(x1x2);
+                    break;
             }
-        }
-
-        private void ckp()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void pyc()
-        {
-            throw new NotImplementedException();
         }
 
         private void py()
         {
-            throw new NotImplementedException();
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void loop(string x1x2)
         {
-            throw new NotImplementedException();
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void gd(string x1x2) // CF ZF SF
@@ -186,7 +168,7 @@ namespace MOS.VirtualMachine
             Modify_SF(R4.R);
             Modify_ZF(R4.R);
             RealMachine.RealMachine.si.SI = 1;
-
+            RealMachine.RealMachine.ti.DecrementTI();
 
         }
         private void pd(string x1x2)
@@ -202,6 +184,7 @@ namespace MOS.VirtualMachine
             Modify_ZF(R4.R);
 
             RealMachine.RealMachine.si.SI = 2;
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
 
@@ -215,12 +198,9 @@ namespace MOS.VirtualMachine
                     RealMachine.RealMachine.pi.PI = 1;
                     return;
                 }
-
-                if (C.C)
-                {
                     IC.IC = (ushort) x1x2.ToHex();
-                }
             }
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void not()
@@ -228,6 +208,7 @@ namespace MOS.VirtualMachine
             R1.R = ~R1.R;
             Modify_SF(R1.R);
             Modify_ZF(R1.R);
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void or()
@@ -235,6 +216,7 @@ namespace MOS.VirtualMachine
             R1.R = R1.R | R2.R;
             Modify_SF(R1.R);
             Modify_ZF(R1.R);
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void xor()
@@ -242,6 +224,7 @@ namespace MOS.VirtualMachine
             R1.R = R1.R ^ R2.R;
             Modify_SF(R1.R);
             Modify_ZF(R1.R);
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void and()
@@ -250,6 +233,7 @@ namespace MOS.VirtualMachine
             R1.R = R1.R + R2.R;
             Modify_SF(R1.R);
             Modify_ZF(R1.R);
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void lr(string x1x2)
@@ -269,6 +253,7 @@ namespace MOS.VirtualMachine
             R1.R = RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
             Modify_SF(R1.R);
             Modify_ZF(R1.R);
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void sr(string x1x2)
@@ -286,6 +271,7 @@ namespace MOS.VirtualMachine
                 return;
             }
             RealMachine.RealMachine.memory.WriteAt(pt.RealAddress(x1), x2, R1.Hex());
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void rr()
@@ -293,6 +279,7 @@ namespace MOS.VirtualMachine
             R1.R = R1.R + R2.R;
             R2.R = R1.R - R2.R;
             R1.R = R1.R - R2.R;
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void ad(string x1x2)
@@ -314,6 +301,7 @@ namespace MOS.VirtualMachine
             R1.R = R1.R + RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
             Modify_SF(R1.R);
             Modify_ZF(R1.R);
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void sb(string x1x2)
@@ -334,6 +322,7 @@ namespace MOS.VirtualMachine
             R1.R = R1.R - RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
             Modify_SF(R1.R);
             Modify_ZF(R1.R);
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void cr(string x1x2)
@@ -350,7 +339,7 @@ namespace MOS.VirtualMachine
                 RealMachine.RealMachine.pi.PI = 1;
                 return;
             }
-            C.C = R1.Hex() == RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2);
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void mu(string x1x2)
@@ -385,7 +374,7 @@ namespace MOS.VirtualMachine
             //R1.R = R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
             Modify_SF(R1.R);
             Modify_ZF(R1.R);
-
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void di(string x1x2)
@@ -438,6 +427,7 @@ namespace MOS.VirtualMachine
 
             Modify_SF(R2.R);
             Modify_ZF(R2.R);
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void ju(string x1x2)
@@ -448,6 +438,7 @@ namespace MOS.VirtualMachine
                 return;
             }
             IC.IC = (ushort)x1x2.ToHex();
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void je(string x1x2)
@@ -460,12 +451,9 @@ namespace MOS.VirtualMachine
                     RealMachine.RealMachine.pi.PI = 1;
                     return;
                 }
-
-                if (C.C)
-                {
                     IC.IC = (ushort) x1x2.ToHex();
-                }
             }
+            RealMachine.RealMachine.ti.DecrementTI();
         }
         private void jl(string x1x2)
         {
@@ -477,11 +465,9 @@ namespace MOS.VirtualMachine
                     return;
                 }
 
-                if (C.C)
-                {
                     IC.IC = (ushort) x1x2.ToHex();
-                }
             }
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void Modify_ZF(int value)
@@ -502,7 +488,7 @@ namespace MOS.VirtualMachine
 
             if (sum > 2147483647 || sum < -2147483648)
             {
-                SF.Get_CF();
+                SF.Set_CF();
             }
             else
             {

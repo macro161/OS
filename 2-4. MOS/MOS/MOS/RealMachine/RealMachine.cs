@@ -8,7 +8,6 @@ namespace MOS.RealMachine
     public class RealMachine : INotifyPropertyChanged
     {
         public ChannelsDevice cd = new ChannelsDevice();
-        public C_Reg c = new C_Reg();
         public IC_Reg ic = new IC_Reg();
         public IOI_Reg ioi = new IOI_Reg();
         public Mode_Reg mode = new Mode_Reg();
@@ -117,16 +116,6 @@ namespace MOS.RealMachine
             }
         }
 
-        public bool C
-        {
-            get => c.C;
-            set
-            {
-                c.C = value;
-                RaisePropertyChangedEvent("C");
-            }
-        }
-
         public ushort IC
         {
             get => ic.IC;
@@ -212,7 +201,7 @@ namespace MOS.RealMachine
             ptr.PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
             TransferProgramToMemory(flashOutput);
             VirtualMachine.VirtualMachine
-                vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c);
+                vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf);
             while (true)
             {   
                 vm.RunCommand();
@@ -236,7 +225,7 @@ namespace MOS.RealMachine
             TransferProgramToMemory(flashOutput);
 
             VirtualMachine.VirtualMachine
-                vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf, c); //sukuriama virtuali masina
+                vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf); //sukuriama virtuali masina
             //PrintMemory();
             while (true)
             {
@@ -261,8 +250,7 @@ namespace MOS.RealMachine
         }
 
         public void PrintRegisters()
-        {
-            Console.WriteLine("C - : " + c.C); //ic, ioi, mode, pi, r1, r2, r3, r4, sf, si, ti, ptr, 
+        { //ic, ioi, mode, pi, r1, r2, r3, r4, sf, si, ti, ptr, 
             Console.WriteLine("IC - " + ic.IC);
             Console.WriteLine("IOI - " + ioi.IOI);
             Console.WriteLine("MODE - " + mode.Mode);
@@ -358,7 +346,6 @@ namespace MOS.RealMachine
 
         public static bool test()
         {
-            ti.DecrementTI();
             if (((pi.PI + si.SI) > 0) || (ti.TI == 0))
             {
                 return true;
