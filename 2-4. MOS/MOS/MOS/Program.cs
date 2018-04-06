@@ -17,8 +17,8 @@ namespace MOS
         {
             RealMachine.RealMachine realMachine = new RealMachine.RealMachine();
             //realMachine.PowerOn();
-            Thread t = new Thread(realMachine.PowerOn);
-            t.Start();
+            //Thread t = new Thread(realMachine.PowerOn);
+            //t.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
         //    var file = new RealMachine.ChannelsDevice();

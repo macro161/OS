@@ -45,7 +45,8 @@ namespace MOS.VirtualMachine
             while (true)
             {
                 string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR.PTR.ToHex(), IC.GetX()).ToHex(), IC.GetY());
-                // Console.WriteLine("Command: " + command);
+                if (command == null)
+                    return;
                 IC.Increase();
                 if (command[0] == 'H' && command[1] == 'A')
                 {
