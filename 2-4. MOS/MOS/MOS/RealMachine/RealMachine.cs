@@ -1,30 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using MOS.GUI;
 using MOS.Registers;
 using MOS.VirtualMachine;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace MOS.RealMachine
 {
     public class RealMachine : INotifyPropertyChanged
     {
-        public ChannelsDevice cd = new ChannelsDevice();
-        public IC_Reg ic = new IC_Reg();
-        public IOI_Reg ioi = new IOI_Reg();
-        public Mode_Reg mode = new Mode_Reg();
+        public static ChannelsDevice cd = new ChannelsDevice();
+        private static SupervisoryMemory sm1 = new SupervisoryMemory();
+        public static IC_Reg ic = new IC_Reg();
+        public static IOI_Reg ioi = new IOI_Reg();
+        public static Mode_Reg mode = new Mode_Reg();
         public static PI_Reg pi = new PI_Reg();
-        public R_Reg r1 = new R_Reg();
-        public R_Reg r2 = new R_Reg();
-        public R_Reg r3 = new R_Reg();
-        public R_Reg r4 = new R_Reg();
-        public SF_Reg sf = new SF_Reg();
+        public static R_Reg r1 = new R_Reg();
+        public static R_Reg r2 = new R_Reg();
+        public static R_Reg r3 = new R_Reg();
+        public static R_Reg r4 = new R_Reg();
+        public static SF_Reg sf = new SF_Reg();
         public static SI_Reg si = new SI_Reg();
         public static TI_Reg ti = new TI_Reg();
-        public PTR_Reg ptr = new PTR_Reg();
+        public static PTR_Reg ptr = new PTR_Reg();
         public static UserMemory memory = new UserMemory();
-        private readonly bool run = true;
-        public string[,] mematrix = new string[16, 16];
-        private List<string[]> ptrArray = new List<string[]>();
+        public static bool run = true;
+        public  static string[,] mematrix = new string[16, 16];
+        private static List<string[]> ptrArray = new List<string[]>();
+        public static string filePath = "";
+        private static VirtualMachine.VirtualMachine vm;
+        public static string paskutineKomanda;
+        private static bool _next;
+
+        public string Komanda
+        {
+            get => paskutineKomanda;
+            set
+            {
+                paskutineKomanda = value;
+                RaisePropertyChangedEvent("Komanda");
+            }
+        }
+        public bool Next
+        {
+            get { return _next; }
+            set
+            {
+                _next = value;
+                if (_next)
+                {
+                    _next = false;
+
+                    vm.RunCommand();
+                    if (test())
+                    {
+                        if (!Test())
+                        {
+                            run = false;
+                        }
+                    }
+                }
+               
+            }
+        }
         #region gui
         public string[,] Memory
         {
@@ -170,86 +208,33 @@ namespace MOS.RealMachine
             }
         }
 
+        internal static SupervisoryMemory Sm { get => Sm1; set => Sm1 = value; }
+        internal static SupervisoryMemory Sm1 { get => sm1; set => sm1 = value; }
+
         #endregion
-        public void PowerOn()
+        public void StepByStep()
         {
-            while (run)
-            {
-                Console.WriteLine("1. Load test program");
-                Console.WriteLine("2. Load by name");
-                Console.WriteLine("3. Print registers");
-                Console.WriteLine("4. Print Real machine memory");
-
-                var h = Console.ReadLine();
-                
-                switch (h)
-                {
-                    case "1":
-                        LoadTestProgram();
-                        break;
-                    case "2":
-                        break;
-                    case "3":
-                        PrintRegisters();
-                        break;
-                    case "4":
-                        PrintMemory();
-                        break;
-                    case "5":
-                        zingsninis();
-                        break;
-                    default:
-                        Console.WriteLine("Bad input");
-                        break;
-                }
-            }
-            ic.IC++;
-
-            Console.WriteLine(ptr.PTR = memory.getMemory());
-            PrintRegisters();
-        }
-        public void zingsninis()
-        {
-            var flashOutput = cd.ReadFromFlash();
-
-            ptr.PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
-            TransferProgramToMemory(flashOutput);
-            VirtualMachine.VirtualMachine
-                vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf);
             while (true)
             {   
-                vm.RunCommand();
+                
+                
+                Console.ReadLine();
+            }   
+        }
+         public void RunCode()
+        {
+            while (true)
+            {
+            vm.RunCommand(); //virtualiai pasinai pasakoma vykdyti komandą
                 if (test())
                 {
                     if (!Test())
                     {
+                        run = false;
                         break;
                     }
-                }
-                Console.ReadLine();
+                }  
             }
-            
-
-        }
-         public void LoadTestProgram()
-        {
-            var flashOutput = cd.ReadFromFlash();
-           
-            ptr.PTR = memory.getMemory(); //isskiriami laisvi atminties blokai programai
-            TransferProgramToMemory(flashOutput);
-
-            VirtualMachine.VirtualMachine
-                vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf); //sukuriama virtuali masina
-            //PrintMemory();
-            while (true)
-            {
-            vm.RunCode(); //virtualiai pasinai pasakoma vykdyti koda
-                if (!Test())
-                {
-                    break;
-                }      
-            }
-
         }
 
         public void TransferProgramToMemory(string[,] flash)
@@ -396,6 +381,23 @@ namespace MOS.RealMachine
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (PropertyChanged != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public bool LoadProgramToSupervisory(string path)
+        {
+            bool succes = true;
+            FlashMemory fl = new FlashMemory();
+            string[] file = fl.getFlashData(path);
+            var data = sm1.CheckAndLoad(file);
+            if (data == null)
+            {
+                return false;
+            }
+            ptr.PTR = memory.getMemory();
+            TransferProgramToMemory(data);
+            vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf); //sukuriama virtuali masina
+            RMform.ptrList = VMMemory;
+            run = true;
+            return succes;
         }
     }
 }

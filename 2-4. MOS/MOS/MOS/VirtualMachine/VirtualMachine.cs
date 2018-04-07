@@ -30,6 +30,7 @@ namespace MOS.VirtualMachine
         public void RunCommand()
         {
             string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR.PTR.ToHex(), IC.GetX()).ToHex(), IC.GetY());
+            RealMachine.RealMachine.paskutineKomanda = command;
             IC.Increase();
             if (command[0] == 'H' && command[1] == 'A')
             {
@@ -40,28 +41,28 @@ namespace MOS.VirtualMachine
                 DoTask(command);
             }
         }
-        public void RunCode()
-        {
-            while (true)
-            {
-                string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR.PTR.ToHex(), IC.GetX()).ToHex(), IC.GetY());
-                if (command == null)
-                    return;
-                IC.Increase();
-                if (command[0] == 'H' && command[1] == 'A')
-                {
-                    halt();
-                }
-                else
-                {
-                    DoTask(command);
-                }
-                if (RealMachine.RealMachine.test())
-                {
-                    return;
-                }
-            }
-        }
+        /* public void RunCode()
+         {
+             while (true)
+             {
+                 string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR.PTR.ToHex(), IC.GetX()).ToHex(), IC.GetY());
+                 if (command == null)
+                     return;
+                 IC.Increase();
+                 if (command[0] == 'H' && command[1] == 'A')
+                 {
+                     halt();
+                 }
+                 else
+                 {
+                     DoTask(command);
+                 }
+                 if (RealMachine.RealMachine.test())
+                 {
+                     return;
+                 }
+             }
+         }*/
         private void halt()
         {
             RealMachine.RealMachine.si.SI = 3;

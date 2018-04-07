@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace MOS.GUI
@@ -15,7 +16,7 @@ namespace MOS.GUI
         public RealMachine.RealMachine Rm;
         DataTable _table = new DataTable();
         DataTable _table2 = new DataTable();
-        private List<string[]> ptrList = new List<string[]>();
+        public static List<string[]> ptrList = new List<string[]>();
 
         public RMform(RealMachine.RealMachine rm)
         {
@@ -34,6 +35,7 @@ namespace MOS.GUI
             IOItext.DataBindings.Add("Text", Rm, "IOI");
             MODEtext.DataBindings.Add("Text", Rm, "MODE");
             PItext.DataBindings.Add("Text", Rm, "PI");
+            komanda.DataBindings.Add("Text", Rm, "Komanda");
         }
 
         private void HandleMemoryChanged()
@@ -135,22 +137,9 @@ namespace MOS.GUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            var flashOutput = Rm.cd.ReadFromFlash();
-
-            Rm.ptr.PTR = RealMachine.RealMachine.memory.getMemory(); //isskiriami laisvi atminties blokai programai
-            Rm.TransferProgramToMemory(flashOutput);
-            ptrList = Rm.VMMemory;
+            string path = ShowFileDialog();
+            Rm.LoadProgramToSupervisory(path);
             LoadDataGrid();
-            VirtualMachine.VirtualMachine
-                vm = new VirtualMachine.VirtualMachine(Rm.ptr, Rm.r1, Rm.r2, Rm.r3, Rm.r4, Rm.ic, Rm.sf); //sukuriama virtuali masina
-            while (true)
-            {
-                vm.RunCode(); //virtualiai masinai pasakoma vykdyti koda
-                if (!Rm.Test())
-                {
-                    break;
-                }
-            }
         }
 
         private void ViewBlocktext_TextChanged(object sender, EventArgs e)
@@ -160,7 +149,7 @@ namespace MOS.GUI
 
         private void viewBlockButton_Click(object sender, EventArgs e)
         {
-            int block = Int32.Parse(ViewBlocktext.Text);
+            int block = ViewBlocktext.Text.ToHex();
 
             _table2 = new DataTable();
 
@@ -179,6 +168,39 @@ namespace MOS.GUI
             viewBlockGrid.DataSource = _table2;
             for (var i = 0; i < 16; i++)
                 viewBlockGrid.Columns[i].Width = 37;
+        }
+        public static string ShowFileDialog()
+        {
+            string selectedPath = "";
+            var t = new Thread((ThreadStart)(() =>
+            {
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                openFileDialog.ShowDialog();
+                    selectedPath = openFileDialog.FileName;
+                    Console.WriteLine(openFileDialog.FileName);
+            }));
+            t.SetApartmentState(ApartmentState.STA);
+            t.Start();
+
+            t.Join();
+            return selectedPath;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (RealMachine.RealMachine.run)
+                Rm.RunCode();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (RealMachine.RealMachine.run)
+            {
+            button3.Text = "Next";
+            Rm.Next = true;
+            }
         }
     }
 }
