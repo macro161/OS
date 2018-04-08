@@ -13,6 +13,9 @@
         {
             return R.ToString("X");
         }
-
+        public void Clear()
+        {
+            R = 0;
+        }
     }
 }

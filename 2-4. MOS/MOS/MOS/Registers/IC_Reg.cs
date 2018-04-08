@@ -21,7 +21,7 @@
 
         public void Clear()
         {
-            IC = 0;
+            IC = 0x80;
         }
         public void Increase()
         {

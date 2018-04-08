@@ -331,6 +331,7 @@ namespace MOS.RealMachine
             }
             memory.SetFree(ptr.PTR.TwoLastbytesToHex());
             ptr.Clear();
+            ClearRegisters();
         }
 
         private void GetData(int x1x2) // perskaito 4 žodžius ir įrašo pradedant x1 * 16 + x2
@@ -384,6 +385,7 @@ namespace MOS.RealMachine
         }
         public bool LoadProgramToSupervisory(string path)
         {
+            ClearRegisters();
             bool succes = true;
             FlashMemory fl = new FlashMemory();
             string[] file = fl.getFlashData(path);
@@ -398,6 +400,19 @@ namespace MOS.RealMachine
             RMform.ptrList = VMMemory;
             run = true;
             return succes;
+        }
+        private void ClearRegisters()
+        {
+            ptr.Clear();
+            r1.Clear();
+            r2.Clear();
+            r3.Clear();
+            r4.Clear();
+            si.Clear();
+            pi.Clear();
+            sf.Clear_Reg();
+            ti.TI = 10;
+            ic.Clear();
         }
     }
 }
