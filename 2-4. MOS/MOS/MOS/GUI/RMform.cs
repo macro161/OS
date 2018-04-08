@@ -13,15 +13,17 @@ namespace MOS.GUI
         public string[,] memoryArray;
         public string[,] memoryArray2 = new string[0x256, 0x10];
         public string[,] VMArray = new string[16, 16];
-        public RealMachine.RealMachine Rm;
+        public RealMachine.RealMachine rm;
         DataTable _table = new DataTable();
         DataTable _table2 = new DataTable();
         public static List<string[]> ptrList = new List<string[]>();
+        public BindingSource Rm = new BindingSource();
 
         public RMform(RealMachine.RealMachine rm)
         {
-            Rm = rm;
-            Rm.PropertyChanged += (sender, args) => { if (args.PropertyName == "Memory" && sender != this) HandleMemoryChanged(); };
+            this.rm = rm;
+            Rm.DataSource = rm;
+            rm.PropertyChanged += (sender, args) => { if (args.PropertyName == "Memory" && sender != this) HandleMemoryChanged(); };
             InitializeComponent();
             R1text.DataBindings.Add("Text", Rm, "R1");
             R2text.DataBindings.Add("Text", Rm, "R2");
@@ -41,7 +43,7 @@ namespace MOS.GUI
         private void HandleMemoryChanged()
         {
             //Debug.WriteLine("*******");
-            ptrList = Rm.VMMemory;
+            ptrList = rm.VMMemory;
             UpdateTable();
         }
 
@@ -58,6 +60,7 @@ namespace MOS.GUI
 
         private void MakeVMTable()
         {
+            _table = new DataTable();
             for (int block = 0; block < 16; block++)
                 _table.Columns.Add(block.ToHex().ToUpper());
 
@@ -102,7 +105,7 @@ namespace MOS.GUI
 
         private void LoadDataGrid()
         {
-            memoryArray = Rm.Memory;
+            memoryArray = rm.Memory;
 
             for (int i = 0; i < 0x256; i++)
                 for (int j = 0; j < 16; j++)
@@ -132,13 +135,14 @@ namespace MOS.GUI
             //    }
             //}
             //RealMachine.RealMachine.memory.UserMemoryProp = arr;
-            Rm.Memory = arr;
+            rm.Memory = arr;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            ptrList = new List<string[]>();
             string path = ShowFileDialog();
-            Rm.LoadProgramToSupervisory(path);
+            rm.LoadProgramToSupervisory(path);
             LoadDataGrid();
         }
 
@@ -191,7 +195,7 @@ namespace MOS.GUI
         private void button2_Click(object sender, EventArgs e)
         {
             if (RealMachine.RealMachine.run)
-                Rm.RunCode();
+                rm.RunCode();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -199,7 +203,8 @@ namespace MOS.GUI
             if (RealMachine.RealMachine.run)
             {
             button3.Text = "Next";
-            Rm.Next = true;
+            rm.Next = true;
+            Rm.ResetBindings(true);
             }
         }
     }
