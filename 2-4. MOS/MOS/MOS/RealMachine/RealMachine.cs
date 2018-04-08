@@ -309,10 +309,10 @@ namespace MOS.RealMachine
             if (ti.TI == 0)
             {
                 Printer.PrintToScreen(Environment.NewLine + "Taimerio pertraukimas!");
+                ti.TI = 10;
             }
             pi.PI = 0;
             si.SI = 0;
-            ti.TI = 10;
             return cont;
         }
 
