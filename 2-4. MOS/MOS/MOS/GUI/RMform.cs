@@ -139,7 +139,7 @@ namespace MOS.GUI
 
         private void viewBlockButton_Click(object sender, EventArgs e)
         {
-            int block = Int32.Parse(ViewBlocktext.Text);
+            int block = ViewBlocktext.Text.ToHex();
             memoryArray = rm.Memory;
 
             _table = new DataTable();
