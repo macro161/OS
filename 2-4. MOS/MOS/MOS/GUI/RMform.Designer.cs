@@ -68,56 +68,56 @@
             // 
             // R1text
             // 
-            this.R1text.Location = new System.Drawing.Point(186, 95);
+            this.R1text.Location = new System.Drawing.Point(197, 55);
             this.R1text.Name = "R1text";
             this.R1text.Size = new System.Drawing.Size(36, 20);
             this.R1text.TabIndex = 0;
             // 
             // R4text
             // 
-            this.R4text.Location = new System.Drawing.Point(186, 173);
+            this.R4text.Location = new System.Drawing.Point(197, 133);
             this.R4text.Name = "R4text";
             this.R4text.Size = new System.Drawing.Size(36, 20);
             this.R4text.TabIndex = 1;
             // 
             // R3text
             // 
-            this.R3text.Location = new System.Drawing.Point(186, 147);
+            this.R3text.Location = new System.Drawing.Point(197, 107);
             this.R3text.Name = "R3text";
             this.R3text.Size = new System.Drawing.Size(36, 20);
             this.R3text.TabIndex = 2;
             // 
             // R2text
             // 
-            this.R2text.Location = new System.Drawing.Point(186, 121);
+            this.R2text.Location = new System.Drawing.Point(197, 81);
             this.R2text.Name = "R2text";
             this.R2text.Size = new System.Drawing.Size(36, 20);
             this.R2text.TabIndex = 3;
             // 
             // MODEtext
             // 
-            this.MODEtext.Location = new System.Drawing.Point(186, 278);
+            this.MODEtext.Location = new System.Drawing.Point(197, 238);
             this.MODEtext.Name = "MODEtext";
             this.MODEtext.Size = new System.Drawing.Size(36, 20);
             this.MODEtext.TabIndex = 4;
             // 
             // PTRtext
             // 
-            this.PTRtext.Location = new System.Drawing.Point(155, 252);
+            this.PTRtext.Location = new System.Drawing.Point(177, 212);
             this.PTRtext.Name = "PTRtext";
-            this.PTRtext.Size = new System.Drawing.Size(67, 20);
+            this.PTRtext.Size = new System.Drawing.Size(56, 20);
             this.PTRtext.TabIndex = 5;
             // 
             // SFtext
             // 
-            this.SFtext.Location = new System.Drawing.Point(186, 225);
+            this.SFtext.Location = new System.Drawing.Point(197, 185);
             this.SFtext.Name = "SFtext";
             this.SFtext.Size = new System.Drawing.Size(36, 20);
             this.SFtext.TabIndex = 6;
             // 
             // ICtext
             // 
-            this.ICtext.Location = new System.Drawing.Point(186, 199);
+            this.ICtext.Location = new System.Drawing.Point(197, 159);
             this.ICtext.Name = "ICtext";
             this.ICtext.Size = new System.Drawing.Size(36, 20);
             this.ICtext.TabIndex = 8;
@@ -125,7 +125,7 @@
             // R1label
             // 
             this.R1label.AutoSize = true;
-            this.R1label.Location = new System.Drawing.Point(141, 98);
+            this.R1label.Location = new System.Drawing.Point(134, 58);
             this.R1label.Name = "R1label";
             this.R1label.Size = new System.Drawing.Size(21, 13);
             this.R1label.TabIndex = 9;
@@ -134,7 +134,7 @@
             // R2label
             // 
             this.R2label.AutoSize = true;
-            this.R2label.Location = new System.Drawing.Point(141, 124);
+            this.R2label.Location = new System.Drawing.Point(134, 84);
             this.R2label.Name = "R2label";
             this.R2label.Size = new System.Drawing.Size(21, 13);
             this.R2label.TabIndex = 10;
@@ -143,7 +143,7 @@
             // R3label
             // 
             this.R3label.AutoSize = true;
-            this.R3label.Location = new System.Drawing.Point(141, 150);
+            this.R3label.Location = new System.Drawing.Point(134, 110);
             this.R3label.Name = "R3label";
             this.R3label.Size = new System.Drawing.Size(21, 13);
             this.R3label.TabIndex = 11;
@@ -152,7 +152,7 @@
             // R4label
             // 
             this.R4label.AutoSize = true;
-            this.R4label.Location = new System.Drawing.Point(141, 176);
+            this.R4label.Location = new System.Drawing.Point(134, 136);
             this.R4label.Name = "R4label";
             this.R4label.Size = new System.Drawing.Size(21, 13);
             this.R4label.TabIndex = 12;
@@ -161,7 +161,7 @@
             // IClabel
             // 
             this.IClabel.AutoSize = true;
-            this.IClabel.Location = new System.Drawing.Point(141, 202);
+            this.IClabel.Location = new System.Drawing.Point(134, 162);
             this.IClabel.Name = "IClabel";
             this.IClabel.Size = new System.Drawing.Size(17, 13);
             this.IClabel.TabIndex = 13;
@@ -170,7 +170,7 @@
             // SFlabel
             // 
             this.SFlabel.AutoSize = true;
-            this.SFlabel.Location = new System.Drawing.Point(141, 228);
+            this.SFlabel.Location = new System.Drawing.Point(134, 188);
             this.SFlabel.Name = "SFlabel";
             this.SFlabel.Size = new System.Drawing.Size(20, 13);
             this.SFlabel.TabIndex = 15;
@@ -179,7 +179,7 @@
             // PTRlabel
             // 
             this.PTRlabel.AutoSize = true;
-            this.PTRlabel.Location = new System.Drawing.Point(120, 255);
+            this.PTRlabel.Location = new System.Drawing.Point(134, 215);
             this.PTRlabel.Name = "PTRlabel";
             this.PTRlabel.Size = new System.Drawing.Size(29, 13);
             this.PTRlabel.TabIndex = 16;
@@ -188,7 +188,7 @@
             // PIlabel
             // 
             this.PIlabel.AutoSize = true;
-            this.PIlabel.Location = new System.Drawing.Point(142, 307);
+            this.PIlabel.Location = new System.Drawing.Point(135, 267);
             this.PIlabel.Name = "PIlabel";
             this.PIlabel.Size = new System.Drawing.Size(17, 13);
             this.PIlabel.TabIndex = 17;
@@ -197,7 +197,7 @@
             // MODElabel
             // 
             this.MODElabel.AutoSize = true;
-            this.MODElabel.Location = new System.Drawing.Point(141, 281);
+            this.MODElabel.Location = new System.Drawing.Point(134, 241);
             this.MODElabel.Name = "MODElabel";
             this.MODElabel.Size = new System.Drawing.Size(39, 13);
             this.MODElabel.TabIndex = 18;
@@ -205,28 +205,28 @@
             // 
             // PItext
             // 
-            this.PItext.Location = new System.Drawing.Point(186, 304);
+            this.PItext.Location = new System.Drawing.Point(197, 264);
             this.PItext.Name = "PItext";
             this.PItext.Size = new System.Drawing.Size(36, 20);
             this.PItext.TabIndex = 19;
             // 
             // SItext
             // 
-            this.SItext.Location = new System.Drawing.Point(186, 330);
+            this.SItext.Location = new System.Drawing.Point(197, 290);
             this.SItext.Name = "SItext";
             this.SItext.Size = new System.Drawing.Size(36, 20);
             this.SItext.TabIndex = 20;
             // 
             // IOItext
             // 
-            this.IOItext.Location = new System.Drawing.Point(186, 382);
+            this.IOItext.Location = new System.Drawing.Point(197, 342);
             this.IOItext.Name = "IOItext";
             this.IOItext.Size = new System.Drawing.Size(36, 20);
             this.IOItext.TabIndex = 21;
             // 
             // TItext
             // 
-            this.TItext.Location = new System.Drawing.Point(186, 356);
+            this.TItext.Location = new System.Drawing.Point(197, 316);
             this.TItext.Name = "TItext";
             this.TItext.Size = new System.Drawing.Size(36, 20);
             this.TItext.TabIndex = 22;
@@ -234,7 +234,7 @@
             // IOIlabel
             // 
             this.IOIlabel.AutoSize = true;
-            this.IOIlabel.Location = new System.Drawing.Point(142, 385);
+            this.IOIlabel.Location = new System.Drawing.Point(135, 345);
             this.IOIlabel.Name = "IOIlabel";
             this.IOIlabel.Size = new System.Drawing.Size(21, 13);
             this.IOIlabel.TabIndex = 23;
@@ -243,7 +243,7 @@
             // TIlabel
             // 
             this.TIlabel.AutoSize = true;
-            this.TIlabel.Location = new System.Drawing.Point(142, 359);
+            this.TIlabel.Location = new System.Drawing.Point(135, 319);
             this.TIlabel.Name = "TIlabel";
             this.TIlabel.Size = new System.Drawing.Size(17, 13);
             this.TIlabel.TabIndex = 24;
@@ -252,7 +252,7 @@
             // SIlabel
             // 
             this.SIlabel.AutoSize = true;
-            this.SIlabel.Location = new System.Drawing.Point(142, 333);
+            this.SIlabel.Location = new System.Drawing.Point(135, 293);
             this.SIlabel.Name = "SIlabel";
             this.SIlabel.Size = new System.Drawing.Size(17, 13);
             this.SIlabel.TabIndex = 25;
@@ -261,16 +261,17 @@
             // dataGrid
             // 
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGrid.Location = new System.Drawing.Point(243, 21);
+            this.dataGrid.Location = new System.Drawing.Point(255, 21);
             this.dataGrid.Name = "dataGrid";
-            this.dataGrid.Size = new System.Drawing.Size(655, 401);
+            this.dataGrid.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.dataGrid.Size = new System.Drawing.Size(645, 377);
             this.dataGrid.TabIndex = 27;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(12, 21);
+            this.button1.Location = new System.Drawing.Point(12, 77);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 44);
+            this.button1.Size = new System.Drawing.Size(98, 48);
             this.button1.TabIndex = 28;
             this.button1.Text = "Load Program";
             this.button1.UseVisualStyleBackColor = true;
@@ -279,15 +280,15 @@
             // ViewBlock_label
             // 
             this.ViewBlock_label.AutoSize = true;
-            this.ViewBlock_label.Location = new System.Drawing.Point(141, 438);
+            this.ViewBlock_label.Location = new System.Drawing.Point(144, 400);
             this.ViewBlock_label.Name = "ViewBlock_label";
-            this.ViewBlock_label.Size = new System.Drawing.Size(79, 13);
+            this.ViewBlock_label.Size = new System.Drawing.Size(82, 13);
             this.ViewBlock_label.TabIndex = 29;
-            this.ViewBlock_label.Text = "View RM block";
+            this.ViewBlock_label.Text = "View RM block:";
             // 
             // ViewBlocktext
             // 
-            this.ViewBlocktext.Location = new System.Drawing.Point(143, 460);
+            this.ViewBlocktext.Location = new System.Drawing.Point(147, 416);
             this.ViewBlocktext.Name = "ViewBlocktext";
             this.ViewBlocktext.Size = new System.Drawing.Size(72, 20);
             this.ViewBlocktext.TabIndex = 31;
@@ -296,16 +297,17 @@
             // viewBlockGrid
             // 
             this.viewBlockGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.viewBlockGrid.Location = new System.Drawing.Point(243, 436);
+            this.viewBlockGrid.Location = new System.Drawing.Point(255, 416);
             this.viewBlockGrid.Name = "viewBlockGrid";
-            this.viewBlockGrid.Size = new System.Drawing.Size(655, 73);
+            this.viewBlockGrid.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.viewBlockGrid.Size = new System.Drawing.Size(645, 44);
             this.viewBlockGrid.TabIndex = 32;
             // 
             // viewBlockButton
             // 
-            this.viewBlockButton.Location = new System.Drawing.Point(144, 486);
+            this.viewBlockButton.Location = new System.Drawing.Point(147, 442);
             this.viewBlockButton.Name = "viewBlockButton";
-            this.viewBlockButton.Size = new System.Drawing.Size(75, 23);
+            this.viewBlockButton.Size = new System.Drawing.Size(72, 23);
             this.viewBlockButton.TabIndex = 33;
             this.viewBlockButton.Text = "View RM block";
             this.viewBlockButton.UseVisualStyleBackColor = true;
@@ -313,9 +315,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(104, 24);
+            this.button2.Location = new System.Drawing.Point(12, 213);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(82, 39);
+            this.button2.Size = new System.Drawing.Size(98, 43);
             this.button2.TabIndex = 34;
             this.button2.Text = "Run";
             this.button2.UseVisualStyleBackColor = true;
@@ -323,9 +325,9 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(12, 82);
+            this.button3.Location = new System.Drawing.Point(12, 158);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(96, 39);
+            this.button3.Size = new System.Drawing.Size(98, 43);
             this.button3.TabIndex = 35;
             this.button3.Text = "Step by Step";
             this.button3.UseVisualStyleBackColor = true;
@@ -334,15 +336,15 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 438);
+            this.label1.Location = new System.Drawing.Point(23, 301);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(101, 13);
+            this.label1.Size = new System.Drawing.Size(79, 13);
             this.label1.TabIndex = 36;
-            this.label1.Text = "Paskutinė komanda";
+            this.label1.Text = "Last command:";
             // 
             // komanda
             // 
-            this.komanda.Location = new System.Drawing.Point(12, 460);
+            this.komanda.Location = new System.Drawing.Point(12, 317);
             this.komanda.Name = "komanda";
             this.komanda.ReadOnly = true;
             this.komanda.Size = new System.Drawing.Size(101, 20);
@@ -352,7 +354,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(928, 525);
+            this.ClientSize = new System.Drawing.Size(910, 482);
             this.Controls.Add(this.komanda);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button3);
