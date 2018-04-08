@@ -126,9 +126,11 @@ namespace MOS.GUI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ptrList = new List<string[]>();
             string path = ShowFileDialog();
+            rm.VMMemory = new List<string[]>();
             rm.LoadProgramToSupervisory(path);
+            ptrList = rm.VMMemory;
+            Rm.ResetBindings(true);
             LoadDataGrid();
         }
 
