@@ -44,22 +44,18 @@ namespace MOS.GUI
         {
             //Debug.WriteLine("*******");
             ptrList = rm.VMMemory;
-            UpdateTable();
+            LoadDataGrid();
         }
-
-        void UpdateTable()
-        {
-            _table = new DataTable();
-            MakeVMTable();
-        }
-
+        
         private void RMform_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void MakeVMTable()
+        private void LoadDataGrid()
         {
+            memoryArray = rm.Memory;
+
             _table = new DataTable();
             for (int block = 0; block < 16; block++)
                 _table.Columns.Add(block.ToHex().ToUpper());
@@ -103,16 +99,6 @@ namespace MOS.GUI
             //Rm.LoadTestProgram();
         }
 
-        private void LoadDataGrid()
-        {
-            memoryArray = rm.Memory;
-
-            for (int i = 0; i < 0x256; i++)
-                for (int j = 0; j < 16; j++)
-                    memoryArray2[i, j] = memoryArray[i, j];
-            MakeVMTable();
-        }
-
         private void Row_Changed(object sender, DataRowChangeEventArgs e)
         {
             string[,] arr = new string[0x256, 16];
@@ -153,23 +139,24 @@ namespace MOS.GUI
 
         private void viewBlockButton_Click(object sender, EventArgs e)
         {
-            int block = ViewBlocktext.Text.ToHex();
+            int block = Int32.Parse(ViewBlocktext.Text);
+            memoryArray = rm.Memory;
 
-            _table2 = new DataTable();
+            _table = new DataTable();
 
             for (int b = 0; b < 16; b++)
-                _table2.Columns.Add(b.ToHex().ToUpper());
+                _table.Columns.Add(b.ToHex().ToUpper());
 
-            DataRow newRow = _table2.NewRow();
+            DataRow newRow = _table.NewRow();
             for (int i = 0; i < 16; i++)
             {
-                newRow[i] = memoryArray2[block, i];
+                newRow[i] = memoryArray[block, i];
                 if (newRow[i] == null)
                     newRow[i] = "";
             }
-            _table2.Rows.Add(newRow);
-            Debug.WriteLine(_table2.Rows.Count);
-            viewBlockGrid.DataSource = _table2;
+            _table.Rows.Add(newRow);
+            Debug.WriteLine(_table.Rows.Count);
+            viewBlockGrid.DataSource = _table;
             for (var i = 0; i < 16; i++)
                 viewBlockGrid.Columns[i].Width = 37;
         }
@@ -205,6 +192,7 @@ namespace MOS.GUI
             button3.Text = "Next";
             rm.Next = true;
             Rm.ResetBindings(true);
+            LoadDataGrid();
             }
         }
     }
