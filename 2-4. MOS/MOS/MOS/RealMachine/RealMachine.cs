@@ -30,6 +30,8 @@ namespace MOS.RealMachine
         public static string filePath = "";
         private static VirtualMachine.VirtualMachine vm;
         public static string paskutineKomanda;
+        private static string pertraukimas;
+        
         private static bool _next;
 
         public string Komanda
@@ -39,6 +41,15 @@ namespace MOS.RealMachine
             {
                 paskutineKomanda = value;
                 RaisePropertyChangedEvent("Komanda");
+            }
+        }
+        public string Pertraukimas
+        {
+            get => pertraukimas;
+            set
+            {
+                pertraukimas = value;
+                RaisePropertyChangedEvent("Pertraukimas");
             }
         }
         public bool Next
@@ -273,15 +284,18 @@ namespace MOS.RealMachine
         }
         public bool Test() // metodas apdorojantis pertraukimus, cont kintamasis parodo, ar tęsime VM veiklą atsižvelgiant į pertraukimų tipus.
         {
+            pertraukimas = "";
             bool cont = true;
             switch (pi.PI)
             {
                 case 1:
                     Printer.PrintToScreen("Neteisingai įvestas adresas!");
+                    pertraukimas = "Programinis pertraukimas (neteisingas adresas)";
                     cont = false;
                     break;
                 case 2:
                     Printer.PrintToScreen("Neteisingas operacijos kodas!");
+                    pertraukimas = "Programinis pertraukimas (neteisingas operacijos kodas)";
                     cont = false;
                     break;
                 case 3:
@@ -290,25 +304,28 @@ namespace MOS.RealMachine
                     break;
                 case 4:
                     Printer.PrintToScreen("overflow!");
+                    pertraukimas = "Programinis pertraukimas (overflow)";
                     break;
             }
             switch (si.SI)
             {
                 case 1:
+                    pertraukimas = "Sisteminis pertraukimas (nuskaitymas)";
                     GetData(r4.R);
                     break;
                 case 2:
+                    pertraukimas = "Sisteminis pertraukimas (išvedimas)";
                     WriteData(r4.R);
                     break;
                 case 3:
-                    Console.WriteLine(Environment.NewLine + "halt");
+                    pertraukimas = "Sisteminis pertraukimas (HALT)";
                     Halt();
                     cont = false;
                     break;
             }
             if (ti.TI == 0)
             {
-                Printer.PrintToScreen(Environment.NewLine + "Taimerio pertraukimas!");
+                pertraukimas += Environment.NewLine + "Taimerio pertraukimas";
                 ti.TI = 10;
             }
             pi.PI = 0;

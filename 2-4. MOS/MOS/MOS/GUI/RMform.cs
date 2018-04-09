@@ -38,6 +38,7 @@ namespace MOS.GUI
             MODEtext.DataBindings.Add("Text", Rm, "MODE");
             PItext.DataBindings.Add("Text", Rm, "PI");
             komanda.DataBindings.Add("Text", Rm, "Komanda");
+            Pertraukimas.DataBindings.Add("Text", Rm, "Pertraukimas");
         }
 
         private void HandleMemoryChanged()
@@ -96,7 +97,6 @@ namespace MOS.GUI
             for (var i = 0; i < 16; i++)
                 dataGrid.Columns[i].Width = 37;
             _table.RowChanged += Row_Changed;
-            //Rm.LoadTestProgram();
         }
 
         private void Row_Changed(object sender, DataRowChangeEventArgs e)
