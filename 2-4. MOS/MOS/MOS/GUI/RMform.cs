@@ -183,8 +183,12 @@ namespace MOS.GUI
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (RealMachine.RealMachine.run)
-                rm.RunCode();
+            var t = new Thread((ThreadStart)(() =>
+            {
+                if (RealMachine.RealMachine.run)
+                    rm.RunCode = true;
+            }));
+            t.Start();
         }
 
         private void button3_Click(object sender, EventArgs e)

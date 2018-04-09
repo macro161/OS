@@ -31,7 +31,7 @@ namespace MOS.RealMachine
         private static VirtualMachine.VirtualMachine vm;
         public static string paskutineKomanda;
         private static string pertraukimas;
-        
+        private static bool _runCode = false;
         private static bool _next;
 
         public string Komanda
@@ -72,6 +72,29 @@ namespace MOS.RealMachine
                     }
                 }
                
+            }
+        }
+        public bool RunCode
+        {
+            get { return _runCode; }
+            set
+            {
+                _runCode = value;
+                if (_runCode)
+                {
+                    while (true)
+                    {
+                        vm.RunCommand(); //virtualiai pasinai pasakoma vykdyti komandą
+                        if (test())
+                        {
+                            if (!Test())
+                            {
+                                run = false;
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
         #region gui
@@ -232,22 +255,6 @@ namespace MOS.RealMachine
                 Console.ReadLine();
             }   
         }
-         public void RunCode()
-        {
-            while (true)
-            {
-            vm.RunCommand(); //virtualiai pasinai pasakoma vykdyti komandą
-                if (test())
-                {
-                    if (!Test())
-                    {
-                        run = false;
-                        break;
-                    }
-                }  
-            }
-        }
-
         public void TransferProgramToMemory(string[,] flash)
         {
             for (int i = 0; i < 16; i++)
