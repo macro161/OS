@@ -41,36 +41,18 @@ namespace MOS.VirtualMachine
                 DoTask(command);
             }
         }
-        /* public void RunCode()
-         {
-             while (true)
-             {
-                 string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR.PTR.ToHex(), IC.GetX()).ToHex(), IC.GetY());
-                 if (command == null)
-                     return;
-                 IC.Increase();
-                 if (command[0] == 'H' && command[1] == 'A')
-                 {
-                     halt();
-                 }
-                 else
-                 {
-                     DoTask(command);
-                 }
-                 if (RealMachine.RealMachine.test())
-                 {
-                     return;
-                 }
-             }
-         }*/
+
         private void halt()
         {
             RealMachine.RealMachine.si.SI = 3;
         }
         private void DoTask(String com)
         {
+            while (com.Length < 4)
+            {
+                com += " ";
+            }
             string c = com.Substring(0, 2);
-
             string x1x2 = com.Substring(2, 2);
 
             if (com == "HALT")
@@ -139,26 +121,17 @@ namespace MOS.VirtualMachine
                     or();
                     break;
                 case "PY":
-                    py();
+                    py(x1x2);
                     break;
                 case "LO":
-                    loop(x1x2);
+                    lo(x1x2);
                     break;
             }
         }
 
-        private void py()
-        {
-            RealMachine.RealMachine.ti.DecrementTI();
-        }
-
-        private void loop(string x1x2)
-        {
-            RealMachine.RealMachine.ti.DecrementTI();
-        }
-
         private void gd(string x1x2) // CF ZF SF
         {
+
             int x1 = x1x2.Substring(0, 1).ToHex();
             int x2 = x1x2.Substring(1, 1).ToHex();
             x1 = pt.RealAddress(x1);
@@ -192,6 +165,11 @@ namespace MOS.VirtualMachine
 
         private void jg(string x1x2) // patikrinti ar jumpas veikia teisingai(Justui Tvarijonui)
         {
+            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
+            {
+                RealMachine.RealMachine.pi.PI = 3;
+                return;
+            }
             if (SF.Get_ZF() == false && SF.Get_SF() == SF.Get_OF())
             {
 
@@ -240,6 +218,11 @@ namespace MOS.VirtualMachine
 
         private void lr(string x1x2)
         {
+            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
+            {
+                RealMachine.RealMachine.pi.PI = 3;
+                return;
+            }
             int x1 = x1x2.Substring(0, 1).ToHex();
             if (x1 > 8 || x1 < 0)
             {
@@ -260,6 +243,11 @@ namespace MOS.VirtualMachine
 
         private void sr(string x1x2)
         {
+            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
+            {
+                RealMachine.RealMachine.pi.PI = 3;
+                return;
+            }
             int x1 = x1x2.Substring(0, 1).ToHex();
             if (x1 > 8 || x1 < 0)
             {
@@ -286,6 +274,11 @@ namespace MOS.VirtualMachine
 
         private void ad(string x1x2)
         {
+            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
+            {
+                RealMachine.RealMachine.pi.PI = 3;
+                return;
+            }
             int x1 = x1x2.Substring(0, 1).ToHex();
             if (x1 > 8 || x1 < 0)
             {
@@ -308,6 +301,11 @@ namespace MOS.VirtualMachine
 
         private void sb(string x1x2)
         {
+            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
+            {
+                RealMachine.RealMachine.pi.PI = 3;
+                return;
+            }
             int x1 = x1x2.Substring(0, 1).ToHex();
             if (x1 > 8 || x1 < 0)
             {
@@ -327,6 +325,13 @@ namespace MOS.VirtualMachine
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
+        private void py(string x1x2)
+        {
+            R4.R = x1x2.ToHex();
+            RealMachine.RealMachine.si.SI = 4;
+            RealMachine.RealMachine.ti.DecrementTI();
+
+        }
         private void cr(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
@@ -346,6 +351,11 @@ namespace MOS.VirtualMachine
 
         private void mu(string x1x2)
         {
+            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
+            {
+                RealMachine.RealMachine.pi.PI = 3;
+                return;
+            }
             int x1 = x1x2.Substring(0, 1).ToHex();
             if (x1 > 8 || x1 < 0)
             {
@@ -381,6 +391,11 @@ namespace MOS.VirtualMachine
 
         private void di(string x1x2)
         {
+            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
+            {
+                RealMachine.RealMachine.pi.PI = 3;
+                return;
+            }
             int x1 = x1x2.Substring(0, 1).ToHex();
             if (x1 > 8 || x1 < 0)
             {
@@ -408,8 +423,6 @@ namespace MOS.VirtualMachine
 
             }
 
-            
-
             Modify_SF(R1.R);
             Modify_ZF(R1.R);
 
@@ -434,6 +447,11 @@ namespace MOS.VirtualMachine
 
         private void ju(string x1x2)
         {
+            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
+            {
+                RealMachine.RealMachine.pi.PI = 3;
+                return;
+            }
             if (x1x2.ToHex() < 0x80 || x1x2.ToHex() > 0xFF)
             {
                 RealMachine.RealMachine.pi.PI = 1;
@@ -445,6 +463,11 @@ namespace MOS.VirtualMachine
 
         private void je(string x1x2)
         {
+            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
+            {
+                RealMachine.RealMachine.pi.PI = 3;
+                return;
+            }
             if (SF.Get_ZF() == false && SF.Get_SF() == SF.Get_OF())
             {
 
@@ -459,6 +482,11 @@ namespace MOS.VirtualMachine
         }
         private void jl(string x1x2)
         {
+            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
+            {
+                RealMachine.RealMachine.pi.PI = 3;
+                return;
+            }
             if (SF.Get_SF() != SF.Get_OF())
             {
                 if (x1x2.ToHex() < 0x80 || x1x2.ToHex() > 0xFF)
@@ -468,6 +496,28 @@ namespace MOS.VirtualMachine
                 }
 
                     IC.IC = (ushort) x1x2.ToHex();
+            }
+            RealMachine.RealMachine.ti.DecrementTI();
+        }
+
+        private void lo(string x1x2)
+        {
+            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
+            {
+                RealMachine.RealMachine.pi.PI = 3;
+                return;
+            }
+            if (x1x2.ToHex() > IC.IC || x1x2.ToHex() < 0x80)
+            {
+                RealMachine.RealMachine.pi.PI = 1;
+                return;
+            }
+
+            R2.R -= 1;
+            Modify_ZF(R2.R);
+            if (!SF.Get_ZF())
+            {
+                IC.IC = (ushort)x1x2.ToHex();
             }
             RealMachine.RealMachine.ti.DecrementTI();
         }

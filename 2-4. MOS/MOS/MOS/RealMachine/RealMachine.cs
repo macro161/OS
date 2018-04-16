@@ -307,6 +307,7 @@ namespace MOS.RealMachine
                     break;
                 case 3:
                     Printer.PrintToScreen("Negalimas priskyrimas!");
+                    pertraukimas = "Programinis pertraukimas (negalimas priskyrimas)";
                     cont = false;
                     break;
                 case 4:
@@ -323,6 +324,10 @@ namespace MOS.RealMachine
                 case 2:
                     pertraukimas = "Sisteminis pertraukimas (išvedimas)";
                     WriteData(r4.R);
+                    break;
+                case 4:
+                    pertraukimas = "Sisteminis pertraukimas (Pyp)";
+                    cd.DoTheBeep(r4.R);
                     break;
                 case 3:
                     pertraukimas = "Sisteminis pertraukimas (HALT)";

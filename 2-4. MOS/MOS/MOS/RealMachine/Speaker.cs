@@ -4,9 +4,9 @@ namespace MOS.RealMachine
 {
     static class Speaker
     {
-        public static void Beep()
+        public static void Beep(int x)
         {
-            Console.Beep(5000, 1000);
+            Console.Beep(2000, x * 1000);
         }
     }
 }

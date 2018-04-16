@@ -58,9 +58,9 @@ namespace MOS.RealMachine
             Printer.PrintStuff(input);
         }
 
-        public void DoTheBeep()
+        public void DoTheBeep(int x)
         {
-            Speaker.Beep();
+            Speaker.Beep(x);
         }
     }
 }

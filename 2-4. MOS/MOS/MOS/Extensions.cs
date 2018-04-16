@@ -6,6 +6,10 @@ namespace MOS
     {
         public static bool IsHex(this String str)
         {
+            if (str == null)
+            {
+                return false;
+            }
             return System.Text.RegularExpressions.Regex.IsMatch(str, @"\A\b[0-9a-fA-F]+\b\Z");  // patikrint ar tai hex
         }
 
