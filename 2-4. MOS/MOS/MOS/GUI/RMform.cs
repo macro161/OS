@@ -43,7 +43,6 @@ namespace MOS.GUI
 
         private void HandleMemoryChanged()
         {
-            //Debug.WriteLine("*******");
             ptrList = rm.VMMemory;
             LoadDataGrid();
         }
@@ -72,16 +71,7 @@ namespace MOS.GUI
                     a++;
                     Debug.WriteLine(cell[0]);
                 }
-
             }
-
-            //for (int i = 0; i < 16; i++)
-            //{
-            //    for (int j = 0; j < 16; j++)
-            //    {
-            //        Debug.WriteLine(VMArray[i, j]);
-            //    }
-            //}
 
             for (int outerIndex = 0; outerIndex < 16; outerIndex++)
             {
@@ -101,7 +91,7 @@ namespace MOS.GUI
 
         private void Row_Changed(object sender, DataRowChangeEventArgs e)
         {
-            string[,] arr = new string[0x256, 16];
+            string[,] arr = rm.Memory;
             int a = 0, b = 0;
             foreach (string[] cell in ptrList)
             {
@@ -113,14 +103,6 @@ namespace MOS.GUI
                     a++;
                 }
             }
-            //for (int i = 0; i < 16; i++)
-            //{
-            //    for (int j = 0; j < 16; j++)
-            //    {
-            //        arr[i, j] = _table.Rows[i][j].ToString();
-            //    }
-            //}
-            //RealMachine.RealMachine.memory.UserMemoryProp = arr;
             rm.Memory = arr;
         }
 
@@ -157,7 +139,6 @@ namespace MOS.GUI
                     newRow[i] = "";
             }
             _table.Rows.Add(newRow);
-            Debug.WriteLine(_table.Rows.Count);
             viewBlockGrid.DataSource = _table;
             for (var i = 0; i < 16; i++)
                 viewBlockGrid.Columns[i].Width = 37;
