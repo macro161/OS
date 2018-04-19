@@ -259,5 +259,70 @@ sutampa su realios mašinos.
 	\section{Virtuali mašina operacinės sistemos kontekste}
 	Operacinei sistemai turi būti pateikiamas užduočių rinkinys (programa). Tam reikalinga specifinė užduočių pateikimo kalba. Kiekviena užduotis suformuojama kaip failas. Užduotis sudaryta iš pateikiamų duomenų ir rezultatų. Vykdant užduotį ji yra išskaidoma į dalis: užduotis saugoma išorinėje atmintyje, kai ji paruošta vykdymui. Užduotis tiesioginės sąveikos su fiziniais įrenginiais neturi, tik su virtualiais.
 
+\section{Multiprograminės operacinės sistemos modelis}
+Šiuolaikinės multiprograminės operacinės sistemos gali vykdyti kelias programos vienu metu. Būtų labai nepatogu jeigu norėdamas atsisiųsti failą iš interneto turėtum laukti ir negalėtum nieko daryti su kompiuteriu. Žinoma multiprogramiškumas nėra abstakcija, kuri realiai neegzistuoja, o tik atrodo, kad keli procesai vyksta vienu metu. Tai palengvina programos vartotojiškuma, tačiau neparodo kaip ištikrūjų veikia operacinė sistema. OS veikimo struktūra bandysime išanalizuoti šiame darbe. 
+
+\subsection{Procesai}
+Procesas tai yra programa kuri turi registrų reikšmes, kintamuosius ir virtualų procesorių. Procesas ir programa yra labai panašios savokos, skirtumas tik tas, kad procesas turi savo veiklumo būseną, o programa tėra baitų seka.
+
+\subsection{Procesų būsenos}
+Kiekvienas procesas turi jam priskirtą būseną:
+\begin{itemize}
+\item Pasiruošęs: vienintelis trūkstamas resursas yra procesorius
+\item Vykdomas - turi procesorių
+\item Blokuotas - prašo resurso (išskyrus procesorių) 
+\item Sustabdytas – kito proceso sustabdytas procesas.
+
+\end{itemize}
+
+\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{ProcesuBusenos.png}
+	\caption{Virtualios mašinos procesorius}
+	\label{fig:Virtualios mašinos procesorius}
+\end{figure}
+
+\begin{itemize}
+	\item 1. Vykdomas procesas blokuojasi jam prašant ir negavus resurso. 
+	\item 2. Vykdomas procesas tampa pasiruošusiu atėmus iš jo procesorių dėl kokios nors priežasties (išskyrus resurso negavimą). 
+	\item 3. Blokuotas procesas tampa pasiruošusiu, kai yra suteikiamas reikalingas resursas. 
+	\item 4. Pasiruošę procesai varžosi dėl procesoriaus. Gavęs procesorių procesas tampa vykdomu. 
+	\item 5. Procesas gali tapti sustabdytu blokuotu, jei einamasis procesas jį sustabdo, kai jis jau ir taip yra blokuotas. 
+	\item 6. Procesas tampa blokuotu iš blokuoto sustabdyto, jei einamasis procesas nuimabūseną sustabdytas. 
+	\item 7. Procesas gali tapti pasiruošusiu sustabdytu, jei einamasis procesas jį sustabdo,kai jis yra pasiruošęs.
+	\item 8. Procesas tampa pasiruošusiu iš pasiruošusio sustabdyto, jei einamasis procesas nuima būseną sustabdytas 
+	\item 9. Procesas tampa pasiruošusiu sustabdytu iš blokuoto sustabdyto, jei procesui yra suteikiamas jam reikalingas resursas. 
+
+\end{itemize}
+
+\section{Planuotojas} Planuotojo paskirtis tvarkyti procesus, iš vienų procesų jis atiima procesorių ir kitiems atiduoda. Jis dirba su branduolio primityvais, procesų sarašu, procesų deskriptoriais ir procesoriaus resurso deskriptoriais. Planuotojas dirbs prioritetų principu, kur kiekvienas procesas turi prioriteto skaičių nuo 1 iki 100. Sisteminiasm procesams skirsime aukštenį prioriteta o vartotojiešiems žemesnį nes taip OS veiks greičiau.
+
+\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{ProcesuVeikimas.png}
+	\caption{Virtualios mašinos procesorius}
+	\label{fig:Virtualios mašinos procesorius}
+\end{figure}
+
+\section{Procesų hierarchija}
+
+\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{ProcesuHierarchija.png}
+	\caption{Virtualios mašinos procesorius}
+	\label{fig:Virtualios mašinos procesorius}
+\end{figure}
+
+\subsection{StratStop} Procesas atsakingas už sistemos darbo pradžią ir pabaigą. Proceso paskirtis - sisteminių resursų kūrimas
+
+\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{StartStop.png}
+	\caption{Virtualios mašinos procesorius}
+	\label{fig:Virtualios mašinos procesorius}
+\end{figure}
+
+
+
 
 \end{document}

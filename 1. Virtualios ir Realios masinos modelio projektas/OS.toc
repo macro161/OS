@@ -16,24 +16,42 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {1.6.}Puslapiavimo mechanizmas}{4}{subsection.1.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {1.7.}Duomenų perdavimo kanalai}{4}{subsection.1.7}
+\contentsline {subsection}{\numberline {1.7.}Garso kolonėlė}{4}{subsection.1.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {2.}Virtuali mašina}{5}{section.2}
+\contentsline {subsection}{\numberline {1.8.}Pertraukimų mechanizmas}{4}{subsection.1.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.1.}Funkcija}{5}{subsection.2.1}
+\contentsline {subsection}{\numberline {1.9.}Timerio mechanizmas}{4}{subsection.1.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.2.}Modeliuojamos virtualios mašinos loginių komponentų aprašymas}{5}{subsection.2.2}
+\contentsline {subsection}{\numberline {1.10.}Duomenų perdavimo kanalai}{5}{subsection.1.10}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.1.}Atmintis}{5}{subsubsection.2.2.1}
+\contentsline {section}{\numberline {2.}Virtuali mašina}{6}{section.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {2.2.2.}Procesorius}{6}{subsubsection.2.2.2}
+\contentsline {subsection}{\numberline {2.1.}Funkcija}{6}{subsection.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.}Modeliuojamos virtualios mašinos loginių komponentų aprašymas}{6}{subsection.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.1.}Atmintis}{6}{subsubsection.2.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.2.}Procesorius}{7}{subsubsection.2.2.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {2.2.3.}Virtualios mašinos komandų sistema}{7}{subsubsection.2.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.3.}Virtualios mašinos bendravimo su įvedimo/išvedimo įrenginiais mechanizmo aprašymas.}{8}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.3.}Virtualios mašinos bendravimo su įvedimo/išvedimo įrenginiais mechanizmo aprašymas.}{9}{subsection.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.4.}Virtualios mašinos interpretuojamojo ar kompiliuojamo vykdomojo failo išeities teksto formatas.}{8}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.4.}Virtualios mašinos interpretuojamojo ar kompiliuojamo vykdomojo failo išeities teksto formatas.}{9}{subsection.2.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {2.5.}Modeliuojamos virtualios mašinos loginių komponentų sąryšio su realios mašinos techninės įrangos komponentais aprašymas.}{9}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.5.}Modeliuojamos virtualios mašinos loginių komponentų sąryšio su realios mašinos techninės įrangos komponentais aprašymas.}{10}{subsection.2.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.}Virtuali mašina operacinės sistemos kontekste}{10}{section.3}
+\contentsline {section}{\numberline {3.}Virtuali mašina operacinės sistemos kontekste}{11}{section.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.}Multiprograminės operacinės sistemos modelis}{12}{section.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.}Procesai}{12}{subsection.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2.}Procesų būsenos}{12}{subsection.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.}Planuotojas}{14}{section.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.}Procesų hierarchija}{15}{section.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {6.1.}StratStop}{15}{subsection.6.1}
