@@ -1,6 +1,4 @@
-# OS
-Multiprograminė Operacinė Sistema
+# MOS
+Multiprogram operating system  model
 
-Matas Savickis
-Greta Pyrantaitė
-Justas Tvarijonas
+Code and documentation was writen by Matas Savickis, Greta Pyrantaitė and Justas Tvarijonas.
