@@ -22,8 +22,10 @@
 \BOOKMARK [1][-]{section.4}{Multiprograminės operacinės sistemos modelis}{}% 22
 \BOOKMARK [2][-]{subsection.4.1}{Procesai}{section.4}% 23
 \BOOKMARK [2][-]{subsection.4.2}{Procesų būsenos}{section.4}% 24
-\BOOKMARK [1][-]{section.5}{Planuotojas}{}% 25
-\BOOKMARK [1][-]{section.6}{Procesų hierarchija}{}% 26
-\BOOKMARK [2][-]{subsection.6.1}{StratStop}{section.6}% 27
-\BOOKMARK [2][-]{subsection.6.2}{Read}{section.6}% 28
-\BOOKMARK [2][-]{subsection.6.3}{JCL}{section.6}% 29
+\BOOKMARK [1][-]{section.5}{Resursai}{}% 25
+\BOOKMARK [2][-]{subsection.5.1}{Resurso\040primityvai}{section.5}% 26
+\BOOKMARK [1][-]{section.6}{Planuotojas}{}% 27
+\BOOKMARK [1][-]{section.7}{Procesų hierarchija}{}% 28
+\BOOKMARK [2][-]{subsection.7.1}{StratStop}{section.7}% 29
+\BOOKMARK [2][-]{subsection.7.2}{Read}{section.7}% 30
+\BOOKMARK [2][-]{subsection.7.3}{JCL}{section.7}% 31

@@ -295,6 +295,25 @@ Kiekvienas procesas turi jam priskirtą būseną:
 
 \end{itemize}
 
+\section{Resursai} Resursai yra tai, dėl ko varžosi procesai.  D÷l resursų trūkumo procesai blokuojasi, gavę reikiamą resursą, procesai tampa pasiruošusiais. Resursus galima skirstyti į: 
+\linebreak
+\begin{itemize}
+	\item  Statinius resursus. Kuriami sistemos kūrimo metu. Tai mašinos resursai, tokie kaip procesorius, atmintis ar kiti resursai, kurie sistemos veikimo metu nėra naikinami. Šie resursai gali būti laisvi, kai nei vienas procesas jų nenaudoja, arba ne, kada juos naudoja vienas ar keli, jei tą resursą galima skaldyti, procesai. 
+	\item  Dinaminius resursus. Kuriami ir naikinami sistemos darbo metu. Šie resursai naudojami kaip pranešimai. Kartu su jais gali ateiti naudinga informacija. Kartais šio tipo resursas pats yra pranešimas. Pavyzdžiui, esantis laisvas kanalo resursas žymi, kad bet kuris procesas gali naudotis kanalu. Jei jo n÷ra, procesas priverstas laukti, kol šis resursas taps prieinamu (bus atlaisvintas).
+\end{itemize}
+
+\subsection{Resurso primityvai} Kiekvienas resursas turi keturis primityvus
+\begin{itemize}
+	\item Kurti resursą. Resursus kuria tik procesas. Resurso kūrimo metu perduodami kaip parametrai: nuoroda į proceso kūrėją, resurso išorinis vardas. Resursas kūrimo metu yra: pridedamas prie bendro resursų sąrašo, pridedamas prie tėvo suskurtų resursų sąrašo, jam priskiriamas unikalus vidinis vardas, sukuriamas resurso elementų sąrašas ir sukuriamas laukiančių procesų sąrašas.
+	\item Naikinti resursą. Resurso deskriptorius išmetamas iš jo tėvo sukurtų resursų sąrašo, naikinamas jo elementų sąrašas, atblokuojami procesai, laukiantys šio resurso, išmetamas iš bendro resursų sąrašo, ir, galiausiai naikinamas pats deskriptorius
+	\item Prašyti resurso. Šį primityvą kartu su primityvu “atlaisvinti resursą” procesai naudoja labai dažnai. Procesas, iškvietęs šį primityvą, yra užblokuojamas ir įtraukiamas į to resurso laukiančių procesų sąrašą. Sekantis šio primityvo žingsnis yra kviesti resurso paskirstytoją.  
+	\item Atlaisvinti resursą. Šį primityvą kviečia procesas, kuris nori atlaisvinti jam nereikalingą resursą arba tiesiog perduoti pranešimą ar informaciją kitam procesui. Resurso elementas, primityvui perduotas kaip funkcijos parametras, yra pridedamas prie resurso elementų sąrašo. Šio primityvo pabaigoje yra kviečiamas resursų paskirstytojas. 
+ 
+ 
+ 
+
+\end{itemize}
+
 \section{Planuotojas} Planuotojo paskirtis tvarkyti procesus, iš vienų procesų jis atiima procesorių ir kitiems atiduoda. Jis dirba su branduolio primityvais, procesų sarašu, procesų deskriptoriais ir procesoriaus resurso deskriptoriais. Planuotojas dirbs prioritetų principu, kur kiekvienas procesas turi prioriteto skaičių nuo 1 iki 100. Sisteminiasm procesams skirsime aukštenį prioriteta o vartotojiešiems žemesnį nes taip OS veiks greičiau.
 
 \begin{figure}[H]
@@ -312,6 +331,8 @@ Kiekvienas procesas turi jam priskirtą būseną:
 	\caption{Virtualios mašinos procesorius}
 	\label{fig:Virtualios mašinos procesorius}
 \end{figure}
+
+\pagebrake
 
 \subsection{StratStop} Procesas atsakingas už sistemos darbo pradžią ir pabaigą. Proceso paskirtis - sisteminių resursų kūrimas
 
