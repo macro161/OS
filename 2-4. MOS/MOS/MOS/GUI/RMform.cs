@@ -110,10 +110,12 @@ namespace MOS.GUI
         {
             string path = ShowFileDialog();
             rm.VMMemory = new List<string[]>();
+            _table = new DataTable();
             rm.LoadProgramToSupervisory(path);
             ptrList = rm.VMMemory;
             Rm.ResetBindings(true);
             LoadDataGrid();
+            button4.Enabled = false;
         }
 
         private void ViewBlocktext_TextChanged(object sender, EventArgs e)
@@ -164,6 +166,7 @@ namespace MOS.GUI
 
         private void button2_Click(object sender, EventArgs e)
         {
+            button4.Enabled = true;
             var t = new Thread((ThreadStart)(() =>
             {
                 if (RealMachine.RealMachine.run)
@@ -174,6 +177,8 @@ namespace MOS.GUI
 
         private void button3_Click(object sender, EventArgs e)
         {
+            rm.Pertraukimas = "";
+            button4.Enabled = false;
             if (RealMachine.RealMachine.run)
             {
             button3.Text = "Next";
@@ -181,6 +186,12 @@ namespace MOS.GUI
             Rm.ResetBindings(true);
             LoadDataGrid();
             }
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            rm.RunCode = false;
         }
     }
 }

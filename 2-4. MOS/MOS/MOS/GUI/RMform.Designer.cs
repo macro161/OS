@@ -64,6 +64,7 @@
             this.komanda = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.Pertraukimas = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGrid)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.viewBlockGrid)).BeginInit();
             this.SuspendLayout();
@@ -371,11 +372,22 @@
             this.Pertraukimas.Size = new System.Drawing.Size(0, 16);
             this.Pertraukimas.TabIndex = 39;
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(12, 212);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(98, 42);
+            this.button4.TabIndex = 40;
+            this.button4.Text = "Terminate";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // RMform
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(910, 482);
+            this.Controls.Add(this.button4);
             this.Controls.Add(this.Pertraukimas);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.komanda);
@@ -460,5 +472,6 @@
         private System.Windows.Forms.TextBox komanda;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label Pertraukimas;
+        private System.Windows.Forms.Button button4;
     }
 }

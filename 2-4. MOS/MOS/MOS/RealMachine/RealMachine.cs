@@ -4,6 +4,7 @@ using MOS.VirtualMachine;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace MOS.RealMachine
 {
@@ -246,15 +247,7 @@ namespace MOS.RealMachine
         internal static SupervisoryMemory Sm1 { get => sm1; set => sm1 = value; }
 
         #endregion
-        public void StepByStep()
-        {
-            while (true)
-            {   
-                
-                
-                Console.ReadLine();
-            }   
-        }
+
         public void TransferProgramToMemory(string[,] flash)
         {
             for (int i = 0; i < 16; i++)
@@ -332,6 +325,7 @@ namespace MOS.RealMachine
                 case 3:
                     pertraukimas = "Sisteminis pertraukimas (HALT)";
                     Halt();
+                    MessageBox.Show("HALT");
                     cont = false;
                     break;
             }
@@ -361,6 +355,8 @@ namespace MOS.RealMachine
             memory.SetFree(ptr.PTR.TwoLastbytesToHex());
             ptr.Clear();
             ClearRegisters();
+            paskutineKomanda = "";
+            pertraukimas = "";
         }
 
         private void GetData(int x1x2) // perskaito 4 žodžius ir įrašo pradedant x1 * 16 + x2
@@ -414,10 +410,12 @@ namespace MOS.RealMachine
         }
         public bool LoadProgramToSupervisory(string path)
         {
+            ptrArray = new List<string[]>();
             ClearRegisters();
             bool succes = true;
             FlashMemory fl = new FlashMemory();
             string[] file = fl.getFlashData(path);
+
             var data = sm1.CheckAndLoad(file);
             if (data == null)
             {
