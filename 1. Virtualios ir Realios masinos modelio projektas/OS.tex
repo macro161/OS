@@ -383,7 +383,62 @@ MainProc yra procesas atsakingas už užduočių vykdymo paruošimą ir sunaikin
 
 \section{Proceso deskriptoriaus struktūra}
 
+ID: String                  // išorinis vardas \newline
 
 
+Resources: LinkedList            // turimų resursų elementų sąrašas \newline
+
+State: String     // {RUN, READY, BLOCK, READYS, BLOCKS} - proceso būsena \newline
+
+ProcessList: Queue       // procesų sąrašas, kuriam šiuo metu priklauso procesas \newline
+
+T: int                // tėvinio proceso vidinis vardas \newline
+
+S: LinkedList     // sūnų sąrašas \newline
+
+Priority: int       // proceso prioritetas \newline
+
+CPU:    // procesoriaus einamoji būsena proceso metu
+\begin{itemize}                          
+	\item mode: byte     // supervizorinis/vartotojo darbo rėžimas 
+	\item entry: int        // (sisteminiam procesui) - įėjimo taškas, nuo kurio bus pratęstas proceso darbas 
+	\item r1:  int            // registras, atitinkantis VM registrą R1 
+	\item r2:  int            // registras, atitinkantis VM registrą R2 
+	\item r3:  int            // registras, atitinkantis VM registrą R3 
+	\item r4:  int            // registras, atitinkantis VM registrą R4 
+	\item ic: ushort       // registras, atitinkantis VM komandų skaitliuką (2 baitai)
+	\item c: boolean     // registras, atitinkantis VM loginį trigerį 
+	\item sf: byte         // registras, atitinkantis VM būsenų flag'ą
+	\item ti: ushort       // registras, atitinkantis RM laikmatį (darbo trukmės skaitliuką) 
+	\item pi: short        // registras, atitinkantis RM programinių pertraukimų registrą 
+	\item si: short        // registras, atitinkantis RM sisteminių pertraukimų registrą 
+	\item ioi: byte        // registras, atitinkantis RM kanalų registrą 
+\end{itemize}
+
+\section{Resurso deskriptoriaus struktūra}
+
+RID: string                     // resurso vardas \\
+
+ID: int                           // sukūrusio proceso vidinis vardas\\
+
+Reusability: boolean     // ar resursas pakartotinio naudojimo \\
+
+{
+ Availability:                        // resurso prieinamumo aprašymas    \\
+	 msg: boolean           // ar pranešimas, ar išmatuojamas resursas \\
+	 ElementList: List      // resurso elementų sąrašas \\
+	 amount:                  // kiekis prieinamų išmatuojamojo resurso elementų \\
+	 receiver: int            // pranešimo gavėjo (proceso) vidinis vardas \\
+	  }
+
+{ 
+WaitingList: 	Queue         // resurso laukiančių procesų sąrašas     \\         
+	 ProcessID: int        // proceso vidinis vardas \\
+	amount: int            // norimas kiekis resurso elementų \\ 
+	 msg: string             // laukiamo pranešimo/ reikiamo kanalo identifikatorius\\
+	 } 
+	 
+Distributor: method()        // paskirstytojo funkcija \\
+	
 
 \end{document}

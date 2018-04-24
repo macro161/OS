@@ -26,7 +26,6 @@ namespace MOS.RealMachine
         public static PTR_Reg ptr = new PTR_Reg();
         public static UserMemory memory = new UserMemory();
         public static bool run = true;
-        public  static string[,] mematrix = new string[16, 16];
         private static List<string[]> ptrArray = new List<string[]>();
         public static string filePath = "";
         private static VirtualMachine.VirtualMachine vm;
