@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6630 64-bit) (preloaded format=xelatex 2018.4.22)  24 APR 2018 17:10
+This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6630 64-bit) (preloaded format=xelatex 2018.4.22)  24 APR 2018 20:00
 entering extended mode
 **./OS.tex
 (OS.tex
@@ -1244,6 +1244,12 @@ LaTeX Warning: Label `fig:Virtualios mašinos procesorius' multiply defined.
 
 LaTeX Warning: Label `fig:Virtualios mašinos procesorius' multiply defined.
 
+
+LaTeX Warning: Label `fig:Virtualios mašinos procesorius' multiply defined.
+
+
+LaTeX Warning: Label `fig:Virtualios mašinos procesorius' multiply defined.
+
 )
 \openout1 = `OS.aux'.
 
@@ -1494,12 +1500,12 @@ File: JobToDisk.png Graphic file (type bmp)
 File: MainProc.png Graphic file (type bmp)
 <MainProc.png>
  [20]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 384.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 387.
  [21]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 384.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 387.
  (OS.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 384.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 384.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 387.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 387.
 
 
 LaTeX Warning: There were multiply-defined labels.
