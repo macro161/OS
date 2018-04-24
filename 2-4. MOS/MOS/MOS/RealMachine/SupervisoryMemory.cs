@@ -10,7 +10,6 @@ namespace MOS.RealMachine
 {
     class SupervisoryMemory
     {
-        string[] memory;
         string[,] matrix = new string[16, 16];
         public string[,] Matrix
         {
@@ -24,6 +23,7 @@ namespace MOS.RealMachine
 
         public string[,] CheckAndLoad(string[] memory)
         {
+            matrix = new string[16, 16];
             if (!CheckValidity(memory))
             {
                 Debug.WriteLine("Bad input!");

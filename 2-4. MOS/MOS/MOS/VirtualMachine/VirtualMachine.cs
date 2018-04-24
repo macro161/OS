@@ -126,6 +126,9 @@ namespace MOS.VirtualMachine
                 case "LO":
                     lo(x1x2);
                     break;
+                default:
+                    RealMachine.RealMachine.pi.PI = 2;
+                    break;
             }
         }
 
@@ -243,11 +246,6 @@ namespace MOS.VirtualMachine
 
         private void sr(string x1x2)
         {
-            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
-            {
-                RealMachine.RealMachine.pi.PI = 3;
-                return;
-            }
             int x1 = x1x2.Substring(0, 1).ToHex();
             if (x1 > 8 || x1 < 0)
             {
