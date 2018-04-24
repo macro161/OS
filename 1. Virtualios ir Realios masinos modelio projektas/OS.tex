@@ -319,8 +319,8 @@ Kiekvienas procesas turi jam priskirtą būseną:
 \begin{figure}[H]
 		\centering	
 	\includegraphics[width=18cm,height=20cm,keepaspectratio]{ProcesuVeikimas.png}
-	\caption{Virtualios mašinos procesorius}
-	\label{fig:Virtualios mašinos procesorius}
+	\caption{Procesu Veikimas}
+	\label{fig:Procesu Veikimas}
 \end{figure}
 
 \section{Procesų hierarchija}
@@ -328,8 +328,8 @@ Kiekvienas procesas turi jam priskirtą būseną:
 \begin{figure}[H]
 		\centering	
 	\includegraphics[width=18cm,height=20cm,keepaspectratio]{ProcesuHierarchija.png}
-	\caption{Virtualios mašinos procesorius}
-	\label{fig:Virtualios mašinos procesorius}
+	\caption{Procesu Hierarchija}
+	\label{fig:Procesu Hierarchija}
 \end{figure}
 
 
@@ -338,8 +338,8 @@ Kiekvienas procesas turi jam priskirtą būseną:
 \begin{figure}[H]
 		\centering	
 	\includegraphics[width=18cm,height=20cm,keepaspectratio]{StartStop.png}
-	\caption{Virtualios mašinos procesorius}
-	\label{fig:Virtualios mašinos procesorius}
+	\caption{StartStop procesas}
+	\label{fig:StartStop procesas}
 \end{figure}
 
 \subsection{Read} užduoties nuskaitymo iš įvedimoi srauto procesas.
@@ -347,8 +347,8 @@ Kiekvienas procesas turi jam priskirtą būseną:
 \begin{figure}[H]
 		\centering	
 	\includegraphics[width=18cm,height=20cm,keepaspectratio]{Read.png}
-	\caption{Virtualios mašinos procesorius}
-	\label{fig:Virtualios mašinos procesorius}
+	\caption{Read procesas}
+	\label{fig:Read procesas}
 \end{figure} 
 
 \subsection{JCL} JCL paskirtis - interpretuoti užduoties tekstą, išskiriant duomenis ir paraketrus bei kuriant atitinkamus resursus.
@@ -356,8 +356,8 @@ Kiekvienas procesas turi jam priskirtą būseną:
 \begin{figure}[H]
 		\centering	
 	\includegraphics[width=18cm,height=20cm,keepaspectratio]{JLC.png}
-	\caption{Virtualios mašinos procesorius}
-	\label{fig:Virtualios mašinos procesorius}
+	\caption{JLC}
+	\label{fig:JLC}
 \end{figure} 
 
 \subsection{JobToDisk} JobToDisk - procesas skirtas patarlpinti užduotį iš supervizorinės atminties į išorinę atmintį.
@@ -365,8 +365,8 @@ Kiekvienas procesas turi jam priskirtą būseną:
 \begin{figure}[H]
 		\centering	
 	\includegraphics[width=18cm,height=20cm,keepaspectratio]{JobToDisk.png}
-	\caption{Virtualios mašinos procesorius}
-	\label{fig:Virtualios mašinos procesorius}
+	\caption{JobToDisk procesas}
+	\label{fig:JobToDisk procesas}
 \end{figure}
 
 \subsection{MainProc}
@@ -375,11 +375,71 @@ MainProc yra procesas atsakingas už užduočių vykdymo paruošimą ir sunaikin
 \begin{figure}[H]
 		\centering	
 	\includegraphics[width=18cm,height=20cm,keepaspectratio]{MainProc.png}
-	\caption{Virtualios mašinos procesorius}
-	\label{fig:Virtualios mašinos procesorius}
+	\caption{MainProc}
+	\label{fig:MainProc}
 \end{figure}
 
 \subsection{JobGovernor}JobGovernor procesas atsakingas už virtualios mašinos proceso kūrimą ir tvarkantis jos darbą
+
+\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{JobGovernor.png}
+	\caption{JobGovernor}
+	\label{fig:JobGovernor}
+\end{figure}
+
+\subsection{SwapBack} SwapBack - procesas gražinantis duomenis iš HDD swap bloko į vartotojo atmintį
+ 
+\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{SwapBack.png}
+	\caption{SwapBack procesas}
+	\label{fig:SwapBack procesas}
+\end{figure}
+
+\subsection{Loader} Loader - iš išorinės atminties programos tekstą perkelia į vartotojo atmintį
+
+\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{Loader.png}
+	\caption{Loader procesas}
+	\label{fig:Loader procesas}
+\end{figure}
+
+\subsection{VirtualMachine} VirtualMachine - atsakingas už vartotojiškų procesų vykdymą.
+\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{VirtualMachineProc.png}
+	\caption{VirtualMachine procesas}
+	\label{fig:VirtualMachine procesas}
+\end{figure}
+
+\subsection{Interupt}Interupt - atsakingas už VM pertraukimų interpretavimą.
+
+\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{Interupt.png}
+	\caption{Interupt procesas}
+	\label{fig:Interupt procesas}
+\end{figure}
+
+\subsection{ChanDevice} ChanDevice - kanalų įrenginio procesas skirtas valdyti 4 kanalus.
+\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{ChanDevice.png}
+	\caption{ChanDevice procesas}
+	\label{fig:ChanDevice procesas}
+\end{figure}
+
+\subsection{PrintLine(Printeris)} - išvedimo įrenginiui siunčiama eilutė kurią reikės atspauisdinti
+\begin{figure}[H]
+		\centering	
+	\includegraphics[width=18cm,height=20cm,keepaspectratio]{PrintLine.png}
+	\caption{PrintLine procesas}
+	\label{fig:PrintLine procesas}
+\end{figure}
+
+
 
 \section{Proceso deskriptoriaus struktūra}
 

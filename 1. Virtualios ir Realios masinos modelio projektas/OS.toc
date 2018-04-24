@@ -70,4 +70,16 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.6.}JobGovernor}{21}{subsection.7.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.}Proceso deskriptoriaus struktūra}{22}{section.8}
+\contentsline {subsection}{\numberline {7.7.}SwapBack}{22}{subsection.7.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.8.}Loader}{23}{subsection.7.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.9.}VirtualMachine}{24}{subsection.7.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.10.}Interupt}{25}{subsection.7.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.11.}ChanDevice}{26}{subsection.7.11}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.12.}PrintLine(Printeris)}{27}{subsection.7.12}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.}Proceso deskriptoriaus struktūra}{29}{section.8}
