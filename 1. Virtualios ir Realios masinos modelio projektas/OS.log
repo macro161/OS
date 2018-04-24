@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6630 64-bit) (preloaded format=xelatex 2018.4.22)  24 APR 2018 20:23
+This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6630 64-bit) (preloaded format=xelatex 2018.4.22)  24 APR 2018 21:51
 entering extended mode
 **./OS.tex
 (OS.tex
@@ -1229,27 +1229,6 @@ Package biblatex Warning: Conflicting options.
 
 LaTeX Warning: Label `fig:Virtualios mašinos procesorius' multiply defined.
 
-
-LaTeX Warning: Label `fig:Virtualios mašinos procesorius' multiply defined.
-
-
-LaTeX Warning: Label `fig:Virtualios mašinos procesorius' multiply defined.
-
-
-LaTeX Warning: Label `fig:Virtualios mašinos procesorius' multiply defined.
-
-
-LaTeX Warning: Label `fig:Virtualios mašinos procesorius' multiply defined.
-
-
-LaTeX Warning: Label `fig:Virtualios mašinos procesorius' multiply defined.
-
-
-LaTeX Warning: Label `fig:Virtualios mašinos procesorius' multiply defined.
-
-
-LaTeX Warning: Label `fig:Virtualios mašinos procesorius' multiply defined.
-
 )
 \openout1 = `OS.aux'.
 
@@ -1499,15 +1478,37 @@ File: JobToDisk.png Graphic file (type bmp)
  [19]
 File: MainProc.png Graphic file (type bmp)
 <MainProc.png>
- [20] [21]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 389.
- [22
+ [20]
+File: JobGovernor.png Graphic file (type bmp)
+<JobGovernor.png>
+ [21]
+File: SwapBack.png Graphic file (type bmp)
+<SwapBack.png>
+ [22]
+File: Loader.png Graphic file (type bmp)
+<Loader.png>
+ [23]
+File: VirtualMachineProc.png Graphic file (type bmp)
+<VirtualMachineProc.png>
+ [24]
+File: Interupt.png Graphic file (type bmp)
+<Interupt.png>
+ [25]
+File: ChanDevice.png Graphic file (type bmp)
+<ChanDevice.png>
+ [26]
+File: PrintLine.png Graphic file (type bmp)
+<PrintLine.png>
+ [27] [28]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 449.
+
+[29
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 389.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 449.
  (OS.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 389.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 389.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 449.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 449.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -1517,12 +1518,12 @@ Package logreq Info: Writing requests to 'OS.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 30362 strings out of 427836
- 556056 string characters out of 3152479
+ 30404 strings out of 427836
+ 556838 string characters out of 3152479
  1066290 words of memory out of 3000000
- 34025 multiletter control sequences out of 15000+200000
+ 34060 multiletter control sequences out of 15000+200000
  543558 words of font info for 89 fonts, out of 3000000 for 9000
  1328 hyphenation exceptions out of 8191
  67i,12n,96p,10536b,787s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on OS.pdf (23 pages).
+Output written on OS.pdf (30 pages).
