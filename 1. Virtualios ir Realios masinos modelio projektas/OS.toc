@@ -69,3 +69,5 @@
 \contentsline {subsection}{\numberline {7.5.}MainProc}{20}{subsection.7.5}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {7.6.}JobGovernor}{21}{subsection.7.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.}Proceso deskriptoriaus struktūra}{22}{section.8}
