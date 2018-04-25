@@ -83,3 +83,5 @@
 \contentsline {subsection}{\numberline {7.12.}PrintLine(Printeris)}{27}{subsection.7.12}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {8.}Proceso deskriptoriaus struktūra}{29}{section.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.}Resurso deskriptoriaus struktūra}{30}{section.9}

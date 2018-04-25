@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6630 64-bit) (preloaded format=xelatex 2018.4.22)  24 APR 2018 21:51
+This is XeTeX, Version 3.14159265-2.6-0.99999 (MiKTeX 2.9.6630 64-bit) (preloaded format=xelatex 2018.4.22)  25 APR 2018 21:26
 entering extended mode
 **./OS.tex
 (OS.tex
@@ -1500,15 +1500,80 @@ File: ChanDevice.png Graphic file (type bmp)
 File: PrintLine.png Graphic file (type bmp)
 <PrintLine.png>
  [27] [28]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 449.
+Underfull \hbox (badness 10000) in paragraph at lines 446--447
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 449--450
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 451--452
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 453--454
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 455--456
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 457--458
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 459--460
+
+ []
 
 [29
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 449.
+Underfull \hbox (badness 10000) in paragraph at lines 480--481
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 482--483
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 484--485
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 487--493
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 495--500
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 501--502
+
+ []
+
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 504.
+[30
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 504.
  (OS.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 449.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 449.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 504.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 504.
 
 
 LaTeX Warning: There were multiply-defined labels.
@@ -1526,4 +1591,4 @@ Here is how much of TeX's memory you used:
  1328 hyphenation exceptions out of 8191
  67i,12n,96p,10536b,787s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on OS.pdf (30 pages).
+Output written on OS.pdf (31 pages).
