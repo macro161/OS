@@ -68,7 +68,6 @@
 \begin{itemize}
 	\item{R1, R2, R3, R4 - 4 baitų bendros paskirties registrai}  
 	\item{IC - 2 baitų komandų skaitiklis}
-	\item{C - 1 baito loginis registras (TRUE arba FALSE)}
 	\item{SF - 1 baito požymių registras CF ZF SF IF OF XXX - carry flag, zero flag, sign flag, interupt flag, overflow flag}
 	\item{PTR - 4 baitų puslapių lentelės registras(naudojamo puslapių lentelės adresas)}
 	\item{MODE - registras, kurio reikšmė nusako procesoriaus darbo režimą(supervizorinis, vartotojo)}
@@ -144,7 +143,6 @@ Registrai:
 	\item{R1...R4 - Bendros paskirties registrai}
 	\item{IC - komandos skaitliukas, rodo sekančios komandos adresą }
 	\item{SF - status flagas rodantis programos būseną}
-	\item{C - loginis registras(TRUE arba FALSE)}
 
 \end{itemize}
 	\subsubsection{Virtualios mašinos komandų sistema}
@@ -173,7 +171,6 @@ AD x1x2 =) r1:=r1+[x1x2];
 baite, rezultatas patalpinamas registre R:
 SB x1x2 =) r1:=r1-[x1x2];
 \item CR – palyginimas – esamą registro R reikšmė yra lyginama su reikšme esančią x1x2
-atminties baite, rezultatas patalpinamas registre C:
 CR x1x2 =)
 if r1>[x1x2] then cf:=0, zf:=0;
 if r1=[x1x2] then zf:=1;
@@ -183,8 +180,7 @@ if r1<[x1x2] then cf:=1;
 \end{enumerate}
 \item Valdymo perdavimo:
 \begin{enumerate}
-\item PY x1 - Garso kolonėlė supypsi x1 kartų.
-\item PYC - Patikrina garso kolonėlės užimtumą.(1 - užimta , 0 - laisva).
+\item PY x1 - Garso kolonėlė pypsi x1 sekunčių.
 \item JU – besąlyginio valdymo perdavimas – valdymas perduodamas adresu 16*x1+x2:JU x1x2 =) IC:=16*x1+x2;
 \item JG – sąlyginio valdymo perdavimas (jeigu daugiau) – valdymas perduodamas jeigu SF bitai ZF == 0 ir SF == OF. Valdymas perduodamas adresu 16*x1+x2:JG x1x2 =) If ZF == 0 AND SF == OF then IC:= 16*x1+x2;
 \item JE – sąlyginio valdymo perdavimas (jeigu lygu) – valdymas perduodamas jeigu SF bitas ZF == 1.Valdymas perduodamas adresu 16*x1+x2:JE x1x2 =) If ZF == 1 then IC:= 16*x1+x2;
@@ -199,7 +195,6 @@ if r1<[x1x2] then cf:=1;
 \item GD – įvedimas – iš įvedimo srauto paima 4 žodžų srautą ir jį įveda į atmintį
 pradedant atminties baitu 16*x1+x2:
 GD x1x2
-\item CKP - patikrina printerio užimtumą.(1 - užimta, 0 - laisva)
 \item PD – išvedimas – iš atminties, pradedant atminties baitu 16*x1+x2  paima 4 žodžių
 srautą ir jį išveda į ekraną:
 PD x1x2
@@ -228,25 +223,22 @@ HALT\newline
 Atmintis yra išdėstyta nuosekliai: 128 žodžiai skirti DATASEG (nuo 0 iki 127) ir 128 žodžiai\newline
 CODESEG (nuo 128 iki 255).\newline
 Programa apskaičiuoja reiškinio „100 + 20 – 80“ reikšmę, bei ją išveda į ekraną.\newline
-000 | DATA\newline
-001 | 100\newline
-002 | 20\newline
-003 | 80\newline
-004 | Rezu\newline
-005 | ltat\newline
-009 | as y\newline
-00A | ra:\newline
-080 | CODE\newline
-081 | LR 01\newline
-082 | AD 02\newline
-083 | SB 03\newline
-084 | PD 04\newline
-085 | PD 05\newline
-086 | PD 06\newline
-087 | PD 07\newline
-088 | SR 10\newline
-089 | PD 10\newline
-08A | HALT\newline
+| DATA\newline
+000 | 100\newline
+001 | 20\newline
+002 | 80\newline
+003 | Rezu\newline
+004 | ltat\newline
+008 | as y\newline
+009 | ra:\newline
+| CODE\newline
+081 | LR 00\newline
+082 | AD 01\newline
+083 | SB 02\newline
+084 | PD 03\newline
+085 | SR 10\newline
+086 | PD 10\newline
+087 | HALT\newline
 0FF |\newline
 	\subsection{Modeliuojamos virtualios mašinos loginių komponentų sąryšio su realios mašinos techninės įrangos komponentais aprašymas.}
 	Virtualiai mašinai atliekant komandas gali kilti pertraukimai. Jie apdorojami tik tada kai VM
@@ -254,8 +246,7 @@ baigia vykdyti komandą.Tuomet reali mašina persijungia iš vartotojo režimo �
 Įvedimo/ Išvedimo veiksmas atliekamas supervizoriniu rėžimu, tam naudojama iniciavimo
 operacija StarIO – kuria nustatomi kanalai, jų panaudojimas ir tikrinamas užimtumas.\newline
 Norint iš supervizorinio rėžimo į vartotojo rėžimą darbo pratęsimui virtualioje mašinoje
-reikalinga pakrauti būsena tam naudojama operacija Slave(plr,c,r,ic) – kur registrų panaudojimas
-sutampa su realios mašinos.
+reikalinga pakrauti būsena.
 	\section{Virtuali mašina operacinės sistemos kontekste}
 	Operacinei sistemai turi būti pateikiamas užduočių rinkinys (programa). Tam reikalinga specifinė užduočių pateikimo kalba. Kiekviena užduotis suformuojama kaip failas. Užduotis sudaryta iš pateikiamų duomenų ir rezultatų. Vykdant užduotį ji yra išskaidoma į dalis: užduotis saugoma išorinėje atmintyje, kai ji paruošta vykdymui. Užduotis tiesioginės sąveikos su fiziniais įrenginiais neturi, tik su virtualiais.
 
@@ -295,7 +286,7 @@ Kiekvienas procesas turi jam priskirtą būseną:
 
 \end{itemize}
 
-\section{Resursai} Resursai yra tai, dėl ko varžosi procesai.  D÷l resursų trūkumo procesai blokuojasi, gavę reikiamą resursą, procesai tampa pasiruošusiais. Resursus galima skirstyti į: 
+\section{Resursai} Resursai yra tai, dėl ko varžosi procesai.  Dėl resursų trūkumo procesai blokuojasi, gavę reikiamą resursą, procesai tampa pasiruošusiais. Resursus galima skirstyti į: 
 \linebreak
 \begin{itemize}
 	\item  Statinius resursus. Kuriami sistemos kūrimo metu. Tai mašinos resursai, tokie kaip procesorius, atmintis ar kiti resursai, kurie sistemos veikimo metu nėra naikinami. Šie resursai gali būti laisvi, kai nei vienas procesas jų nenaudoja, arba ne, kada juos naudoja vienas ar keli, jei tą resursą galima skaldyti, procesai. 
@@ -467,7 +458,6 @@ CPU:    // procesoriaus einamoji būsena proceso metu
 	\item r3:  int            // registras, atitinkantis VM registrą R3 
 	\item r4:  int            // registras, atitinkantis VM registrą R4 
 	\item ic: ushort       // registras, atitinkantis VM komandų skaitliuką (2 baitai)
-	\item c: boolean     // registras, atitinkantis VM loginį trigerį 
 	\item sf: byte         // registras, atitinkantis VM būsenų flag'ą
 	\item ti: ushort       // registras, atitinkantis RM laikmatį (darbo trukmės skaitliuką) 
 	\item pi: short        // registras, atitinkantis RM programinių pertraukimų registrą 

@@ -71,9 +71,9 @@
             // 
             // R1text
             // 
-            this.R1text.Location = new System.Drawing.Point(197, 55);
+            this.R1text.Location = new System.Drawing.Point(177, 55);
             this.R1text.Name = "R1text";
-            this.R1text.Size = new System.Drawing.Size(36, 20);
+            this.R1text.Size = new System.Drawing.Size(56, 20);
             this.R1text.TabIndex = 0;
             // 
             // R4text

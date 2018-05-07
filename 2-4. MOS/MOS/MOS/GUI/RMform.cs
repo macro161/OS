@@ -4,6 +4,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
+using Timer = System.Windows.Forms.Timer;
 
 namespace MOS.GUI
 {
@@ -16,6 +17,7 @@ namespace MOS.GUI
         public RealMachine.RealMachine rm;
         DataTable _table = new DataTable();
         DataTable _table2 = new DataTable();
+        private Timer timer1;
         public static List<string[]> ptrList = new List<string[]>();
         public BindingSource Rm = new BindingSource();
 
@@ -108,14 +110,18 @@ namespace MOS.GUI
 
         private void button1_Click(object sender, EventArgs e)
         {
+
             string path = ShowFileDialog();
             rm.VMMemory = new List<string[]>();
+
             _table = new DataTable();
             rm.LoadProgramToSupervisory(path);
             ptrList = rm.VMMemory;
             Rm.ResetBindings(true);
             LoadDataGrid();
             button4.Enabled = false;
+            button3.Enabled = true;
+            button2.Enabled = true;
         }
 
         private void ViewBlocktext_TextChanged(object sender, EventArgs e)
@@ -173,8 +179,15 @@ namespace MOS.GUI
                     rm.RunCode = true;
             }));
             t.Start();
+            timer1 = new Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 500; // in miliseconds
+            timer1.Start();
         }
-
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Rm.ResetBindings(true);
+        }
         private void button3_Click(object sender, EventArgs e)
         {
             rm.Pertraukimas = "";
@@ -191,7 +204,12 @@ namespace MOS.GUI
 
         private void button4_Click(object sender, EventArgs e)
         {
+            button3.Enabled = false;
+            button2.Enabled = false;
+            button4.Enabled = false;
             rm.RunCode = false;
+            Rm.ResetBindings(true);
+            LoadDataGrid();
         }
     }
 }

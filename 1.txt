@@ -1,0 +1,20 @@
+DATA
+Ives
+kite
+ ska
+iciu
+Rezu
+ltat
+as y
+ra: 
+CODE
+PD00
+GD10
+PD00
+GD15
+LR10
+AD15
+SR20
+PD04
+PD20
+HALT
