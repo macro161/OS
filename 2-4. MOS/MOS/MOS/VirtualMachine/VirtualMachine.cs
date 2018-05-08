@@ -355,6 +355,14 @@ namespace MOS.VirtualMachine
 
             Console.WriteLine(SF.SF + "Status");
 
+            Console.WriteLine("Bit 1 " + bitOne);
+            Console.WriteLine("Bit 2 " + bitTwo);
+            Console.WriteLine("sum " + sum);
+            Console.WriteLine("sub " + sub);
+            Console.WriteLine("sum bit" + sumBit);
+            Console.WriteLine("sub bit " + subBit);
+
+
             if (subBit == true)
             {
                 SF.Flip_SF();
@@ -362,6 +370,8 @@ namespace MOS.VirtualMachine
             else {
                 //SF.Unset_SF();
             }
+
+            Console.WriteLine(SF.SF + "Po compare'o");
 
             RealMachine.RealMachine.ti.DecrementTI();
         }
