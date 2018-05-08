@@ -436,7 +436,7 @@ namespace MOS.RealMachine
             r4.Clear();
             si.Clear();
             pi.Clear();
-            sf.Clear_Reg();
+            sf.SF = 0;
             ti.TI = 10;
             ic.Clear();
         }

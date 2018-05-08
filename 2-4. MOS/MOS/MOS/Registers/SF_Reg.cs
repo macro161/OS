@@ -1,6 +1,8 @@
-﻿namespace MOS.Registers
+﻿using System;
+
+namespace MOS.Registers
 {
-    public class SF_Reg
+    public class SF_Reg // CF ZF SF IF OF XXX
     {
         public byte SF { get; set; }
 
@@ -9,89 +11,56 @@
             SF = 0;
         }
 
-        public byte Return_Status_Flag()
+        public void Flip_CF()
         {
-            return SF;
+            SF ^= 128;
         }
 
-        public void Clear_Reg()
+        public void Flip_ZF()
         {
-            SF = 0;
+            SF ^= 64;
         }
 
-        public void Set_CF()
+        public void Flip_SF()
         {
-            SF = (byte)(SF | 128);
+            SF ^= 32;
         }
 
-        public void Set_ZF()
+        public void Flip_IF()
         {
-            SF = (byte)(SF | 64);
+            SF ^= 16;
         }
 
-        public void Set_SF()
+        public void Flip_OF()
         {
-            SF = (byte)(SF | 32);
-        }
-
-        public void Set_OF()
-        {
-            SF = (byte)(SF | 16);
-        }
-
-        public void Set_IF()
-        {
-            SF = (byte)(SF | 8);
-        }
-
-        public void Unset_CF()
-        {
-            SF = (byte)(SF ^ 128);
-        }
-
-        public void Unset_ZF()
-        {
-            SF = (byte)(SF ^ 64);
-        }
-
-        public void Unset_SF()
-        {
-            SF = (byte)(SF ^ 32);
-        }
-
-        public void Unset_OF()
-        {
-            SF = (byte)(SF ^ 16);
-        }
-
-        public void Unset_IF()
-        {
-            SF = (byte)(SF ^ 8);
-        }
-
-        public bool Get_OF()// CF ZF SF IF OF XXX
-        {
-            return (SF & (1 << 4)) != 0;
-        }
-
-        public bool Get_IF()
-        {
-            return (SF & (1 << 5)) != 0; //Original mato Savickio kodas, tikrai nevogtas is Stack overflow  https://stackoverflow.com/questions/2431732/checking-if-a-bit-is-set-or-not
-        }
-
-        public bool Get_SF()
-        {
-            return (SF & (1 << 6)) != 0;
-        }
-
-        public bool Get_ZF()
-        {
-            return (SF & (1 << 7)) != 0;
+            SF ^= 16;
         }
 
         public bool Get_CF()
         {
-            return (SF & (1 << 8)) != 0;
+            return (SF & (1 << 7)) != 0;
         }
+
+        public bool Get_ZF()
+        {
+            return (SF & (1 << 6)) != 0;
+        }
+
+        public bool Get_SF()
+        {
+            return (SF & (1 << 5)) != 0;
+        }
+
+        public bool Get_IF()
+        {
+            return (SF & (1 << 4)) != 0;
+        }
+
+        public bool Get_OF()
+        {
+            return (SF & (1 << 3)) != 0;
+        }
+
+
     }
 }

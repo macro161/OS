@@ -1,0 +1,87 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\defcounter {refsection}{0}\relax 
+\select@language {lithuanian}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {1.}Reali mašina}{2}{section.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.1.}Techninės įrangos elementai sudarantys realią mašiną}{3}{subsection.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.2.}Centrinis procesorius}{3}{subsection.1.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.3.}Procesoriaus registrai}{3}{subsection.1.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.4.}Atmintys}{4}{subsection.1.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.5.}I/O}{4}{subsection.1.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.6.}Puslapiavimo mechanizmas}{4}{subsection.1.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.7.}Garso kolonėlė}{4}{subsection.1.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.8.}Pertraukimų mechanizmas}{4}{subsection.1.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.9.}Timerio mechanizmas}{4}{subsection.1.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {1.10.}Duomenų perdavimo kanalai}{5}{subsection.1.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {2.}Virtuali mašina}{6}{section.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.1.}Funkcija}{6}{subsection.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.2.}Modeliuojamos virtualios mašinos loginių komponentų aprašymas}{6}{subsection.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.1.}Atmintis}{6}{subsubsection.2.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.2.}Procesorius}{7}{subsubsection.2.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {2.2.3.}Virtualios mašinos komandų sistema}{7}{subsubsection.2.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.3.}Virtualios mašinos bendravimo su įvedimo/išvedimo įrenginiais mechanizmo aprašymas.}{9}{subsection.2.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.4.}Virtualios mašinos interpretuojamojo ar kompiliuojamo vykdomojo failo išeities teksto formatas.}{9}{subsection.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {2.5.}Modeliuojamos virtualios mašinos loginių komponentų sąryšio su realios mašinos techninės įrangos komponentais aprašymas.}{10}{subsection.2.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {3.}Virtuali mašina operacinės sistemos kontekste}{11}{section.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.}Multiprograminės operacinės sistemos modelis}{12}{section.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.}Procesai}{12}{subsection.4.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.2.}Procesų būsenos}{12}{subsection.4.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.}Resursai}{14}{section.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {5.1.}Resurso primityvai}{14}{subsection.5.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {6.}Planuotojas}{15}{section.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.}Procesų hierarchija}{16}{section.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.1.}StratStop}{16}{subsection.7.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.2.}Read}{17}{subsection.7.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.3.}JCL}{18}{subsection.7.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.4.}JobToDisk}{19}{subsection.7.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.5.}MainProc}{20}{subsection.7.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.6.}JobGovernor}{21}{subsection.7.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.7.}SwapBack}{22}{subsection.7.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.8.}Loader}{23}{subsection.7.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.9.}VirtualMachine}{24}{subsection.7.9}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.10.}Interupt}{25}{subsection.7.10}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.11.}ChanDevice}{26}{subsection.7.11}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.12.}PrintLine(Printeris)}{27}{subsection.7.12}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {8.}Proceso deskriptoriaus struktūra}{29}{section.8}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {9.}Resurso deskriptoriaus struktūra}{30}{section.9}

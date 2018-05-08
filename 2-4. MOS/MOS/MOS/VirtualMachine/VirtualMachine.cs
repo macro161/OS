@@ -139,38 +139,29 @@ namespace MOS.VirtualMachine
             int x2 = x1x2.Substring(1, 1).ToHex();
             x1 = pt.RealAddress(x1);
 
-            Modify_CF(R4.R, x1 * 16 + x2);
-
             R4.R = x1 * 16 + x2;
-
-            Modify_SF(R4.R);
-            Modify_ZF(R4.R);
+        
             RealMachine.RealMachine.si.SI = 1;
             RealMachine.RealMachine.ti.DecrementTI();
 
         }
+
         private void pd(string x1x2)
         {
             int x1 = x1x2.Substring(0, 1).ToHex();
             int x2 = x1x2.Substring(1, 1).ToHex();
             x1 = pt.RealAddress(x1);
 
-            Modify_CF(R4.R, x1 * 16 + x2);
             R4.R = x1 * 16 + x2;
-
-            Modify_SF(R4.R);
-            Modify_ZF(R4.R);
 
             RealMachine.RealMachine.si.SI = 2;
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
-
         private void jg(string x1x2) // patikrinti ar jumpas veikia teisingai(Justui Tvarijonui)
         {
             if (SF.Get_ZF() == false && SF.Get_SF() == SF.Get_OF())
             {
-
                 if (x1x2.ToHex() < 0x80 || x1x2.ToHex() > 0xFF)
                 {
                     RealMachine.RealMachine.pi.PI = 1;
@@ -184,33 +175,29 @@ namespace MOS.VirtualMachine
         private void not()
         {
             R1.R = ~R1.R;
-            Modify_SF(R1.R);
-            Modify_ZF(R1.R);
+        
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void or()
         {
             R1.R = R1.R | R2.R;
-            Modify_SF(R1.R);
-            Modify_ZF(R1.R);
+     
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void xor()
         {
             R1.R = R1.R ^ R2.R;
-            Modify_SF(R1.R);
-            Modify_ZF(R1.R);
+   
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void and()
         {
-            Modify_CF(R1.R,R2.R);
-            R1.R = R1.R + R2.R;
-            Modify_SF(R1.R);
-            Modify_ZF(R1.R);
+      
+            R1.R = R1.R & R2.R;
+    
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
@@ -234,8 +221,6 @@ namespace MOS.VirtualMachine
                 return;
             }
             R1.R = RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
-            Modify_SF(R1.R);
-            Modify_ZF(R1.R);
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
@@ -285,10 +270,11 @@ namespace MOS.VirtualMachine
                 return;
             }
 
-            Modify_CF(R1.R, RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex());
+
             R1.R = R1.R + RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
-            Modify_SF(R1.R);
-            Modify_ZF(R1.R);
+
+            cr(x1x2);
+
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
@@ -311,10 +297,11 @@ namespace MOS.VirtualMachine
                 RealMachine.RealMachine.pi.PI = 1;
                 return;
             }
-            Modify_CF(R1.R, -RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2));
+       
             R1.R = R1.R - RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
-            Modify_SF(R1.R);
-            Modify_ZF(R1.R);
+
+            cr(x1x2);
+
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
@@ -323,31 +310,59 @@ namespace MOS.VirtualMachine
             R4.R = x1x2.ToHex();
             RealMachine.RealMachine.si.SI = 4;
             RealMachine.RealMachine.ti.DecrementTI();
-
         }
+
         private void cr(string x1x2)
         {
+            SF.SF = 0;
+            if (R1.R > (RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).ToHex())
+            {
 
-            if (!(RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).IsHex())
-            {
-                RealMachine.RealMachine.pi.PI = 3;
-                return;
             }
-            int x1 = x1x2.Substring(0, 1).ToHex();
-            if (x1 > 8 || x1 < 0)
+
+            if (R1.R == (RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).ToHex())
             {
-                RealMachine.RealMachine.pi.PI = 1;
-                return;
+                SF.Flip_ZF();
             }
-            int x2 = x1x2.Substring(1, 1).ToHex();
-            if (x2 > 16)
+
+            if (R1.R < (RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex())).ToHex())
             {
-                RealMachine.RealMachine.pi.PI = 1;
-                return;
+                SF.Flip_CF();
             }
-            Modify_CF(R1.R, RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2));
-            Modify_SF(R1.R);
-            Modify_ZF(R1.R);
+
+            var bitOne = (R1.R & (1 << 7)) !=0; //casting some black magic stright from depths of stackoverflow
+            var bitTwo = (RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex()).ToHex() & (1 << 7)) != 0;
+
+            int sum = R1.R + RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex()).ToHex();
+            int sub = R1.R - RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex()).ToHex();
+
+            var sumBit = (sum & (1 << 7)) != 0;
+            var subBit = (sub & (1 << 7)) != 0;
+
+            //Check for overflow
+
+            if ((bitOne != bitTwo) || (bitOne == sumBit && bitTwo == sumBit ))
+            {
+
+                //SF.Unset_OF();
+            }
+
+
+            if ((bitOne == bitTwo) && (bitOne != sumBit))
+            {
+                SF.Flip_OF();
+            }
+
+            Console.WriteLine(SF.SF + "Status");
+
+            if (subBit == true)
+            {
+                SF.Flip_SF();
+            }
+            else {
+                //SF.Unset_SF();
+            }
+
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
@@ -371,23 +386,10 @@ namespace MOS.VirtualMachine
                 return;
             }
 
-            checked
-            {
-                try
-                {
-                    SF.Unset_OF();
-                    R1.R = R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
-                }
-                catch (OverflowException)
-                {
-                    SF.Set_OF();
-                }
-                
-            }
+            R1.R = R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
 
-            //R1.R = R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
-            Modify_SF(R1.R);
-            Modify_ZF(R1.R);
+            cr(x1x2);
+
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
@@ -411,39 +413,10 @@ namespace MOS.VirtualMachine
                 return;
             }
 
-            checked
-            {
-                try
-                {
-                    SF.Unset_OF();
-                    R1.R = R1.R / RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1), x2).ToHex();
-                }
-                catch (OverflowException)
-                {
-                    SF.Set_OF();
-                }
+            R1.R = R1.R * RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
 
-            }
+            cr(x1x2);
 
-            Modify_SF(R1.R);
-            Modify_ZF(R1.R);
-
-            checked
-            {
-                try
-                {
-                    SF.Unset_OF();
-                    R2.R = R2.R % RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
-                }
-                catch (OverflowException)
-                {
-                    SF.Set_OF();
-                }
-            }
-            
-
-            Modify_SF(R2.R);
-            Modify_ZF(R2.R);
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
@@ -460,7 +433,7 @@ namespace MOS.VirtualMachine
 
         private void je(string x1x2)
         {
-            if (SF.Get_CF() == true)
+            if (SF.Get_ZF() == true)
             {
 
                 if (x1x2.ToHex() < 0x80 || x1x2.ToHex() > 0xFF)
@@ -472,16 +445,16 @@ namespace MOS.VirtualMachine
             }
             RealMachine.RealMachine.ti.DecrementTI();
         }
+
         private void jl(string x1x2)
         {
-            if (SF.Get_CF() == false)
+            if (SF.Get_SF() != SF.Get_OF())
             {
                 if (x1x2.ToHex() < 0x80 || x1x2.ToHex() > 0xFF)
                 {
                     RealMachine.RealMachine.pi.PI = 1;
                     return;
                 }
-
                     IC.IC = (ushort) x1x2.ToHex();
             }
             RealMachine.RealMachine.ti.DecrementTI();
@@ -496,51 +469,13 @@ namespace MOS.VirtualMachine
             }
 
             R2.R -= 1;
-            Modify_ZF(R2.R);
+        
             if (!SF.Get_ZF())
             {
                 IC.IC = (ushort)x1x2.ToHex();
             }
             RealMachine.RealMachine.ti.DecrementTI();
         }
-        #region{Flags}
-        private void Modify_ZF(int value)
-        {
-            if (value == 0)
-            {
-                SF.Set_ZF();
-            }
-            else
-            {
-                SF.Unset_ZF();
-            }
-        }
 
-        private void Modify_CF(int value, int command)
-        {
-            long sum = value - command;
-
-            if (sum > 0)
-            {
-                SF.Set_CF();
-            }
-            else
-            {
-                SF.Unset_CF();
-            }
-        }
-
-        private void Modify_SF(int value)
-        {
-            if (value < 0)
-            {
-                SF.Set_SF();
-            }
-            else
-            {
-                SF.Unset_SF();
-            }
-        }
-        #endregion
     }
 }
