@@ -2,10 +2,9 @@
 {
     enum ProcessState
     {
-        sReady,
-        sBlock,
-        sReadyStop,
-        sBlockStop,
+        Ready,
+        Blocked,
+        Running,
     }
 
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MOS.Enums;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,10 @@ namespace MOS.OS // pagrindine klase is kurios inheritina visi kiti procesai
     abstract class Process
     {
 
-        private static string READY = "READY";
-        private static string RUNNING = "RUNNING";
-        private static string BLOCKED = "BLOCKED";
-
         private int priority;
         private string id;
         private int pointer;
-        private string status = READY;
+        private int status = (int)ProcessState.Ready;
 
         private string[] resource;
 
@@ -25,15 +22,15 @@ namespace MOS.OS // pagrindine klase is kurios inheritina visi kiti procesai
             return pointer;
         }
 
-        public void SetPointer() {
+        public void SetPointer(int pointer) {
             this.pointer = pointer;
         }
 
-        public string GetStatus() {
+        public int GetStatus() {
             return status;
         }
 
-        public void SetStatus(string status) {
+        public void SetStatus(int status) {
             this.status = status;
         }
 
@@ -46,15 +43,15 @@ namespace MOS.OS // pagrindine klase is kurios inheritina visi kiti procesai
             this.priority = priority;
         }
 
-        public string getId() {
+        public string GetId() {
             return id;
         }
 
-        public void setId(string id) {
+        public void SetId(string id) {
 
         }
 
-        public Process(int priority, string id, string status, int pointer, string[] list) {
+        public Process(int priority, string id, int status, int pointer, string[] list) {
             this.priority = priority;
             this.id = id;
             this.status = status;
@@ -62,11 +59,11 @@ namespace MOS.OS // pagrindine klase is kurios inheritina visi kiti procesai
             this.resource = list;
         }
 
-        public string getResouce() {
+        public string GetAResource() {
             return this.resource[this.priority];
         }
 
-        abstract public void run(int pointer);
+        abstract public void Run(int pointer);
         
         
 
