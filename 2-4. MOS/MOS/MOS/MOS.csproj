@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\Enums.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GUI\RMform.cs">
       <SubType>Form</SubType>
