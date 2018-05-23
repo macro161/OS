@@ -64,9 +64,11 @@
     <Compile Include="OS\JobToDisk.cs" />
     <Compile Include="OS\Loader.cs" />
     <Compile Include="OS\MainProc.cs" />
+    <Compile Include="OS\Planner.cs" />
     <Compile Include="OS\Priter.cs" />
     <Compile Include="OS\Process.cs" />
     <Compile Include="OS\Read.cs" />
+    <Compile Include="OS\Resources.cs" />
     <Compile Include="OS\Speaker.cs" />
     <Compile Include="OS\StartStop.cs" />
     <Compile Include="OS\SwapBack.cs" />

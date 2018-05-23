@@ -36,9 +36,9 @@ namespace MOS.OS
         private static bool CanBeSetToReady(Process process)
         {
             String resource = process.GetAResource();
-            if (Resources.check(resource))
+            if (Resources.CheckIfResourceExists(resource))
             {
-                Resources.takeAResource(resource);
+                Resources.TakeResource(resource);
                 return true;
             }
             return false;
