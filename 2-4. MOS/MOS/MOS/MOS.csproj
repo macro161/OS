@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="OS\Interupt.cs" />
     <Compile Include="OS\JCL.cs" />
+    <Compile Include="OS\JobGovernor.cs" />
     <Compile Include="OS\JobToDisk.cs" />
     <Compile Include="OS\Loader.cs" />
     <Compile Include="OS\MainProc.cs" />
