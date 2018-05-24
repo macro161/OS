@@ -7,18 +7,18 @@ using MOS.RealMachine;
 
 namespace MOS.OS
 {
-    abstract class Process
+    class Process
     {
-        private static string READY = "READY";
-        private static string RUNNING = "RUNNING";
+        public static string READY = "READY";
+        public static string RUNNING = "RUNNING";
         private static string BLOCKED = "BLOCKED";
         private int priority;
         private string status = READY;
-        private string [] resources;
+        private Resource [] resources;
         private string id;
         private int pointer;
 
-        public Process(int priority, string id, string status, int pointer, string[] res)
+        public Process(int priority, string id, string status, int pointer, Resource[] res)
         {
             this.priority = priority;
             this.id = id;
@@ -48,13 +48,13 @@ namespace MOS.OS
             return priority;
         }
 
-        public void AddResource(string resource)
+        public void AddResource(Resource resource)
         {
             pointer++;
             resources[pointer] = resource;
         }
 
-        abstract public void run();
+       
 
     }
 }
