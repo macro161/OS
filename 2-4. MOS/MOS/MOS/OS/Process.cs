@@ -12,7 +12,7 @@ namespace MOS.OS
         private static string READY = "READY";
         private static string RUNNING = "RUNNING";
         private static string BLOCKED = "BLOCKED";
-        private int priorioty;
+        private int priority;
         private string status = READY;
         private string [] resources;
         private string id;
@@ -20,7 +20,7 @@ namespace MOS.OS
 
         public Process(int priority, string id, string status, int pointer, string[] res)
         {
-            this.priorioty = priorioty;
+            this.priority = priority;
             this.id = id;
             this.status = status;
             this.pointer = pointer;
@@ -40,12 +40,12 @@ namespace MOS.OS
 
         public void SetPriority(int priority)
         {
-            this.priorioty = priorioty;
+            this.priority = priority;
         }
 
         public int GetPriority()
         {
-            return priorioty;
+            return priority;
         }
 
         public void AddResource(string resource)
