@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class Speaker
+    class Speaker : Process
     {
+        public Speaker(int priority, string id, string status, int pointer, Resource[] res) : base(priority, id, status, pointer, res) { }
     }
 }

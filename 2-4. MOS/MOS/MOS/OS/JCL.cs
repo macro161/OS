@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class JCL
+    class JCL : Process
     {
+        public JCL(int priority, string id, string status, int pointer, Resource[] res) : base(priority, id, status, pointer, res) { }
     }
 }

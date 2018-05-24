@@ -6,7 +6,15 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class MainProc
+    class MainProc : Process
     {
+        public MainProc(int priority, string id, string status, int pointer, Resource[] res) : base(priority, id, status, pointer, res) { }
+        
+            
+            
+        
+
+
+        
     }
 }

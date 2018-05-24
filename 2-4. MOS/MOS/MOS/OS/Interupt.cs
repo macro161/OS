@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class Interupt
+    class Interupt : Process
     {
+        public Interupt(int priority, string id, string status, int pointer, Resource[] res) : base(priority, id, status, pointer, res) { }
     }
 }

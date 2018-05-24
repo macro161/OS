@@ -11,12 +11,12 @@ namespace MOS.OS
     {
         public static string READY = "READY";
         public static string RUNNING = "RUNNING";
-        private static string BLOCKED = "BLOCKED";
-        private int priority;
-        private string status = READY;
-        private Resource [] resources;
-        private string id;
-        private int pointer;
+        public static string BLOCKED = "BLOCKED";
+        public int priority;
+        public string status = READY;
+        public Resource [] resources;
+        public string id;
+        public int pointer;
 
         public Process(int priority, string id, string status, int pointer, Resource[] res)
         {
@@ -28,33 +28,10 @@ namespace MOS.OS
             this.pointer = pointer;
         }
 
-        public void SetStatus(string status)
-        {
-            this.status = status;
-        }
-
-        public string GetStatus()
-        {
-            return status;
-        }
-
-        public void SetPriority(int priority)
-        {
-            this.priority = priority;
-        }
-
-        public int GetPriority()
-        {
-            return priority;
-        }
-
         public void AddResource(Resource resource)
         {
             pointer++;
             resources[pointer] = resource;
         }
-
-       
-
     }
 }
