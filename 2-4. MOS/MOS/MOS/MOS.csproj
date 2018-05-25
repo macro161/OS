@@ -70,6 +70,7 @@
     <Compile Include="OS\Process.cs" />
     <Compile Include="OS\Program.cs" />
     <Compile Include="OS\Read.cs" />
+    <Compile Include="OS\ResElement.cs" />
     <Compile Include="OS\Resource.cs" />
     <Compile Include="OS\Speaker.cs" />
     <Compile Include="OS\StartStop.cs" />
