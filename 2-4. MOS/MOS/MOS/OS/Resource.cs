@@ -12,7 +12,7 @@ namespace MOS.OS
         public int Count { get; private set; }
         public string Data { get; private set; }
         public Process Creator { get; private set; }
-        List<Process> Awaiters { get; set; }
+        public List<Process> Awaiters { get; set; }
         public Kernel Kernel { get; private set; }
         public Guid Id { get; private set; }
         public List<ResElement> Elements { get; set; }

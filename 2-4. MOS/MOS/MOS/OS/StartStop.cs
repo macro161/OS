@@ -9,9 +9,12 @@ namespace MOS.OS
 {
     class StartStop : Process
     {
-        public StartStop(Kernel kernel, int priority, int status, Guid id, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer, "StartStop") { }
+        public StartStop(Kernel kernel, int priority, int status, Guid id, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer, "StartStop") {
 
+            ResourcesINeed[0] = "MOSEND";
+        }
 
+       
 
         public void InitSystemProceses() //nezinojau ka prie to poiterio rasyt tai 0 parasiau
         {
@@ -91,6 +94,16 @@ namespace MOS.OS
         public override void DecrementPriority()
         {
             throw new NotImplementedException();
+        }
+
+        public override bool CheckIfReady()
+        {
+            if (Array.IndexOf(Resources, ResourcesINeed[0]) > -1)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
