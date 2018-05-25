@@ -11,6 +11,8 @@ namespace MOS.OS
         public static int size = 0;
         public static string[] supervisoryMemory;
 
+        public List<Program> cleanPrograms = new List<Program>();
+
         public static void PutData(string data)
         {
             supervisoryMemory[size] = data;

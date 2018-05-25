@@ -68,6 +68,7 @@
     <Compile Include="OS\Kernel.cs" />
     <Compile Include="OS\Printer.cs" />
     <Compile Include="OS\Process.cs" />
+    <Compile Include="OS\Program.cs" />
     <Compile Include="OS\Read.cs" />
     <Compile Include="OS\Resource.cs" />
     <Compile Include="OS\Speaker.cs" />

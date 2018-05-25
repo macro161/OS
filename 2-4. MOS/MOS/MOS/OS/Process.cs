@@ -12,6 +12,8 @@ namespace MOS.OS
         public int Priority { get; set; }
         public int Status { get; set; }
         public Resource [] Resources { get; set; }
+        public List<string> resourcesNeeded = new List<string>() ;
+        
         public string Id { get; private set; }
         public int Pointer { get; set; }
         public Kernel Kernel { get; private set; }
