@@ -30,12 +30,8 @@ namespace MOS.OS
             blocked.Sort(delegate (Process x, Process y)
             {
                 return y.priority.CompareTo(x.priority);
-            });
-
-            
+            });   
         }
-
-        
 
         public static void BlockProcess(Process process)
         {
@@ -43,7 +39,6 @@ namespace MOS.OS
             {
                 process.status = "BLOCKED";
             }
-
         }
 
         public static void RunProcess(Process process) { }

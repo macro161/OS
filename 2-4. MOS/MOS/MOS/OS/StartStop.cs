@@ -43,15 +43,15 @@ namespace MOS.OS
 
         public void InitStaticResources()
         {
-            Resource mosEnd = new Resource("MOSEND",GetId(),1);
-            Resource outputStream = new Resource("OUTPUTSTREAM", GetId(), 1);
-            Resource supervisoryMemory = new Resource("SUPERVISORYMEMORY", GetId(), 1);
-            Resource externalMemory = new Resource("EXTERNALMEMORY", GetId(), 1);
-            Resource chanOne = new Resource("CHAN1", GetId(), 1);
-            Resource chanTwo = new Resource("CHAN2", GetId(), 1);
-            Resource chanThree = new Resource("CHAN3", GetId(), 1);
-            Resource chanFour = new Resource("CHAN4", GetId(), 1);
-            Resource userMemory = new Resource("USERMEMORY", GetId(), 1);
+            Resource mosEnd = new Resource("MOSEND",GetId(),1,"");
+            Resource outputStream = new Resource("OUTPUTSTREAM", GetId(), 1,"");
+            Resource supervisoryMemory = new Resource("SUPERVISORYMEMORY", GetId(), 1,"");
+            Resource externalMemory = new Resource("EXTERNALMEMORY", GetId(), 1,"");
+            Resource chanOne = new Resource("CHAN1", GetId(), 1,"");
+            Resource chanTwo = new Resource("CHAN2", GetId(), 1,"");
+            Resource chanThree = new Resource("CHAN3", GetId(), 1,"");
+            Resource chanFour = new Resource("CHAN4", GetId(), 1,"");
+            Resource userMemory = new Resource("USERMEMORY", GetId(), 1,"");
 
             Kernel.staticResources.Add(mosEnd);
             Kernel.staticResources.Add(outputStream);

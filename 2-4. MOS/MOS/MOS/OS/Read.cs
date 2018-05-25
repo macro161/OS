@@ -10,6 +10,8 @@ namespace MOS.OS
     {
         public Read(int priority, string id, string status, int pointer, Resource[] resources) : base(priority, status, resources, id, pointer) { }
 
+        public string[] flashData;
+
         public override void AddResource(Resource resource)
         {
             throw new NotImplementedException();
@@ -32,7 +34,21 @@ namespace MOS.OS
 
         public override void Run()
         {
-            throw new NotImplementedException();
+            string flashLocation = base.resources[base.pointer].data;
+            int counter = 0;
+            string line;
+
+            System.IO.StreamReader file = new System.IO.StreamReader(@"" + flashLocation);
+
+            while ((line = file.ReadLine()) != null) {
+                flashData[counter] = line;
+                counter++;
+            }
+
+            Resource taskInSupervisoryMemory = new Resource("TASKINSUPERVISORYMEMORY",base.id,1,"");
+
+            Kernel.dynamicResources.Add(taskInSupervisoryMemory);
+
         }
 
         public override void SetPriority(int priority)

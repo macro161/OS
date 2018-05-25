@@ -72,6 +72,7 @@
     <Compile Include="OS\Resource.cs" />
     <Compile Include="OS\Speaker.cs" />
     <Compile Include="OS\StartStop.cs" />
+    <Compile Include="OS\SupervisoryMemory.cs" />
     <Compile Include="OS\SwapBack.cs" />
     <Compile Include="RealMachine\ChannelsDevice.cs" />
     <Compile Include="RealMachine\FlashMemory.cs" />
