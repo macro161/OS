@@ -8,7 +8,7 @@ namespace MOS.OS
 {
     class ChanDevice : Process
     {
-        public ChanDevice(Kernel kernel, int priority, int status, Guid id, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer, "ChanDevice") { }
+        public ChanDevice(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "ChanDevice") { }
 
         public override void AddResource(Resource resource)
         {

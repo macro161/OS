@@ -30,8 +30,16 @@ namespace MOS.OS
             ready[0] = running;
             running = temp;
             ResourcePlanner();
-            
-           
+            foreach (Process block in blocked)
+            {
+                if (block.CheckIfReady()) {
+                    ready.Add(block);
+                    blocked.Remove(block);
+                }
+            }
+
+            running.DecrementPriority();
+            running.Run();
         }
 
         private void ResourcePlanner()
@@ -42,7 +50,17 @@ namespace MOS.OS
                 {
                     if (dynamicRes.Awaiters.Contains(blockedProcess) && !(blockedProcess.Resources.Contains(dynamicRes)))
                     {
-                        //blockedProcess.Resources;
+                        blockedProcess.Resources.Add(dynamicRes);
+                        dynamicResources.Remove(dynamicRes);
+                    }
+                }
+
+                foreach (Resource staticRes in staticResources)
+                {
+                    if (staticRes.Awaiters.Contains(blockedProcess) && !(blockedProcess.Resources.Contains(staticRes)))
+                    {
+                        blockedProcess.Resources.Add(staticRes);
+                        staticResources.Remove(staticRes);
                     }
                 }
             }

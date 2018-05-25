@@ -8,7 +8,7 @@ namespace MOS.OS
 {
     class Read : Process
     {
-        public Read(Kernel kernel, int priority, int status, Guid id, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer, "Read") { }
+        public Read(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "Read") { }
 
         public List<String> flashData = new List<String>();
 

@@ -11,17 +11,17 @@ namespace MOS.OS
     {
         public int Priority { get; set; }
         public int Status { get; set; }
-        public Resource [] Resources { get; set; }
-        public List<string> resourcesNeeded = new List<string>() ;
+        public List<Resource> Resources = new List<Resource>();
+      
         public Guid Id { get; private set; }
         public int Pointer { get; set; }
         public Kernel Kernel { get; private set; }
         public List<Process> Childrens { get; set; }
         public string Name { get; private set; }
-        public string[] ResourcesINeed { get; set; }
+        public List<string> ResourcesINeed = new List<string>();
 
 
-        public Process(Kernel kernel, int priority, int status, Resource[] resources, Guid id, int pointer, string name)
+        public Process(Kernel kernel, int priority, int status, List<Resource> resources, Guid id, int pointer, string name)
         {
             Kernel = kernel;
             Priority = priority;

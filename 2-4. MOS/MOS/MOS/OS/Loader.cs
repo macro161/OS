@@ -8,7 +8,7 @@ namespace MOS.OS
 {
     class Loader : Process
     {
-        public Loader(Kernel kernel, int priority, int status, Guid id, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer, "Loader") { }
+        public Loader(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "Loader") { }
 
         public override void AddResource(Resource resource)
         {

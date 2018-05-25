@@ -8,7 +8,7 @@ namespace MOS.OS
 {
     class Speaker : Process
     {
-        public Speaker(Kernel kernel, int priority, int status, Guid id, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer, "Read") { }
+        public Speaker(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "Read") { }
 
         public override void AddResource(Resource resource)
         {
