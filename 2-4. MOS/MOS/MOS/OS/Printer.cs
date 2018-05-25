@@ -8,7 +8,7 @@ namespace MOS.OS
 {
     class Printer : Process
     {
-        public Printer(Kernel kernel, int priority, string id, int status, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer) { }
+        public Printer(Kernel kernel, int priority, int status, Guid id, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer, "Printer") { }
 
         public override void AddResource(Resource resource)
         {
