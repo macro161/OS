@@ -59,6 +59,18 @@
     <Compile Include="GUI\RMform.Designer.cs">
       <DependentUpon>RMform.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\SystemForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\SystemForm.Designer.cs">
+      <DependentUpon>SystemForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\VMForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\VMForm.Designer.cs">
+      <DependentUpon>VMForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="OS\ChanDevice.cs" />
     <Compile Include="OS\HardDisk.cs" />
     <Compile Include="OS\Interupt.cs" />
@@ -84,10 +96,10 @@
     <Compile Include="RealMachine\SupervisoryMemory.cs" />
     <Compile Include="Registers\IC_Reg.cs" />
     <Compile Include="Registers\IOI_Reg.cs" />
-    <Compile Include="RealMachine\LoggerTextBox.cs">
+    <Compile Include="GUI\LoggerTextBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RealMachine\LoggerTextBox.Designer.cs">
+    <Compile Include="GUI\LoggerTextBox.Designer.cs">
       <DependentUpon>LoggerTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Registers\Mode_Reg.cs" />
@@ -99,7 +111,7 @@
     <Compile Include="Registers\R_Reg.cs" />
     <Compile Include="Registers\SF_Reg.cs" />
     <Compile Include="Registers\SI_Reg.cs" />
-    <Compile Include="RealMachine\TextBoxAppender.cs" />
+    <Compile Include="GUI\TextBoxAppender.cs" />
     <Compile Include="Registers\TI_Reg.cs" />
     <Compile Include="RealMachine\UserMemory.cs" />
     <Compile Include="VirtualMachine\PageTable.cs" />
@@ -107,7 +119,13 @@
     <EmbeddedResource Include="GUI\RMform.resx">
       <DependentUpon>RMform.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RealMachine\LoggerTextBox.resx">
+    <EmbeddedResource Include="GUI\SystemForm.resx">
+      <DependentUpon>SystemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\VMForm.resx">
+      <DependentUpon>VMForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\LoggerTextBox.resx">
       <DependentUpon>LoggerTextBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
