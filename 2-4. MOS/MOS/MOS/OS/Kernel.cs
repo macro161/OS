@@ -15,7 +15,7 @@ namespace MOS.OS
         public Process running;
 
         public List<Resource> dynamicResources = new List<Resource>();
-        public List<Resource> staticResources = new List<Resource>();
+        public Dictionary<Resource, bool> staticResources = new Dictionary<Resource, bool>();
 
         public void SortProcesses()
         {
@@ -49,7 +49,7 @@ namespace MOS.OS
         {
             foreach (Process blockedProcess in blocked)
             {
-                foreach (Resource dynamicRes in dynamicResources)
+                /*foreach (Resource dynamicRes in dynamicResources)
                 {
                     if (dynamicRes.Awaiters.Contains(blockedProcess) && !(blockedProcess.Resources.Contains(dynamicRes)))
                     {
@@ -58,12 +58,45 @@ namespace MOS.OS
                     }
                 }
 
-                foreach (Resource staticRes in staticResources)
+                foreach (KeyValuePair<Resource, bool> staticRes in staticResources)
                 {
-                    if (staticRes.Awaiters.Contains(blockedProcess) && !(blockedProcess.Resources.Contains(staticRes)))
+                    if (staticRes.Key.Awaiters.Contains(blockedProcess) && !(blockedProcess.Resources.Contains(staticRes.Key)))
                     {
-                        blockedProcess.Resources.Add(staticRes);
-                        staticResources.Remove(staticRes);
+                        blockedProcess.Resources.Add(staticRes.Key);
+                        staticResources[staticRes.Key] = false;
+                    }
+                }*/
+                bool gotAllResources = true;
+                foreach (string reqResource in blockedProcess.ResourcesINeed)
+                {
+                    bool gotResource = false;
+                    if (dynamicResources.Any(res => res.Name == reqResource))
+                    {
+                        Resource temp = dynamicResources.FirstOrDefault(res => res.Name == reqResource);
+                        if (temp.Elements.Count > 0)
+                        {
+                            if (temp.Elements.Any(elem => elem.Receiver == null || elem.Receiver == blockedProcess))
+                            {
+                                gotResource = true;
+                            }
+                            gotAllResources = false;
+                            break;
+                        }
+                        else
+                        {
+                            gotAllResources = false;
+                            break; ;
+                        }
+                    }
+                    else if (staticResources.Any(res => res.Key.Name == reqResource && res.Value == true))
+                        {
+                            gotResource = true;
+                        }
+                    else
+                    {
+                        gotAllResources = false;
+                        break; ;
+                    }
                     }
                 }
             }
@@ -74,6 +107,13 @@ namespace MOS.OS
             if (process == running)
             {
                 process.Status = (int)ProcessState.Blocked;
+                blocked.Add(process);
+            }
+            else
+            {
+                process.Status = (int)ProcessState.Blocked;
+                ready.Remove(process);
+                blocked.Add(process);
             }
         }
 

@@ -22,10 +22,10 @@ namespace MOS.OS
             Loader loader = new Loader(Kernel, 97, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
             MainProc mainProc = new MainProc(Kernel, 96, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
             SwapBack swapBack = new SwapBack(Kernel, 95, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
-            Interupt interupt = new Interupt(Kernel, 94, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
-            ChanDevice chanDevice = new ChanDevice(Kernel, 93, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
-            Speaker speaker = new Speaker(Kernel, 92, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
-            Printer printer = new Printer(Kernel, 91, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
+            Interupt interupt = new Interupt(Kernel, 90, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
+            ChanDevice chanDevice = new ChanDevice(Kernel, 90, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
+            Speaker speaker = new Speaker(Kernel, 90, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
+            Printer printer = new Printer(Kernel, 90, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
 
             Kernel.blocked.Add(read);
             Kernel.blocked.Add(jcl);
