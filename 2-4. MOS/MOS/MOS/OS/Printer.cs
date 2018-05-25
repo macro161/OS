@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MOS.GUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,8 @@ namespace MOS.OS
 {
     class Printer : Process
     {
+        VMForm vm;
+
         public Printer(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "Printer") { }
 
         public override void AddResource(Resource resource)
@@ -28,6 +31,11 @@ namespace MOS.OS
         public override void Run()
         {
             throw new NotImplementedException();
+        }
+
+        public void Print(string line)
+        {
+            //vm.Print(Id, line);
         }
     }
 }

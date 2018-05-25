@@ -27,7 +27,12 @@ namespace MOS.OS
 
         public override void Run()
         {
-            throw new NotImplementedException();
+            Beep(Pointer);
+        }
+
+        public static void Beep(int x)
+        {
+            Console.Beep(2000, x * 1000);
         }
     }
 }
