@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MOS.GUI;
 
 namespace MOS.OS
 {
@@ -18,6 +19,9 @@ namespace MOS.OS
         public List<ResElement> Elements { get; set; }
         public List<int> WaitingCount { get; set; }
         public List<StringBuilder> WaitingProcPoint { get; set; }
+        public VMForm resourceGUI;
+
+
         public Resource(Kernel kernel, string name, Process creator, int count, string data)
         {
             Kernel = kernel;

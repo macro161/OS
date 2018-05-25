@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MOS.GUI;
 
 namespace MOS.OS
 {
     class MemoryResource : Resource
     {
+        VMForm resourceGUI;
+
         public MemoryResource(Kernel kernel, string name, Process creator, int count, string data) : base(kernel, name, creator, count, data)
         {
         }
