@@ -60,6 +60,7 @@
       <DependentUpon>RMform.cs</DependentUpon>
     </Compile>
     <Compile Include="OS\ChanDevice.cs" />
+    <Compile Include="OS\HardDisk.cs" />
     <Compile Include="OS\Interupt.cs" />
     <Compile Include="OS\JCL.cs" />
     <Compile Include="OS\JobToDisk.cs" />
