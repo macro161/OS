@@ -79,7 +79,9 @@ namespace MOS.OS
                     InitSystemProceses();
                     InitSystemResources();
                     Pointer++;
-                    Kernel.staticResources.Find(x => x.Name == "MOSEND").AskForResource(this);
+                    Status = (int)ProcessState.Blocked;
+                    Kernel.blocked.Add(this);
+                    //Kernel.staticResources.Find(x => x.Name == "MOSEND").AskForResource(this);
                     Kernel.Planner();
                     break;
                 case 1:

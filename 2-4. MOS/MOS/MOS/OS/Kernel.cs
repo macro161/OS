@@ -26,9 +26,12 @@ namespace MOS.OS
 
         public void Planner() {
             SortProcesses();
-            Process temp = ready[0];
-            ready[0] = running;
-            running = temp;
+            if (ready.Count > 0)
+            {
+                Process temp = ready[0];
+                ready[0] = running;
+                running = temp;
+            }
             ResourcePlanner();
             foreach (Process block in blocked)
             {
