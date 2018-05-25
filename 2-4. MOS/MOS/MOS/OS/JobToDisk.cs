@@ -22,7 +22,7 @@ namespace MOS.OS
 
         public override void Run()
         {
-            throw new NotImplementedException();
+            HardDisk.ProgramList = SupervisoryMemory.ProgramList;
         }
     }
 }
