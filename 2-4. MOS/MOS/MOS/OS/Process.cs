@@ -13,13 +13,14 @@ namespace MOS.OS
         public int Status { get; set; }
         public Resource [] Resources { get; set; }
         public List<string> resourcesNeeded = new List<string>() ;
-        
-        public string Id { get; private set; }
+        public Guid Id { get; private set; }
         public int Pointer { get; set; }
         public Kernel Kernel { get; private set; }
+        public List<Process> Childrens { get; set; }
+        public string Name { get; private set; }
 
 
-        public Process(Kernel kernel, int priority, int status, Resource[] resources, string id, int pointer)
+        public Process(Kernel kernel, int priority, int status, Resource[] resources, Guid id, int pointer, string name)
         {
             Kernel = kernel;
             Priority = priority;
@@ -27,6 +28,8 @@ namespace MOS.OS
             Resources = resources;
             Id = id;
             Pointer = pointer;
+            Childrens = new List<Process>();
+            Name = name;
         }    
 
         public abstract void AddResource(Resource resource);
