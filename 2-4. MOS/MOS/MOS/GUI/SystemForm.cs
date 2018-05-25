@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MOS.OS;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,9 +14,14 @@ namespace MOS.GUI
 {
     public partial class SystemForm : Form
     {
+        public BindingSource sys = new BindingSource();
+
         public SystemForm()
         {
             InitializeComponent();
+            HardDisk hd = new HardDisk();
+            sys.DataSource = hd;
+            listBox.DataBindings.Add("Text", hd, "ProgramList");
         }
 
         private void mountFlashB_Click(object sender, EventArgs e)
