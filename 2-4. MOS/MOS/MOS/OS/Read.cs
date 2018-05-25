@@ -10,7 +10,7 @@ namespace MOS.OS
     {
         public Read(Kernel kernel, int priority, int status, Guid id, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer, "Read") { }
 
-        public string[] flashData;
+        public List<String> flashData = new List<String>();
 
         public override void AddResource(Resource resource)
         {
@@ -21,15 +21,15 @@ namespace MOS.OS
         public override void Run()
         {
             string flashLocation = Resources[Pointer].Data;
-            int counter = 0;
             string line;
 
             System.IO.StreamReader file = new System.IO.StreamReader(@"" + flashLocation);
 
             while ((line = file.ReadLine()) != null) {
-                flashData[counter] = line;
-                counter++;
+                flashData.Add(line);
             }
+
+            SupervisoryMemory.Memory = flashData;
 
             Resource taskInSupervisoryMemory = new Resource(Kernel, "TASKINSUPERVISORYMEMORY", this ,1,"");
 
