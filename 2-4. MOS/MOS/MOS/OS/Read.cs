@@ -36,5 +36,10 @@ namespace MOS.OS
             Kernel.dynamicResources.Add(taskInSupervisoryMemory);
 
         }
+
+        public override void DecrementPriority()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

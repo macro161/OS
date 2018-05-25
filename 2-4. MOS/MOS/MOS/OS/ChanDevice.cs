@@ -15,6 +15,11 @@ namespace MOS.OS
             throw new NotImplementedException();
         }
 
+        public override void DecrementPriority()
+        {
+           
+        }
+
         public override void Run()
         {
             throw new NotImplementedException();

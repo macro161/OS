@@ -28,5 +28,14 @@ namespace MOS.OS
             Id = Guid.NewGuid();
             Elements = new List<ResElement>();
         }
+
+        public void AskForResource(Process process)
+        {
+            Awaiters.Add(process);
+        }
+
+        
+
+
     }
 }

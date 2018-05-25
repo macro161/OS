@@ -35,5 +35,7 @@ namespace MOS.OS
         public abstract void AddResource(Resource resource);
 
         public abstract void Run();
+
+        public abstract void DecrementPriority();
     }
 }
