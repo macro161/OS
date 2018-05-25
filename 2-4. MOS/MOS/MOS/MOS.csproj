@@ -74,6 +74,7 @@
     <Compile Include="OS\ChanDevice.cs" />
     <Compile Include="OS\HardDisk.cs" />
     <Compile Include="OS\Interupt.cs" />
+    <Compile Include="OS\IOResource.cs" />
     <Compile Include="OS\JCL.cs" />
     <Compile Include="OS\JobToDisk.cs" />
     <Compile Include="OS\Loader.cs" />
