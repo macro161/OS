@@ -18,6 +18,7 @@ namespace MOS.OS
         public Kernel Kernel { get; private set; }
         public List<Process> Childrens { get; set; }
         public string Name { get; private set; }
+        public string[] ResourcesINeed { get; set; }
 
 
         public Process(Kernel kernel, int priority, int status, Resource[] resources, Guid id, int pointer, string name)
@@ -37,5 +38,7 @@ namespace MOS.OS
         public abstract void Run();
 
         public abstract void DecrementPriority();
+
+        public abstract bool CheckIfReady();
     }
 }

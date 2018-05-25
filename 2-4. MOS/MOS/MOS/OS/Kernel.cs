@@ -10,21 +10,21 @@ namespace MOS.OS
 {
     class Kernel
     {
-        public static List<Process> ready = new List<Process>();
-        public static List<Process> blocked = new List<Process>();
-        public static Process running;
+        public List<Process> ready = new List<Process>();
+        public List<Process> blocked = new List<Process>();
+        public Process running;
 
-        public static List<Resource> dynamicResources = new List<Resource>();
-        public static List<Resource> staticResources = new List<Resource>();
+        public List<Resource> dynamicResources = new List<Resource>();
+        public List<Resource> staticResources = new List<Resource>();
 
-        public static void SortProcesses()
+        public void SortProcesses()
         {
             ready = ready.OrderByDescending(x => x.Priority).ToList();
 
             blocked = blocked.OrderByDescending(x => x.Priority).ToList();
         }
 
-        public static void Planner() {
+        public void Planner() {
             SortProcesses();
             Process temp = ready[0];
             ready[0] = running;
@@ -34,11 +34,17 @@ namespace MOS.OS
            
         }
 
-        private static void ResourcePlanner()
+        private void ResourcePlanner()
         {
             foreach (Process blockedProcess in blocked)
             {
-
+                foreach (Resource dynamicRes in dynamicResources)
+                {
+                    if (dynamicRes.Awaiters.Contains(blockedProcess) && !(blockedProcess.Resources.Contains(dynamicRes)))
+                    {
+                        //blockedProcess.Resources;
+                    }
+                }
             }
         }
 
