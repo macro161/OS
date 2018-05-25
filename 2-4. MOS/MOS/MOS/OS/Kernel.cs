@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MOS.Enums;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,40 +10,31 @@ namespace MOS.OS
 {
     class Kernel
     {
-        private static string READY = "READY";
-        private static string RUNNING = "RUNNING";
-        private static string BLOCKED = "BLOCKED";
 
-        public static List<Process> ready = new List<Process>();
-        public static List<Process> blocked = new List<Process>();
-        public static Process running;
+        public List<Process> ready = new List<Process>();
+        public List<Process> blocked = new List<Process>();
+        public Process running;
 
-        public static List<Resource> dynamicResources = new List<Resource>();
-        public static List<Resource> staticResources = new List<Resource>();
+        public List<Resource> dynamicResources = new List<Resource>();
+        public List<Resource> staticResources = new List<Resource>();
 
-        public static void sortProcesses()
+        public void sortProcesses()
         {
-            ready.Sort(delegate (Process x, Process y)
-            {
-                return y.priority.CompareTo(x.priority);
-            });
+            ready = ready.OrderByDescending(x => x.Priority).ToList();
 
-            blocked.Sort(delegate (Process x, Process y)
-            {
-                return y.priority.CompareTo(x.priority);
-            });   
+            blocked = blocked.OrderByDescending(x => x.Priority).ToList();
         }
 
-        public static void BlockProcess(Process process)
+        public void BlockProcess(Process process)
         {
             if (process == running)
             {
-                process.status = "BLOCKED";
+                process.Status = (int)ProcessState.Blocked;
             }
         }
 
-        public static void RunProcess(Process process) { }
+        public void RunProcess(Process process) { }
 
-        public static void ReadyProcess(Process process) { }
+        public void ReadyProcess(Process process) { }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MOS.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace MOS.OS
 {
     class StartStop : Process
     {
-        public StartStop(int priority, string id, string status, int pointer, Resource[] resources) : base(priority,status,resources,id,pointer){}
+        public StartStop(Kernel kernel, int priority, string id, int status, int pointer, Resource[] resources) : base(kernel, priority,status,resources,id,pointer){}
 
         public void run() {
             InitSystemProceses();
@@ -17,16 +18,16 @@ namespace MOS.OS
 
         public void InitSystemProceses() //nezinojau ka prie to poiterio rasyt tai 0 parasiau
         {
-            Read read = new Read(100,"READ","BLOCKED",0,null);
-            JCL jcl = new JCL(100,"JCL","BLOCKED",0,null);
-            JobToDisk jobToDisk = new JobToDisk(100,"JOBTODISK", "BLOCKED", 0,null);
-            Loader loader = new Loader(100,"LOADER", "BLOCKED", 0, null);
-            MainProc mainProc = new MainProc(100,"MAINPROC", "BLOCKED", 0, null);
-            SwapBack swapBack = new SwapBack(100, "SWAPBACK", "BLOCKED", 0, null);
-            Interupt interupt = new Interupt(100, "INTERUPT", "BLOCKED", 0, null);
-            ChanDevice chanDevice = new ChanDevice(100, "CHANDEVICE", "BLOCKED", 0, null);
-            Speaker speaker = new Speaker(100,"SPEAKER", "BLOCKED", 0, null);
-            Printer printer = new Printer(100, "PRINTER", "BLOCKED", 0, null);
+            Read read = new Read(Kernel, 100, "READ", (int)ProcessState.Blocked, 0, null);
+            JCL jcl = new JCL(Kernel, 100,"JCL",(int)ProcessState.Blocked,0,null);
+            JobToDisk jobToDisk = new JobToDisk(Kernel, 100,"JOBTODISK", (int)ProcessState.Blocked, 0,null);
+            Loader loader = new Loader(Kernel, 100,"LOADER", (int)ProcessState.Blocked, 0, null);
+            MainProc mainProc = new MainProc(Kernel, 100,"MAINPROC", (int)ProcessState.Blocked, 0, null);
+            SwapBack swapBack = new SwapBack(Kernel, 100, "SWAPBACK", (int)ProcessState.Blocked, 0, null);
+            Interupt interupt = new Interupt(Kernel, 100, "INTERUPT", (int)ProcessState.Blocked, 0, null);
+            ChanDevice chanDevice = new ChanDevice(Kernel, 100, "CHANDEVICE", (int)ProcessState.Blocked, 0, null);
+            Speaker speaker = new Speaker(Kernel, 100,"SPEAKER", (int)ProcessState.Blocked, 0, null);
+            Printer printer = new Printer(Kernel, 100, "PRINTER", (int)ProcessState.Blocked, 0, null);
 
             Kernel.blocked.Add(read);
             Kernel.blocked.Add(jcl);
@@ -43,15 +44,15 @@ namespace MOS.OS
 
         public void InitStaticResources()
         {
-            Resource mosEnd = new Resource("MOSEND",GetId(),1,"");
-            Resource outputStream = new Resource("OUTPUTSTREAM", GetId(), 1,"");
-            Resource supervisoryMemory = new Resource("SUPERVISORYMEMORY", GetId(), 1,"");
-            Resource externalMemory = new Resource("EXTERNALMEMORY", GetId(), 1,"");
-            Resource chanOne = new Resource("CHAN1", GetId(), 1,"");
-            Resource chanTwo = new Resource("CHAN2", GetId(), 1,"");
-            Resource chanThree = new Resource("CHAN3", GetId(), 1,"");
-            Resource chanFour = new Resource("CHAN4", GetId(), 1,"");
-            Resource userMemory = new Resource("USERMEMORY", GetId(), 1,"");
+            Resource mosEnd = new Resource(Kernel, "MOSEND", this,1, "");
+            Resource outputStream = new Resource(Kernel, "OUTPUTSTREAM", this, 1, "");
+            Resource supervisoryMemory = new Resource(Kernel, "SUPERVISORYMEMORY", this, 1, "");
+            Resource externalMemory = new Resource(Kernel, "EXTERNALMEMORY", this, 1, "");
+            Resource chanOne = new Resource(Kernel, "CHAN1", this, 1, "");
+            Resource chanTwo = new Resource(Kernel, "CHAN2", this, 1, "");
+            Resource chanThree = new Resource(Kernel, "CHAN3", this, 1, "");
+            Resource chanFour = new Resource(Kernel, "CHAN4", this, 1, "");
+            Resource userMemory = new Resource(Kernel, "USERMEMORY", this, 1, "");
 
             Kernel.staticResources.Add(mosEnd);
             Kernel.staticResources.Add(outputStream);
@@ -65,26 +66,6 @@ namespace MOS.OS
 
         }
 
-        public override void SetStatus(string status)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string GetStatus()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void SetPriority(int priority)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override int GetPriority()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void AddResource(Resource resource)
         {
             throw new NotImplementedException();
@@ -93,11 +74,6 @@ namespace MOS.OS
         public override void Run()
         {
             throw new NotImplementedException();
-        }
-
-        public override string GetId()
-        {
-            return base.id;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace MOS.OS
 {
     class Read : Process
     {
-        public Read(int priority, string id, string status, int pointer, Resource[] resources) : base(priority, status, resources, id, pointer) { }
+        public Read(Kernel kernel, int priority, string id, int status, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer) { }
 
         public string[] flashData;
 
@@ -17,24 +17,9 @@ namespace MOS.OS
             throw new NotImplementedException();
         }
 
-        public override string GetId()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override int GetPriority()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override string GetStatus()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Run()
         {
-            string flashLocation = base.resources[base.pointer].data;
+            string flashLocation = Resources[Pointer].Data;
             int counter = 0;
             string line;
 
@@ -45,20 +30,10 @@ namespace MOS.OS
                 counter++;
             }
 
-            Resource taskInSupervisoryMemory = new Resource("TASKINSUPERVISORYMEMORY",base.id,1,"");
+            Resource taskInSupervisoryMemory = new Resource(Kernel, "TASKINSUPERVISORYMEMORY", this ,1,"");
 
             Kernel.dynamicResources.Add(taskInSupervisoryMemory);
 
-        }
-
-        public override void SetPriority(int priority)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override void SetStatus(string status)
-        {
-            throw new NotImplementedException();
         }
     }
 }

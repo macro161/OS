@@ -8,17 +8,21 @@ namespace MOS.OS
 {
     class Resource
     {
-        public string name;
-        public string creator;
-        public int elements;
-        public string data;
+        public string Name { get; private set; }
+        public int Elements { get; private set; }
+        public string Data { get; private set; }
+        public Process Creator { get; private set; }
+        List<Process> Awaiters { get; set; }
+        public Kernel Kernel { get; private set; }
 
-        public Resource(string name, string creator, int elements, string data)
+        public Resource(Kernel kernel, string name, Process creator, int elements, string data)
         {
-            this.name = name;
-            this.creator = creator;
-            this.elements = elements;
-            this.data = data;
+            Kernel = kernel;
+            Name = name;
+            Creator = creator;
+            Elements = elements;
+            Data = data;
+            Awaiters = new List<Process>();
         }
     }
 }

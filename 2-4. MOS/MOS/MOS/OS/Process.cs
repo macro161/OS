@@ -9,36 +9,23 @@ namespace MOS.OS
 {
     abstract class Process
     {
-        public static string READY = "READY";
-        public static string RUNNING = "RUNNING";
-        public static string BLOCKED = "BLOCKED";
-        public int priority;
-        public string status = READY;
-        public Resource [] resources;
-        public string id;
-        public int pointer;
+        public int Priority { get; set; }
+        public int Status { get; set; }
+        public Resource [] Resources { get; set; }
+        public string Id { get; private set; }
+        public int Pointer { get; set; }
+        public Kernel Kernel { get; private set; }
 
 
-        public Process(int priority, string status, Resource[] resources, string id, int pointer)
+        public Process(Kernel kernel, int priority, int status, Resource[] resources, string id, int pointer)
         {
-            this.priority = priority;
-            this.status = status;
-            this.resources = resources;
-            this.id = id;
-            this.pointer = pointer;
-        }
-
-        public abstract void SetStatus(string status);
-
-        public abstract string GetStatus();
-
-        public abstract void SetPriority(int priority);
-
-        public abstract int GetPriority();
-
-        public abstract string GetId();
-
-      
+            Kernel = kernel;
+            Priority = priority;
+            Status = status;
+            Resources = resources;
+            Id = id;
+            Pointer = pointer;
+        }    
 
         public abstract void AddResource(Resource resource);
 
