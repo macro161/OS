@@ -12,9 +12,21 @@ namespace MOS.GUI
 {
     public partial class VMForm : Form
     {
-        public VMForm()
+        public Guid id;
+
+        public VMForm(Guid id)
         {
+            this.id = id;
             InitializeComponent();
+        }
+
+        public void Print(Guid id, string line)
+        {
+            if(this.id == id)
+            {
+                textBox.AppendText(line);
+                textBox.AppendText(Environment.NewLine);
+            }
         }
 
         private void textBoxUser_Enter(object sender, EventArgs e)
