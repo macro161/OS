@@ -8,7 +8,7 @@ namespace MOS.OS
 {
     class SwapBack : Process
     {
-        public SwapBack(Kernel kernel, int priority, string id, int status, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer) { }
+        public SwapBack(Kernel kernel, int priority, int status, Guid id, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer, "SwapBack") { }
 
         public override void AddResource(Resource resource)
         {

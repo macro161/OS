@@ -8,7 +8,7 @@ namespace MOS.OS
 {
     class Interupt : Process
     {
-        public Interupt(Kernel kernel, int priority, string id, int status, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer) { }
+        public Interupt(Kernel kernel, int priority, int status, Guid id, int pointer, Resource[] resources) : base(kernel, priority, status, resources, id, pointer, "Interupt") { }
 
         public override void AddResource(Resource resource)
         {
