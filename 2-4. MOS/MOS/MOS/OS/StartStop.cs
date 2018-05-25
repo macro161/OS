@@ -6,27 +6,9 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class StartStop
+    class StartStop : Process
     {
-
-        public static string READY = "READY";
-        public static string RUNNING = "RUNNING";
-        public static string BLOCKED = "BLOCKED";
-        public int priority;
-        public string status = READY;
-        public Resource[] resources;
-        public string id;
-        public int pointer;
-
-        public StartStop(int priority, string id, string status, int pointer, Resource[] res)
-        {
-            this.priority = priority;
-            this.id = id;
-            this.status = status;
-            this.pointer = pointer;
-            this.resources = res;
-            this.pointer = pointer;
-        }
+        public StartStop(int priority, string id, string status, int pointer, Resource[] resources) : base(priority,status,resources,id,pointer){}
 
         public void run() {
             InitSystemProceses();
@@ -61,15 +43,15 @@ namespace MOS.OS
 
         public void InitStaticResources()
         {
-            Resource mosEnd = new Resource("MOSEND",id,1);
-            Resource outputStream = new Resource("OUTPUTSTREAM",id,1);
-            Resource supervisoryMemory = new Resource("SUPERVISORYMEMORY", id, 1);
-            Resource externalMemory = new Resource("EXTERNALMEMORY", id, 1);
-            Resource chanOne = new Resource("CHAN1", id, 1);
-            Resource chanTwo = new Resource("CHAN2", id, 1);
-            Resource chanThree = new Resource("CHAN3", id, 1);
-            Resource chanFour = new Resource("CHAN4", id, 1);
-            Resource userMemory = new Resource("USERMEMORY", id, 1);
+            Resource mosEnd = new Resource("MOSEND",GetId(),1);
+            Resource outputStream = new Resource("OUTPUTSTREAM", GetId(), 1);
+            Resource supervisoryMemory = new Resource("SUPERVISORYMEMORY", GetId(), 1);
+            Resource externalMemory = new Resource("EXTERNALMEMORY", GetId(), 1);
+            Resource chanOne = new Resource("CHAN1", GetId(), 1);
+            Resource chanTwo = new Resource("CHAN2", GetId(), 1);
+            Resource chanThree = new Resource("CHAN3", GetId(), 1);
+            Resource chanFour = new Resource("CHAN4", GetId(), 1);
+            Resource userMemory = new Resource("USERMEMORY", GetId(), 1);
 
             Kernel.staticResources.Add(mosEnd);
             Kernel.staticResources.Add(outputStream);
@@ -81,6 +63,41 @@ namespace MOS.OS
             Kernel.staticResources.Add(chanFour);
             Kernel.staticResources.Add(userMemory);
 
+        }
+
+        public override void SetStatus(string status)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetStatus()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void SetPriority(int priority)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override int GetPriority()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AddResource(Resource resource)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Run()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override string GetId()
+        {
+            return base.id;
         }
     }
 }
