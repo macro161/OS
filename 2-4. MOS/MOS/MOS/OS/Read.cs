@@ -41,5 +41,10 @@ namespace MOS.OS
         {
             throw new NotImplementedException();
         }
+
+        public override bool CheckIfReady()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
