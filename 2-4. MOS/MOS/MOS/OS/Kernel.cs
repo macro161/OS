@@ -24,7 +24,8 @@ namespace MOS.OS
             blocked = blocked.OrderByDescending(x => x.Priority).ToList();
         }
 
-        public void Planner() {
+        public void Planner()
+        {
             SortProcesses();
             if (ready.Count > 0)
             {
@@ -35,7 +36,8 @@ namespace MOS.OS
             ResourcePlanner();
             foreach (Process block in blocked)
             {
-                if (block.CheckIfReady()) {
+                if (block.CheckIfReady())
+                {
                     ready.Add(block);
                     blocked.Remove(block);
                 }
@@ -67,9 +69,9 @@ namespace MOS.OS
                     }
                 }*/
                 bool gotAllResources = true;
+                List<Resource> tempResources = new List<Resource>();
                 foreach (string reqResource in blockedProcess.ResourcesINeed)
                 {
-                    bool gotResource = false;
                     if (dynamicResources.Any(res => res.Name == reqResource))
                     {
                         Resource temp = dynamicResources.FirstOrDefault(res => res.Name == reqResource);
@@ -77,7 +79,7 @@ namespace MOS.OS
                         {
                             if (temp.Elements.Any(elem => elem.Receiver == null || elem.Receiver == blockedProcess))
                             {
-                                gotResource = true;
+                                tempResources.Add(temp);
                             }
                             gotAllResources = false;
                             break;
@@ -89,15 +91,51 @@ namespace MOS.OS
                         }
                     }
                     else if (staticResources.Any(res => res.Key.Name == reqResource && res.Value == true))
+                    {
+                        if (reqResource == "USERMEMORY")
                         {
-                            gotResource = true;
+                            if(((MemoryResource)(staticResources.First(res => res.Key.Name == "USERMEMORY").Key)).FreeElements < 17)
+                            {
+                                gotAllResources = false;
+                                break;
+                            }
                         }
+                        tempResources.Add(staticResources.FirstOrDefault(res => res.Key.Name == reqResource).Key);
+                    }
                     else
                     {
                         gotAllResources = false;
-                        break; ;
+                        break;
                     }
+                }
+                if (gotAllResources)
+                {
+                    foreach (Resource res in tempResources)
+                    {
+                        if (staticResources.ContainsKey(res))
+                        {
+                            int numb = res.Awaiters.IndexOf(blockedProcess);
+                            res.WaitingCount.RemoveAt(numb);
+                            res.WaitingProcPoint.RemoveAt(numb);
+                            res.Awaiters.RemoveAt(numb);
+                            blockedProcess.ResourcesINeed.Remove(res.Name);
+                            blockedProcess.Resources.Add(res);
+                            staticResources[res] = false;
+                        }
+                        else
+                        {
+                            if (res.Elements.Any(elem => elem.Receiver == blockedProcess))
+                            {
+                                string value = res.Elements.First(elem => elem.Receiver == blockedProcess).Value;
+                                int numb = res.Awaiters.IndexOf(blockedProcess);
+                                res.WaitingProcPoint[numb].Clear().Append(numb);
+                                res.WaitingCount.RemoveAt(numb);
+                                res.WaitingProcPoint.RemoveAt(numb);
+                                res.Awaiters.RemoveAt(numb);
+                            }
+                        }
                     }
+
                 }
             }
         }

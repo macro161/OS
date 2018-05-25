@@ -10,12 +10,12 @@ namespace MOS.OS
     {
         public Process Receiver { get; set; }
         public Process Sender { get; set; }
-        public bool ReturnList { get; set; }
-        public ResElement(bool returnList = false,  Process receiver = null, Process sender = null)
+        public string Value { get; set; }
+        public ResElement(string value = "",  Process receiver = null, Process sender = null)
         {
             Receiver = receiver;
             Sender = sender;
-            ReturnList = returnList;
+            Value = value;
         }
     }
 }

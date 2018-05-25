@@ -16,7 +16,8 @@ namespace MOS.OS
         public Kernel Kernel { get; private set; }
         public Guid Id { get; private set; }
         public List<ResElement> Elements { get; set; }
-
+        public List<int> WaitingCount { get; set; }
+        public List<StringBuilder> WaitingProcPoint { get; set; }
         public Resource(Kernel kernel, string name, Process creator, int count, string data)
         {
             Kernel = kernel;
@@ -27,11 +28,15 @@ namespace MOS.OS
             Awaiters = new List<Process>();
             Id = Guid.NewGuid();
             Elements = new List<ResElement>();
+            WaitingProcPoint = new List<StringBuilder>();
+            WaitingCount = new List<int>();
         }
 
-        public void AskForResource(Process process)
+        public void AskForResource(Process process, int count, ref StringBuilder destiny)
         {
             Awaiters.Add(process);
+            WaitingCount.Add(count);
+            WaitingProcPoint.Add(destiny);
         }
     }
 }

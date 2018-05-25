@@ -50,7 +50,7 @@ namespace MOS.OS
             Resource chanTwo = new Resource(Kernel, "CHAN2", this, 1, "");
             Resource chanThree = new Resource(Kernel, "CHAN3", this, 1, "");
             Resource chanFour = new Resource(Kernel, "CHAN4", this, 1, "");
-            Resource userMemory = new Resource(Kernel, "USERMEMORY", this, 1, "");
+            Resource userMemory = new MemoryResource(Kernel, "USERMEMORY", this, 1, "");
 
             Kernel.staticResources.Add(mosEnd, false); 
             Kernel.staticResources.Add(outputStream, true);
