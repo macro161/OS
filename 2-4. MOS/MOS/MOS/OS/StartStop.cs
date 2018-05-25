@@ -52,15 +52,15 @@ namespace MOS.OS
             Resource chanFour = new Resource(Kernel, "CHAN4", this, 1, "");
             Resource userMemory = new Resource(Kernel, "USERMEMORY", this, 1, "");
 
-            Kernel.staticResources.Add(mosEnd); 
-            Kernel.staticResources.Add(outputStream);
-            Kernel.staticResources.Add(supervisoryMemory);
-            Kernel.staticResources.Add(externalMemory);
-            Kernel.staticResources.Add(chanOne);
-            Kernel.staticResources.Add(chanTwo);
-            Kernel.staticResources.Add(chanThree);
-            Kernel.staticResources.Add(chanFour);
-            Kernel.staticResources.Add(userMemory);
+            Kernel.staticResources.Add(mosEnd, false); 
+            Kernel.staticResources.Add(outputStream, true);
+            Kernel.staticResources.Add(supervisoryMemory, true);
+            Kernel.staticResources.Add(externalMemory, true);
+            Kernel.staticResources.Add(chanOne, true);
+            Kernel.staticResources.Add(chanTwo, true);
+            Kernel.staticResources.Add(chanThree, true);
+            Kernel.staticResources.Add(chanFour, true);
+            Kernel.staticResources.Add(userMemory, true);
 
         }
 
