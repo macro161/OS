@@ -79,6 +79,7 @@
     <Compile Include="OS\Loader.cs" />
     <Compile Include="OS\MainProc.cs" />
     <Compile Include="OS\Kernel.cs" />
+    <Compile Include="OS\MemoryResource.cs" />
     <Compile Include="OS\Printer.cs" />
     <Compile Include="OS\Process.cs" />
     <Compile Include="OS\Program.cs" />
