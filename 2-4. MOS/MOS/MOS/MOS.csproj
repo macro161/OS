@@ -81,13 +81,13 @@
     <Compile Include="OS\Loader.cs" />
     <Compile Include="OS\MainProc.cs" />
     <Compile Include="OS\Kernel.cs" />
-    <Compile Include="OS\MemoryResource.cs" />
+    <Compile Include="Resources\MemoryResource.cs" />
     <Compile Include="OS\Printer.cs" />
     <Compile Include="OS\Process.cs" />
     <Compile Include="OS\Program.cs" />
     <Compile Include="OS\Read.cs" />
-    <Compile Include="OS\ResElement.cs" />
-    <Compile Include="OS\Resource.cs" />
+    <Compile Include="Resources\ResElement.cs" />
+    <Compile Include="Resources\Resource.cs" />
     <Compile Include="OS\Speaker.cs" />
     <Compile Include="OS\StartStop.cs" />
     <Compile Include="OS\SupervisoryMemory.cs" />

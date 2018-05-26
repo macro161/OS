@@ -22,7 +22,7 @@ namespace MOS.OS
         {
             switch (Pointer)
             {
-                case 0:
+                /*case 0:
                     string flashLocation = Resources[Pointer].Data;
                     string line;
 
@@ -38,7 +38,7 @@ namespace MOS.OS
                     SupervisoryMemory.Memory = flashData;
                     Resource taskInSupervisoryMemory = new Resource(Kernel, "TASKINSUPERVISORYMEMORY", this, 1, "");
                     Kernel.dynamicResources.Add(taskInSupervisoryMemory);
-                    break;
+                    break;*/
             }
         }
 

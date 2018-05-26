@@ -49,9 +49,24 @@ namespace MOS.OS
 
         private void ResourcePlanner()
         {
-            foreach (Process blockedProcess in blocked)
+            foreach (var res in staticResources) // paskiria statinį resursą.
             {
-                /*foreach (Resource dynamicRes in dynamicResources)
+                if (res.Key.Awaiters.Count > 0 && res.Value == true)
+                {
+                    blocked.Remove(res.Key.Awaiters[0]);
+                    ready.Add(res.Key.Awaiters[0]);
+                    res.Key.Awaiters[0].Status = (int)ProcessState.Ready;
+                    res.Key.Awaiters[0].Resources.Add(res.Key);
+                    res.Key.Awaiters.RemoveAt(0);
+                }
+            }
+            foreach (var res in dynamicResources)
+            {
+
+            }
+            /*foreach (Process blockedProcess in blocked)
+            {
+                foreach (Resource dynamicRes in dynamicResources)
                 {
                     if (dynamicRes.Awaiters.Contains(blockedProcess) && !(blockedProcess.Resources.Contains(dynamicRes)))
                     {
@@ -67,7 +82,7 @@ namespace MOS.OS
                         blockedProcess.Resources.Add(staticRes.Key);
                         staticResources[staticRes.Key] = false;
                     }
-                }*/
+                }
                 bool gotAllResources = true;
                 List<Resource> tempResources = new List<Resource>();
                 foreach (string reqResource in blockedProcess.ResourcesINeed)
@@ -135,9 +150,7 @@ namespace MOS.OS
                             }
                         }
                     }
-
-                }
-            }
+            }*/
         }
 
         public void BlockProcess(Process process)
