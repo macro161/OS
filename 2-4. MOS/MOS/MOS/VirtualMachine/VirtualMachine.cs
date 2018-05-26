@@ -34,6 +34,9 @@ namespace MOS.VirtualMachine
             PTR = ptr;
             pt = new PageTable(PTR.PTR);
         }
+        public VirtualMachine(Kernel kernel, Process father, int priority, int status, List<Resource> resources, Guid id, int pointer, string name) : base(kernel, father, priority, status, resources, id, pointer, name)
+        {
+        }
         public void RunCommand()
         {
             string command = RealMachine.RealMachine.memory.StringAt(RealMachine.RealMachine.memory.StringAt(PTR.PTR.ToHex(), IC.GetX()).ToHex(), IC.GetY());

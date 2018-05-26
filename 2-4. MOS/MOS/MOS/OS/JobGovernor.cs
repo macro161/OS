@@ -51,7 +51,7 @@ namespace MOS.OS
                     break;
                 case 3:
                     Pointer = 4;
-                    Process vm = new VirtualMachine.VirtualMachine(Kernel, this, 50, (int)ProcessState.Ready, new List<Resource>, Guid.NewGuid(), 0, Element.Value);
+                    Process vm = new VirtualMachine.VirtualMachine(Kernel, this, 50, (int)ProcessState.Ready, new List<Resource>(), Guid.NewGuid(), 0, Element.Value);
                     Kernel.ready.Add(vm);
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT").AskForResource(this);
                     break;
