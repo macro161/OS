@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class Program
+    public class Program
     {
-        public string name;
-        public List<string> dataSegment;
-        public List<string> codeSegment;
+        public string name { get; set; }
+        public List<string> dataSegment { get; set; }
+        public List<string> codeSegment { get; set; }
 
         public Program(string name, List<string> dataSegment, List<string> codeSegment)
         {

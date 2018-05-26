@@ -42,5 +42,10 @@ namespace MOS.Resources
             Elements.Add(resElement);
             Kernel.ResourcePlanner();
         }
+        public void ReleaseResource()
+        {
+            Kernel.staticResources[this] = true;
+            Kernel.ResourcePlanner();
+        }
     }
 }

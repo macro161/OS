@@ -14,11 +14,5 @@ namespace MOS.Resources
         {
             Elements = new List<InterruptResourceElement>();
         }
-
-        public new void AskForResource(Process process)
-        {
-            Awaiters.Add(process);
-        }
-
     }
 }

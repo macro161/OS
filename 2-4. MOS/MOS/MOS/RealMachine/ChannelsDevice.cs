@@ -1,3 +1,4 @@
+using MOS.OS;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,8 +17,8 @@ namespace MOS.RealMachine
          private int DT = 0; //Objekto,įkurįkopijuosime,numeris
                    FlashMemory flashMemory = new FlashMemory();           // 1. Vartotojoatmintis; 2. Supervizorinėatmintis; 3. Išorinėatmintis; 4. Įvedimosrautas; 
  */
+        public ChannelsDevice() { }
         readonly FlashMemory flashMemory = new FlashMemory();
-
 
         public int SB { get; set; }
 
@@ -27,6 +28,13 @@ namespace MOS.RealMachine
 
         public int DT { get; set; }
 
+        public void XCHG(OS.Program program)
+        {
+            if (!HardDisk.ProgramList.Any(p => p.name == program.name))
+            {
+                HardDisk.ProgramList.Add(program);
+            }
+        }
         public void XCHG()
         {
             string returnString = "";

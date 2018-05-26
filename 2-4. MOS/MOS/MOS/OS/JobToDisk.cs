@@ -1,4 +1,5 @@
-﻿using MOS.Resources;
+﻿using MOS.RealMachine;
+using MOS.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,22 @@ namespace MOS.OS
                 case 3:
                     Pointer = 4;
                     Kernel.staticResources.First(res => res.Key.Name == "EXTERNALMEMORY").Key.AskForResource(this);
+                    break;
+                case 4:
+                    Pointer = 5;
+                    Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.AskForResource(this);
+                    break;
+                case 5:
+                    Pointer = 6;
+                    ChannelsDevice cd = new ChannelsDevice();
+                    cd.ST = 2;
+                    cd.DT = 3;
+                    cd.XCHG(new Program(PropElement.Lines[0], DataElement.Lines, CodeElement.Lines));
+                    Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.ReleaseResource();
+                    break;
+                case 6:
+                    Pointer = 0;
+                    Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").ReleaseResource(new ResourceElement(value : PropElement.Lines[0]));
                     break;
             }
             Log.Info("JobToDisk process is running.");

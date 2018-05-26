@@ -59,6 +59,7 @@ namespace MOS.OS
                     break;
                 case 1:
                     Pointer = 2;
+                    _programs = new List<Program>();
                     fromMemory = SupervisoryMemory.Memory;
                     int counter = 0;
 

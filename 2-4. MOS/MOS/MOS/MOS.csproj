@@ -95,6 +95,8 @@
     <Compile Include="OS\Process.cs" />
     <Compile Include="OS\Program.cs" />
     <Compile Include="OS\Read.cs" />
+    <Compile Include="Resources\ProgramInfoResource.cs" />
+    <Compile Include="Resources\ProgramInfoResourceElement.cs" />
     <Compile Include="Resources\Resource.cs" />
     <Compile Include="OS\Speaker.cs" />
     <Compile Include="OS\StartStop.cs" />

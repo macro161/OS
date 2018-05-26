@@ -113,6 +113,15 @@ namespace MOS.OS
                             ready.Add(res.Awaiters[0]);
                             res.Awaiters.RemoveAt(0);
                             break;
+                        case "TASKINDISK":
+                            res.Awaiters[0].AddResource(res);
+                            ((MainProc)res.Awaiters[0]).Element = (res).Elements[0];
+                            res.Elements.RemoveAt(0);
+                            res.Awaiters[0].Status = (int)ProcessState.Ready;
+                            blocked.Remove(res.Awaiters[0]);
+                            ready.Add(res.Awaiters[0]);
+                            res.Awaiters.RemoveAt(0);
+                            break;
                         case "LOADERPACKET":
                             var temp = (MemoryInfoResource)res;
                             res.Awaiters[0].Resources.Add(res);
