@@ -79,6 +79,13 @@ namespace MOS.OS
                             res.Awaiters.RemoveAt(0);
                             break;
                         case "TASKINSUPERVISORY":
+                            res.Awaiters[0].Resources.Add(res);
+                            res.Awaiters[0].Status = (int)ProcessState.Ready;
+                            res.Elements.RemoveAt(0);
+                            blocked.Remove(res.Awaiters[0]);
+                            ready.Add(res.Awaiters[0]);
+                            res.Awaiters.RemoveAt(0);
+                            break;
                         case "TASKNAMEINSUPERVISORY":
                             res.Awaiters[0].AddResource(res);
                             ((JobToDisk)res.Awaiters[0]).PropElement = ((ProgramInfoResource)res).Elements[0];
