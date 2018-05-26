@@ -58,7 +58,7 @@ namespace MOS.OS
                     Kernel.dynamicResources.First(res => res.Name == "TASKINSUPERVISORY").AskForResource(this);
                     break;
                 case 1:
-                    Pointer = 0;
+                    Pointer = 2;
                     fromMemory = SupervisoryMemory.Memory;
                     int counter = 0;
 
@@ -96,7 +96,16 @@ namespace MOS.OS
                     Log.Info("Loading programs into supervisory memory.");
 
                     SupervisoryMemory.ProgramList = programs;
+                    Kernel.dynamicResources.First(res => res.Name == "TASKNAMEINSUPERVISORY").AskForResource(this);
+                case 2:
+                    Pointer = 3;
+                    Kernel.dynamicResources.First(res => res.Name == "TASKDATAINSUPERVISORY").AskForResource(this);
                     break;
+                case 3:
+                    Pointer = 0;
+                    Kernel.dynamicResources.First(res => res.Name == "TASKCODEINSUPERVISORY").AskForResource(this);
+                    break;
+
             }
         }
 
