@@ -77,6 +77,7 @@
     <Compile Include="OS\Descriptor.cs" />
     <Compile Include="OS\HardDisk.cs" />
     <Compile Include="OS\Interupt.cs" />
+    <Compile Include="OS\JobGovernor.cs" />
     <Compile Include="Resources\InterruptResource.cs" />
     <Compile Include="Resources\InterruptResourceElement.cs" />
     <Compile Include="Resources\IOResource.cs" />

@@ -101,7 +101,7 @@ namespace MOS.OS
 
         public static bool checkCommands(List<string> code)
         {
-            string[] commands = new string[] { "LR", "SR", "RR", "AD", "SB", "CR", "MU", "DI", "PY", "JU", "JG", "JE", "JL", "SM", "LM", "LO", "PY", "HALT" };
+            string[] commands = new string[] {"BC", "RE", "WS", "RS", "LR", "SR", "RR", "AD", "SB", "CR", "MU", "DI", "PY", "JU", "JG", "JE", "JL", "SM", "LM", "LO", "PY", "HALT" };
             bool isCorrect = false;
 
             foreach (string str in code)
