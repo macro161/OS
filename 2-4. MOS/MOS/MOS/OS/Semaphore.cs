@@ -10,29 +10,19 @@ namespace MOS.OS
     {
         private Guid processThatHasAccess;
         public int trackNumber;
-        private int pointer = 0;
 
-        private List<Guid> processesInQueue = new List<Guid>();
-
-        public Semaphore(int trackNumber)
-        {
-            this.trackNumber = trackNumber;
-        }
-
-        public void Block(Guid id) {
-
-            processesInQueue.Add(id);
-        }
-
-        public bool Write(Guid id) {
-            processThatHasAccess = processesInQueue[pointer];
-
-            if (processThatHasAccess == id)
+        public bool Block(Guid id) {
+            if (processThatHasAccess == default)
             {
-                pointer++;
+                processThatHasAccess = id;
                 return true;
             }
             return false;
+        }
+
+        public void Release()
+        {
+            processThatHasAccess = default;
         }
     }
 }
