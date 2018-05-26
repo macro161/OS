@@ -97,6 +97,7 @@ namespace MOS.OS
 
                     SupervisoryMemory.ProgramList = programs;
                     Kernel.dynamicResources.First(res => res.Name == "TASKNAMEINSUPERVISORY").ReleaseResource(new ResourceElement());
+                    break;
                 case 2:
                     Pointer = 3;
                     Kernel.dynamicResources.First(res => res.Name == "TASKDATAINSUPERVISORY").ReleaseResource(new ResourceElement());
