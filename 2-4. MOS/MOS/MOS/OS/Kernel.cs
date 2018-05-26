@@ -168,7 +168,7 @@ namespace MOS.OS
                                 ready.Add(proc);
                                 res.Awaiters.Remove(proc);
                                 ResourceElement element = res.Elements.First(elem => elem.Receiver == proc);
-                                //proc.Element = element šitą reiks prie job governer
+                                ((JobGovernor)proc).Element = element;
                                 res.Elements.Remove(element);
                             }
                             break;

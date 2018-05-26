@@ -17,12 +17,12 @@ namespace MOS.RealMachine
 
         public int GetRandomBlock()
         {
-            int i = rand.Next(0, 0x255);
+            int i = rand.Next(2, 0x255);
             while (isUsed[i])
             {
                 if (i == 0x255)
                 {
-                    i = 0;
+                    i = 2;
                 }
                 i++;
             }
