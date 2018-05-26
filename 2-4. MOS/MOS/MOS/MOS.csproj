@@ -75,13 +75,15 @@
     <Compile Include="OS\Descriptor.cs" />
     <Compile Include="OS\HardDisk.cs" />
     <Compile Include="OS\Interupt.cs" />
-    <Compile Include="OS\IOResource.cs" />
+    <Compile Include="Resources\IOResource.cs" />
     <Compile Include="OS\JCL.cs" />
     <Compile Include="OS\JobToDisk.cs" />
     <Compile Include="OS\Loader.cs" />
     <Compile Include="OS\MainProc.cs" />
     <Compile Include="OS\Kernel.cs" />
     <Compile Include="OS\Semaphore.cs" />
+    <Compile Include="Resources\MemoryInfoResource.cs" />
+    <Compile Include="Resources\MemoryInfoResourceElement.cs" />
     <Compile Include="Resources\MemoryResource.cs" />
     <Compile Include="OS\Printer.cs" />
     <Compile Include="OS\Process.cs" />

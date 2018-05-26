@@ -1,4 +1,5 @@
 ﻿using MOS.Enums;
+using MOS.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,27 +17,27 @@ namespace MOS.OS
 
         public void InitSystemProceses() //nezinojau ka prie to poiterio rasyt tai 0 parasiau
         {
-            Read read = new Read(Kernel, 100, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
-            JCL jcl = new JCL(Kernel, 99, (int)ProcessState.Blocked, Guid.NewGuid(), 0,null);
-            JobToDisk jobToDisk = new JobToDisk(Kernel, 98, (int)ProcessState.Blocked, Guid.NewGuid(), 0,null);
-            Loader loader = new Loader(Kernel, 97, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
-            MainProc mainProc = new MainProc(Kernel, 96, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
-            SwapBack swapBack = new SwapBack(Kernel, 95, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
-            Interupt interupt = new Interupt(Kernel, 90, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
-            ChanDevice chanDevice = new ChanDevice(Kernel, 90, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
-            Speaker speaker = new Speaker(Kernel, 90, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
-            Printer printer = new Printer(Kernel, 90, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
+            Read read = new Read(Kernel, 100, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            JCL jcl = new JCL(Kernel, 99, (int)ProcessState.Ready, Guid.NewGuid(), 0,null);
+            JobToDisk jobToDisk = new JobToDisk(Kernel, 98, (int)ProcessState.Ready, Guid.NewGuid(), 0,null);
+            Loader loader = new Loader(Kernel, 97, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            MainProc mainProc = new MainProc(Kernel, 96, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            SwapBack swapBack = new SwapBack(Kernel, 95, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            Interupt interupt = new Interupt(Kernel, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            ChanDevice chanDevice = new ChanDevice(Kernel, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            Speaker speaker = new Speaker(Kernel, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            Printer printer = new Printer(Kernel, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
 
-            Kernel.blocked.Add(read);
-            Kernel.blocked.Add(jcl);
-            Kernel.blocked.Add(jobToDisk);
-            Kernel.blocked.Add(loader);
-            Kernel.blocked.Add(mainProc);
-            Kernel.blocked.Add(swapBack);
-            Kernel.blocked.Add(interupt);
-            Kernel.blocked.Add(chanDevice);
-            Kernel.blocked.Add(speaker);
-            Kernel.blocked.Add(printer);
+            Kernel.ready.Add(read);
+            Kernel.ready.Add(jcl);
+            Kernel.ready.Add(jobToDisk);
+            Kernel.ready.Add(loader);
+            Kernel.ready.Add(mainProc);
+            Kernel.ready.Add(swapBack);
+            Kernel.ready.Add(interupt);
+            Kernel.ready.Add(chanDevice);
+            Kernel.ready.Add(speaker);
+            Kernel.ready.Add(printer);
 
         }
 
@@ -81,7 +82,6 @@ namespace MOS.OS
                     Pointer++;
                     Status = (int)ProcessState.Blocked;
                     Kernel.blocked.Add(this);
-                    //Kernel.staticResources.Find(x => x.Name == "MOSEND").AskForResource(this);
                     Kernel.Planner();
                     break;
                 case 1:
