@@ -29,6 +29,8 @@ namespace MOS.Resources
         public void AskForResource(Process process)
         {
             process.Status = (int)ProcessState.Blocked;
+            Kernel.blocked.Add(process);
+            Kernel.ready.Remove(process);
             Awaiters.Add(process);
             Kernel.ResourcePlanner();
         }
