@@ -23,7 +23,7 @@ namespace MOS.VirtualMachine
 
         private int sharedTrack;
 
-        public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf, Kernel kernel, int priority, int status, List<Resource> resources, Guid id, int pointer, string name) : base(kernel,priority,status,resources,id,pointer,name)
+        public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf, Kernel kernel, Process father, int priority, int status, List<Resource> resources, Guid id, int pointer, string name) : base(kernel, father, priority,status,resources,id,pointer,name)
         {
             R1 = r1;
             R2 = r2;
@@ -570,11 +570,6 @@ namespace MOS.VirtualMachine
         }
 
         public override void DecrementPriority()
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool CheckIfReady()
         {
             throw new NotImplementedException();
         }
