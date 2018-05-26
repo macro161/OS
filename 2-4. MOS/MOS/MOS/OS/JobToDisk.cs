@@ -30,6 +30,7 @@ namespace MOS.OS
 
         public override void Run()
         {
+            Log.Info("JobToDisk process is running.");
             switch (Pointer)
             {
                 case 0:
@@ -53,10 +54,13 @@ namespace MOS.OS
                     Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.AskForResource(this);
                     break;
                 case 5:
+                    Log.Info("Loading program into Hard Disk.");
                     Pointer = 6;
-                    ChannelsDevice cd = new ChannelsDevice();
-                    cd.ST = 2;
-                    cd.DT = 3;
+                    ChannelsDevice cd = new ChannelsDevice
+                    {
+                        ST = 2,
+                        DT = 3
+                    };
                     cd.XCHG(new Program(PropElement.Lines[0], DataElement.Lines, CodeElement.Lines));
                     Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.ReleaseResource();
                     break;
@@ -65,9 +69,6 @@ namespace MOS.OS
                     Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").ReleaseResource(new ResourceElement(value : PropElement.Lines[0]));
                     break;
             }
-            Log.Info("JobToDisk process is running.");
-            Log.Info("Loading programs into Hard Disk.");
-            HardDisk.ProgramList = SupervisoryMemory.ProgramList;
         }
     }
 }

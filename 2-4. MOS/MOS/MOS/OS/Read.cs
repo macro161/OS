@@ -24,14 +24,19 @@ namespace MOS.OS
 
         public override void Run()
         {
+            flashData = new List<String>();
             Log.Info("Read process is running.");
             switch (Pointer)
             {
                 case 0:
-                    Log.Info("Reading programs from file.");
+                    Pointer = 1;
+                    Kernel.dynamicResources.First(res => res.Name == "FILEINPUT").AskForResource(this);
+                    break;
+                case 1:
+                    Pointer = 2;
+                    Log.Info("Reading lines from file.");
                     string flashLocation = Element.Value;
                     string line;
-
                     System.IO.StreamReader file = new System.IO.StreamReader(@"" + flashLocation);
 
                     while ((line = file.ReadLine()) != null)
@@ -39,19 +44,21 @@ namespace MOS.OS
                         flashData.Add(line);
                     }
                     break;
-
-                case 1:
+                case 2:
+                    Pointer = 3;
+                    Kernel.staticResources.First(res => res.Key.Name == "SUPERVISORYMEMORY").Key.AskForResource(this);
+                    break;
+                case 3:
+                    Pointer = 0;
                     Log.Info("Loading programs into Supervisory memory");
                     SupervisoryMemory.Memory = flashData;
-                    Resource taskInSupervisoryMemory = new Resource(Kernel, "TASKINSUPERVISORYMEMORY", this);
-                    Kernel.dynamicResources.Add(taskInSupervisoryMemory);
+                    Kernel.dynamicResources.First(res => res.Name == "TASKINSUPERVISORY").ReleaseResource(new ResourceElement());
                     break;
             }
         }
 
         public override void DecrementPriority()
         {
-            throw new NotImplementedException();
         }
     }
 }
