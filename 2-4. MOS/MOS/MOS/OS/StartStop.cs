@@ -42,15 +42,15 @@ namespace MOS.OS
 
         public void InitSystemResources()
         {
-            Resource mosEnd = new Resource(Kernel, "MOSEND", this,1, "");
-            Resource outputStream = new Resource(Kernel, "OUTPUTSTREAM", this, 1, "");
-            Resource supervisoryMemory = new Resource(Kernel, "SUPERVISORYMEMORY", this, 1, "");
-            Resource externalMemory = new Resource(Kernel, "EXTERNALMEMORY", this, 1, "");
-            Resource chanOne = new Resource(Kernel, "CHAN1", this, 1, "");
-            Resource chanTwo = new Resource(Kernel, "CHAN2", this, 1, "");
-            Resource chanThree = new Resource(Kernel, "CHAN3", this, 1, "");
-            Resource chanFour = new Resource(Kernel, "CHAN4", this, 1, "");
-            Resource userMemory = new MemoryResource(Kernel, "USERMEMORY", this, 1, "");
+            Resource mosEnd = new Resource(Kernel, "MOSEND", this);
+            Resource outputStream = new Resource(Kernel, "OUTPUTSTREAM", this);
+            Resource supervisoryMemory = new Resource(Kernel, "SUPERVISORYMEMORY", this);
+            Resource externalMemory = new Resource(Kernel, "EXTERNALMEMORY", this);
+            Resource chanOne = new Resource(Kernel, "CHAN1", this);
+            Resource chanTwo = new Resource(Kernel, "CHAN2", this);
+            Resource chanThree = new Resource(Kernel, "CHAN3", this);
+            Resource chanFour = new Resource(Kernel, "CHAN4", this);
+            Resource userMemory = new MemoryResource(Kernel, "USERMEMORY", this);
 
             Kernel.staticResources.Add(mosEnd, false); 
             Kernel.staticResources.Add(outputStream, true);
