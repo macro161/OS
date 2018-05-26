@@ -80,11 +80,28 @@ namespace MOS.OS
                             break;
                         case "TASKINSUPERVISORY":
                         case "TASKNAMEINSUPERVISORY":
-                        case "TASKDATAINSUPERVISORY":
-                        case "TASKCODEINSUPERVISORY":
-                            res.Awaiters[0].Resources.Add(res);
-                            res.Awaiters[0].Status = (int)ProcessState.Ready;
+                            res.Awaiters[0].AddResource(res);
+                            ((JobToDisk)res.Awaiters[0]).PropElement = ((ProgramInfoResource)res).Elements[0];
                             res.Elements.RemoveAt(0);
+                            res.Awaiters[0].Status = (int)ProcessState.Ready;
+                            blocked.Remove(res.Awaiters[0]);
+                            ready.Add(res.Awaiters[0]);
+                            res.Awaiters.RemoveAt(0);
+                            break;
+                        case "TASKDATAINSUPERVISORY":
+                            res.Awaiters[0].AddResource(res);
+                            ((JobToDisk)res.Awaiters[0]).DataElement = ((ProgramInfoResource)res).Elements[0];
+                            res.Elements.RemoveAt(0);
+                            res.Awaiters[0].Status = (int)ProcessState.Ready;
+                            blocked.Remove(res.Awaiters[0]);
+                            ready.Add(res.Awaiters[0]);
+                            res.Awaiters.RemoveAt(0);
+                            break;
+                        case "TASKCODEINSUPERVISORY":
+                            res.Awaiters[0].AddResource(res);
+                            ((JobToDisk)res.Awaiters[0]).CodeElement = ((ProgramInfoResource)res).Elements[0];
+                            res.Elements.RemoveAt(0);
+                            res.Awaiters[0].Status = (int)ProcessState.Ready;
                             blocked.Remove(res.Awaiters[0]);
                             ready.Add(res.Awaiters[0]);
                             res.Awaiters.RemoveAt(0);

@@ -66,10 +66,10 @@ namespace MOS.OS
 
             //Dinaminių resursų sukūrimas
             Resource filePath = new Resource(Kernel, "FILEINPUT", this);
-            Resource taskInSupervisory = new Resource(Kernel, "TASKINSUPERVISORY", read);
-            Resource taskNameInSupervisory = new Resource(Kernel, "TASKNAMEINSUPERVISORY", jcl);
-            Resource taskDataInSupervisory = new Resource(Kernel, "TASKDATAINSUPERVISORY", jcl);
-            Resource taskCodeInSupervisory = new Resource(Kernel, "TASKCODEINSUPERVISORY", jcl);
+            Resource taskInSupervisory = new ProgramInfoResource(Kernel, "TASKINSUPERVISORY", read);
+            Resource taskNameInSupervisory = new ProgramInfoResource(Kernel, "TASKNAMEINSUPERVISORY", jcl);
+            Resource taskDataInSupervisory = new ProgramInfoResource(Kernel, "TASKDATAINSUPERVISORY", jcl);
+            Resource taskCodeInSupervisory = new ProgramInfoResource(Kernel, "TASKCODEINSUPERVISORY", jcl);
             Resource taskInDisk = new Resource(Kernel, "TASKINDISK", jobToDisk);
             Resource loaderPacket = new MemoryInfoResource(Kernel, "LOADERPACKET", this);
             Resource fromLoader = new Resource(Kernel, "FROMLOADER", loader);

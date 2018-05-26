@@ -9,6 +9,9 @@ namespace MOS.OS
 {
     class JobToDisk : Process
     {
+        public ProgramInfoResourceElement PropElement { get; set; }
+        public ProgramInfoResourceElement CodeElement { get; set; }
+        public ProgramInfoResourceElement DataElement { get; set; }
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public JobToDisk(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "JobToDisk") { }
@@ -26,6 +29,25 @@ namespace MOS.OS
 
         public override void Run()
         {
+            switch (Pointer)
+            {
+                case 0:
+                    Pointer = 1;
+                    Kernel.dynamicResources.First(res => res.Name == "TASKNAMEINSUPERVISORY").AskForResource(this);
+                    break;
+                case 1:
+                    Pointer = 2;
+                    Kernel.dynamicResources.First(res => res.Name == "TASKCODEINSUPERVISORY").AskForResource(this);
+                    break;
+                case 2:
+                    Pointer = 3;
+                    Kernel.dynamicResources.First(res => res.Name == "TASKDATAINSUPERVISORY").AskForResource(this);
+                    break;
+                case 3:
+                    Pointer = 4;
+                    Kernel.staticResources.First(res => res.Key.Name == "EXTERNALMEMORY").Key.AskForResource(this);
+                    break;
+            }
             Log.Info("JobToDisk process is running.");
             Log.Info("Loading programs into Hard Disk.");
             HardDisk.ProgramList = SupervisoryMemory.ProgramList;
