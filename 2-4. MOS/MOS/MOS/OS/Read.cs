@@ -10,6 +10,7 @@ namespace MOS.OS
     class Read : Process
     {
         public ResElement Element { get; set; }
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public Read(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "Read") { }
 
@@ -23,9 +24,11 @@ namespace MOS.OS
 
         public override void Run()
         {
+            Log.Info("Read process is running.");
             switch (Pointer)
             {
                 case 0:
+                    Log.Info("Reading programs from file.");
                     string flashLocation = Element.Value;
                     string line;
 
@@ -38,6 +41,7 @@ namespace MOS.OS
                     break;
 
                 case 1:
+                    Log.Info("Loading programs into Supervisory memory");
                     SupervisoryMemory.Memory = flashData;
                     Resource taskInSupervisoryMemory = new Resource(Kernel, "TASKINSUPERVISORYMEMORY", this);
                     Kernel.dynamicResources.Add(taskInSupervisoryMemory);

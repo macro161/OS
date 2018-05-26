@@ -11,6 +11,7 @@ namespace MOS.OS
 {
     class Kernel
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public List<Process> ready = new List<Process>();
         public List<Process> blocked = new List<Process>();
         public Process running;
@@ -27,6 +28,7 @@ namespace MOS.OS
 
         public void Planner()
         {
+            Log.Info("Planner process is running.");
             SortProcesses();
             if (ready.Count > 0)
             {

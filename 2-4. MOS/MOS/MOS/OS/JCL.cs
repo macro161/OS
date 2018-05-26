@@ -10,6 +10,7 @@ namespace MOS.OS
 {
     class JCL : Process
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public static List<String> fromMemory = new List<String>();
         public static Dictionary<int, IEnumerable<String>> seperatedPrograms = new Dictionary<int, IEnumerable<String>>();
         public static List<Program> programs = new List<Program>();
@@ -49,6 +50,7 @@ namespace MOS.OS
 
         public override void Run()
         {
+            Log.Info("JCL process is running.");
             fromMemory = SupervisoryMemory.Memory;
             int counter = 0;
 
@@ -63,6 +65,7 @@ namespace MOS.OS
                 seperatedPrograms.Add(counter, list);
             }
 
+            Log.Info("Seperating programs into code and data blocks.");
             // seperates into code and data segments, creates Program list
             foreach (var program in seperatedPrograms)
             {
@@ -76,6 +79,7 @@ namespace MOS.OS
                     programs.Add(pr);
             }
 
+            Log.Info("Loading programs into supervisory memory.");
             // saves to Supervisory memory
             SupervisoryMemory.ProgramList = programs;
 

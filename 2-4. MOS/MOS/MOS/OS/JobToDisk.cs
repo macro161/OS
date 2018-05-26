@@ -9,6 +9,8 @@ namespace MOS.OS
 {
     class JobToDisk : Process
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public JobToDisk(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "JobToDisk") { }
 
         public override void AddResource(Resource resource)
@@ -28,6 +30,8 @@ namespace MOS.OS
 
         public override void Run()
         {
+            Log.Info("JobToDisk process is running.");
+            Log.Info("Loading programs into Hard Disk.");
             HardDisk.ProgramList = SupervisoryMemory.ProgramList;
         }
     }

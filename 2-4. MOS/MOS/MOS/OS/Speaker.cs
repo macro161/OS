@@ -9,6 +9,8 @@ namespace MOS.OS
 {
     class Speaker : Process
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public Speaker(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "Read") { }
 
         public override void AddResource(Resource resource)
@@ -28,6 +30,7 @@ namespace MOS.OS
 
         public override void Run()
         {
+            Log.Info("Speaker process is running.");
             Beep(Pointer);
         }
 

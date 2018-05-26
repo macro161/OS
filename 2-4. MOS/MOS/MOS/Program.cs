@@ -1,4 +1,7 @@
-﻿using System;
+﻿using log4net;
+using log4net.Appender;
+using System;
+using System.IO;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -15,15 +18,16 @@ namespace MOS
         [STAThread]
         static void Main()
         {
+            Log.Info("****************************************************************************");
             RealMachine.RealMachine realMachine = new RealMachine.RealMachine();
             //realMachine.PowerOn();
             //Thread t = new Thread(realMachine.PowerOn);
             //t.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-        //    var file = new RealMachine.ChannelsDevice();
-        //    file.ReadFromFlash();
-        new Thread(() => {
+            //    var file = new RealMachine.ChannelsDevice();
+            //    file.ReadFromFlash();
+            new Thread(() => {
             Application.Run(new GUI.RMform(realMachine));
         }).Start();
             

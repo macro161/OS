@@ -10,6 +10,7 @@ namespace MOS.OS
     class Loader : Process
     {
         public MemoryInfoResourceElement Element { get; set; }
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public Loader(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "Loader") { }
 
@@ -30,6 +31,7 @@ namespace MOS.OS
 
         public override void Run()
         {
+            Log.Info("Loader process is running.");
             throw new NotImplementedException();
         }
     }

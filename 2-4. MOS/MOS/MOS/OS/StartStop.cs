@@ -10,6 +10,8 @@ namespace MOS.OS
 {
     class StartStop : Process
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public StartStop(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "StartStop") {
 
             ResourcesINeed[0] = "MOSEND";
@@ -74,9 +76,11 @@ namespace MOS.OS
 
         public override void Run()
         {
+            Log.Info("StartStop process is running.");
             switch (Pointer)
             {
                 case 0:
+                    Log.Info("Initializing system resources and processes.");
                     InitSystemProceses();
                     InitSystemResources();
                     Pointer++;
@@ -85,6 +89,7 @@ namespace MOS.OS
                     Kernel.Planner();
                     break;
                 case 1:
+                    Log.Info("");
                     System.Environment.Exit(1);
                     break;
 
