@@ -62,13 +62,19 @@ namespace MOS.OS
             {
                 Kernel.ready.Remove(this);
             }
+            else {
+                Kernel.blocked.Remove(this);
+            }
+            
 
             foreach (Process childProcess in Childrens)
             {
                 childProcess.Status = (int)ProcessState.Blocked;
-                Kernel.blocked.Remove(this);
+                Kernel.blocked.Remove(childProcess);
                 childProcess.DeleteProcess();
             }
+
+       
         }
         
     }
