@@ -47,6 +47,29 @@ namespace MOS.OS
             if (Status == (int)ProcessState.Ready)
                 return true;
             return false;
-        }    
+        }
+
+        public void DeleteProcess()
+        {
+            foreach (Resource resource in Resources)
+            {
+                if (Kernel.staticResources.ContainsKey(resource)) {
+                    Kernel.staticResources[resource] = true;
+                }
+            }
+
+            if (Status == (int)ProcessState.Ready)
+            {
+                Kernel.ready.Remove(this);
+            }
+
+            foreach (Process childProcess in Childrens)
+            {
+                childProcess.Status = (int)ProcessState.Blocked;
+                Kernel.blocked.Remove(this);
+                childProcess.DeleteProcess();
+            }
+        }
+        
     }
 }
