@@ -9,9 +9,9 @@ namespace MOS.Resources
 {
     class MemoryInfoResourceElement : ResourceElement
     {
-        public int Ptr  { get; set; }
+        public int Ptr { get; set; }
 
-        public MemoryInfoResourceElement(int ptr, string value, Process receiver = null, Process sender = null) : base(value,receiver,sender)
+        public MemoryInfoResourceElement(int ptr, string value, Process receiver = null, Process sender = null) : base(value, receiver, sender)
         {
             Ptr = ptr;
         }

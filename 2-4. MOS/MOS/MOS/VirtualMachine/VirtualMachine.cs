@@ -23,7 +23,7 @@ namespace MOS.VirtualMachine
 
         private int sharedTrack;
 
-        public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf, Kernel kernel, Process father, int priority, int status, List<Resource> resources, Guid id, int pointer, string name) : base(kernel, father, priority,status,resources,id,pointer,name)
+        public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf, Kernel kernel, Process father, int priority, int status, List<Resource> resources, Guid id, int pointer, string name) : base(kernel, father, priority, status, resources, id, pointer, name)
         {
             R1 = r1;
             R2 = r2;
@@ -158,7 +158,7 @@ namespace MOS.VirtualMachine
         }
 
         private void ws(string x1x2)
-        { 
+        {
             RealMachine.RealMachine.memory.WriteAt(sharedTrack, x1x2.ToHex(), R1.Hex());
             RealMachine.RealMachine.ti.DecrementTI();
         }
@@ -168,21 +168,23 @@ namespace MOS.VirtualMachine
             if (x1x2 == "01")
             {
                 RealMachine.RealMachine.memory.firstTrackSemaphore.Release();
-                
+
             }
 
             if (x1x2 == "02")
             {
                 RealMachine.RealMachine.memory.secondTrackSemaphore.Release();
-              
+
             }
         }
 
         private void bc(string x1x2)
         {
-            if (x1x2 == "01") {
+            if (x1x2 == "01")
+            {
 
-                while (!RealMachine.RealMachine.memory.firstTrackSemaphore.Block(Id)){
+                while (!RealMachine.RealMachine.memory.firstTrackSemaphore.Block(Id))
+                {
                     HandleFalseBlock();
                 }
                 sharedTrack = 1;
@@ -212,7 +214,7 @@ namespace MOS.VirtualMachine
             x1 = pt.RealAddress(x1);
 
             R4.R = x1 * 16 + x2;
-        
+
             RealMachine.RealMachine.si.SI = 1;
             RealMachine.RealMachine.ti.DecrementTI();
 
@@ -239,7 +241,7 @@ namespace MOS.VirtualMachine
                     RealMachine.RealMachine.pi.PI = 1;
                     return;
                 }
-                    IC.IC = (ushort) x1x2.ToHex();
+                IC.IC = (ushort)x1x2.ToHex();
             }
             RealMachine.RealMachine.ti.DecrementTI();
         }
@@ -247,29 +249,29 @@ namespace MOS.VirtualMachine
         private void not()
         {
             R1.R = ~R1.R;
-        
+
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void or()
         {
             R1.R = R1.R | R2.R;
-     
+
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void xor()
         {
             R1.R = R1.R ^ R2.R;
-   
+
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void and()
         {
-      
+
             R1.R = R1.R & R2.R;
-    
+
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
@@ -369,7 +371,7 @@ namespace MOS.VirtualMachine
                 RealMachine.RealMachine.pi.PI = 1;
                 return;
             }
-       
+
             R1.R = R1.R - RealMachine.RealMachine.memory.IntAt(pt.RealAddress(x1), x2);
 
             cr(x1x2);
@@ -402,7 +404,7 @@ namespace MOS.VirtualMachine
                 SF.Flip_CF();
             }
 
-            var bitOne = (R1.R & (1 << 7)) !=0; //casting some black magic stright from depths of stackoverflow
+            var bitOne = (R1.R & (1 << 7)) != 0; //casting some black magic stright from depths of stackoverflow
             var bitTwo = (RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex()).ToHex() & (1 << 7)) != 0;
 
             int sum = R1.R + RealMachine.RealMachine.memory.StringAt(pt.RealAddress(x1x2.Substring(0, 1).ToHex()), x1x2.Substring(1, 1).ToHex()).ToHex();
@@ -413,7 +415,7 @@ namespace MOS.VirtualMachine
 
             //Check for overflow
 
-            if ((bitOne != bitTwo) || (bitOne == sumBit && bitTwo == sumBit ))
+            if ((bitOne != bitTwo) || (bitOne == sumBit && bitTwo == sumBit))
             {
 
                 //SF.Unset_OF();
@@ -439,7 +441,8 @@ namespace MOS.VirtualMachine
             {
                 SF.Flip_SF();
             }
-            else {
+            else
+            {
                 //SF.Unset_SF();
             }
 
@@ -523,7 +526,7 @@ namespace MOS.VirtualMachine
                     RealMachine.RealMachine.pi.PI = 1;
                     return;
                 }
-                    IC.IC = (ushort) x1x2.ToHex();
+                IC.IC = (ushort)x1x2.ToHex();
             }
             RealMachine.RealMachine.ti.DecrementTI();
         }
@@ -537,7 +540,7 @@ namespace MOS.VirtualMachine
                     RealMachine.RealMachine.pi.PI = 1;
                     return;
                 }
-                    IC.IC = (ushort) x1x2.ToHex();
+                IC.IC = (ushort)x1x2.ToHex();
             }
             RealMachine.RealMachine.ti.DecrementTI();
         }
@@ -551,7 +554,7 @@ namespace MOS.VirtualMachine
             }
 
             R2.R -= 1;
-        
+
             if (!SF.Get_ZF())
             {
                 IC.IC = (ushort)x1x2.ToHex();

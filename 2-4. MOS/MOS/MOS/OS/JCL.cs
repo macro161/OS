@@ -45,7 +45,7 @@ namespace MOS.OS
 
         public override void DecrementPriority()
         {
-           
+
         }
 
         public override void Run()
@@ -79,7 +79,7 @@ namespace MOS.OS
                 {
                     programs.Add(pr);
                 }
-                    else
+                else
                 {
                     Log.Info("Failed to load program.");
                 }
@@ -101,7 +101,7 @@ namespace MOS.OS
 
         public static bool checkCommands(List<string> code)
         {
-            string[] commands = new string[] {"BC", "RE", "WS", "RS", "LR", "SR", "RR", "AD", "SB", "CR", "MU", "DI", "PY", "JU", "JG", "JE", "JL", "SM", "LM", "LO", "PY", "HALT" };
+            string[] commands = new string[] { "BC", "RE", "WS", "RS", "LR", "SR", "RR", "AD", "SB", "CR", "MU", "DI", "PY", "JU", "JG", "JE", "JL", "SM", "LM", "LO", "PY", "HALT" };
             bool isCorrect = false;
 
             foreach (string str in code)
@@ -112,8 +112,8 @@ namespace MOS.OS
                     {
                         string strCom = str.Substring(0, 2);
                         string strAdd = str.Substring(2, 2);
-                        if (strCom == command 
-                            && System.Text.RegularExpressions.Regex.IsMatch(strAdd, @"\A\b[0-9a-fA-F]+\b\Z") 
+                        if (strCom == command
+                            && System.Text.RegularExpressions.Regex.IsMatch(strAdd, @"\A\b[0-9a-fA-F]+\b\Z")
                             && str.Length == 4)
                         {
                             isCorrect = true;

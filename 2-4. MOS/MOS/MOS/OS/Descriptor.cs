@@ -23,7 +23,8 @@ namespace MOS.OS
         public TI_Reg TI;
         public PageTable pageTable;
 
-        public void SaveVMState(VirtualMachine.VirtualMachine virtualMachine) {
+        public void SaveVMState(VirtualMachine.VirtualMachine virtualMachine)
+        {
             IC = virtualMachine.IC;
             MODE = virtualMachine.MODE;
             PTR = virtualMachine.PTR;
@@ -33,11 +34,12 @@ namespace MOS.OS
             R4 = virtualMachine.R4;
             SF = virtualMachine.SF;
             TI = virtualMachine.TI;
-            pageTable = virtualMachine.pt; 
+            pageTable = virtualMachine.pt;
 
         }
 
-        public void LoadVMState(VirtualMachine.VirtualMachine virtualMachine) {
+        public void LoadVMState(VirtualMachine.VirtualMachine virtualMachine)
+        {
             virtualMachine.IC = IC;
             virtualMachine.MODE = MODE;
             virtualMachine.PTR = PTR;

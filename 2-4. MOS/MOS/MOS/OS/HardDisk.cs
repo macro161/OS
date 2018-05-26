@@ -11,9 +11,13 @@ namespace MOS.OS
     {
         private static List<Program> programList;
 
-        public static List<Program> ProgramList { get => programList; set {
+        public static List<Program> ProgramList
+        {
+            get => programList; set
+            {
                 programList = value; RaisePropertyChangedEvent("ProgramList");
-            } }
+            }
+        }
 
         public static event PropertyChangedEventHandler PropertyChanged;
 

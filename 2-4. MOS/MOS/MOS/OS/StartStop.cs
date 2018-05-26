@@ -12,7 +12,8 @@ namespace MOS.OS
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public StartStop(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "StartStop") {
+        public StartStop(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "StartStop")
+        {
 
             ResourcesINeed[0] = "MOSEND";
         }
@@ -20,8 +21,8 @@ namespace MOS.OS
         public void InitSystemProcesesAndResources() //nezinojau ka prie to poiterio rasyt tai 0 parasiau
         {
             Read read = new Read(Kernel, this, 100, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            JCL jcl = new JCL(Kernel, this, 99, (int)ProcessState.Ready, Guid.NewGuid(), 0,null);
-            JobToDisk jobToDisk = new JobToDisk(Kernel, this, 98, (int)ProcessState.Ready, Guid.NewGuid(), 0,null);
+            JCL jcl = new JCL(Kernel, this, 99, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            JobToDisk jobToDisk = new JobToDisk(Kernel, this, 98, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
             Loader loader = new Loader(Kernel, this, 97, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
             MainProc mainProc = new MainProc(Kernel, this, 96, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
             SwapBack swapBack = new SwapBack(Kernel, this, 95, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);

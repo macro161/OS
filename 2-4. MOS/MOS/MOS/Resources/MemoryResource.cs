@@ -21,7 +21,8 @@ namespace MOS.Resources
         public int FreeElements { get; set; }
     }
 
-    class MemoryResourceElement {
+    class MemoryResourceElement
+    {
         public int Takelis { get; set; }
     }
 }

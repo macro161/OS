@@ -27,10 +27,11 @@ namespace MOS
             Application.SetCompatibleTextRenderingDefault(false);
             //    var file = new RealMachine.ChannelsDevice();
             //    file.ReadFromFlash();
-            new Thread(() => {
-            Application.Run(new GUI.RMform(realMachine));
-        }).Start();
-            
+            new Thread(() =>
+            {
+                Application.Run(new GUI.RMform(realMachine));
+            }).Start();
+
 
             Log.Info("So far only logs to bin/Debug/mylog");
             //var logging = new LoggerTextBox();

@@ -10,12 +10,12 @@ namespace MOS.RealMachine
 {
     public class ChannelsDevice
     {
-       /* private int SB = 0; //Takelio,iš kurio kopijuosime numeris. 
-        private int DB = 0; //Takelio,į kurį kopijuosime numeris 
-        private int ST = 0; //Objekto,iš kurio kopijuosime numeris 
-        private int DT = 0; //Objekto,įkurįkopijuosime,numeris
-                  FlashMemory flashMemory = new FlashMemory();           // 1. Vartotojoatmintis; 2. Supervizorinėatmintis; 3. Išorinėatmintis; 4. Įvedimosrautas; 
-*/
+        /* private int SB = 0; //Takelio,iš kurio kopijuosime numeris. 
+         private int DB = 0; //Takelio,į kurį kopijuosime numeris 
+         private int ST = 0; //Objekto,iš kurio kopijuosime numeris 
+         private int DT = 0; //Objekto,įkurįkopijuosime,numeris
+                   FlashMemory flashMemory = new FlashMemory();           // 1. Vartotojoatmintis; 2. Supervizorinėatmintis; 3. Išorinėatmintis; 4. Įvedimosrautas; 
+ */
         readonly FlashMemory flashMemory = new FlashMemory();
 
 
@@ -48,7 +48,7 @@ namespace MOS.RealMachine
                 }
                 for (int i = 0; i < 4; i++)
                 {
-                    RealMachine.memory.WriteAt(SB / 16, SB % 16, returnString.Substring(4*i, 4));
+                    RealMachine.memory.WriteAt(SB / 16, SB % 16, returnString.Substring(4 * i, 4));
                     SB++;
                 }
             }

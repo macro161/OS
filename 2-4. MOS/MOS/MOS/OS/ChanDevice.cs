@@ -20,7 +20,7 @@ namespace MOS.OS
 
         public override void DecrementPriority()
         {
-           
+
         }
 
         public override void Run()

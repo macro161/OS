@@ -17,7 +17,8 @@ namespace MOS.OS
             trackNumber = 0;
         }
 
-        public bool Block(Guid id) {
+        public bool Block(Guid id)
+        {
 
             if (processThatHasAccess == Guid.Empty)
             {

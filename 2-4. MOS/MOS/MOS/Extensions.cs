@@ -10,7 +10,7 @@ namespace MOS
             {
                 return false;
             }
-            
+
             return System.Text.RegularExpressions.Regex.IsMatch(str.Trim(), @"\A\b[0-9a-fA-F]+\b\Z");  // patikrint ar tai hex
         }
 

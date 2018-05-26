@@ -11,7 +11,7 @@ namespace MOS.Resources
     {
         public Process JobGoverner { get; set; }
 
-        public InterruptResourceElement(Process jobGoverner, string value, Process receiver = null, Process sender = null) : base(value,receiver,sender)
+        public InterruptResourceElement(Process jobGoverner, string value, Process receiver = null, Process sender = null) : base(value, receiver, sender)
         {
             JobGoverner = jobGoverner;
         }

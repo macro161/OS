@@ -14,7 +14,7 @@ namespace MOS.OS
 
         public static List<string> Memory { get => memory; set => memory = value; }
         public static List<Program> ProgramList { get => programList; set => programList = value; }
-        
+
 
     }
 }

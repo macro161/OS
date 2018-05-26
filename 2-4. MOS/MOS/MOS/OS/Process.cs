@@ -34,7 +34,7 @@ namespace MOS.OS
             Childrens = new List<Process>();
             Name = name;
             Father = father;
-        }    
+        }
 
         public abstract void AddResource(Resource resource);
 
@@ -53,7 +53,8 @@ namespace MOS.OS
         {
             foreach (Resource resource in Resources)
             {
-                if (Kernel.staticResources.ContainsKey(resource)) {
+                if (Kernel.staticResources.ContainsKey(resource))
+                {
                     Kernel.staticResources[resource] = true;
                 }
             }
@@ -62,10 +63,11 @@ namespace MOS.OS
             {
                 Kernel.ready.Remove(this);
             }
-            else {
+            else
+            {
                 Kernel.blocked.Remove(this);
             }
-            
+
 
             foreach (Process childProcess in Childrens)
             {
@@ -73,14 +75,15 @@ namespace MOS.OS
                 {
                     Kernel.blocked.Remove(childProcess);
                 }
-                else {
+                else
+                {
                     Kernel.ready.Remove(childProcess);
                 }
                 childProcess.DeleteProcess();
             }
 
-       
+
         }
-        
+
     }
 }
