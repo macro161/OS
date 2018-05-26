@@ -96,14 +96,14 @@ namespace MOS.OS
                     Log.Info("Loading programs into supervisory memory.");
 
                     SupervisoryMemory.ProgramList = programs;
-                    Kernel.dynamicResources.First(res => res.Name == "TASKNAMEINSUPERVISORY").AskForResource(this);
+                    Kernel.dynamicResources.First(res => res.Name == "TASKNAMEINSUPERVISORY").ReleaseResource(new ResourceElement());
                 case 2:
                     Pointer = 3;
-                    Kernel.dynamicResources.First(res => res.Name == "TASKDATAINSUPERVISORY").AskForResource(this);
+                    Kernel.dynamicResources.First(res => res.Name == "TASKDATAINSUPERVISORY").ReleaseResource(new ResourceElement());
                     break;
                 case 3:
                     Pointer = 0;
-                    Kernel.dynamicResources.First(res => res.Name == "TASKCODEINSUPERVISORY").AskForResource(this);
+                    Kernel.dynamicResources.First(res => res.Name == "TASKCODEINSUPERVISORY").ReleaseResource(new ResourceElement());
                     break;
 
             }
