@@ -12,7 +12,8 @@ namespace MOS.OS
         public int trackNumber;
 
         public bool Block(Guid id) {
-            if (processThatHasAccess == default)
+
+            if (processThatHasAccess == Guid.Empty)
             {
                 processThatHasAccess = id;
                 return true;
@@ -22,7 +23,7 @@ namespace MOS.OS
 
         public void Release()
         {
-            processThatHasAccess = default;
+            processThatHasAccess = Guid.Empty;
         }
     }
 }
