@@ -95,7 +95,6 @@
     <Compile Include="OS\Process.cs" />
     <Compile Include="OS\Program.cs" />
     <Compile Include="OS\Read.cs" />
-    <Compile Include="Resources\ResElement.cs" />
     <Compile Include="Resources\Resource.cs" />
     <Compile Include="OS\Speaker.cs" />
     <Compile Include="OS\StartStop.cs" />
@@ -126,6 +125,7 @@
     <Compile Include="GUI\TextBoxAppender.cs" />
     <Compile Include="Registers\TI_Reg.cs" />
     <Compile Include="RealMachine\UserMemory.cs" />
+    <Compile Include="Resources\ResourceElement.cs" />
     <Compile Include="VirtualMachine\PageTable.cs" />
     <Compile Include="VirtualMachine\VirtualMachine.cs" />
     <EmbeddedResource Include="GUI\RMform.resx">

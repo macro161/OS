@@ -49,7 +49,7 @@ namespace MOS.OS
             running.Run();
         }
 
-        private void ResourcePlanner()
+        public void ResourcePlanner()
         {
             foreach (var res in staticResources) // paskiria statinį resursą.
             {
@@ -134,7 +134,7 @@ namespace MOS.OS
                                 blocked.Remove(proc);
                                 ready.Add(proc);
                                 res.Awaiters.Remove(proc);
-                                ResElement element = res.Elements.First(elem => elem.Receiver == proc);
+                                ResourceElement element = res.Elements.First(elem => elem.Receiver == proc);
                                 //proc.Element = element šitą reiks prie job governer
                                 res.Elements.Remove(element);
                             }

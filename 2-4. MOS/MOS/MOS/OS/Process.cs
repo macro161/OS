@@ -47,6 +47,6 @@ namespace MOS.OS
             if (Status == (int)ProcessState.Ready)
                 return true;
             return false;
-        }
+        }    
     }
 }

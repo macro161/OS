@@ -7,20 +7,13 @@ using System.Threading.Tasks;
 
 namespace MOS.Resources
 {
-    class InterruptResourceElement
+    class InterruptResourceElement : ResourceElement
     {
-        public Process Receiver { get; set; }
-        public Process Sender { get; set; }
-        public string Value { get; set; }
         public Process JobGoverner { get; set; }
 
-
-        public InterruptResourceElement(Process jobGoverner, string value, Process receiver = null, Process sender = null)
+        public InterruptResourceElement(Process jobGoverner, string value, Process receiver = null, Process sender = null) : base(value,receiver,sender)
         {
             JobGoverner = jobGoverner;
-            Receiver = receiver;
-            Sender = sender;
-            Value = value;
         }
     }
 }
