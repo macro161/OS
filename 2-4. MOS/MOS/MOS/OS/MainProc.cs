@@ -9,6 +9,8 @@ namespace MOS.OS
 {
     class MainProc : Process
     {
+        public ResElement Element { get; set; }
+
         public MainProc(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "MainProc") { }
 
         public override void AddResource(Resource resource)

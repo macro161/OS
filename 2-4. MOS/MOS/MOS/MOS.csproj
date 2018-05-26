@@ -77,12 +77,16 @@
     <Compile Include="OS\Descriptor.cs" />
     <Compile Include="OS\HardDisk.cs" />
     <Compile Include="OS\Interupt.cs" />
+    <Compile Include="Resources\InterruptResource.cs" />
+    <Compile Include="Resources\InterruptResourceElement.cs" />
     <Compile Include="Resources\IOResource.cs" />
     <Compile Include="OS\JCL.cs" />
     <Compile Include="OS\JobToDisk.cs" />
     <Compile Include="OS\Loader.cs" />
     <Compile Include="OS\MainProc.cs" />
     <Compile Include="OS\Kernel.cs" />
+    <Compile Include="OS\Semaphore.cs" />
+    <Compile Include="Resources\IOResourceElements.cs" />
     <Compile Include="Resources\MemoryInfoResource.cs" />
     <Compile Include="Resources\MemoryInfoResourceElement.cs" />
     <Compile Include="Resources\MemoryResource.cs" />
