@@ -12,23 +12,23 @@ namespace MOS.OS
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public StartStop(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "StartStop") {
+        public StartStop(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "StartStop") {
 
             ResourcesINeed[0] = "MOSEND";
         }
 
         public void InitSystemProcesesAndResources() //nezinojau ka prie to poiterio rasyt tai 0 parasiau
         {
-            Read read = new Read(Kernel, 100, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            JCL jcl = new JCL(Kernel, 99, (int)ProcessState.Ready, Guid.NewGuid(), 0,null);
-            JobToDisk jobToDisk = new JobToDisk(Kernel, 98, (int)ProcessState.Ready, Guid.NewGuid(), 0,null);
-            Loader loader = new Loader(Kernel, 97, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            MainProc mainProc = new MainProc(Kernel, 96, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            SwapBack swapBack = new SwapBack(Kernel, 95, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            Interupt interupt = new Interupt(Kernel, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            ChanDevice chanDevice = new ChanDevice(Kernel, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            Speaker speaker = new Speaker(Kernel, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            Printer printer = new Printer(Kernel, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            Read read = new Read(Kernel, this, 100, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            JCL jcl = new JCL(Kernel, this, 99, (int)ProcessState.Ready, Guid.NewGuid(), 0,null);
+            JobToDisk jobToDisk = new JobToDisk(Kernel, this, 98, (int)ProcessState.Ready, Guid.NewGuid(), 0,null);
+            Loader loader = new Loader(Kernel, this, 97, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            MainProc mainProc = new MainProc(Kernel, this, 96, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            SwapBack swapBack = new SwapBack(Kernel, this, 95, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            Interupt interupt = new Interupt(Kernel, this, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            ChanDevice chanDevice = new ChanDevice(Kernel, this, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            Speaker speaker = new Speaker(Kernel, this, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            Printer printer = new Printer(Kernel, this, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
 
             Kernel.ready.Add(read);
             Kernel.ready.Add(jcl);
@@ -122,11 +122,6 @@ namespace MOS.OS
         public override void DecrementPriority()
         {
             throw new NotImplementedException();
-        }
-
-        public override bool CheckIfReady()
-        {
-            return true;
         }
     }
 }

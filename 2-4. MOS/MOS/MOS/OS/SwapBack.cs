@@ -11,14 +11,9 @@ namespace MOS.OS
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public SwapBack(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "SwapBack") { }
+        public SwapBack(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "SwapBack") { }
 
         public override void AddResource(Resource resource)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool CheckIfReady()
         {
             throw new NotImplementedException();
         }

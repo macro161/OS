@@ -36,7 +36,7 @@ namespace MOS.OS
         //    "HALT"
         //};
 
-        public JCL(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "JCL") { }
+        public JCL(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "JCL") { }
 
         public override void AddResource(Resource resource)
         {
