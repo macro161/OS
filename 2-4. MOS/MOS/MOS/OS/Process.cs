@@ -69,8 +69,13 @@ namespace MOS.OS
 
             foreach (Process childProcess in Childrens)
             {
-                childProcess.Status = (int)ProcessState.Blocked;
-                Kernel.blocked.Remove(childProcess);
+                if (childProcess.Status == (int)ProcessState.Blocked)
+                {
+                    Kernel.blocked.Remove(childProcess);
+                }
+                else {
+                    Kernel.ready.Remove(childProcess);
+                }
                 childProcess.DeleteProcess();
             }
 
