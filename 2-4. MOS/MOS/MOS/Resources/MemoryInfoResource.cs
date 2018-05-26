@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace MOS.Resources
 {
-    class MemoryResource : Resource
+    class MemoryInfoResource : Resource
     {
-        public MemoryResource(Kernel kernel, string name, Process creator) : base(kernel, name, creator)
+        public MemoryInfoResource(Kernel kernel, string name, Process creator) : base(kernel, name, creator)
         {
-            FreeElements = 0x254;
         }
 
         List<MemoryResourceElement> resourceElements = new List<MemoryResourceElement>();
@@ -19,9 +18,5 @@ namespace MOS.Resources
         public int ElementAmount { get; set; }
 
         public int FreeElements { get; set; }
-    }
-
-    class MemoryResourceElement {
-        public int Takelis { get; set; }
     }
 }

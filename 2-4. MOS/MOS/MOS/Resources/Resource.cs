@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MOS.OS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MOS.OS
+namespace MOS.Resources
 {
     class Resource
     {
