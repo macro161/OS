@@ -8,6 +8,8 @@ namespace MOS.RealMachine
         private readonly bool[] isUsed = new bool[0x256]; // skirstant takelius pasižymim, kurie jau užimti, kai atsilaisvins vėl pažimėsim true. 
         readonly Random rand = new Random();
         private int free = 0x256;
+        
+
 
         public string[,] UserMemoryProp { get; set; } = new string[0x256, 0x10];
 

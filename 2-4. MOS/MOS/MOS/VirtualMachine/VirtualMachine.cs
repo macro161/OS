@@ -128,10 +128,42 @@ namespace MOS.VirtualMachine
                 case "LO":
                     lo(x1x2);
                     break;
+                case "BC":
+                    bc(x1x2); // blokuoti priejima prie takelio x1x2
+                    break;
+                case "RE":
+                    re(x1x2); //atblokuoti takeli x1x2
+                    break;
+                case "WS":
+                    ws(x1x2); //WriteShared memory
+                    break;
+                case "RS":
+                    rs(x1x2); //ReadShared memory
+                    break;
                 default:
                     RealMachine.RealMachine.pi.PI = 2;
                     break;
             }
+        }
+
+        private void rs(string x1x2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ws(string x1x2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void re(string x1x2)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void bc(string x1x2)
+        {
+            throw new NotImplementedException();
         }
 
         private void gd(string x1x2) // CF ZF SF
