@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MOS.OS;
 
 namespace MOS.RealMachine
 {
@@ -8,7 +9,8 @@ namespace MOS.RealMachine
         private readonly bool[] isUsed = new bool[0x256]; // skirstant takelius pasižymim, kurie jau užimti, kai atsilaisvins vėl pažimėsim true. 
         readonly Random rand = new Random();
         private int free = 0x256;
-        
+        public Semaphore firstTrackSemaphore = new Semaphore();
+        public Semaphore secondTrackSemaphore = new Semaphore();
 
 
         public string[,] UserMemoryProp { get; set; } = new string[0x256, 0x10];

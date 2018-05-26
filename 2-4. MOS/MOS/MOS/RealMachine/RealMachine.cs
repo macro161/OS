@@ -422,7 +422,7 @@ namespace MOS.RealMachine
             }
             ptr.PTR = memory.getMemory();
             TransferProgramToMemory(data);
-            vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf); //sukuriama virtuali masina
+            vm = new VirtualMachine.VirtualMachine(ptr, r1, r2, r3, r4, ic, sf); //sukuriama virtuali masina /*CIA DAR REIKS PATAISYTI */
             RMform.ptrList = VMMemory;
             run = true;
             return succes;

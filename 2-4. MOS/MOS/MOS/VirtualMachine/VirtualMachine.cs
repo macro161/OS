@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Security.Cryptography;
 using MOS.Registers;
+using MOS.OS;
+using MOS.Resources;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace MOS.VirtualMachine
 {
-    class VirtualMachine
+    class VirtualMachine : Process
     {
         public PTR_Reg PTR;
         public PageTable pt;
@@ -17,7 +21,9 @@ namespace MOS.VirtualMachine
         public Mode_Reg MODE;
         public TI_Reg TI;
 
-        public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf)
+        private int sharedTrack;
+
+        public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf, Kernel kernel, int priority, int status, List<Resource> resources, Guid id, int pointer, string name) : base(kernel,priority,status,resources,id,pointer,name)
         {
             R1 = r1;
             R2 = r2;
@@ -26,7 +32,6 @@ namespace MOS.VirtualMachine
             IC = ic;
             SF = sf;
             PTR = ptr;
-
             pt = new PageTable(PTR.PTR);
         }
         public void RunCommand()
@@ -148,22 +153,55 @@ namespace MOS.VirtualMachine
 
         private void rs(string x1x2)
         {
-            throw new NotImplementedException();
+            R1.R = RealMachine.RealMachine.memory.StringAt(sharedTrack, x1x2.ToHex()).ToHex();
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void ws(string x1x2)
-        {
-            throw new NotImplementedException();
+        { 
+            RealMachine.RealMachine.memory.WriteAt(sharedTrack, x1x2.ToHex(), R1.Hex());
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void re(string x1x2)
         {
-            throw new NotImplementedException();
+            if (x1x2 == "01")
+            {
+                RealMachine.RealMachine.memory.firstTrackSemaphore.Release();
+                
+            }
+
+            if (x1x2 == "02")
+            {
+                RealMachine.RealMachine.memory.secondTrackSemaphore.Release();
+              
+            }
         }
 
         private void bc(string x1x2)
         {
-            throw new NotImplementedException();
+            if (x1x2 == "01") {
+
+                while (!RealMachine.RealMachine.memory.firstTrackSemaphore.Block(Id)){
+                    HandleFalseBlock();
+                }
+                sharedTrack = 1;
+            }
+
+            if (x1x2 == "02")
+            {
+
+                while (!RealMachine.RealMachine.memory.secondTrackSemaphore.Block(Id))
+                {
+                    HandleFalseBlock();
+                }
+                sharedTrack = 2;
+            }
+        }
+
+        private void HandleFalseBlock()
+        {
+            Kernel.Planner(); // Is it good? Ciuju reiks pakeist
         }
 
         private void gd(string x1x2) // CF ZF SF
@@ -521,5 +559,24 @@ namespace MOS.VirtualMachine
             RealMachine.RealMachine.ti.DecrementTI();
         }
 
+        public override void AddResource(Resource resource)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Run()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void DecrementPriority()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool CheckIfReady()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

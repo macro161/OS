@@ -6,10 +6,16 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class Semaphore
+    public class Semaphore
     {
         private Guid processThatHasAccess;
-        public int trackNumber;
+        private int trackNumber;
+
+        public Semaphore()
+        {
+            processThatHasAccess = Guid.Empty;
+            trackNumber = 0;
+        }
 
         public bool Block(Guid id) {
 
