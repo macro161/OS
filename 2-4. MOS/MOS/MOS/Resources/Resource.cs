@@ -10,6 +10,7 @@ namespace MOS.Resources
 {
     class Resource
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public string Name { get; private set; }
         public Process Creator { get; private set; }
         public List<Process> Awaiters { get; set; }
@@ -28,6 +29,7 @@ namespace MOS.Resources
 
         public void AskForResource(Process process)
         {
+            Log.Info(process.Name + " requested " + this.Name + " resource");
             process.Status = (int)ProcessState.Blocked;
             Kernel.blocked.Add(process);
             Kernel.ready.Remove(process);

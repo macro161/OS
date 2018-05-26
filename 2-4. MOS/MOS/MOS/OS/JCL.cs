@@ -51,52 +51,53 @@ namespace MOS.OS
         public override void Run()
         {
             Log.Info("JCL process is running.");
-            fromMemory = SupervisoryMemory.Memory;
-            int counter = 0;
-
-            // seperates programs
-            while (true)
+            switch(Pointer)
             {
-                counter++;
-                List<String> list = fromMemory.TakeWhile(line => line != "HALT").ToList();
-                if (list.Count == 0)
+                case 0:
+                    Pointer = 1;
+                    Kernel.dynamicResources.First(res => res.Name == "TASKINSUPERVISORY").AskForResource(this);
                     break;
-                fromMemory.RemoveRange(0, list.Count + 1);
-                seperatedPrograms.Add(counter, list);
+                case 1:
+                    Pointer = 0;
+                    fromMemory = SupervisoryMemory.Memory;
+                    int counter = 0;
+
+                    // seperates programs
+                    while (true)
+                    {
+                        counter++;
+                        List<String> list = fromMemory.TakeWhile(line => line != "HALT").ToList();
+                        if (list.Count == 0)
+                            break;
+                        fromMemory.RemoveRange(0, list.Count + 1);
+                        seperatedPrograms.Add(counter, list);
+                    }
+
+                    Log.Info("Seperating programs into code and data blocks.");
+                    // seperates into code and data segments, creates Program list
+                    foreach (var program in seperatedPrograms)
+                    {
+                        var name = (program.Value.TakeWhile(line => line != "DATA").ToArray())[0];
+                        var dataSeg = program.Value.SkipWhile(line => line != "DATA").Skip(1).TakeWhile(line => line != "CODE").ToList();
+                        var codeSeg = program.Value.SkipWhile(line => line != "CODE").Skip(1).TakeWhile(line => line != null).ToList();
+                        Program pr = new Program(name, dataSeg, codeSeg);
+                        if (name.Length != 0 && name.Length < 25 && dataSeg != null && codeSeg != null && codeSeg.Count != 0
+                            && program.Value.Contains("DATA") && program.Value.Contains("CODE")
+                            && checkCommands(codeSeg))
+                        {
+                            programs.Add(pr);
+                        }
+                        else
+                        {
+                            Log.Info("Failed to load program.");
+                        }
+                    }
+
+                    Log.Info("Loading programs into supervisory memory.");
+
+                    SupervisoryMemory.ProgramList = programs;
+                    break;
             }
-
-            Log.Info("Seperating programs into code and data blocks.");
-            // seperates into code and data segments, creates Program list
-            foreach (var program in seperatedPrograms)
-            {
-                var name = (program.Value.TakeWhile(line => line != "DATA").ToArray())[0];
-                var dataSeg = program.Value.SkipWhile(line => line != "DATA").Skip(1).TakeWhile(line => line != "CODE").ToList();
-                var codeSeg = program.Value.SkipWhile(line => line != "CODE").Skip(1).TakeWhile(line => line != null).ToList();
-                Program pr = new Program(name, dataSeg, codeSeg);
-                if (name.Length != 0 && name.Length < 25 && dataSeg != null && codeSeg != null && codeSeg.Count != 0
-                    && program.Value.Contains("DATA") && program.Value.Contains("CODE")
-                    && checkCommands(codeSeg))
-                {
-                    programs.Add(pr);
-                }
-                else
-                {
-                    Log.Info("Failed to load program.");
-                }
-            }
-
-            Log.Info("Loading programs into supervisory memory.");
-            // saves to Supervisory memory
-            SupervisoryMemory.ProgramList = programs;
-
-            //    foreach (var program in programs)
-            //    {
-            //        Debug.WriteLine(program.name);
-            //        foreach (var a in program.dataSegment)
-            //            Debug.WriteLine($"*{a}");
-            //        foreach (var a in program.codeSegment)
-            //            Debug.WriteLine($"*{a}");
-            //    }
         }
 
         public static bool checkCommands(List<string> code)
