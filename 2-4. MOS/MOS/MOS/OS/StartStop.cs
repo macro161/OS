@@ -17,7 +17,7 @@ namespace MOS.OS
             ResourcesINeed[0] = "MOSEND";
         }
 
-        public void InitSystemProceses() //nezinojau ka prie to poiterio rasyt tai 0 parasiau
+        public void InitSystemProcesesAndResources() //nezinojau ka prie to poiterio rasyt tai 0 parasiau
         {
             Read read = new Read(Kernel, 100, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
             JCL jcl = new JCL(Kernel, 99, (int)ProcessState.Ready, Guid.NewGuid(), 0,null);
@@ -41,10 +41,7 @@ namespace MOS.OS
             Kernel.ready.Add(speaker);
             Kernel.ready.Add(printer);
 
-        }
-
-        public void InitSystemResources()
-        {
+            //Statinių resursų sukūrimas
             Resource mosEnd = new Resource(Kernel, "MOSEND", this);
             Resource outputStream = new Resource(Kernel, "OUTPUTSTREAM", this);
             Resource supervisoryMemory = new Resource(Kernel, "SUPERVISORYMEMORY", this);
@@ -55,7 +52,8 @@ namespace MOS.OS
             Resource chanFour = new Resource(Kernel, "CHAN4", this);
             Resource userMemory = new MemoryResource(Kernel, "USERMEMORY", this);
 
-            Kernel.staticResources.Add(mosEnd, false); 
+            //Statinių resursų pridėjimas į sąrašą
+            Kernel.staticResources.Add(mosEnd, false);
             Kernel.staticResources.Add(outputStream, true);
             Kernel.staticResources.Add(supervisoryMemory, true);
             Kernel.staticResources.Add(externalMemory, true);
@@ -65,9 +63,21 @@ namespace MOS.OS
             Kernel.staticResources.Add(chanFour, true);
             Kernel.staticResources.Add(userMemory, true);
 
+            //Dinaminių resursų sukūrimas
+            Resource filePath = new Resource(Kernel, "FILEINPUT", this);
+            Resource taskInSupervisory = new Resource(Kernel, "TASKINSUPERVISORY", read);
+            Resource taskNameInSupervisory = new Resource(Kernel, "TASKNAMEINSUPERVISORY", jcl);
+            Resource taskDataInSupervisory = new Resource(Kernel, "TASKDATAINSUPERVISORY", jcl);
+            Resource taskCodeInSupervisory = new Resource(Kernel, "TASKCODEINSUPERVISORY", jcl);
+            Resource taskInDisk = new Resource(Kernel, "TASKINDISK", jobToDisk);
+            Resource loaderPacket = new MemoryInfoResource(Kernel, "LOADERPACKET", this);
+            Resource fromLoader = new Resource(Kernel, "FROMLOADER", loader);
+            Resource fromInterrupt = new Resource(Kernel, "FROMINTERRUPT", interupt);
+            Resource interrupt = new InterruptResource(Kernel, "INTERUPT", this);
+            Resource lineInMemory = new IOResource(Kernel, "LINEINMEMORY", this);
+            Resource lineFromUser = new Resource(Kernel, "LINEFROMUSER", this);
+
         }
-
-
 
         public override void AddResource(Resource resource)
         {
@@ -81,8 +91,7 @@ namespace MOS.OS
             {
                 case 0:
                     Log.Info("Initializing system resources and processes.");
-                    InitSystemProceses();
-                    InitSystemResources();
+                    InitSystemProcesesAndResources();
                     Pointer++;
                     Status = (int)ProcessState.Blocked;
                     Kernel.blocked.Add(this);

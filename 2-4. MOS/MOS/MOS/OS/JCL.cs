@@ -76,7 +76,13 @@ namespace MOS.OS
                 if (name.Length != 0 && name.Length < 25 && dataSeg != null && codeSeg != null && codeSeg.Count != 0
                     && program.Value.Contains("DATA") && program.Value.Contains("CODE")
                     && checkCommands(codeSeg))
+                {
                     programs.Add(pr);
+                }
+                    else
+                {
+                    Log.Info("Failed to load program.");
+                }
             }
 
             Log.Info("Loading programs into supervisory memory.");
