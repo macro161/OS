@@ -11,8 +11,8 @@ namespace MOS.Resources
     {
         public MemoryInfoResource(Kernel kernel, string name, Process creator) : base(kernel, name, creator)
         {
+            Elements = new List<MemoryInfoResourceElement>();
         }
-
-        List<MemoryInfoResourceElement> resourceElements = new List<MemoryInfoResourceElement>();
+        public new List<MemoryInfoResourceElement> Elements { get; set; }
     }
 }

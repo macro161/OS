@@ -9,15 +9,10 @@ namespace MOS.OS
 {
     class Interupt : Process
     {
-        public InterruptResourceElement Interrupt { get; set; }
+        public InterruptResourceElement Element { get; set; }
         public Interupt(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "Interupt") { }
 
         public override void AddResource(Resource resource)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool CheckIfReady()
         {
             throw new NotImplementedException();
         }

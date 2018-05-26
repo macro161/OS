@@ -9,10 +9,10 @@ namespace MOS.Resources
 {
     class InterruptResource : Resource
     {
-        public new List<IOResourceElements> Elements { get; set; }
+        public new List<InterruptResourceElement> Elements { get; set; }
         public InterruptResource(Kernel kernel, string name, Process creator) : base(kernel, name, creator)
         {
-            Elements = new List<IOResourceElements>();
+            Elements = new List<InterruptResourceElement>();
         }
 
         public new void AskForResource(Process process)

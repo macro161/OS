@@ -77,6 +77,20 @@ namespace MOS.OS
             Resource lineInMemory = new IOResource(Kernel, "LINEINMEMORY", this);
             Resource lineFromUser = new Resource(Kernel, "LINEFROMUSER", this);
 
+            //Dinaminių resursų pridėjimas prie sąrašo.
+            Kernel.dynamicResources.Add(filePath);
+            Kernel.dynamicResources.Add(taskInSupervisory);
+            Kernel.dynamicResources.Add(taskNameInSupervisory);
+            Kernel.dynamicResources.Add(taskDataInSupervisory);
+            Kernel.dynamicResources.Add(taskCodeInSupervisory);
+            Kernel.dynamicResources.Add(taskInDisk);
+            Kernel.dynamicResources.Add(loaderPacket);
+            Kernel.dynamicResources.Add(fromLoader);
+            Kernel.dynamicResources.Add(fromInterrupt);
+            Kernel.dynamicResources.Add(interrupt);
+            Kernel.dynamicResources.Add(lineInMemory);
+            Kernel.dynamicResources.Add(lineFromUser);
+
         }
 
         public override void AddResource(Resource resource)

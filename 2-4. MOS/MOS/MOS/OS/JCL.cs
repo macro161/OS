@@ -126,10 +126,5 @@ namespace MOS.OS
             }
             return true;
         }
-
-        public override bool CheckIfReady()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

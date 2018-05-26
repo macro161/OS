@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MOS.Enums;
 using MOS.RealMachine;
 using MOS.Resources;
 
@@ -40,6 +41,11 @@ namespace MOS.OS
 
         public abstract void DecrementPriority();
 
-        public abstract bool CheckIfReady();
+        public bool CheckIfReady()
+        {
+            if (Status == (int)ProcessState.Ready)
+                return true;
+            return false;
+        }
     }
 }

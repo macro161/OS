@@ -45,7 +45,6 @@ namespace MOS.OS
                     blocked.Remove(block);
                 }
             }
-
             running.DecrementPriority();
             running.Run();
         }
@@ -65,7 +64,124 @@ namespace MOS.OS
             }
             foreach (var res in dynamicResources)
             {
+                if (res.Awaiters.Count > 0 && res.Elements.Count > 0)
+                {
+                    Process proc = null;
+                    switch (res.Name)
+                    {
+                        case "FILEINPUT":
+                            res.Awaiters[0].Resources.Add(res);
+                            res.Awaiters[0].Status = (int)ProcessState.Ready;
+                            ((Read)res.Awaiters[0]).Element = res.Elements[0];
+                            res.Elements.RemoveAt(0);
+                            blocked.Remove(res.Awaiters[0]);
+                            ready.Add(res.Awaiters[0]);
+                            res.Awaiters.RemoveAt(0);
+                            break;
+                        case "TASKINSUPERVISORY":
+                        case "TASKNAMEINSUPERVISORY":
+                        case "TASKDATAINSUPERVISORY":
+                        case "TASKCODEINSUPERVISORY":
+                            res.Awaiters[0].Resources.Add(res);
+                            res.Awaiters[0].Status = (int)ProcessState.Ready;
+                            res.Elements.RemoveAt(0);
+                            blocked.Remove(res.Awaiters[0]);
+                            ready.Add(res.Awaiters[0]);
+                            res.Awaiters.RemoveAt(0);
+                            break;
+                        case "LOADERPACKET":
+                            var temp = (MemoryInfoResource)res;
+                            res.Awaiters[0].Resources.Add(res);
+                            res.Awaiters[0].Status = (int)ProcessState.Ready;
+                            ((Loader)res.Awaiters[0]).Element = temp.Elements[0];
+                            res.Elements.RemoveAt(0);
+                            blocked.Remove(res.Awaiters[0]);
+                            ready.Add(res.Awaiters[0]);
+                            res.Awaiters.RemoveAt(0);
+                            break;
+                        case "FROMLOADER":
+                            foreach (var elem in res.Elements)
+                            {
+                                if (res.Awaiters.Any(pro => pro == elem.Receiver))
+                                {
+                                    proc = res.Awaiters.First(pro => pro == elem.Receiver);
+                                    break;
+                                }
+                            }
+                            if (proc != null)
+                            {
+                                proc.Resources.Add(res);
+                                proc.Status = (int)ProcessState.Ready;
+                                blocked.Remove(proc);
+                                ready.Add(proc);
+                                res.Awaiters.Remove(proc);
+                                res.Elements.Remove(res.Elements.First(elem => elem.Receiver == proc));
+                            }
+                            break;
+                        case "FROMINTERRUPT":
+                            foreach (var elem in res.Elements)
+                            {
+                                if (res.Awaiters.Any(pro => pro == elem.Receiver))
+                                {
+                                    proc = res.Awaiters.First(pro => pro == elem.Receiver);
+                                    break;
+                                }
+                            }
+                            if (proc != null)
+                            {
+                                proc.Resources.Add(res);
+                                proc.Status = (int)ProcessState.Ready;
+                                blocked.Remove(proc);
+                                ready.Add(proc);
+                                res.Awaiters.Remove(proc);
+                                ResElement element = res.Elements.First(elem => elem.Receiver == proc);
+                                //proc.Element = element šitą reiks prie job governer
+                                res.Elements.Remove(element);
+                            }
+                            break;
+                        case "INTERUPT":
+                            res.Awaiters[0].AddResource(res);
+                            ((Interupt)res.Awaiters[0]).Element = ((InterruptResource)res).Elements[0];
+                            res.Elements.RemoveAt(0);
+                            res.Awaiters[0].Status = (int)ProcessState.Ready;
+                            blocked.Remove(res.Awaiters[0]);
+                            ready.Add(res.Awaiters[0]);
+                            res.Awaiters.RemoveAt(0);
+                            break;
+                        case "LINEINMEMORY":
+                            res.Awaiters[0].AddResource(res);
+                            ((Printer)res.Awaiters[0]).Element = ((IOResource)res).Elements[0];
+                            res.Elements.RemoveAt(0);
+                            res.Awaiters[0].Status = (int)ProcessState.Ready;
+                            blocked.Remove(res.Awaiters[0]);
+                            ready.Add(res.Awaiters[0]);
+                            res.Awaiters.RemoveAt(0);
+                            break;
+                        case "LINEFROMUSER":
+                            foreach (var elem in res.Elements)
+                            {
+                                if (res.Awaiters.Any(pro => pro == elem.Receiver))
+                                {
+                                    proc = res.Awaiters.First(pro => pro == elem.Receiver);
+                                    break;
+                                }
+                            }
+                            if (proc != null)
+                            {
+                                proc.Resources.Add(res);
+                                proc.Status = (int)ProcessState.Ready;
+                                blocked.Remove(proc);
+                                ready.Add(proc);
+                                res.Awaiters.Remove(proc);
+                                IOResourceElements element = ((IOResource)res).Elements.First(elem => elem.Receiver == proc);
+                                //proc.Element = element šitą reiks prie job governer
+                                ((IOResource)res).Elements.Remove(element);
+                            }
+                            break;
 
+
+                    }
+                }
             }
             /*foreach (Process blockedProcess in blocked)
             {

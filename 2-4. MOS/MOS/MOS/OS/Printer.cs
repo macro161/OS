@@ -10,17 +10,12 @@ namespace MOS.OS
 {
     class Printer : Process
     {
-        public IOResourceElements _resourceElement { get; set; }
+        public IOResourceElements Element { get; set; }
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public Printer(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "Printer") { }
 
         public override void AddResource(Resource resource)
-        {
-            throw new NotImplementedException();
-        }
-
-        public override bool CheckIfReady()
         {
             throw new NotImplementedException();
         }

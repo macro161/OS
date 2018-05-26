@@ -12,15 +12,17 @@ namespace MOS.Resources
     {
         public Process Receiver { get; set; }
         public Process Sender { get; set; }
-        public string Value { get; set; }
+        public string MemoryByte { get; set; }
+        public int Lenght { get; set; }
         public VMForm ResourceGUI { get; set; }
 
-        public IOResourceElements(string value = "", Process receiver = null, Process sender = null, VMForm resourceGUI = null)
+        public IOResourceElements(string memoryByte = "", int lenght = 0, Process receiver = null, Process sender = null, VMForm resourceGUI = null)
         {
             ResourceGUI = resourceGUI;
             Receiver = receiver;
             Sender = sender;
-            Value = value;
+            MemoryByte = memoryByte;
+            Lenght = lenght;
         }
     }
 }
