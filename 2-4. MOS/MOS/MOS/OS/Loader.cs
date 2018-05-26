@@ -9,6 +9,8 @@ namespace MOS.OS
 {
     class Loader : Process
     {
+        public MemoryInfoResourceElement Element { get; set; }
+
         public Loader(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "Loader") { }
 
         public override void AddResource(Resource resource)

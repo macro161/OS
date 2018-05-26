@@ -9,6 +9,8 @@ namespace MOS.OS
 {
     class Read : Process
     {
+        public ResElement Element { get; set; }
+
         public Read(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "Read") { }
 
         public List<String> flashData = new List<String>();
@@ -23,8 +25,8 @@ namespace MOS.OS
         {
             switch (Pointer)
             {
-                /*case 0:
-                    string flashLocation = Resources[Pointer].Data;
+                case 0:
+                    string flashLocation = Element.Value;
                     string line;
 
                     System.IO.StreamReader file = new System.IO.StreamReader(@"" + flashLocation);
@@ -37,9 +39,9 @@ namespace MOS.OS
 
                 case 1:
                     SupervisoryMemory.Memory = flashData;
-                    Resource taskInSupervisoryMemory = new Resource(Kernel, "TASKINSUPERVISORYMEMORY", this, 1, "");
+                    Resource taskInSupervisoryMemory = new Resource(Kernel, "TASKINSUPERVISORYMEMORY", this);
                     Kernel.dynamicResources.Add(taskInSupervisoryMemory);
-                    break;*/
+                    break;
             }
         }
 

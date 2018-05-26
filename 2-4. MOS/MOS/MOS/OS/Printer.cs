@@ -10,7 +10,7 @@ namespace MOS.OS
 {
     class Printer : Process
     {
-        VMForm vm;
+        public IOResourceElements _resourceElement { get; set; }
 
         public Printer(Kernel kernel, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, priority, status, resources, id, pointer, "Printer") { }
 

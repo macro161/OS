@@ -1,4 +1,5 @@
-﻿using MOS.OS;
+﻿using MOS.GUI;
+using MOS.OS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace MOS.Resources
 {
-    class MemoryInfoResourceElement
+    class IOResourceElements
     {
         public Process Receiver { get; set; }
         public Process Sender { get; set; }
         public string Value { get; set; }
-        public int Ptr  { get; set; }
+        public VMForm ResourceGUI { get; set; }
 
-        public MemoryInfoResourceElement(int ptr,  string value, Process receiver = null, Process sender = null)
+        public IOResourceElements(string value = "", Process receiver = null, Process sender = null, VMForm resourceGUI = null)
         {
-            Ptr = ptr;
+            ResourceGUI = resourceGUI;
             Receiver = receiver;
             Sender = sender;
             Value = value;

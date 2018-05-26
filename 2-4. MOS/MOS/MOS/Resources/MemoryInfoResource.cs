@@ -13,10 +13,6 @@ namespace MOS.Resources
         {
         }
 
-        List<MemoryResourceElement> resourceElements = new List<MemoryResourceElement>();
-
-        public int ElementAmount { get; set; }
-
-        public int FreeElements { get; set; }
+        List<MemoryInfoResourceElement> resourceElements = new List<MemoryInfoResourceElement>();
     }
 }
