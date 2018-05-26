@@ -83,7 +83,6 @@
     <Compile Include="OS\Loader.cs" />
     <Compile Include="OS\MainProc.cs" />
     <Compile Include="OS\Kernel.cs" />
-    <Compile Include="OS\Semaphore.cs" />
     <Compile Include="Resources\MemoryInfoResource.cs" />
     <Compile Include="Resources\MemoryInfoResourceElement.cs" />
     <Compile Include="Resources\MemoryResource.cs" />
