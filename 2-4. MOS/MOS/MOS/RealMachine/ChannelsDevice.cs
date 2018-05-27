@@ -35,6 +35,17 @@ namespace MOS.RealMachine
                 HardDisk.ProgramList.Add(program);
             }
         }
+
+        public static void XCHG(int trackNumber, string [] track)
+        {
+            for (int i = 0; i < 16 ;i++)
+            {
+                RealMachine.memory.WriteAt(trackNumber,i,track[i]);
+            }
+        }
+
+         
+
         public void XCHG()
         {
             string returnString = "";
