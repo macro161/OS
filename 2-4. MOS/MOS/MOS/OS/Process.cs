@@ -35,8 +35,6 @@ namespace MOS.OS
             Father = father;
         }
 
-        public abstract void AddResource(Resource resource);
-
         public abstract void Run();
 
         public abstract void DecrementPriority();
@@ -62,7 +60,7 @@ namespace MOS.OS
             {
                 Kernel.ready.Remove(this);
             }
-            else
+            else if (Status == (int)ProcessState.Blocked)
             {
                 Kernel.blocked.Remove(this);
             }
@@ -74,7 +72,7 @@ namespace MOS.OS
                 {
                     Kernel.blocked.Remove(childProcess);
                 }
-                else
+                else if(Status == (int)ProcessState.Blocked)
                 {
                     Kernel.ready.Remove(childProcess);
                 }

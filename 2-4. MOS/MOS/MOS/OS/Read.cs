@@ -16,12 +16,6 @@ namespace MOS.OS
 
         public List<String> flashData = new List<String>();
 
-        public override void AddResource(Resource resource)
-        {
-            throw new NotImplementedException();
-
-        }
-
         public override void Run()
         {
             flashData = new List<String>();

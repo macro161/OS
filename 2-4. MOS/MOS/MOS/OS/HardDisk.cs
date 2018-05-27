@@ -29,13 +29,5 @@ namespace MOS.OS
             }
             return names;
         }
-
-        public static event PropertyChangedEventHandler PropertyChanged;
-
-        private static void RaisePropertyChangedEvent(string propertyName)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (PropertyChanged != null) handler(null, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

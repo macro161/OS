@@ -17,12 +17,7 @@ namespace MOS.OS
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public JobGovernor(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "MainProc") { }
-
-        public override void AddResource(Resource resource)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public override void DecrementPriority()
         {
         }
@@ -57,20 +52,28 @@ namespace MOS.OS
                     Process vm = new VirtualMachine.VirtualMachine(Kernel, this, 50, (int)ProcessState.Ready, new List<Resource>(), Guid.NewGuid(), 0, TaskInDiskElement.Value);
                     Kernel.ready.Add(vm);
                     MOS.Program.RunVM(this);
+                    Childrens.Add(vm);
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT").AskForResource(this);
                     break;
                 case 4:
+                    Childrens[0].Status = (int)ProcessState.ReadyStopped;
+                    Kernel.ready.Remove(Childrens[0]);
                     var value = Element.Value;
                     if (value == "notIO")
                     {
-                        DeleteProcess();
+                        Childrens[0].DeleteProcess();
+                        Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").ReleaseResource(new ResourceElement(sender: this));
                     }
                     else if (value == "input")
                     {
                         Pointer = 5;
                         Kernel.staticResources.First(res => res.Key.Name == "LINEFROMUSER").Key.AskForResource(this);
                     }
-                    else if (value == "output")
+                    else if(value == "timer")
+                    {
+                        Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT").AskForResource(this);
+                    }
+                    else if(value == "output")
                     {
                         Pointer = 6;
                         Kernel.dynamicResources.First(res => res.Name == "LINEINMEMORY").ReleaseResource(new IOResourceElements(""));

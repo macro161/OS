@@ -37,12 +37,7 @@ namespace MOS.OS
         //};
 
         public JCL(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "JCL") { }
-
-        public override void AddResource(Resource resource)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public override void DecrementPriority()
         {
 

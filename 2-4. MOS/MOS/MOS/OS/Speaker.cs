@@ -14,14 +14,9 @@ namespace MOS.OS
 
         public Speaker(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "Read") { }
 
-        public override void AddResource(Resource resource)
-        {
-            throw new NotImplementedException();
-        }
 
         public override void DecrementPriority()
         {
-            throw new NotImplementedException();
         }
 
         public override void Run()
@@ -31,36 +26,19 @@ namespace MOS.OS
             {
                 case 0:
                     Pointer = 1;
-                    Status = (int)ProcessState.Blocked;
-                    if (Kernel.ready.Contains(this))
-                    {
-                        Kernel.ready.Remove(this);
-                    }
-                    Kernel.blocked.Add(this);
                     Kernel.dynamicResources.First(res => res.Name == "BEEPER").AskForResource(this);
 
                     break;
                 case 1:
                     Pointer = 2;
-                    Status = (int)ProcessState.Blocked;
-                    if (Kernel.ready.Contains(this))
-                    {
-                        Kernel.ready.Remove(this);
-                    }
-                    Kernel.blocked.Add(this);
                     Kernel.staticResources.First(res => res.Key.Name == "CHAN1").Key.AskForResource(this);
 
                     break;
                 case 2:
-                    Status = (int)ProcessState.Blocked;
-                    if (Kernel.ready.Contains(this))
-                    {
-                        Kernel.ready.Remove(this);
-                    }
-                    Kernel.blocked.Add(this);
-                    
+
                     Beep(Pointer);
                     Pointer = 0;
+                    Kernel.staticResources.First(res => res.Key.Name == "CHAN1").Key.ReleaseResource();
                     break;
             }
 

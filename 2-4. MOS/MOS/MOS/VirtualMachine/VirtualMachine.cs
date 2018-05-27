@@ -572,12 +572,7 @@ namespace MOS.VirtualMachine
             }
             RealMachine.RealMachine.ti.DecrementTI();
         }
-
-        public override void AddResource(Resource resource)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public override void Run()
         {
             throw new NotImplementedException();

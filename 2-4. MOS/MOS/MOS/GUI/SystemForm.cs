@@ -17,6 +17,7 @@ namespace MOS.GUI
         public BindingSource sys = new BindingSource();
         public static List<string> list = new List<string>();
         public List<string> names = new List<string>();
+        public string path;
 
         public SystemForm()
         {
@@ -32,12 +33,13 @@ namespace MOS.GUI
 
         private void mountFlashB_Click(object sender, EventArgs e)
         {
-            string path = ShowFileDialog();
+            path = ShowFileDialog();
         }
 
         private void runAllProgramsB_Click(object sender, EventArgs e)
         {
-
+            RealMachine.RealMachine rm = new RealMachine.RealMachine();
+           // Kernel.dynamicResources.First(res => res.Name == "FILEINPUT").ReleaseResource(new Resources.IOResourceElements(path));
         }
 
         private void runSelectedB_Click(object sender, EventArgs e)

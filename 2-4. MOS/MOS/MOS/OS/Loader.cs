@@ -15,14 +15,8 @@ namespace MOS.OS
 
         public Loader(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "Loader") { }
 
-        public override void AddResource(Resource resource)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void DecrementPriority()
         {
-            throw new NotImplementedException();
         }
 
         public override void Run()
@@ -89,7 +83,7 @@ namespace MOS.OS
 
                         ChannelsDevice.XCHG(tracks[i], dataToSend);
                     }
-
+                    Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.ReleaseResource();
                     break;
 
                     
