@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MOS.Enums;
 
 namespace MOS.OS
 {
@@ -27,7 +28,24 @@ namespace MOS.OS
         public override void Run()
         {
             Log.Info("Main process is running.");
-            throw new NotImplementedException();
+            switch (Pointer)
+            {
+                case 0:
+                    Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").AskForResource(this);
+                    Pointer = 1;
+                    break;
+                case 1:
+                    if (Element.Value == "0")
+                    {
+                        JobGovernor jg = new JobGovernor(Kernel, this, 80, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
+                        Childrens.Add(jg);
+                    }
+                    else
+                    {
+                        Childrens.First(x => x.Id == Element.Sender.Id).DeleteProcess();
+                    }
+                    break;
+            }
         }
     }
 }

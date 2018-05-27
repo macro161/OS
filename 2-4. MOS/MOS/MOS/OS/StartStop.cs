@@ -114,7 +114,9 @@ namespace MOS.OS
                     break;
                 case 1:
                     Log.Info("");
+                    this.DeleteProcess();
                     System.Environment.Exit(1);
+                    
                     break;
 
             }
