@@ -24,9 +24,7 @@ namespace MOS.OS
             JobToDisk jobToDisk = new JobToDisk(Kernel, this, 98, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
             Loader loader = new Loader(Kernel, this, 97, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
             MainProc mainProc = new MainProc(Kernel, this, 96, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            SwapBack swapBack = new SwapBack(Kernel, this, 95, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
             Interupt interupt = new Interupt(Kernel, this, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            ChanDevice chanDevice = new ChanDevice(Kernel, this, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
             Speaker speaker = new Speaker(Kernel, this, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
             Printer printer = new Printer(Kernel, this, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
 
@@ -35,9 +33,7 @@ namespace MOS.OS
             Kernel.ready.Add(jobToDisk);
             Kernel.ready.Add(loader);
             Kernel.ready.Add(mainProc);
-            Kernel.ready.Add(swapBack);
             Kernel.ready.Add(interupt);
-            Kernel.ready.Add(chanDevice);
             Kernel.ready.Add(speaker);
             Kernel.ready.Add(printer);
 
@@ -91,12 +87,8 @@ namespace MOS.OS
             Kernel.dynamicResources.Add(interrupt);
             Kernel.dynamicResources.Add(lineInMemory);
             Kernel.dynamicResources.Add(lineFromUser);
+            Kernel.dynamicResources.Add(beep);
 
-        }
-
-        public override void AddResource(Resource resource)
-        {
-            throw new NotImplementedException();
         }
 
         public override void Run()
@@ -108,12 +100,10 @@ namespace MOS.OS
                     Log.Info("Initializing system resources and processes.");
                     InitSystemProcesesAndResources();
                     Pointer++;
-                    Status = (int)ProcessState.Blocked;
-                    Kernel.blocked.Add(this);
-                    Kernel.Planner();
+                    Kernel.staticResources.First(res => res.Key.Name == "MOSEND").Key.AskForResource(this);
                     break;
                 case 1:
-                    Log.Info("");
+                    Log.Info("Exiting");
                     this.DeleteProcess();
                     System.Environment.Exit(1);
                     
@@ -124,7 +114,6 @@ namespace MOS.OS
 
         public override void DecrementPriority()
         {
-            throw new NotImplementedException();
         }
     }
 }

@@ -35,8 +35,9 @@ namespace MOS.OS
                     Pointer = 1;
                     break;
                 case 1:
+                    Pointer = 0;
                     Log.Info("Identifying interrupt.");
-                    if (RealMachine.RealMachine.pi.PI >0|| RealMachine.RealMachine.ti.TI == 0 || RealMachine.RealMachine.si.SI == 3)
+                    if (RealMachine.RealMachine.pi.PI > 0|| RealMachine.RealMachine.si.SI == 3)
                         Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT")
                             .ReleaseResource(new InterruptResourceElement(null, "notIO", Element.JobGoverner, null));
                     else if(RealMachine.RealMachine.si.SI == 1)
@@ -48,7 +49,9 @@ namespace MOS.OS
                     else if (RealMachine.RealMachine.si.SI == 4)
                         Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT")
                             .ReleaseResource(new InterruptResourceElement(null, "byp", Element.JobGoverner, null));
-
+                    else if (RealMachine.RealMachine.ti.TI == 0)
+                        Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT")
+                            .ReleaseResource(new InterruptResourceElement(null, "timer", Element.JobGoverner, null));
                     break;
             }
         }

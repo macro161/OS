@@ -15,14 +15,8 @@ namespace MOS.OS
 
         public MainProc(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "MainProc") { }
 
-        public override void AddResource(Resource resource)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void DecrementPriority()
         {
-            throw new NotImplementedException();
         }
 
         public override void Run()
@@ -44,7 +38,7 @@ namespace MOS.OS
                     }
                     else
                     {
-                        Childrens.First(x => x.Id == Element.Sender.Id).DeleteProcess();
+                        Element.Sender.DeleteProcess();
                     }
                     Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").AskForResource(this);
                     break;
