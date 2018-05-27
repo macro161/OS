@@ -57,7 +57,7 @@ namespace MOS.VirtualMachine
         void test()
         {
             if (RealMachine.RealMachine.si.SI > 0 || RealMachine.RealMachine.ti.TI == 0 || RealMachine.RealMachine.pi.PI > 0)
-                Kernel.dynamicResources.First(res => res.Name == "INTERRUPT").ReleaseResource(new InterruptResourceElement(Father, "", null, Father));
+                Kernel.dynamicResources.First(res => res.Name == "INTERRUPT").ReleaseResource(new InterruptResourceElement(Father));
         }
 
         private void halt()

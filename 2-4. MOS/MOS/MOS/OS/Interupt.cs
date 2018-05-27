@@ -36,18 +36,18 @@ namespace MOS.OS
                     break;
                 case 1:
                     Log.Info("Identifying interrupt.");
-                    if(RealMachine.RealMachine.pi.PI >0|| RealMachine.RealMachine.ti.TI == 0 || RealMachine.RealMachine.si.SI == 3)
+                    if (RealMachine.RealMachine.pi.PI >0|| RealMachine.RealMachine.ti.TI == 0 || RealMachine.RealMachine.si.SI == 3)
                         Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT")
-                            .ReleaseResource(new InterruptResourceElement(null, "notIO", Resources.First().Elements.First().Sender, null));
+                            .ReleaseResource(new InterruptResourceElement(null, "notIO", Element.JobGoverner, null));
                     else if(RealMachine.RealMachine.si.SI == 1)
                         Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT")
-                            .ReleaseResource(new InterruptResourceElement(null, "input", Resources.First().Elements.First().Sender, null));
+                            .ReleaseResource(new InterruptResourceElement(null, "input", Element.JobGoverner, null));
                     else if (RealMachine.RealMachine.si.SI == 2)
                         Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT")
-                            .ReleaseResource(new InterruptResourceElement(null, "output", Resources.First().Elements.First().Sender, null));
+                            .ReleaseResource(new InterruptResourceElement(null, "output", Element.JobGoverner, null));
                     else if (RealMachine.RealMachine.si.SI == 4)
                         Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT")
-                            .ReleaseResource(new InterruptResourceElement(null, "pyp", Resources.First().Elements.First().Sender, null));
+                            .ReleaseResource(new InterruptResourceElement(null, "byp", Element.JobGoverner, null));
 
                     break;
             }

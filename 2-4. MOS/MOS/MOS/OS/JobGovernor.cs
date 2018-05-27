@@ -58,7 +58,7 @@ namespace MOS.OS
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT").AskForResource(this);
                     break;
                 case 4:
-                    var value = Resources.First().Elements.First().Value;
+                    var value = Element.Value;
                     if(value == "notIO")
                     {
                         DeleteProcess();
@@ -71,7 +71,7 @@ namespace MOS.OS
                     else if(value == "output")
                     {
                         Pointer = 6;
-                        Kernel.dynamicResources.First(res => res.Name == "LINEINMEMORY").ReleaseResource();
+                        Kernel.dynamicResources.First(res => res.Name == "LINEINMEMORY").ReleaseResource(new IOResourceElements(""));
 
                     }
                     else if(value == "byp")
