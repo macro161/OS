@@ -31,20 +31,22 @@ namespace MOS.OS
             switch (Pointer)
             {
                 case 0:
-                    Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").AskForResource(this);
                     Pointer = 1;
+                    Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").AskForResource(this);
                     break;
                 case 1:
                     if (Element.Value == "1")
                     {
-                        Pointer = 0;
-                        JobGovernor jg = new JobGovernor(Kernel, this, 80, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
+                        JobGovernor jg = new JobGovernor(Kernel, this, 80, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>(Resources.Where(res => res.Name == "TASKINDISK")));
+                        Kernel.ready.Add(jg);
                         Childrens.Add(jg);
+                        jg.TaskInDiskElement = Element;
                     }
                     else
                     {
                         Childrens.First(x => x.Id == Element.Sender.Id).DeleteProcess();
                     }
+                    Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").AskForResource(this);
                     break;
             }
         }

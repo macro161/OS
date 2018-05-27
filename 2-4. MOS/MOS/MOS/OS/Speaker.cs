@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MOS.Enums;
 
 namespace MOS.OS
 {
@@ -26,9 +27,45 @@ namespace MOS.OS
         public override void Run()
         {
             Log.Info("Speaker process is running.");
-            Beep(Pointer);
-        }
+            switch (Pointer)
+            {
+                case 0:
+                    Pointer = 1;
+                    Status = (int)ProcessState.Blocked;
+                    if (Kernel.ready.Contains(this))
+                    {
+                        Kernel.ready.Remove(this);
+                    }
+                    Kernel.blocked.Add(this);
+                    Kernel.dynamicResources.First(res => res.Name == "BEEPER").AskForResource(this);
 
+                    break;
+                case 1:
+                    Pointer = 2;
+                    Status = (int)ProcessState.Blocked;
+                    if (Kernel.ready.Contains(this))
+                    {
+                        Kernel.ready.Remove(this);
+                    }
+                    Kernel.blocked.Add(this);
+                    Kernel.staticResources.First(res => res.Key.Name == "CHAN1").Key.AskForResource(this);
+
+                    break;
+                case 2:
+                    Status = (int)ProcessState.Blocked;
+                    if (Kernel.ready.Contains(this))
+                    {
+                        Kernel.ready.Remove(this);
+                    }
+                    Kernel.blocked.Add(this);
+                    
+                    Beep(Pointer);
+                    Pointer = 0;
+                    break;
+            }
+
+            
+        }
         public static void Beep(int x)
         {
             Console.Beep(2000, x * 1000);

@@ -15,7 +15,6 @@ namespace MOS.OS
         public StartStop(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "StartStop")
         {
 
-            ResourcesINeed[0] = "MOSEND";
         }
 
         public void InitSystemProcesesAndResources() //nezinojau ka prie to poiterio rasyt tai 0 parasiau
@@ -77,6 +76,7 @@ namespace MOS.OS
             Resource interrupt = new InterruptResource(Kernel, "INTERRUPT", this);
             Resource lineInMemory = new IOResource(Kernel, "LINEINMEMORY", this);
             Resource lineFromUser = new Resource(Kernel, "LINEFROMUSER", this);
+            Resource beep = new Resource(Kernel,"BEEPER", this);
 
             //Dinaminių resursų pridėjimas prie sąrašo.
             Kernel.dynamicResources.Add(filePath);

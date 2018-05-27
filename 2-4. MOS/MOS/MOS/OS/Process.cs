@@ -20,7 +20,6 @@ namespace MOS.OS
         public Kernel Kernel { get; private set; }
         public List<Process> Childrens { get; set; }
         public string Name { get; private set; }
-        public List<string> ResourcesINeed = new List<string>();
 
 
         public Process(Kernel kernel, Process father, int priority, int status, List<Resource> resources, Guid id, int pointer, string name)
