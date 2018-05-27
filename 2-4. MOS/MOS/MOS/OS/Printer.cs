@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MOS.Enums;
 
 namespace MOS.OS
 {
@@ -28,7 +29,35 @@ namespace MOS.OS
         public override void Run()
         {
             Log.Info("Print process is running.");
-            throw new NotImplementedException();
+            switch (Pointer)
+            {
+                case 0:
+                    Pointer = 1;
+                    Status = (int)ProcessState.Blocked;
+                    if (Kernel.ready.Contains(this))
+                    {
+                        Kernel.ready.Remove(this);
+                    }
+                    Kernel.blocked.Add(this);
+                    Kernel.dynamicResources.First(res => res.Name == "TASKINSUPERVISORY").AskForResource(this);
+                    
+                    break;
+                case 1:
+                    Pointer = 2;
+                    Status = (int)ProcessState.Blocked;
+                    if (Kernel.ready.Contains(this))
+                    {
+                        Kernel.ready.Remove(this);
+                    }
+                    Kernel.blocked.Add(this);
+                    Kernel.staticResources.First(res => res.Key.Name == "CHAN3").Key.AskForResource(this);
+
+                    break;
+                case 2:
+                    
+                    break;
+
+            }
         }
 
         public void Print(string line)

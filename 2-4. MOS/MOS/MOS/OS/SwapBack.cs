@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MOS.Enums;
 
 namespace MOS.OS
 {
@@ -26,7 +27,33 @@ namespace MOS.OS
         public override void Run()
         {
             Log.Info("SwapBack process running.");
-            throw new NotImplementedException();
+
+            switch (Pointer)
+            {
+                case 0:
+                    Status = (int)ProcessState.Blocked;
+                    if (Kernel.ready.Contains(this))
+                    {
+                        Kernel.ready.Remove(this);   
+                    }
+                    Kernel.blocked.Add(this);
+
+                    Kernel.staticResources.First(res => res.Key.Name == "USERMEMORY").Key.AskForResource(this);
+                    Pointer = 1;
+
+                    break;
+                case 1:
+                    Status = (int)ProcessState.Blocked;
+                    if (Kernel.ready.Contains(this))
+                    {
+                        Kernel.ready.Remove(this);
+                    }
+                    Kernel.blocked.Add(this);
+                    Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.AskForResource(this);
+                    Pointer = 0;
+
+                    break;
+            }
         }
     }
 }

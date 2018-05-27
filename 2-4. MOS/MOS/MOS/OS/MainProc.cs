@@ -35,8 +35,9 @@ namespace MOS.OS
                     Pointer = 1;
                     break;
                 case 1:
-                    if (Element.Value == "0")
+                    if (Element.Value == "1")
                     {
+                        Pointer = 0;
                         JobGovernor jg = new JobGovernor(Kernel, this, 80, (int)ProcessState.Blocked, Guid.NewGuid(), 0, null);
                         Childrens.Add(jg);
                     }
