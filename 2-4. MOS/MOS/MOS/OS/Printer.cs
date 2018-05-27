@@ -54,7 +54,22 @@ namespace MOS.OS
 
                     break;
                 case 2:
-                    
+                    string message = "";
+                    int x = Element.MemoryByte.Substring(0,2).ToHex();
+                    int y = Element.MemoryByte.Substring(2, 2).ToHex();
+
+                    for (int i = 0; i < Element.Lenght; i++ )
+                    {
+                        message = message + RealMachine.RealMachine.memory.StringAt(x, y).ToHex();
+                        y++;
+                        if (y > 15)
+                        {
+                            y = 0;
+                            x++;
+                        }
+                    }
+
+                    //Element.ResourceGUI.Print(message); CIA SUTVARKYS GRETA
                     break;
 
             }

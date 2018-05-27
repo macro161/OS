@@ -55,8 +55,6 @@ namespace MOS.OS
                     Kernel.ready.Add(vm);
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT").AskForResource(this);
                     break;
-
-
             }
         }
     }
