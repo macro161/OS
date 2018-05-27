@@ -15,13 +15,19 @@ namespace MOS.GUI
     public partial class SystemForm : Form
     {
         public BindingSource sys = new BindingSource();
+        public static List<string> list = new List<string>();
+        public List<string> names = new List<string>();
 
         public SystemForm()
         {
             InitializeComponent();
-            HardDisk hd = new HardDisk();
-            sys.DataSource = hd;
-            listBox.DataBindings.Add("Text", hd, "ProgramList");
+            names = list;
+            listBox.DataSource = names;
+        }
+
+        public static void SetPrograms(List<string> names)
+        {
+            list = names;
         }
 
         private void mountFlashB_Click(object sender, EventArgs e)
@@ -42,7 +48,7 @@ namespace MOS.GUI
         public static string ShowFileDialog()
         {
             string selectedPath = "";
-            var t = new Thread((ThreadStart)(() =>
+            var t = new Thread(() =>
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
@@ -50,7 +56,7 @@ namespace MOS.GUI
                 openFileDialog.ShowDialog();
                 selectedPath = openFileDialog.FileName;
                 Console.WriteLine(openFileDialog.FileName);
-            }));
+            });
             t.SetApartmentState(ApartmentState.STA);
             t.Start();
 

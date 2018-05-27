@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MOS.OS;
+using MOS.Resources;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,28 +12,26 @@ using System.Windows.Forms;
 
 namespace MOS.GUI
 {
-    public partial class VMForm : Form
+    partial class VMForm : Form
     {
-        public Guid id;
+        public JobGovernor jg;
 
-        public VMForm(Guid id)
+        public VMForm(JobGovernor jg)
         {
-            this.id = id;
+            this.jg = jg;
             InitializeComponent();
         }
 
-        public void Print(Guid id, string line)
+        public void Print(string line)
         {
-            if(this.id == id)
-            {
-                textBox.AppendText(line);
-                textBox.AppendText(Environment.NewLine);
-            }
+            textBox.AppendText(line);
+            textBox.AppendText(Environment.NewLine);
         }
 
         private void textBoxUser_Enter(object sender, EventArgs e)
         {
-
+            jg.Kernel.dynamicResources.First(res => res.Name == "LINEFROMUSER")
+                .ReleaseResource(new IOResourceElements(textBoxUser.Text,"", 0, jg, null, this));
         }
     }
 }

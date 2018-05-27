@@ -1,5 +1,6 @@
 ﻿using log4net;
 using log4net.Appender;
+using MOS.OS;
 using System;
 using System.IO;
 using System.Threading;
@@ -27,9 +28,18 @@ namespace MOS
             Application.SetCompatibleTextRenderingDefault(false);
             //    var file = new RealMachine.ChannelsDevice();
             //    file.ReadFromFlash();
+            //new Thread(() =>
+            //{
+            //    Application.Run(new GUI.RMform(realMachine));
+            //}).Start();
             new Thread(() =>
             {
-                Application.Run(new GUI.RMform(realMachine));
+                Application.Run(new GUI.SystemForm());
+            }).Start();
+
+            new Thread(() =>
+            {
+                Application.Run(new RealMachine.LoggerTextBox());
             }).Start();
 
 
@@ -41,6 +51,14 @@ namespace MOS
             //log.Info("_log info");
             //logging.Update();
             //Application.Run(new Form1());
+        }
+
+        public static void RunVM(JobGovernor jg)
+        {
+            new Thread(() =>
+            {
+                Application.Run(new GUI.VMForm(jg));
+            }).Start();
         }
     }
 }

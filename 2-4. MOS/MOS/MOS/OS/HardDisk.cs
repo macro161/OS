@@ -15,8 +15,19 @@ namespace MOS.OS
         {
             get => programList; set
             {
-                programList = value; RaisePropertyChangedEvent("ProgramList");
+                programList = value;
+                GUI.SystemForm.SetPrograms(GetNames());
             }
+        }
+
+        public static List<string> GetNames()
+        {
+            List<string> names = new List<string>();
+            foreach (var pr in ProgramList)
+            {
+                names.Add(pr.name);
+            }
+            return names;
         }
 
         public static event PropertyChangedEventHandler PropertyChanged;

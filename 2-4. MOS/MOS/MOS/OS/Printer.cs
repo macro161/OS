@@ -69,15 +69,14 @@ namespace MOS.OS
                         }
                     }
 
-                    //Element.ResourceGUI.Print(message); CIA SUTVARKYS GRETA
+                    Print(message);
                     break;
-
             }
         }
 
         public void Print(string line)
         {
-            //vm.Print(Id, line);
+            Element.ResourceGUI.Print(line);
         }
     }
 }

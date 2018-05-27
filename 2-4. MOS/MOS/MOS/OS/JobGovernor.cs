@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MOS.Enums;
 using MOS.Resources;
@@ -55,31 +56,39 @@ namespace MOS.OS
                     Pointer = 4;
                     Process vm = new VirtualMachine.VirtualMachine(Kernel, this, 50, (int)ProcessState.Ready, new List<Resource>(), Guid.NewGuid(), 0, TaskInDiskElement.Value);
                     Kernel.ready.Add(vm);
+                    MOS.Program.RunVM(this);
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT").AskForResource(this);
                     break;
                 case 4:
                     var value = Element.Value;
-                    if(value == "notIO")
+                    if (value == "notIO")
                     {
                         DeleteProcess();
                     }
-                    else if(value == "input")
+                    else if (value == "input")
                     {
                         Pointer = 5;
-                        Kernel.staticResources.First(res => res.Key.Name == "CHAN2").Key.AskForResource(this);
+                        Kernel.staticResources.First(res => res.Key.Name == "LINEFROMUSER").Key.AskForResource(this);
                     }
-                    else if(value == "output")
+                    else if (value == "output")
                     {
                         Pointer = 6;
                         Kernel.dynamicResources.First(res => res.Name == "LINEINMEMORY").ReleaseResource(new IOResourceElements(""));
 
                     }
-                    else if(value == "byp")
+                    else if (value == "byp")
                     {
                         Pointer = 7;
                         Kernel.dynamicResources.First(res => res.Name == "BEEPER").ReleaseResource();
                     }
                     break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+
             }
         }
     }
