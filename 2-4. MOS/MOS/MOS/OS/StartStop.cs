@@ -77,6 +77,7 @@ namespace MOS.OS
             Resource interrupt = new InterruptResource(Kernel, "INTERUPT", this);
             Resource lineInMemory = new IOResource(Kernel, "LINEINMEMORY", this);
             Resource lineFromUser = new Resource(Kernel, "LINEFROMUSER", this);
+            Resource beep = new Resource(Kernel,"BEEPER", this);
 
             //Dinaminių resursų pridėjimas prie sąrašo.
             Kernel.dynamicResources.Add(filePath);
