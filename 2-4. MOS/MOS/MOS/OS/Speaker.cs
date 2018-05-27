@@ -37,7 +37,7 @@ namespace MOS.OS
                         Kernel.ready.Remove(this);
                     }
                     Kernel.blocked.Add(this);
-                    Kernel.dynamicResources.First(res => res.Name == "TASKINSUPERVISORY").AskForResource(this);
+                    Kernel.dynamicResources.First(res => res.Name == "BEEPER").AskForResource(this);
 
                     break;
                 case 1:
@@ -48,7 +48,7 @@ namespace MOS.OS
                         Kernel.ready.Remove(this);
                     }
                     Kernel.blocked.Add(this);
-                    Kernel.staticResources.First(res => res.Key.Name == "CHAN3").Key.AskForResource(this);
+                    Kernel.staticResources.First(res => res.Key.Name == "CHAN1").Key.AskForResource(this);
 
                     break;
                 case 2:
