@@ -55,6 +55,29 @@ namespace MOS.OS
                     Kernel.ready.Add(vm);
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT").AskForResource(this);
                     break;
+                case 4:
+                    var value = Resources.First().Elements.First().Value;
+                    if(value == "notIO")
+                    {
+                        DeleteProcess();
+                    }
+                    else if(value == "input")
+                    {
+                        Pointer = 5;
+                        Kernel.staticResources.First(res => res.Key.Name == "CHAN2").Key.AskForResource(this);
+                    }
+                    else if(value == "output")
+                    {
+                        Pointer = 6;
+                        Kernel.dynamicResources.First(res => res.Name == "LINEINMEMORY").ReleaseResource();
+
+                    }
+                    else if(value == "byp")
+                    {
+                        Pointer = 7;
+                        Kernel.dynamicResources.First(res => res.Name == "BEEPER").ReleaseResource();
+                    }
+                    break;
             }
         }
     }

@@ -74,7 +74,7 @@ namespace MOS.OS
             Resource loaderPacket = new MemoryInfoResource(Kernel, "LOADERPACKET", this);
             Resource fromLoader = new Resource(Kernel, "FROMLOADER", loader);
             Resource fromInterrupt = new Resource(Kernel, "FROMINTERRUPT", interupt);
-            Resource interrupt = new InterruptResource(Kernel, "INTERUPT", this);
+            Resource interrupt = new InterruptResource(Kernel, "INTERRUPT", this);
             Resource lineInMemory = new IOResource(Kernel, "LINEINMEMORY", this);
             Resource lineFromUser = new Resource(Kernel, "LINEFROMUSER", this);
 

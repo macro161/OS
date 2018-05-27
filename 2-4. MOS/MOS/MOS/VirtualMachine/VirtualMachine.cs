@@ -5,6 +5,7 @@ using MOS.OS;
 using MOS.Resources;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MOS.VirtualMachine
 {
@@ -50,6 +51,13 @@ namespace MOS.VirtualMachine
             {
                 DoTask(command);
             }
+            test();
+        }
+
+        void test()
+        {
+            if (RealMachine.RealMachine.si.SI > 0 || RealMachine.RealMachine.ti.TI == 0 || RealMachine.RealMachine.pi.PI > 0)
+                Kernel.dynamicResources.First(res => res.Name == "INTERRUPT").ReleaseResource(new InterruptResourceElement(Father, "", null, Father));
         }
 
         private void halt()
