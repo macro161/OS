@@ -11,6 +11,8 @@ namespace MOS.OS
     class JobGovernor : Process
     {
         public ResourceElement Element { get; set; }
+        public ResourceElement TaskInDiskElement { get; set; }
+
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public JobGovernor(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "MainProc") { }
@@ -43,7 +45,7 @@ namespace MOS.OS
                         Kernel.staticResources[resource] = true;
                         Kernel.staticResources.First(res => res.Key.Name == "USERMEMORY").Key.AskForResource(this);
                     }
-                    Kernel.dynamicResources.First(res => res.Name == "LOADERPACKET").ReleaseResource(new MemoryInfoResourceElement(ptr, Element.Value));
+                    Kernel.dynamicResources.First(res => res.Name == "LOADERPACKET").ReleaseResource(new MemoryInfoResourceElement(ptr, TaskInDiskElement.Value));
                     break;
                 case 2:
                     Pointer = 3;
@@ -51,7 +53,7 @@ namespace MOS.OS
                     break;
                 case 3:
                     Pointer = 4;
-                    Process vm = new VirtualMachine.VirtualMachine(Kernel, this, 50, (int)ProcessState.Ready, new List<Resource>(), Guid.NewGuid(), 0, Element.Value);
+                    Process vm = new VirtualMachine.VirtualMachine(Kernel, this, 50, (int)ProcessState.Ready, new List<Resource>(), Guid.NewGuid(), 0, TaskInDiskElement.Value);
                     Kernel.ready.Add(vm);
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT").AskForResource(this);
                     break;

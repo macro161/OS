@@ -56,12 +56,15 @@ namespace MOS.OS
                 case 5:
                     Log.Info("Loading program into Hard Disk.");
                     Pointer = 6;
-                    ChannelsDevice cd = new ChannelsDevice
+                    if (!HardDisk.ProgramList.Any(prog => prog.name == PropElement.Lines[0]))
                     {
-                        ST = 2,
-                        DT = 3
-                    };
-                    cd.XCHG(new Program(PropElement.Lines[0], DataElement.Lines, CodeElement.Lines));
+                        ChannelsDevice cd = new ChannelsDevice
+                        {
+                            ST = 2,
+                            DT = 3
+                        };
+                        cd.XCHG(new Program(PropElement.Lines[0], DataElement.Lines, CodeElement.Lines));
+                    }
                     Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.ReleaseResource();
                     break;
                 case 6:
