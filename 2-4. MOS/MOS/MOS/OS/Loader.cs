@@ -8,7 +8,7 @@ using MOS.RealMachine;
 
 namespace MOS.OS
 {
-    class Loader : Process
+    public class Loader : Process
     {
         public MemoryInfoResourceElement Element { get; set; }
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

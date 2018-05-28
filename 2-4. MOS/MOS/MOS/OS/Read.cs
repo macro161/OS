@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class Read : Process
+    public class Read : Process
     {
         public ResourceElement Element { get; set; }
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

@@ -9,7 +9,7 @@ using MOS.Resources;
 
 namespace MOS.OS
 {
-    abstract class Process
+    public abstract class Process
     {
         public int Priority { get; set; }
         public int Status { get; set; }

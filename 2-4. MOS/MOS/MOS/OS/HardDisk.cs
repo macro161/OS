@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class HardDisk
+    public class HardDisk
     {
         private static List<Program> programList;
 

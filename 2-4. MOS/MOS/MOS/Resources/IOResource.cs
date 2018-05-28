@@ -9,7 +9,7 @@ using MOS.Resources;
 
 namespace MOS.Resources
 {
-    class IOResource : Resource
+     public  class IOResource : Resource
     {
         public new List<IOResourceElements> Elements { get; set; }
         public IOResource(Kernel kernel, string name, Process creator) : base(kernel, name, creator)

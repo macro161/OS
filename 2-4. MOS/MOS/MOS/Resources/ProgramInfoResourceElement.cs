@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MOS.Resources
 {
-    class ProgramInfoResourceElement : ResourceElement
+    public class ProgramInfoResourceElement : ResourceElement
     {
         public List<string> Lines{ get; set; }
 

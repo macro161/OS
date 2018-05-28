@@ -8,7 +8,7 @@ using MOS.Enums;
 
 namespace MOS.Resources
 {
-    class Resource
+    public class Resource
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public string Name { get; private set; }

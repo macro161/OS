@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class JobToDisk : Process
+    public class JobToDisk : Process
     {
         public ProgramInfoResourceElement PropElement { get; set; }
         public ProgramInfoResourceElement CodeElement { get; set; }

@@ -1,4 +1,5 @@
 ﻿using MOS.GUI;
+using MOS.OS;
 using MOS.Registers;
 using MOS.VirtualMachine;
 using System;
@@ -12,6 +13,7 @@ namespace MOS.RealMachine
     {
         public static ChannelsDevice cd = new ChannelsDevice();
         private static SupervisoryMemory sm1 = new SupervisoryMemory();
+        public Kernel Kernel { get; set; }
         public static IC_Reg ic = new IC_Reg();
         public static IOI_Reg ioi = new IOI_Reg();
         public static Mode_Reg mode = new Mode_Reg();
@@ -33,7 +35,10 @@ namespace MOS.RealMachine
         private static string pertraukimas;
         private static bool _runCode = false;
         private static bool _next;
-
+        public RealMachine(Kernel kernel)
+        {
+            Kernel = kernel;
+        }
         public string Komanda
         {
             get => paskutineKomanda;

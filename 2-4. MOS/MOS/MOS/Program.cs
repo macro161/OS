@@ -1,7 +1,10 @@
 ﻿using log4net;
 using log4net.Appender;
+using MOS.Enums;
 using MOS.OS;
+using MOS.Resources;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -20,7 +23,8 @@ namespace MOS
         static void Main()
         {
             Log.Info("****************************************************************************");
-            RealMachine.RealMachine realMachine = new RealMachine.RealMachine();
+            Kernel kernel = new Kernel();
+            RealMachine.RealMachine realMachine = new RealMachine.RealMachine(kernel);
             //realMachine.PowerOn();
             //Thread t = new Thread(realMachine.PowerOn);
             //t.Start();
@@ -34,16 +38,15 @@ namespace MOS
             //}).Start();
             new Thread(() =>
             {
-                Application.Run(new GUI.SystemForm());
+                Application.Run(new GUI.SystemForm(kernel));
             }).Start();
 
             new Thread(() =>
             {
                 Application.Run(new RealMachine.LoggerTextBox());
             }).Start();
-
-
-            Log.Info("So far only logs to bin/Debug/mylog");
+            realMachine.Kernel.ready.Add(new StartStop(kernel, null, 100, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>()));
+            kernel.Planner();
             //var logging = new LoggerTextBox();
             //Application.Run(logging);
             //Thread BackgroundThread = new Thread(()=> Application.Run(logging));

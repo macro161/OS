@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class JCL : Process
+    public class JCL : Process
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public List<String> fromMemory = new List<String>();

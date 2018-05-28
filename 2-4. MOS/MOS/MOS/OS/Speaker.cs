@@ -8,7 +8,7 @@ using MOS.Enums;
 
 namespace MOS.OS
 {
-    class Speaker : Process
+    public class Speaker : Process
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 

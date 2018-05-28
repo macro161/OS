@@ -9,7 +9,7 @@ using MOS.Resources;
 
 namespace MOS.OS
 {
-    class JobGovernor : Process
+    public class JobGovernor : Process
     {
         public ResourceElement Element { get; set; }
         public ResourceElement TaskInDiskElement { get; set; }

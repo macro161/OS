@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class Interupt : Process
+    public class Interupt : Process
     {
         public InterruptResourceElement Element { get; set; }
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);

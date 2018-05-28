@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class Kernel
+    public class Kernel
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public List<Process> ready = new List<Process>();

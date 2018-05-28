@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MOS.OS
 {
-    class StartStop : Process
+    public class StartStop : Process
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
@@ -105,10 +105,8 @@ namespace MOS.OS
                 case 1:
                     Log.Info("Exiting");
                     this.DeleteProcess();
-                    System.Environment.Exit(1);
-                    
+                    Environment.Exit(1);
                     break;
-
             }
         }
 

@@ -17,8 +17,13 @@ namespace MOS.GUI
         public BindingSource sys = new BindingSource();
         public static List<string> list = new List<string>();
         public List<string> names = new List<string>();
+        public Kernel Kernel { get; set; }
         public string path;
 
+        public SystemForm(Kernel kernel)
+        {
+            Kernel = kernel;
+        }
         public SystemForm()
         {
             InitializeComponent();
@@ -34,12 +39,13 @@ namespace MOS.GUI
         private void mountFlashB_Click(object sender, EventArgs e)
         {
             path = ShowFileDialog();
+            Kernel.dynamicResources.First(res => res.Name == "FILEINPUT").ReleaseResource(new Resources.IOResourceElements(path));
         }
 
         private void runAllProgramsB_Click(object sender, EventArgs e)
         {
-            RealMachine.RealMachine rm = new RealMachine.RealMachine();
-           // Kernel.dynamicResources.First(res => res.Name == "FILEINPUT").ReleaseResource(new Resources.IOResourceElements(path));
+            
+           Kernel.dynamicResources.First(res => res.Name == "FILEINPUT").ReleaseResource(new Resources.IOResourceElements(path));
         }
 
         private void runSelectedB_Click(object sender, EventArgs e)

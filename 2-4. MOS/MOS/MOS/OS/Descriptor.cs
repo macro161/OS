@@ -8,7 +8,7 @@ using MOS.VirtualMachine;
 
 namespace MOS.OS
 {
-    class Descriptor
+    public class Descriptor
     {
         public Guid descriptorId;
 

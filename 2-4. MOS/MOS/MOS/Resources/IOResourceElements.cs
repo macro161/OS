@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MOS.Resources
 {
-    class IOResourceElements : ResourceElement
+    public class IOResourceElements : ResourceElement
     {
         public string MemoryByte { get; set; }
         public int Lenght { get; set; }

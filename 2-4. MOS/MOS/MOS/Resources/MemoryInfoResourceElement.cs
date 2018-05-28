@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MOS.Resources
 {
-    class MemoryInfoResourceElement : ResourceElement
+    public class MemoryInfoResourceElement : ResourceElement
     {
         public string Ptr { get; set; }
 

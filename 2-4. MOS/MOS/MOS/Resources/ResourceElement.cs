@@ -7,7 +7,7 @@ using MOS.OS;
 
 namespace MOS.Resources
 {
-    class ResourceElement
+    public class ResourceElement
     {
         public Process Receiver { get; set; }
         public Process Sender { get; set; }

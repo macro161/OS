@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MOS.Resources
 {
-    class InterruptResourceElement : ResourceElement
+    public class InterruptResourceElement : ResourceElement
     {
         public Process JobGoverner { get; set; }
 

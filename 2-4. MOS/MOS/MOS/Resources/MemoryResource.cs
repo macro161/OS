@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MOS.Resources
 {
-    class MemoryResource : Resource
+    public  class MemoryResource : Resource
     {
         public MemoryResource(Kernel kernel, string name, Process creator) : base(kernel, name, creator)
         {

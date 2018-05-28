@@ -48,6 +48,7 @@
             this.textBoxUser.Name = "textBoxUser";
             this.textBoxUser.Size = new System.Drawing.Size(255, 20);
             this.textBoxUser.TabIndex = 1;
+            this.textBoxUser.TextChanged += new System.EventHandler(this.textBoxUser_TextChanged);
             this.textBoxUser.Enter += new System.EventHandler(this.textBoxUser_Enter);
             // 
             // VMForm

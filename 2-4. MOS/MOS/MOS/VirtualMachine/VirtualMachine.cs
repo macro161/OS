@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace MOS.VirtualMachine
 {
-    class VirtualMachine : Process
+    public class VirtualMachine : Process
     {
         public PTR_Reg PTR;
         public PageTable pt;

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MOS.Resources
 {
-    class ProgramInfoResource : Resource
+    public class ProgramInfoResource : Resource
     {
         public new List<ProgramInfoResourceElement> Elements { get; set; }
         public ProgramInfoResource(Kernel kernel, string name, Process creator) : base(kernel, name, creator)

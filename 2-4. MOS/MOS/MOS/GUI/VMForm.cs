@@ -12,7 +12,7 @@ using System.Windows.Forms;
 
 namespace MOS.GUI
 {
-    partial class VMForm : Form
+    public partial class VMForm : Form
     {
         public JobGovernor jg;
 
@@ -32,6 +32,11 @@ namespace MOS.GUI
         {
             jg.Kernel.dynamicResources.First(res => res.Name == "LINEFROMUSER")
                 .ReleaseResource(new IOResourceElements(textBoxUser.Text,"", 0, jg, null, this));
+        }
+
+        private void textBoxUser_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
