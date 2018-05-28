@@ -29,7 +29,6 @@ namespace MOS.OS
 
         public void Planner()
         {
-
             //Log.Info("Planner process is running.");
             if (running != null)
                 if (running.Status == (int)ProcessState.Ready && !ready.Contains(running))
@@ -260,9 +259,9 @@ namespace MOS.OS
                                 blocked.Remove(proc);
                                 ready.Add(proc);
                                 res.Awaiters.Remove(proc);
-                                IOResourceElements element = (IOResourceElements)res.Elements.First(elem => elem.Receiver == proc);
-                                //proc.Element = element šitą reiks prie job governer
-                                ((IOResource)res).Elements.Remove(element);
+                                ResourceElement element = res.Elements.First(elem => elem.Receiver == proc);
+                                ((JobGovernor)proc).Element = element;
+                                res.Elements.Remove(element);
                             }
                             break;
 

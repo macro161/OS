@@ -30,13 +30,19 @@ namespace MOS.GUI
 
         private void textBoxUser_Enter(object sender, EventArgs e)
         {
-            jg.Kernel.dynamicResources.First(res => res.Name == "LINEFROMUSER")
-                .ReleaseResource(new IOResourceElements(textBoxUser.Text,"", 0, jg, null, this));
+           // Console.WriteLine(textBoxUser.Text);
+           // jg.Kernel.dynamicResources.First(res => res.Name == "LINEFROMUSER").Elements.Add(new ResourceElement(textBoxUser.Text, receiver:jg));
         }
 
         private void textBoxUser_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBoxUser_Leave(object sender, EventArgs e)
+        {
+            //Console.WriteLine(textBoxUser.Text);
+            jg.Kernel.dynamicResources.First(res => res.Name == "LINEFROMUSER").Elements.Add(new ResourceElement(value : textBoxUser.Text, receiver: jg));
         }
     }
 }
