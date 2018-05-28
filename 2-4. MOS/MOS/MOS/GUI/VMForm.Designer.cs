@@ -40,14 +40,14 @@
             this.textBox.Name = "textBox";
             this.textBox.ReadOnly = true;
             this.textBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox.Size = new System.Drawing.Size(485, 327);
+            this.textBox.Size = new System.Drawing.Size(313, 327);
             this.textBox.TabIndex = 0;
             // 
             // textBoxUser
             // 
             this.textBoxUser.Location = new System.Drawing.Point(12, 30);
             this.textBoxUser.Name = "textBoxUser";
-            this.textBoxUser.Size = new System.Drawing.Size(255, 20);
+            this.textBoxUser.Size = new System.Drawing.Size(313, 20);
             this.textBoxUser.TabIndex = 1;
             this.textBoxUser.TextChanged += new System.EventHandler(this.textBoxUser_TextChanged);
             this.textBoxUser.Enter += new System.EventHandler(this.textBoxUser_Enter);
@@ -66,7 +66,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(509, 406);
+            this.ClientSize = new System.Drawing.Size(338, 406);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxUser);
             this.Controls.Add(this.textBox);
