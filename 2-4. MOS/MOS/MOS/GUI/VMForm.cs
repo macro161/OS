@@ -25,7 +25,7 @@ namespace MOS.GUI
             this.jg = jg;
             Vm.DataSource = jg;
             InitializeComponent();
-            label1.Text = jg.name;
+            label1.Text = jg.Childrens[0].Name;
             jg.PropertyChanged += (sender, args) => { if (args.PropertyName == "VMList" && sender != this) { HandleChanged(); } };
 
         }
