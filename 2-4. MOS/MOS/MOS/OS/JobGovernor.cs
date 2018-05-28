@@ -77,6 +77,8 @@ namespace MOS.OS
                     else if(value == "timer")
                     {
                         Descriptor.TI.TI = 10;
+                        Childrens[0].Status = (int)ProcessState.Ready;
+                        Kernel.ready.Add(Childrens[0]);
                         Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
                     }
                     else if(value == "output")
@@ -113,12 +115,14 @@ namespace MOS.OS
                     Pointer = 4;
                     Descriptor.TI.TI = 10;
                     Childrens[0].Status = (int)ProcessState.Ready;
+                    Kernel.ready.Add(Childrens[0]);
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
                     break;
                 case 7:
                     Pointer = 4;
                     Descriptor.TI.TI = 10;
                     Childrens[0].Status = (int)ProcessState.Ready;
+                    Kernel.ready.Add(Childrens[0]);
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
                     break;
 

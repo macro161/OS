@@ -31,6 +31,7 @@ namespace MOS.OS
         public void Release()
         {
             processThatHasAccess = Guid.Empty;
+            
         }
     }
 }

@@ -16,6 +16,10 @@ namespace MOS
 
         public static int ToHex(this String str)
         {
+            if (str == null)
+            {
+                return 0;
+            }
             return Int32.Parse(str, System.Globalization.NumberStyles.HexNumber);  // šita naudojam visada, paverčia int į string(jį interpretuoja kaip hex)
         }
 

@@ -49,6 +49,8 @@ namespace MOS.VirtualMachine
     }
         public override void Run()
         {
+            RealMachine.RealMachine.si.SI = 0;
+            RealMachine.RealMachine.pi.PI = 0;
             RealMachine.RealMachine.ti = TI;
             while (true)
             {
@@ -75,6 +77,7 @@ namespace MOS.VirtualMachine
         {
             if (RealMachine.RealMachine.si.SI > 0 || RealMachine.RealMachine.ti.TI == 0 || RealMachine.RealMachine.pi.PI > 0)
             {
+                TI = RealMachine.RealMachine.ti;
                 ((JobGovernor)Father).Descriptor.SaveVMState(this);
                 Kernel.dynamicResources.First(res => res.Name == "INTERUPT").ReleaseResource(new InterruptResourceElement(Father));
 
@@ -210,7 +213,6 @@ namespace MOS.VirtualMachine
             if (x1x2 == "01")
             {
                 RealMachine.RealMachine.memory.firstTrackSemaphore.Release();
-
             }
 
             if (x1x2 == "02")
@@ -226,21 +228,26 @@ namespace MOS.VirtualMachine
             if (x1x2 == "01")
             {
 
-                while (!RealMachine.RealMachine.memory.firstTrackSemaphore.Block(Id))
+                if (!RealMachine.RealMachine.memory.firstTrackSemaphore.Block(Id))
                 {
                     HandleFalseBlock();
                 }
-                sharedTrack = 1;
+                else
+                {
+                    sharedTrack = 1;
+                }
             }
 
             if (x1x2 == "02")
             {
-
-                while (!RealMachine.RealMachine.memory.secondTrackSemaphore.Block(Id))
+                if (!RealMachine.RealMachine.memory.secondTrackSemaphore.Block(Id))
                 {
                     HandleFalseBlock();
                 }
-                sharedTrack = 2;
+                else
+                {
+                    sharedTrack = 2;
+                }
             }
             RealMachine.RealMachine.ti.DecrementTI();
         }
@@ -248,7 +255,6 @@ namespace MOS.VirtualMachine
         private void HandleFalseBlock()
         {
             IC.IC--; // Is it good? Ciuju reiks pakeist
-            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void gd(string x1x2) // CF ZF SF
