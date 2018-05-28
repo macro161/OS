@@ -37,6 +37,7 @@ namespace MOS.GUI
                 this.CreateHandle();
             }
             textBox.BeginInvoke((MethodInvoker)delegate {
+                Thread.Sleep(500);
                 textBox.Clear();
                 foreach (var ln in jg.VMList)
                 {

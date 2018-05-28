@@ -16,7 +16,6 @@ namespace MOS.OS
             get => programList; set
             {
                 programList = value;
-                GUI.SystemForm.SetPrograms(GetNames());
             }
         }
 
