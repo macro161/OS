@@ -87,6 +87,7 @@ namespace MOS.GUI
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
+            if (listBox1.SelectedItem != null)
             Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").Elements.Add(new ResourceElement(value: listBox1.SelectedItem.ToString()));
         }
     }

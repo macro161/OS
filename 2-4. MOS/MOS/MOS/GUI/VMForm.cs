@@ -32,18 +32,20 @@ namespace MOS.GUI
 
         void HandleChanged()
         {
-            if (!this.IsHandleCreated)
+            if (!IsHandleCreated)
             {
-                this.CreateHandle();
+                CreateHandle();
             }
             textBox.BeginInvoke((MethodInvoker)delegate {
-                Thread.Sleep(500);
+                Thread.Sleep(1000);
                 textBox.Clear();
                 foreach (var ln in jg.VMList)
                 {
                     textBox.Text += ln;
                     textBox.Text += "\r\n";
                 }
+                //textBox.Text += jg.VMList.Last();
+                //textBox.Text += "\r\n";
             });
         }
 
