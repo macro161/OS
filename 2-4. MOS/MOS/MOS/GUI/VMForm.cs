@@ -4,9 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -15,34 +17,40 @@ namespace MOS.GUI
     public partial class VMForm : Form
     {
         public JobGovernor jg;
+        public List<string> list = new List<String>();
+        public BindingSource Vm = new BindingSource();
 
         public VMForm(JobGovernor jg)
         {
             this.jg = jg;
+            Vm.DataSource = jg;
             InitializeComponent();
+            label1.Text = jg.name;
+            jg.PropertyChanged += (sender, args) => { if (args.PropertyName == "VMList" && sender != this) { HandleChanged(); } };
+
         }
 
-        public void Print(string line)
+        void HandleChanged()
         {
-            textBox.AppendText(line);
-            textBox.AppendText(Environment.NewLine);
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
+            textBox.BeginInvoke((MethodInvoker)delegate {
+                textBox.Text = jg.VMList.Last();
+            });
         }
+
 
         private void textBoxUser_Enter(object sender, EventArgs e)
         {
-           // Console.WriteLine(textBoxUser.Text);
-           // jg.Kernel.dynamicResources.First(res => res.Name == "LINEFROMUSER").Elements.Add(new ResourceElement(textBoxUser.Text, receiver:jg));
+            jg.Kernel.dynamicResources.First(res => res.Name == "LINEFROMUSER")
+                .ReleaseResource(new IOResourceElements(textBoxUser.Text, "", 0, jg, null, this));
         }
 
         private void textBoxUser_TextChanged(object sender, EventArgs e)
         {
 
-        }
-
-        private void textBoxUser_Leave(object sender, EventArgs e)
-        {
-            //Console.WriteLine(textBoxUser.Text);
-            jg.Kernel.dynamicResources.First(res => res.Name == "LINEFROMUSER").Elements.Add(new ResourceElement(value : textBoxUser.Text, receiver: jg));
         }
     }
 }

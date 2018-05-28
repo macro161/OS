@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,14 +13,34 @@ namespace MOS.OS
     public class JobGovernor : Process
     {
         public ResourceElement Element { get; set; }
+        public string name = "Virtual Machine ";
+        public static int counter = 0;
         public ResourceElement TaskInDiskElement { get; set; }
         public Descriptor Descriptor { get; set; }
+        public List<string> VMList
+        {
+            get => list; set
+            {
+                list = value;
+                RaisePropertyChangedEvent("VMList");
+            }
+        }
+
         private string _ptr;
         private GUI.VMForm _vmForm;
+        private List<String> list = new List<string>();
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public JobGovernor(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "MainProc") { }
-        
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void RaisePropertyChangedEvent(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (PropertyChanged != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+
         public override void DecrementPriority()
         {
         }
@@ -31,6 +52,8 @@ namespace MOS.OS
             {
                 case 0:
                     Pointer = 1;
+                    counter++;
+                    name += counter.ToString();
                     Kernel.staticResources.First(res => res.Key.Name == "USERMEMORY").Key.AskForResource(this);
                     break;
                 case 1:

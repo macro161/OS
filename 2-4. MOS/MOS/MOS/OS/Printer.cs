@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MOS.Enums;
+using System.Threading;
 
 namespace MOS.OS
 {
@@ -55,7 +56,10 @@ namespace MOS.OS
 
         public void Print(string line)
         {
-            Element.ResourceGUI.Print(line);
+            List<string> meh = new List<string>();
+            meh = Element.ResourceGUI.jg.VMList;
+            meh.Add(line);
+            Element.ResourceGUI.jg.VMList  = meh;
         }
     }
 }
