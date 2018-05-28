@@ -60,6 +60,7 @@ namespace MOS.OS
                         };
                         cd.XCHG(new Program(PropElement.Lines[0], DataElement.Lines, CodeElement.Lines));
                     }
+                    Kernel.ProgramList = HardDisk.GetNames();
                     Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.ReleaseResource();
                     break;
                 case 6:

@@ -24,7 +24,23 @@ namespace MOS.GUI
         {
             Kernel = kernel;
             InitializeComponent();
-            listBox1.DataSource = names;
+            sys.DataSource = kernel;
+            kernel.PropertyChanged += (sender, args) => { if (args.PropertyName == "ProgramList" && sender != this) { HandleChanged(); } };
+        }
+
+        void HandleChanged()
+        {
+            if (!this.IsHandleCreated)
+            {
+                this.CreateHandle();
+            }
+            listBox1.BeginInvoke((MethodInvoker)delegate {
+                listBox1.Items.Clear();
+                foreach (var ln in Kernel.ProgramList)
+                {
+                    listBox1.Items.Add(ln);
+                }
+            });
         }
 
         public static void SetPrograms(List<string> names)

@@ -3,6 +3,7 @@ using MOS.Resources;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -16,9 +17,18 @@ namespace MOS.OS
         public List<Process> ready = new List<Process>();
         public List<Process> blocked = new List<Process>();
         public Process running;
-        
+        private List<string> programList = new List<string>();
         public List<Resource> dynamicResources = new List<Resource>();
         public Dictionary<Resource, bool> staticResources = new Dictionary<Resource, bool>();
+
+        public List<string> ProgramList { get => programList; set { programList = value; RaisePropertyChangedEvent("ProgramList"); } }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void RaisePropertyChangedEvent(string propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (PropertyChanged != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public void SortProcesses()
         {
