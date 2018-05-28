@@ -38,9 +38,11 @@ namespace MOS.GUI
             }
             textBox.BeginInvoke((MethodInvoker)delegate {
                 textBox.Clear();
-                foreach(var ln in jg.VMList)
-                textBox.Text += ln;
-                textBox.Text += "\r\n";
+                foreach (var ln in jg.VMList)
+                {
+                    textBox.Text += ln;
+                    textBox.Text += "\r\n";
+                }
             });
         }
 
