@@ -14,27 +14,7 @@ namespace MOS.OS
         public List<String> fromMemory = new List<String>();
         private Dictionary<int, IEnumerable<String>> _seperatedPrograms = new Dictionary<int, IEnumerable<String>>();
         private List<Program> _programs = new List<Program>();
-        //public static List<string> pvz = new List<string>()
-        //{
-        //    "program1",
-        //    "DATA",
-        //    "10",
-        //    "10",
-        //    "CODE",
-        //    "LR00",
-        //    "CR01",
-        //    "JE80",
-        //    "HALT",
-        //    "program2",
-        //    "DATA",
-        //    "10",
-        //    "10",
-        //    "CODE",
-        //    "LR00",
-        //    "CR01",
-        //    "JE80",
-        //    "HALT"
-        //};
+        
 
         public JCL(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "JCL") { }
         

@@ -25,7 +25,7 @@ namespace MOS.GUI
             Kernel = kernel;
             InitializeComponent();
             names = list;
-            listBox.DataSource = names;
+            listBox1.DataSource = names;
         }
 
         public static void SetPrograms(List<string> names)

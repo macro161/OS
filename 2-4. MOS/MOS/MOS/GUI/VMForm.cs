@@ -37,7 +37,8 @@ namespace MOS.GUI
                 this.CreateHandle();
             }
             textBox.BeginInvoke((MethodInvoker)delegate {
-                textBox.Text = jg.VMList.Last();
+                textBox.Text += jg.VMList.Last();
+                textBox.Text += "\r\n";
             });
         }
 
