@@ -46,11 +46,10 @@ namespace MOS
                 Application.Run(new GUI.SystemForm(kernel));
             }).Start();
 
-            new Thread(() =>
-            {
-                Application.Run(new RealMachine.LoggerTextBox());
-            }).Start();
-
+            //new Thread(() =>
+            //{
+            //    Application.Run(new RealMachine.LoggerTextBox());
+            //}).Start();
             //var logging = new LoggerTextBox();
             //Application.Run(logging);
             //Thread BackgroundThread = new Thread(()=> Application.Run(logging));
