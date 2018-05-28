@@ -41,10 +41,10 @@ namespace MOS
                 Application.Run(new GUI.SystemForm(kernel));
             }).Start();
 
-            new Thread(() =>
-            {
-                Application.Run(new RealMachine.LoggerTextBox());
-            }).Start();
+            //new Thread(() =>
+            //{
+            //    Application.Run(new RealMachine.LoggerTextBox());
+            //}).Start();
             realMachine.Kernel.ready.Add(new StartStop(kernel, null, 100, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>()));
             kernel.Planner();
             //var logging = new LoggerTextBox();
