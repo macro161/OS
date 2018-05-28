@@ -50,6 +50,7 @@ namespace MOS.OS
             {
                 case 0:
                     Pointer = 1;
+                    _seperatedPrograms = new Dictionary<int, IEnumerable<String>>();
                     Kernel.dynamicResources.First(res => res.Name == "TASKINSUPERVISORY").AskForResource(this);
                     break;
                 case 1:
