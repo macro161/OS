@@ -29,7 +29,7 @@ namespace MOS.OS
                     Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").AskForResource(this);
                     break;
                 case 1:
-                    if (Element.Value == "1")
+                    if (!(Element.Value == "0"))
                     {
                         JobGovernor jg = new JobGovernor(Kernel, this, 80, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>(Resources.Where(res => res.Name == "TASKINDISK")));
                         Kernel.ready.Add(jg);

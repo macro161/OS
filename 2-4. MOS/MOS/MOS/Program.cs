@@ -30,6 +30,11 @@ namespace MOS
             //t.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            new Thread(() =>
+            {
+                realMachine.Kernel.ready.Add(new StartStop(kernel, null, 100, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>()));
+                kernel.Planner();
+            }).Start();
             //    var file = new RealMachine.ChannelsDevice();
             //    file.ReadFromFlash();
             //new Thread(() =>
@@ -45,8 +50,7 @@ namespace MOS
             {
                 Application.Run(new RealMachine.LoggerTextBox());
             }).Start();
-            realMachine.Kernel.ready.Add(new StartStop(kernel, null, 100, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>()));
-            kernel.Planner();
+
             //var logging = new LoggerTextBox();
             //Application.Run(logging);
             //Thread BackgroundThread = new Thread(()=> Application.Run(logging));
@@ -56,12 +60,14 @@ namespace MOS
             //Application.Run(new Form1());
         }
 
-        public static void RunVM(JobGovernor jg)
+        public static GUI.VMForm RunVM(JobGovernor jg)
         {
+            GUI.VMForm VmForm = new GUI.VMForm(jg);
             new Thread(() =>
             {
                 Application.Run(new GUI.VMForm(jg));
             }).Start();
+            return VmForm;
         }
     }
 }

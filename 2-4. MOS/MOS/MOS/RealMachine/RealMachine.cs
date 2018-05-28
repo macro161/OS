@@ -345,7 +345,7 @@ namespace MOS.RealMachine
 
         private void Halt()
         {
-            PageTable pt = new PageTable(ptr.PTR);
+            /*PageTable pt = new PageTable(ptr);
             for (int i = 0; i < 16; i++)
             {
                 int x = pt.RealAddress(i);
@@ -356,11 +356,11 @@ namespace MOS.RealMachine
                 memory.WriteAt(ptr.PTR.TwoLastbytesToHex(), i, "");
                 memory.SetFree(x);
             }
-            memory.SetFree(ptr.PTR.TwoLastbytesToHex());
+            memory.SetFree(ptrTwoLastbytesToHex());
             ptr.Clear();
             ClearRegisters();
             paskutineKomanda = "";
-            pertraukimas = "";
+            pertraukimas = "";*/
         }
 
         private void GetData(int x1x2) // perskaito 4 žodžius ir įrašo pradedant x1 * 16 + x2
@@ -388,7 +388,7 @@ namespace MOS.RealMachine
 
             return false;
         }
-        public void PrintMemory()
+        public static void PrintMemory()
         {
             Console.WriteLine("0    1    2    3    4    5    6    7    8    9    A    B    C    D    E    F");
             for (int i = 0; i < 0x255; i++)

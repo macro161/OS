@@ -9,7 +9,7 @@ namespace MOS.OS
 {
     public class HardDisk
     {
-        private static List<Program> programList;
+        private static List<Program> programList = new List<Program>();
 
         public static List<Program> ProgramList
         {

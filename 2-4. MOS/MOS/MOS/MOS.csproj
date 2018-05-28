@@ -73,7 +73,6 @@
     <Compile Include="GUI\VMForm.Designer.cs">
       <DependentUpon>VMForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OS\ChanDevice.cs" />
     <Compile Include="OS\Descriptor.cs" />
     <Compile Include="OS\HardDisk.cs" />
     <Compile Include="OS\Interupt.cs" />

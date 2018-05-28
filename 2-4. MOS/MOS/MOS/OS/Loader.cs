@@ -34,7 +34,7 @@ namespace MOS.OS
                     Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.AskForResource(this);
                     break;
                 case 2:
-                    Pointer = 0;
+                    Pointer = 3;
                     string[,] data = new string[16,16];
                     int x = 0;
                     int y = 0;
@@ -50,7 +50,7 @@ namespace MOS.OS
                         }
                     }
 
-                    x = 7;
+                    x = 8;
                     y = 0;
 
                     foreach (string codeSeg in program.codeSegment)
@@ -76,13 +76,17 @@ namespace MOS.OS
 
                     for (int i = 0; i < 16; i++)
                     {
-                        for (int j = 0; j< 16 ; j++)
+                        for (int j = 0; j < 16 ; j++)
                         {
                             dataToSend[j] = data[i, j];
                         }
 
                         ChannelsDevice.XCHG(tracks[i], dataToSend);
                     }
+                    Kernel.dynamicResources.First(res => res.Name == "FROMLOADER").ReleaseResource(new ResourceElement(receiver : Element.Sender));
+                    break;
+                case 3:
+                    Pointer = 0;
                     Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.ReleaseResource();
                     break;
 

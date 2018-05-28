@@ -19,14 +19,14 @@ namespace MOS.OS
 
         public void InitSystemProcesesAndResources() //nezinojau ka prie to poiterio rasyt tai 0 parasiau
         {
-            Read read = new Read(Kernel, this, 100, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            JCL jcl = new JCL(Kernel, this, 99, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            JobToDisk jobToDisk = new JobToDisk(Kernel, this, 98, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            Loader loader = new Loader(Kernel, this, 97, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            MainProc mainProc = new MainProc(Kernel, this, 96, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            Interupt interupt = new Interupt(Kernel, this, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            Speaker speaker = new Speaker(Kernel, this, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
-            Printer printer = new Printer(Kernel, this, 90, (int)ProcessState.Ready, Guid.NewGuid(), 0, null);
+            Read read = new Read(Kernel, this, 99, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            JCL jcl = new JCL(Kernel, this, 98, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            JobToDisk jobToDisk = new JobToDisk(Kernel, this, 97, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            Loader loader = new Loader(Kernel, this, 96, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            MainProc mainProc = new MainProc(Kernel, this, 95, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            Interupt interupt = new Interupt(Kernel, this, 94, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            Speaker speaker = new Speaker(Kernel, this, 93, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            Printer printer = new Printer(Kernel, this, 92, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
 
             Kernel.ready.Add(read);
             Kernel.ready.Add(jcl);
@@ -68,8 +68,8 @@ namespace MOS.OS
             Resource taskInDisk = new Resource(Kernel, "TASKINDISK", jobToDisk);
             Resource loaderPacket = new MemoryInfoResource(Kernel, "LOADERPACKET", this);
             Resource fromLoader = new Resource(Kernel, "FROMLOADER", loader);
-            Resource fromInterrupt = new Resource(Kernel, "FROMINTERRUPT", interupt);
-            Resource interrupt = new InterruptResource(Kernel, "INTERRUPT", this);
+            Resource fromInterrupt = new Resource(Kernel, "FROMINTERUPT", interupt);
+            Resource interrupt = new InterruptResource(Kernel, "INTERUPT", this);
             Resource lineInMemory = new IOResource(Kernel, "LINEINMEMORY", this);
             Resource lineFromUser = new Resource(Kernel, "LINEFROMUSER", this);
             Resource beep = new Resource(Kernel,"BEEPER", this);

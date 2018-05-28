@@ -11,16 +11,16 @@ namespace MOS.VirtualMachine
 {
     public class VirtualMachine : Process
     {
-        public PTR_Reg PTR;
-        public PageTable pt;
-        public IC_Reg IC;
-        public R_Reg R1;
-        public R_Reg R2;
-        public R_Reg R3;
-        public R_Reg R4;
-        public SF_Reg SF;
-        public Mode_Reg MODE;
-        public TI_Reg TI;
+        public PTR_Reg PTR { get; set; }
+        public PageTable pt { get; set; }
+        public IC_Reg IC { get; set; }
+        public R_Reg R1 { get; set; }
+        public R_Reg R2 { get; set; }
+        public R_Reg R3 { get; set; }
+        public R_Reg R4 { get; set; }
+        public SF_Reg SF { get; set; }
+        public Mode_Reg MODE{ get; set; }
+        public TI_Reg TI { get; set; }
 
         private int sharedTrack;
 
@@ -37,6 +37,23 @@ namespace MOS.VirtualMachine
         }
         public VirtualMachine(Kernel kernel, Process father, int priority, int status, List<Resource> resources, Guid id, int pointer, string name) : base(kernel, father, priority, status, resources, id, pointer, name)
         {
+        IC = new IC_Reg();
+        MODE = new Mode_Reg();
+        R1 = new R_Reg();
+        R2 = new R_Reg();
+        R3 = new R_Reg();
+        R4 = new R_Reg();
+        SF = new SF_Reg();
+        TI = new TI_Reg();
+        PTR = new PTR_Reg();
+    }
+        public override void Run()
+        {
+            RealMachine.RealMachine.ti = TI;
+            while (true)
+            {
+                RunCommand();
+            }
         }
         public void RunCommand()
         {
@@ -57,7 +74,12 @@ namespace MOS.VirtualMachine
         void test()
         {
             if (RealMachine.RealMachine.si.SI > 0 || RealMachine.RealMachine.ti.TI == 0 || RealMachine.RealMachine.pi.PI > 0)
-                Kernel.dynamicResources.First(res => res.Name == "INTERRUPT").ReleaseResource(new InterruptResourceElement(Father));
+            {
+                ((JobGovernor)Father).Descriptor.SaveVMState(this);
+                Kernel.dynamicResources.First(res => res.Name == "INTERUPT").ReleaseResource(new InterruptResourceElement(Father));
+
+            }
+                
         }
 
         private void halt()
@@ -156,12 +178,21 @@ namespace MOS.VirtualMachine
                 case "RS":
                     rs(x1x2); //ReadShared memory
                     break;
+                case "KK":
+                    KK(x1x2); //ReadShared memory
+                    break;
                 default:
                     RealMachine.RealMachine.pi.PI = 2;
                     break;
             }
         }
-
+        private void KK(string x1x2)
+        {
+            if (x1x2.IsHex())
+            {
+                R3.R = x1x2.ToHex();
+            }
+        }
         private void rs(string x1x2)
         {
             R1.R = RealMachine.RealMachine.memory.StringAt(sharedTrack, x1x2.ToHex()).ToHex();
@@ -187,6 +218,7 @@ namespace MOS.VirtualMachine
                 RealMachine.RealMachine.memory.secondTrackSemaphore.Release();
 
             }
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void bc(string x1x2)
@@ -210,11 +242,13 @@ namespace MOS.VirtualMachine
                 }
                 sharedTrack = 2;
             }
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void HandleFalseBlock()
         {
-            Kernel.Planner(); // Is it good? Ciuju reiks pakeist
+            IC.IC--; // Is it good? Ciuju reiks pakeist
+            RealMachine.RealMachine.ti.DecrementTI();
         }
 
         private void gd(string x1x2) // CF ZF SF
@@ -233,6 +267,7 @@ namespace MOS.VirtualMachine
 
         private void pd(string x1x2)
         {
+
             int x1 = x1x2.Substring(0, 1).ToHex();
             int x2 = x1x2.Substring(1, 1).ToHex();
             x1 = pt.RealAddress(x1);
@@ -572,15 +607,10 @@ namespace MOS.VirtualMachine
             }
             RealMachine.RealMachine.ti.DecrementTI();
         }
-        
-        public override void Run()
-        {
-            throw new NotImplementedException();
-        }
 
         public override void DecrementPriority()
         {
-            throw new NotImplementedException();
+            Priority--;
         }
     }
 }

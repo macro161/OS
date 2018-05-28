@@ -3,6 +3,7 @@ using MOS.Resources;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace MOS.OS
         public List<Process> ready = new List<Process>();
         public List<Process> blocked = new List<Process>();
         public Process running;
-
+        
         public List<Resource> dynamicResources = new List<Resource>();
         public Dictionary<Resource, bool> staticResources = new Dictionary<Resource, bool>();
 
@@ -28,13 +29,29 @@ namespace MOS.OS
 
         public void Planner()
         {
-            Log.Info("Planner process is running.");
-            if (running.Status == (int)ProcessState.Ready)
-            {
-                ready.Add(running);
-            }
+
+            //Log.Info("Planner process is running.");
+            if (running != null)
+                if (running.Status == (int)ProcessState.Ready && !ready.Contains(running))
+                {
+                    ready.Add(running);
+                }
             SortProcesses();
+            if (ready.Count == 0)
+            {
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
+                while (true)
+                {
+                    if (sw.ElapsedMilliseconds > 5000)
+                        break;
+                }
+
+                sw.Stop();
+                ResourcePlanner();
+            }
             running = ready[0];
+            ready.Remove(running);
             running.DecrementPriority();
             running.Run();
         }
@@ -60,7 +77,9 @@ namespace MOS.OS
                     switch (res.Name)
                     {
                         case "FILEINPUT":
-                            res.Awaiters[0].Resources.Remove(res.Awaiters[0].Resources.First(resr => resr.Name == res.Name));
+                            if (res.Awaiters[0].Resources.Contains(res)){
+                                res.Awaiters[0].Resources.Remove(res);
+                            }
                             res.Awaiters[0].Resources.Add(res);
                             res.Awaiters[0].Status = (int)ProcessState.Ready;
                             ((Read)res.Awaiters[0]).Element = res.Elements[0];
@@ -70,7 +89,10 @@ namespace MOS.OS
                             res.Awaiters.RemoveAt(0);
                             break;
                         case "TASKINSUPERVISORY":
-                            res.Awaiters[0].Resources.Remove(res.Awaiters[0].Resources.First(resr => resr.Name == res.Name));
+                            if (res.Awaiters[0].Resources.Contains(res))
+                            {
+                                res.Awaiters[0].Resources.Remove(res);
+                            }
                             res.Awaiters[0].Resources.Add(res);
                             res.Awaiters[0].Status = (int)ProcessState.Ready;
                             res.Elements.RemoveAt(0);
@@ -79,9 +101,12 @@ namespace MOS.OS
                             res.Awaiters.RemoveAt(0);
                             break;
                         case "TASKNAMEINSUPERVISORY":
-                            res.Awaiters[0].Resources.Remove(res.Awaiters[0].Resources.First(resr => resr.Name == res.Name));
+                            if (res.Awaiters[0].Resources.Contains(res))
+                            {
+                                res.Awaiters[0].Resources.Remove(res);
+                            }
                             res.Awaiters[0].Resources.Add(res);
-                            ((JobToDisk)res.Awaiters[0]).PropElement = ((ProgramInfoResource)res).Elements[0];
+                            ((JobToDisk)res.Awaiters[0]).PropElement = (ProgramInfoResourceElement)res.Elements[0];
                             res.Elements.RemoveAt(0);
                             res.Awaiters[0].Status = (int)ProcessState.Ready;
                             blocked.Remove(res.Awaiters[0]);
@@ -89,9 +114,12 @@ namespace MOS.OS
                             res.Awaiters.RemoveAt(0);
                             break;
                         case "TASKDATAINSUPERVISORY":
-                            res.Awaiters[0].Resources.Remove(res.Awaiters[0].Resources.First(resr => resr.Name == res.Name));
+                            if (res.Awaiters[0].Resources.Contains(res))
+                            {
+                                res.Awaiters[0].Resources.Remove(res);
+                            }
                             res.Awaiters[0].Resources.Add(res);
-                            ((JobToDisk)res.Awaiters[0]).DataElement = ((ProgramInfoResource)res).Elements[0];
+                            ((JobToDisk)res.Awaiters[0]).DataElement = (ProgramInfoResourceElement)res.Elements[0];
                             res.Elements.RemoveAt(0);
                             res.Awaiters[0].Status = (int)ProcessState.Ready;
                             blocked.Remove(res.Awaiters[0]);
@@ -99,9 +127,12 @@ namespace MOS.OS
                             res.Awaiters.RemoveAt(0);
                             break;
                         case "TASKCODEINSUPERVISORY":
-                            res.Awaiters[0].Resources.Remove(res.Awaiters[0].Resources.First(resr => resr.Name == res.Name));
+                            if (res.Awaiters[0].Resources.Contains(res))
+                            {
+                                res.Awaiters[0].Resources.Remove(res);
+                            }
                             res.Awaiters[0].Resources.Add(res);
-                            ((JobToDisk)res.Awaiters[0]).CodeElement = ((ProgramInfoResource)res).Elements[0];
+                            ((JobToDisk)res.Awaiters[0]).CodeElement = (ProgramInfoResourceElement)res.Elements[0];
                             res.Elements.RemoveAt(0);
                             res.Awaiters[0].Status = (int)ProcessState.Ready;
                             blocked.Remove(res.Awaiters[0]);
@@ -109,7 +140,10 @@ namespace MOS.OS
                             res.Awaiters.RemoveAt(0);
                             break;
                         case "TASKINDISK":
-                            res.Awaiters[0].Resources.Remove(res.Awaiters[0].Resources.First(resr => resr.Name == res.Name));
+                            if (res.Awaiters[0].Resources.Contains(res))
+                            {
+                                res.Awaiters[0].Resources.Remove(res);
+                            }
                             res.Awaiters[0].Resources.Add(res);
                             ((MainProc)res.Awaiters[0]).Element = (res).Elements[0];
                             res.Elements.RemoveAt(0);
@@ -119,11 +153,14 @@ namespace MOS.OS
                             res.Awaiters.RemoveAt(0);
                             break;
                         case "LOADERPACKET":
-                            res.Awaiters[0].Resources.Remove(res.Awaiters[0].Resources.First(resr => resr.Name == res.Name));
-                            var temp = (MemoryInfoResource)res;
+                            if (res.Awaiters[0].Resources.Contains(res))
+                            {
+                                res.Awaiters[0].Resources.Remove(res);
+                            }
+ 
                             res.Awaiters[0].Resources.Add(res);
                             res.Awaiters[0].Status = (int)ProcessState.Ready;
-                            ((Loader)res.Awaiters[0]).Element = temp.Elements[0];
+                            ((Loader)res.Awaiters[0]).Element = (MemoryInfoResourceElement)res.Elements[0];
                             res.Elements.RemoveAt(0);
                             blocked.Remove(res.Awaiters[0]);
                             ready.Add(res.Awaiters[0]);
@@ -140,7 +177,10 @@ namespace MOS.OS
                             }
                             if (proc != null)
                             {
-                                proc.Resources.Remove(proc.Resources.First(resr => resr.Name == res.Name));
+                                if (proc.Resources.Contains(res))
+                                {
+                                    proc.Resources.Remove(res);
+                                }
                                 proc.Resources.Add(res);
                                 proc.Status = (int)ProcessState.Ready;
                                 blocked.Remove(proc);
@@ -149,7 +189,7 @@ namespace MOS.OS
                                 res.Elements.Remove(res.Elements.First(elem => elem.Receiver == proc));
                             }
                             break;
-                        case "FROMINTERRUPT":
+                        case "FROMINTERUPT":
                             foreach (var elem in res.Elements)
                             {
                                 if (res.Awaiters.Any(pro => pro == elem.Receiver))
@@ -160,7 +200,10 @@ namespace MOS.OS
                             }
                             if (proc != null)
                             {
-                                proc.Resources.Remove(proc.Resources.First(resr => resr.Name == res.Name));
+                                if (proc.Resources.Contains(res))
+                                {
+                                    proc.Resources.Remove(res);
+                                }
                                 proc.Resources.Add(res);
                                 proc.Status = (int)ProcessState.Ready;
                                 blocked.Remove(proc);
@@ -172,9 +215,12 @@ namespace MOS.OS
                             }
                             break;
                         case "INTERUPT":
-                            res.Awaiters[0].Resources.Remove(res.Awaiters[0].Resources.First(resr => resr.Name == res.Name));
+                            if (res.Awaiters[0].Resources.Contains(res))
+                            {
+                                res.Awaiters[0].Resources.Remove(res);
+                            }
                             res.Awaiters[0].Resources.Add(res);
-                            ((Interupt)res.Awaiters[0]).Element = ((InterruptResource)res).Elements[0];
+                            ((Interupt)res.Awaiters[0]).Element = (InterruptResourceElement)res.Elements[0];
                             res.Elements.RemoveAt(0);
                             res.Awaiters[0].Status = (int)ProcessState.Ready;
                             blocked.Remove(res.Awaiters[0]);
@@ -182,9 +228,12 @@ namespace MOS.OS
                             res.Awaiters.RemoveAt(0);
                             break;
                         case "LINEINMEMORY":
-                            res.Awaiters[0].Resources.Remove(res.Awaiters[0].Resources.First(resr => resr.Name == res.Name));
+                            if (res.Awaiters[0].Resources.Contains(res))
+                            {
+                                res.Awaiters[0].Resources.Remove(res);
+                            }
                             res.Awaiters[0].Resources.Add(res);
-                            ((Printer)res.Awaiters[0]).Element = ((IOResource)res).Elements[0];
+                            ((Printer)res.Awaiters[0]).Element = (IOResourceElements)res.Elements[0];
                             res.Elements.RemoveAt(0);
                             res.Awaiters[0].Status = (int)ProcessState.Ready;
                             blocked.Remove(res.Awaiters[0]);
@@ -202,13 +251,16 @@ namespace MOS.OS
                             }
                             if (proc != null)
                             {
-                                proc.Resources.Remove(proc.Resources.First(resr => resr.Name == res.Name));
+                                if (proc.Resources.Contains(res))
+                                {
+                                    proc.Resources.Remove(res);
+                                }
                                 proc.Resources.Add(res);
                                 proc.Status = (int)ProcessState.Ready;
                                 blocked.Remove(proc);
                                 ready.Add(proc);
                                 res.Awaiters.Remove(proc);
-                                IOResourceElements element = ((IOResource)res).Elements.First(elem => elem.Receiver == proc);
+                                IOResourceElements element = (IOResourceElements)res.Elements.First(elem => elem.Receiver == proc);
                                 //proc.Element = element šitą reiks prie job governer
                                 ((IOResource)res).Elements.Remove(element);
                             }
@@ -305,6 +357,7 @@ namespace MOS.OS
                         }
                     }
             }*/
+            Planner();
         }
 
         public void BlockProcess(Process process)

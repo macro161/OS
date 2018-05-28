@@ -14,5 +14,10 @@ namespace MOS.Resources
         {
             Elements = new List<InterruptResourceElement>();
         }
+        public void ReleaseResource(InterruptResourceElement resElement)
+        {
+            Elements.Add(resElement);
+            Kernel.ResourcePlanner();
+        }
     }
 }

@@ -17,9 +17,10 @@ namespace MOS.Resources
             Elements = new List<IOResourceElements>();
         }
 
-        public void AskForResource(Process process)
+        public void ReleaseResource(IOResourceElements resElement)
         {
-            Awaiters.Add(process);
+            Elements.Add(resElement);
+            Kernel.ResourcePlanner();
         }
 
     }

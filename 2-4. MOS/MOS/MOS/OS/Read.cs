@@ -14,15 +14,16 @@ namespace MOS.OS
 
         public Read(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "Read") { }
 
-        public List<String> flashData = new List<String>();
+        public List<String> flashData;
 
         public override void Run()
         {
-            flashData = new List<String>();
+            
             Log.Info("Read process is running.");
             switch (Pointer)
             {
                 case 0:
+                    flashData = new List<string>();
                     Pointer = 1;
                     Kernel.dynamicResources.First(res => res.Name == "FILEINPUT").AskForResource(this);
                     break;
@@ -37,12 +38,9 @@ namespace MOS.OS
                     {
                         flashData.Add(line);
                     }
-                    break;
-                case 2:
-                    Pointer = 3;
                     Kernel.staticResources.First(res => res.Key.Name == "SUPERVISORYMEMORY").Key.AskForResource(this);
                     break;
-                case 3:
+                case 2:
                     Pointer = 0;
                     Log.Info("Loading programs into Supervisory memory");
                     SupervisoryMemory.Memory = flashData;

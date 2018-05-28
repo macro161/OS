@@ -32,7 +32,6 @@ namespace MOS.Resources
             Log.Info(process.Name + " requested " + this.Name + " resource");
             process.Status = (int)ProcessState.Blocked;
             Kernel.blocked.Add(process);
-            Kernel.ready.Remove(process);
             Awaiters.Add(process);
             Kernel.ResourcePlanner();
         }

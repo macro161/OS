@@ -23,9 +23,6 @@ namespace MOS.GUI
         public SystemForm(Kernel kernel)
         {
             Kernel = kernel;
-        }
-        public SystemForm()
-        {
             InitializeComponent();
             names = list;
             listBox.DataSource = names;
@@ -39,13 +36,13 @@ namespace MOS.GUI
         private void mountFlashB_Click(object sender, EventArgs e)
         {
             path = ShowFileDialog();
-            Kernel.dynamicResources.First(res => res.Name == "FILEINPUT").ReleaseResource(new Resources.IOResourceElements(path));
+            Kernel.dynamicResources.First(res => res.Name == "FILEINPUT").Elements.Add(new Resources.ResourceElement(path));
         }
 
         private void runAllProgramsB_Click(object sender, EventArgs e)
         {
-            
-           Kernel.dynamicResources.First(res => res.Name == "FILEINPUT").ReleaseResource(new Resources.IOResourceElements(path));
+
+            Kernel.dynamicResources.First(res => res.Name == "FILEINPUT").Elements.Add(new Resources.ResourceElement(path));
         }
 
         private void runSelectedB_Click(object sender, EventArgs e)

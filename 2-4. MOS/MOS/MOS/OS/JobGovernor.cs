@@ -13,7 +13,9 @@ namespace MOS.OS
     {
         public ResourceElement Element { get; set; }
         public ResourceElement TaskInDiskElement { get; set; }
-
+        public Descriptor Descriptor { get; set; }
+        private string _ptr;
+        private GUI.VMForm _vmForm;
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public JobGovernor(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "MainProc") { }
@@ -33,15 +35,15 @@ namespace MOS.OS
                     break;
                 case 1:
                     Pointer = 2;
-                    string ptr = RealMachine.RealMachine.memory.getMemory();
-                    if (ptr == "0") // edge case scenario/ needs fix
+                    _ptr = RealMachine.RealMachine.memory.getMemory();
+                    if (_ptr == "0") // edge case scenario/ needs fix
                     {
                         Log.Info("We are out of memory");
                         Resource resource = Kernel.staticResources.First(res => res.Key.Name == "USERMEMORY").Key;
                         Kernel.staticResources[resource] = true;
                         Kernel.staticResources.First(res => res.Key.Name == "USERMEMORY").Key.AskForResource(this);
                     }
-                    Kernel.dynamicResources.First(res => res.Name == "LOADERPACKET").ReleaseResource(new MemoryInfoResourceElement(ptr, TaskInDiskElement.Value));
+                    Kernel.dynamicResources.First(res => res.Name == "LOADERPACKET").ReleaseResource(new MemoryInfoResourceElement(_ptr, TaskInDiskElement.Value, sender : this));
                     break;
                 case 2:
                     Pointer = 3;
@@ -49,11 +51,14 @@ namespace MOS.OS
                     break;
                 case 3:
                     Pointer = 4;
+                    
                     Process vm = new VirtualMachine.VirtualMachine(Kernel, this, 50, (int)ProcessState.Ready, new List<Resource>(), Guid.NewGuid(), 0, TaskInDiskElement.Value);
+                    Descriptor = new Descriptor(_ptr);
+                    Descriptor.LoadVMState((VirtualMachine.VirtualMachine)vm);
                     Kernel.ready.Add(vm);
-                    MOS.Program.RunVM(this);
+                    _vmForm = MOS.Program.RunVM(this);
                     Childrens.Add(vm);
-                    Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT").AskForResource(this);
+                    Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
                     break;
                 case 4:
                     Childrens[0].Status = (int)ProcessState.ReadyStopped;
@@ -62,21 +67,22 @@ namespace MOS.OS
                     if (value == "notIO")
                     {
                         Childrens[0].DeleteProcess();
-                        Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").ReleaseResource(new ResourceElement(sender: this));
+                        Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").ReleaseResource(new ResourceElement(value : "0", sender: this));
                     }
                     else if (value == "input")
                     {
                         Pointer = 5;
-                        Kernel.staticResources.First(res => res.Key.Name == "LINEFROMUSER").Key.AskForResource(this);
+                        Kernel.dynamicResources.First(res => res.Name == "LINEFROMUSER").AskForResource(this);
                     }
                     else if(value == "timer")
                     {
-                        Kernel.dynamicResources.First(res => res.Name == "FROMINTERRUPT").AskForResource(this);
+                        Descriptor.TI.TI = 10;
+                        Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
                     }
                     else if(value == "output")
                     {
                         Pointer = 6;
-                        Kernel.dynamicResources.First(res => res.Name == "LINEINMEMORY").ReleaseResource(new IOResourceElements(""));
+                        Kernel.dynamicResources.First(res => res.Name == "LINEINMEMORY").ReleaseResource(new IOResourceElements("", memoryByte: Descriptor.R4.R.ToHex(), lenght: Descriptor.R3.R, resourceGUI : _vmForm));
 
                     }
                     else if (value == "byp")
@@ -86,10 +92,34 @@ namespace MOS.OS
                     }
                     break;
                 case 5:
+                    Pointer = 4;
+                    Descriptor.TI.TI = 10;
+                    Childrens[0].Status = (int)ProcessState.Ready;
+                    Kernel.ready.Add(Childrens[0]);
+                    string line = Element.Value;
+                    int byteToWrite = Descriptor.R4.R;
+                    while (line.Length < 16)
+                    {
+                        line += " ";
+                    }
+                    for (int i = 0; i < 4; i++)
+                    {
+                        RealMachine.RealMachine.memory.WriteAt(byteToWrite / 16, byteToWrite % 16, line.Substring(4 * i, 4));
+                        byteToWrite++;
+                    }
+                    Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
                     break;
                 case 6:
+                    Pointer = 4;
+                    Descriptor.TI.TI = 10;
+                    Childrens[0].Status = (int)ProcessState.Ready;
+                    Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
                     break;
                 case 7:
+                    Pointer = 4;
+                    Descriptor.TI.TI = 10;
+                    Childrens[0].Status = (int)ProcessState.Ready;
+                    Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
                     break;
 
             }

@@ -38,14 +38,14 @@ namespace MOS.OS
                 case 2:
                     Pointer = 0;
                     string message = "";
-                    int x = Element.MemoryByte.Substring(0,2).ToHex();
-                    int y = Element.MemoryByte.Substring(2, 2).ToHex();
+                    int byteNumber = Element.MemoryByte.ToHex();
 
                     for (int i = 0; i < Element.Lenght; i++ )
                     {
-                        message = message + RealMachine.RealMachine.memory.StringAt(Element.MemoryByte.ToHex()/16, Element.MemoryByte.ToHex() % 16).ToHex();
-                        Element.MemoryByte = (Element.MemoryByte.ToHex() + 1).ToHex();
+                        message = message + RealMachine.RealMachine.memory.StringAt(byteNumber / 16, byteNumber % 16);
+                        byteNumber++;
                     }
+                    Console.WriteLine(message);
                     Print(message);
                     Kernel.staticResources.First(res => res.Key.Name == "CHAN3").Key.ReleaseResource();
 

@@ -63,9 +63,11 @@ namespace MOS.OS
                     {
                         counter++;
                         List<String> list = fromMemory.TakeWhile(line => line != "HALT").ToList();
+                        
                         if (list.Count == 0)
                             break;
                         fromMemory.RemoveRange(0, list.Count + 1);
+                        list.Add("HALT");
                         _seperatedPrograms.Add(counter, list);
                     }
 
@@ -88,7 +90,7 @@ namespace MOS.OS
                             Log.Info("Failed to load program.");
                         }
                     }
-                    break;
+                    goto case 2;
                 case 2:
                     Pointer = 3;
                     Kernel.dynamicResources.First(res => res.Name == "TASKNAMEINSUPERVISORY").ReleaseResource(new ProgramInfoResourceElement(new List<string> { _programs[0].name }));
@@ -102,7 +104,7 @@ namespace MOS.OS
                     _programs.RemoveAt(0);
                     if (_programs.Count > 0)
                     {
-                        Pointer = 3;
+                        Pointer = 2;
                     }
                     else
                     {
@@ -121,7 +123,7 @@ namespace MOS.OS
 
         public static bool checkCommands(List<string> code)
         {
-            string[] commands = new string[] { "BC", "RE", "WS", "RS", "LR", "SR", "RR", "AD", "SB", "CR", "MU", "DI", "PY", "JU", "JG", "JE", "JL", "SM", "LM", "LO", "PY", "HALT" };
+            string[] commands = new string[] { "BC", "RE", "WS", "RS", "LR", "SR", "RR", "AD", "SB", "CR", "MU", "DI", "PY", "JU", "JG", "JE", "JL", "SM", "LM", "LO", "PY", "HALT", "KK" };
             bool isCorrect = false;
 
             foreach (string str in code)

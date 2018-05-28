@@ -14,5 +14,11 @@ namespace MOS.Resources
             Elements = new List<MemoryInfoResourceElement>();
         }
         public new List<MemoryInfoResourceElement> Elements { get; set; }
+
+        public void ReleaseResource(MemoryInfoResourceElement resElement)
+        {
+            Elements.Add(resElement);
+            Kernel.ResourcePlanner();
+        }
     }
 }

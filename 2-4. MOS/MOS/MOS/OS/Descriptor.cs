@@ -12,16 +12,33 @@ namespace MOS.OS
     {
         public Guid descriptorId;
 
-        public IC_Reg IC;
-        public Mode_Reg MODE;
-        public PTR_Reg PTR;
-        public R_Reg R1;
-        public R_Reg R2;
-        public R_Reg R3;
-        public R_Reg R4;
-        public SF_Reg SF;
-        public TI_Reg TI;
-        public PageTable pageTable;
+        public IC_Reg IC { get; set; }
+        public Mode_Reg MODE { get; set; }
+        public PTR_Reg PTR { get; set; }
+        public R_Reg R1 { get; set; }
+        public R_Reg R2 { get; set; }
+        public R_Reg R3 { get; set; }
+        public R_Reg R4 { get; set; }
+        public SF_Reg SF { get; set; }
+        public TI_Reg TI { get; set; }
+        public PageTable pageTable { get; set; }
+        public Descriptor(string ptr)
+        {
+            IC = new IC_Reg();
+            MODE = new Mode_Reg();
+            PTR = new PTR_Reg
+            {
+                PTR = ptr
+            };
+            R1 = new R_Reg();
+            R2 = new R_Reg();
+            R3 = new R_Reg();
+            R4 = new R_Reg();
+            SF = new SF_Reg();
+            TI = new TI_Reg();
+            pageTable = new PageTable(ptr);
+
+        }
 
         public void SaveVMState(VirtualMachine.VirtualMachine virtualMachine)
         {
