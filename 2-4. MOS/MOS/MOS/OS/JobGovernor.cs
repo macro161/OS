@@ -47,16 +47,19 @@ namespace MOS.OS
 
         public override void Run()
         {
-            Log.Info("JobGovernor process is running.");
+            Log.Info($"{name} process is running.");
             switch (Pointer)
             {
                 case 0:
+                    //Log.Info("JobGovernor process is running.");
+                    Log.Info("Waiting for memory.");
                     Pointer = 1;
                     counter++;
                     name += counter.ToString();
                     Kernel.staticResources.First(res => res.Key.Name == "USERMEMORY").Key.AskForResource(this);
                     break;
                 case 1:
+                    Log.Info("Getting memory.");
                     Pointer = 2;
                     _ptr = RealMachine.RealMachine.memory.getMemory();
                     if (_ptr == "0") // edge case scenario/ needs fix
@@ -69,11 +72,13 @@ namespace MOS.OS
                     Kernel.dynamicResources.First(res => res.Name == "LOADERPACKET").ReleaseResource(new MemoryInfoResourceElement(_ptr, TaskInDiskElement.Value, sender : this));
                     break;
                 case 2:
+                    Log.Info("Waiting for Loader.");
                     Pointer = 3;
                     Kernel.dynamicResources.First(res => res.Name == "FROMLOADER").AskForResource(this);
                     break;
                 case 3:
                     Pointer = 4;
+                    Log.Info("Creating VM.");
                     Process vm = new VirtualMachine.VirtualMachine(Kernel, this, 50, (int)ProcessState.Ready, new List<Resource>(), Guid.NewGuid(), 0, TaskInDiskElement.Value);
                     Descriptor = new Descriptor(_ptr);
                     Descriptor.LoadVMState((VirtualMachine.VirtualMachine)vm);
@@ -84,6 +89,7 @@ namespace MOS.OS
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
                     break;
                 case 4:
+                    Log.Info("Dealing with interrupt");
                     Childrens[0].Status = (int)ProcessState.ReadyStopped;
                     var value = Element.Value;
                     if (value == "notIO")
@@ -95,6 +101,7 @@ namespace MOS.OS
                     else if (value == "input")
                     {
                         Pointer = 5;
+                        Log.Info("Waiting for input.");
                         Kernel.dynamicResources.First(res => res.Name == "LINEFROMUSER").AskForResource(this);
                     }
                     else if(value == "timer")
@@ -107,17 +114,20 @@ namespace MOS.OS
                     else if(value == "output")
                     {
                         Pointer = 6;
+                        Log.Info("Printing.");
                         Kernel.dynamicResources.First(res => res.Name == "LINEINMEMORY").ReleaseResource(new IOResourceElements("", memoryByte: Descriptor.R4.R.ToHex(), lenght: Descriptor.R3.R, resourceGUI : _vmForm));
 
                     }
                     else if (value == "byp")
                     {
                         Pointer = 7;
+                        Log.Info("Beeping.");
                         Kernel.dynamicResources.First(res => res.Name == "BEEPER").ReleaseResource();
                     }
                     break;
                 case 5:
                     Pointer = 4;
+                    Log.Info("Got input.");
                     if (Descriptor.TI.TI <= 0)
                         Descriptor.TI.TI = 10;
                     Childrens[0].Status = (int)ProcessState.Ready;

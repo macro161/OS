@@ -30,6 +30,7 @@ namespace MOS.OS
             {
                 case 0:
                     Pointer = 1;
+                    Log.Info("Waiting for task in supervisory.");
                     Kernel.dynamicResources.First(res => res.Name == "TASKNAMEINSUPERVISORY").AskForResource(this);
                     break;
                 case 1:
@@ -42,10 +43,12 @@ namespace MOS.OS
                     break;
                 case 3:
                     Pointer = 4;
+                    Log.Info("Waiting for task in Hard Disk.");
                     Kernel.staticResources.First(res => res.Key.Name == "EXTERNALMEMORY").Key.AskForResource(this);
                     break;
                 case 4:
                     Pointer = 5;
+                    Log.Info("Waiting for Channel 4.");
                     Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.AskForResource(this);
                     break;
                 case 5:
@@ -65,6 +68,7 @@ namespace MOS.OS
                     break;
                 case 6:
                     Pointer = 0;
+                    Log.Info("Task in Hard Disk.");
                     Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").ReleaseResource(new ResourceElement(value : PropElement.Lines[0]));
                     break;
             }

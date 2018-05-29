@@ -25,9 +25,6 @@ namespace MOS
             Log.Info("****************************************************************************");
             Kernel kernel = new Kernel();
             RealMachine.RealMachine realMachine = new RealMachine.RealMachine(kernel);
-            //realMachine.PowerOn();
-            //Thread t = new Thread(realMachine.PowerOn);
-            //t.Start();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             new Thread(() =>
@@ -35,12 +32,6 @@ namespace MOS
                 realMachine.Kernel.ready.Add(new StartStop(kernel, null, 100, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>()));
                 kernel.Planner();
             }).Start();
-            //    var file = new RealMachine.ChannelsDevice();
-            //    file.ReadFromFlash();
-            //new Thread(() =>
-            //{
-            //    Application.Run(new GUI.RMform(realMachine));
-            //}).Start();
             new Thread(() =>
             {
                 Application.Run(new GUI.SystemForm(kernel));
@@ -50,13 +41,6 @@ namespace MOS
             //{
             //    Application.Run(new RealMachine.LoggerTextBox());
             //}).Start();
-            //var logging = new LoggerTextBox();
-            //Application.Run(logging);
-            //Thread BackgroundThread = new Thread(()=> Application.Run(logging));
-            //BackgroundThread.Start();
-            //log.Info("_log info");
-            //logging.Update();
-            //Application.Run(new Form1());
         }
 
         public static GUI.VMForm RunVM(JobGovernor jg)

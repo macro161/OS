@@ -35,6 +35,7 @@ namespace MOS.OS
                         Kernel.ready.Add(jg);
                         Childrens.Add(jg);
                         jg.TaskInDiskElement = Element;
+                        Log.Info("Creating Job Governor.");
                     }
                     else
                     {
