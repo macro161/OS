@@ -31,7 +31,7 @@ namespace MOS.OS
         private List<String> list = new List<string>();
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public JobGovernor(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "MainProc") { }
+        public JobGovernor(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "JobGovernor " ) { }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -74,22 +74,22 @@ namespace MOS.OS
                     break;
                 case 3:
                     Pointer = 4;
-                    
                     Process vm = new VirtualMachine.VirtualMachine(Kernel, this, 50, (int)ProcessState.Ready, new List<Resource>(), Guid.NewGuid(), 0, TaskInDiskElement.Value);
                     Descriptor = new Descriptor(_ptr);
                     Descriptor.LoadVMState((VirtualMachine.VirtualMachine)vm);
                     Kernel.ready.Add(vm);
-                    _vmForm = MOS.Program.RunVM(this);
                     Childrens.Add(vm);
+                    _vmForm = MOS.Program.RunVM(this);
+                    
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
                     break;
                 case 4:
                     Childrens[0].Status = (int)ProcessState.ReadyStopped;
-                    Kernel.ready.Remove(Childrens[0]);
                     var value = Element.Value;
                     if (value == "notIO")
                     {
                         Childrens[0].DeleteProcess();
+                        Childrens.RemoveAt(0);
                         Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").ReleaseResource(new ResourceElement(value : "0", sender: this));
                     }
                     else if (value == "input")
@@ -101,8 +101,8 @@ namespace MOS.OS
                     {
                         Descriptor.TI.TI = 10;
                         Childrens[0].Status = (int)ProcessState.Ready;
-                        Kernel.ready.Add(Childrens[0]);
                         Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
+
                     }
                     else if(value == "output")
                     {
@@ -118,9 +118,9 @@ namespace MOS.OS
                     break;
                 case 5:
                     Pointer = 4;
-                    Descriptor.TI.TI = 10;
+                    if (Descriptor.TI.TI <= 0)
+                        Descriptor.TI.TI = 10;
                     Childrens[0].Status = (int)ProcessState.Ready;
-                    Kernel.ready.Add(Childrens[0]);
                     string line = Element.Value;
                     int byteToWrite = Descriptor.R4.R;
                     while (line.Length < 16)
@@ -136,16 +136,16 @@ namespace MOS.OS
                     break;
                 case 6:
                     Pointer = 4;
-                    Descriptor.TI.TI = 10;
+                    if (Descriptor.TI.TI <= 0)
+                        Descriptor.TI.TI = 10;
                     Childrens[0].Status = (int)ProcessState.Ready;
-                    Kernel.ready.Add(Childrens[0]);
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
                     break;
                 case 7:
                     Pointer = 4;
-                    Descriptor.TI.TI = 10;
+                    if (Descriptor.TI.TI <= 0)
+                        Descriptor.TI.TI = 10;
                     Childrens[0].Status = (int)ProcessState.Ready;
-                    Kernel.ready.Add(Childrens[0]);
                     Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
                     break;
 

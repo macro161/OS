@@ -20,6 +20,7 @@ namespace MOS.VirtualMachine
         public R_Reg R4 { get; set; }
         public SF_Reg SF { get; set; }
         public Mode_Reg MODE{ get; set; }
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public TI_Reg TI { get; set; }
 
         private int sharedTrack;
@@ -49,12 +50,17 @@ namespace MOS.VirtualMachine
     }
         public override void Run()
         {
+            Log.Info("Virtual Machine " + Name + " is running");
             RealMachine.RealMachine.si.SI = 0;
             RealMachine.RealMachine.pi.PI = 0;
             RealMachine.RealMachine.ti = TI;
             while (true)
             {
                 RunCommand();
+                if (test())
+                {
+                    break;
+                }
             }
         }
         public void RunCommand()
@@ -70,19 +76,18 @@ namespace MOS.VirtualMachine
             {
                 DoTask(command);
             }
-            test();
         }
 
-        void test()
+        bool test()
         {
             if (RealMachine.RealMachine.si.SI > 0 || RealMachine.RealMachine.ti.TI == 0 || RealMachine.RealMachine.pi.PI > 0)
             {
                 TI = RealMachine.RealMachine.ti;
                 ((JobGovernor)Father).Descriptor.SaveVMState(this);
                 Kernel.dynamicResources.First(res => res.Name == "INTERUPT").ReleaseResource(new InterruptResourceElement(Father));
-
+                return true;
             }
-                
+            return false;  
         }
 
         private void halt()
@@ -182,7 +187,7 @@ namespace MOS.VirtualMachine
                     rs(x1x2); //ReadShared memory
                     break;
                 case "KK":
-                    KK(x1x2); //ReadShared memory
+                    KK(x1x2); 
                     break;
                 default:
                     RealMachine.RealMachine.pi.PI = 2;

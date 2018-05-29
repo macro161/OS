@@ -16,6 +16,7 @@ namespace MOS.OS
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public List<Process> ready = new List<Process>();
         public List<Process> blocked = new List<Process>();
+        public List<Process> readyStopped = new List<Process>();
         public Process running;
         private List<string> programList = new List<string>();
         public List<Resource> dynamicResources = new List<Resource>();
@@ -39,30 +40,66 @@ namespace MOS.OS
 
         public void Planner()
         {
-            //Log.Info("Planner process is running.");
-            if (running != null)
-                if (running.Status == (int)ProcessState.Ready && !ready.Contains(running))
-                {
-                    ready.Add(running);
-                }
-            SortProcesses();
-            if (ready.Count == 0)
+            while (true)
             {
-                Stopwatch sw = new Stopwatch();
-                sw.Start();
-                while (true)
+                foreach(var process in ready.ToList())
                 {
-                    if (sw.ElapsedMilliseconds > 5000)
-                        break;
+                    if (process.Status == (int)ProcessState.Blocked)
+                    {
+                        ready.Remove(process);
+                        blocked.Add(process);
+                    }
+                    if (process.Status == (int)ProcessState.ReadyStopped)
+                    {
+                        ready.Remove(process);
+                        readyStopped.Add(process);
+                    }
                 }
-
-                sw.Stop();
+                foreach (var process in blocked.ToList())
+                {
+                    if (process.Status == (int)ProcessState.Ready)
+                    {
+                        blocked.Remove(process);
+                        ready.Add(process);
+                    }
+                    if (process.Status == (int)ProcessState.ReadyStopped)
+                    {
+                        blocked.Remove(process);
+                        readyStopped.Add(process);
+                    }
+                }
+                foreach (var process in readyStopped.ToList())
+                {
+                    if (process.Status == (int)ProcessState.Blocked)
+                    {
+                        readyStopped.Remove(process);
+                        blocked.Add(process);
+                    }
+                    if (process.Status == (int)ProcessState.Ready)
+                    {
+                        readyStopped.Remove(process);
+                        ready.Add(process);
+                    }
+                }
+                if (running != null)
+                {
+                    if (running.Status == (int)ProcessState.Ready && !ready.Contains(running))
+                    {
+                        ready.Add(running);
+                    }
+                }
                 ResourcePlanner();
+
+                SortProcesses();
+
+                if (ready.Count > 0)
+                {
+                    running = ready[0];
+                    ready.Remove(running);
+                    running.DecrementPriority();
+                    running.Run();
+                }
             }
-            running = ready[0];
-            ready.Remove(running);
-            running.DecrementPriority();
-            running.Run();
         }
 
         public void ResourcePlanner()
@@ -366,7 +403,6 @@ namespace MOS.OS
                         }
                     }
             }*/
-            Planner();
         }
 
         public void BlockProcess(Process process)

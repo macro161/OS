@@ -20,7 +20,7 @@ namespace MOS.OS
         public Kernel Kernel { get; private set; }
         public List<Process> Childrens { get; set; }
         public string Name { get; private set; }
-
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public Process(Kernel kernel, Process father, int priority, int status, List<Resource> resources, Guid id, int pointer, string name)
         {
@@ -48,6 +48,7 @@ namespace MOS.OS
 
         public void DeleteProcess()
         {
+            Log.Info("Deleting " + Name + " Process");
             foreach (Resource resource in Resources)
             {
                 if (Kernel.staticResources.ContainsKey(resource))
@@ -78,8 +79,6 @@ namespace MOS.OS
                 }
                 childProcess.DeleteProcess();
             }
-
-
         }
 
     }

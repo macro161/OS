@@ -38,6 +38,7 @@ namespace MOS.OS
                     }
                     else
                     {
+                        Console.WriteLine();
                         Element.Sender.DeleteProcess();
                     }
                     Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").AskForResource(this);

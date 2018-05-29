@@ -46,7 +46,7 @@ namespace MOS.OS
                         message = message + RealMachine.RealMachine.memory.StringAt(byteNumber / 16, byteNumber % 16);
                         byteNumber++;
                     }
-                    Console.WriteLine(message);
+                    
                     Print(message);
                     Kernel.staticResources.First(res => res.Key.Name == "CHAN3").Key.ReleaseResource();
 

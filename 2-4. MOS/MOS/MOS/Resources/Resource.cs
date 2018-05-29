@@ -33,18 +33,15 @@ namespace MOS.Resources
             process.Status = (int)ProcessState.Blocked;
             Kernel.blocked.Add(process);
             Awaiters.Add(process);
-            Kernel.ResourcePlanner();
         }
 
         public void ReleaseResource(ResourceElement resElement)
         {
             Elements.Add(resElement);
-            Kernel.ResourcePlanner();
         }
         public void ReleaseResource()
         {
             Kernel.staticResources[this] = true;
-            Kernel.ResourcePlanner();
         }
     }
 }

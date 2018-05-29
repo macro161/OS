@@ -55,6 +55,11 @@ namespace MOS.RealMachine
 
         public string StringAt(int x, int y) // 
         {
+            if (y == 16)
+            {
+                x++;
+                y = 0;
+            }
             return UserMemoryProp[x, y];
         }
 
@@ -66,6 +71,11 @@ namespace MOS.RealMachine
 
         public void WriteAt(int x, int y, string word)
         {
+            if (y == 16)
+            {
+                x++;
+                y = 0;
+            }
             UserMemoryProp[x, y] = word;
         }
 

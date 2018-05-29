@@ -36,6 +36,7 @@ namespace MOS.GUI
             {
                 CreateHandle();
             }
+            Thread.Sleep(1000);
             textBox.BeginInvoke((MethodInvoker)delegate {
                 Thread.Sleep(1000);
                 textBox.Clear();
