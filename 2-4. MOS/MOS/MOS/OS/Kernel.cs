@@ -67,6 +67,7 @@ namespace MOS.OS
 
         public void ResourcePlanner()
         {
+            //Log.Info("Resource Planner is running.");
             foreach (var res in staticResources) // paskiria statinį resursą.
             {
                 if (res.Key.Awaiters.Count > 0 && res.Value == true)
@@ -371,6 +372,7 @@ namespace MOS.OS
 
         public void BlockProcess(Process process)
         {
+            Log.Info("Blocking process.");
             if (process == running)
             {
                 process.Status = (int)ProcessState.Blocked;

@@ -7,30 +7,28 @@ namespace MOS.RealMachine
 {
     public class TextBoxAppender : IAppender
     {
-        private TextBox _textBox;
+        private TextBox textBox;
         private readonly object _lockObj = new object();
+        Form form;
         public string Name { get; set; }
 
-        public TextBoxAppender(TextBox textBox)
+        public TextBoxAppender(Form x, TextBox _textbox)
         {
             var frm = textBox.FindForm();
             if (frm == null)
                 return;
             frm.FormClosing += delegate { Close(); };
 
-            _textBox = textBox;
+            this.textBox = _textbox;
+            form = x;
             Name = "TextBoxAppender";
         }
 
-        internal static void ConfigureTextBoxAppender(object textBox)
-        {
-          //  throw new NotImplementedException();
-        }
 
-        public static void ConfigureTextBoxAppender(TextBox textBox)
+        public static void ConfigureTextBoxAppender(Form x, TextBox textBox)
         {
             var hierarchy = (Hierarchy)LogManager.GetRepository();
-            var appender = new TextBoxAppender(textBox);
+            var appender = new TextBoxAppender(x,textBox);
             hierarchy.Root.AddAppender(appender);
         }
 
@@ -38,27 +36,29 @@ namespace MOS.RealMachine
         {
             lock (_lockObj)
             {
-                _textBox = null;
+                textBox = null;
             }
             var hierarchy = (Hierarchy)LogManager.GetRepository();
             hierarchy.Root.RemoveAppender(this);
         }
 
+
         public void DoAppend(log4net.Core.LoggingEvent loggingEvent)
         {
-            //Debug.WriteLine("***********");
-            if (_textBox == null)
+            if (textBox == null)
                 return;
-
-            var msg = string.Concat(loggingEvent.RenderedMessage, "\r\n");
+            string msg = string.Concat(loggingEvent.RenderedMessage, "\r\n");
 
             lock (_lockObj)
             {
-                if (_textBox == null)
-                    return;
-                //Debug.WriteLine("++++++++++++++");
-              //  var del = new Action<string>(s => _textBox.AppendText(s));
-               // _textBox.BeginInvoke(del, msg);
+                if (!form.IsHandleCreated)
+                {
+                   // form.CreateHandle();
+                }
+                textBox.BeginInvoke((MethodInvoker)delegate
+                {
+                    textBox.AppendText(msg);
+                });
             }
         }
     }

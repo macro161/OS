@@ -83,6 +83,7 @@ namespace MOS.OS
 
                         ChannelsDevice.XCHG(tracks[i], dataToSend);
                     }
+                    Log.Info("Task in memory.");
                     Kernel.dynamicResources.First(res => res.Name == "FROMLOADER").ReleaseResource(new ResourceElement(receiver : Element.Sender));
                     break;
                 case 3:
