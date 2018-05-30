@@ -46,9 +46,12 @@ namespace MOS.Resources
             Kernel.staticResources[this] = true;
         }
 
-        public void CreateResource() { }
+        public void CreateResource(Kernel kernel, string name, Process father) { }
 
-        public void DeleteResource() { }
+        public void DeleteResource()
+        {
+
+        }
 
 
     }

@@ -81,12 +81,31 @@ namespace MOS.OS
             }
         }
 
-        public void CreateProcess() { }
+        public void CreateProcess(Process father, int status, int priority, List<ResourceElement> resourceElements, string Name ) { }
 
-        public void StopProcess() { }
+        public void StopProcess() {
+            if (Status == (int)ProcessState.Blocked)
+            {
+                Status = (int)ProcessState.BlockedStopped;
+            }
 
-        public void ActivateProcess() { }
+            if (Status == (int)ProcessState.Ready)
+            {
+                Status = (int)ProcessState.ReadyStopped;
+            }
+        }
 
+        public void ActivateProcess()
+        {
+            if (Status == (int)ProcessState.BlockedStopped)
+            {
+                Status = (int)ProcessState.Blocked;
+            }
 
+            if (Status == (int)ProcessState.ReadyStopped)
+            {
+                Status = (int)ProcessState.Ready;
+            }
+        }
     }
 }
