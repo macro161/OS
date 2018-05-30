@@ -31,7 +31,7 @@ namespace MOS.OS
                 case 0:
                     Pointer = 1;
                     _seperatedPrograms = new Dictionary<int, IEnumerable<String>>();
-                    Kernel.dynamicResources.First(res => res.Name == "TASKINSUPERVISORY").AskForResource(this);
+                    AskForResource("TASKINSUPERVISORY");
                     break;
                 case 1:
                     Pointer = 2;
@@ -74,11 +74,11 @@ namespace MOS.OS
                     goto case 2;
                 case 2:
                     Pointer = 3;
-                    Kernel.dynamicResources.First(res => res.Name == "TASKNAMEINSUPERVISORY").ReleaseResource(new ProgramInfoResourceElement(new List<string> { _programs[0].name }));
+                    ReleaseResource("TASKNAMEINSUPERVISORY", new ProgramInfoResourceElement(new List<string> { _programs[0].name }));
                     break;
                 case 3:
                     Pointer = 4;
-                    Kernel.dynamicResources.First(res => res.Name == "TASKDATAINSUPERVISORY").ReleaseResource(new ProgramInfoResourceElement(_programs[0].dataSegment));
+                    ReleaseResource("TASKDATAINSUPERVISORY", new ProgramInfoResourceElement(_programs[0].dataSegment));
                     break;
                 case 4:
                     List<string> temp = _programs[0].codeSegment;
@@ -91,11 +91,11 @@ namespace MOS.OS
                     {
                         Pointer = 5;
                     }
-                    Kernel.dynamicResources.First(res => res.Name == "TASKCODEINSUPERVISORY").ReleaseResource(new ProgramInfoResourceElement(temp));
+                    ReleaseResource("TASKCODEINSUPERVISORY", new ProgramInfoResourceElement(temp));
                     break;
                 case 5:
                     Pointer = 0;
-                    Kernel.staticResources.First(res => res.Key.Name == "SUPERVISORYMEMORY").Key.ReleaseResource();
+                    ReleaseResource("SUPERVISORYMEMORY");
                     break;
 
 

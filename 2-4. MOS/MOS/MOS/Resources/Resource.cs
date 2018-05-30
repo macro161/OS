@@ -46,7 +46,20 @@ namespace MOS.Resources
             Kernel.staticResources[this] = true;
         }
 
-        public void CreateResource(Kernel kernel, string name, Process father) { }
+        public void CreateStaticResource()
+        {
+            if (Name != "MOSEND")
+                Kernel.staticResources.Add(this, true);
+            else
+            {
+                Kernel.staticResources.Add(this, false);
+            }
+        }
+        public void CreateDynamicResource()
+        {
+            Kernel.dynamicResources.Add(this);
+        }
+
 
         public void DeleteResource()
         {

@@ -27,11 +27,11 @@ namespace MOS.OS
             {
                 case 0:
                     Pointer = 1;
-                    Kernel.dynamicResources.First(res => res.Name == "LOADERPACKET").AskForResource(this);
+                    AskForResource("LOADERPACKET");
                     break;
                 case 1:
                     Pointer = 2;
-                    Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.AskForResource(this);
+                    AskForResource("CHAN4");
                     break;
                 case 2:
                     Pointer = 3;
@@ -84,11 +84,11 @@ namespace MOS.OS
                         ChannelsDevice.XCHG(tracks[i], dataToSend);
                     }
                     Log.Info("Task in memory.");
-                    Kernel.dynamicResources.First(res => res.Name == "FROMLOADER").ReleaseResource(new ResourceElement(receiver : Element.Sender));
+                    ReleaseResource("FROMLOADER", new ResourceElement(receiver : Element.Sender));
                     break;
                 case 3:
                     Pointer = 0;
-                    Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.ReleaseResource();
+                    ReleaseResource("CHAN4");
                     break;
 
                     

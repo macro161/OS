@@ -84,7 +84,7 @@ namespace MOS.VirtualMachine
             {
                 TI = RealMachine.RealMachine.ti;
                 ((JobGovernor)Father).Descriptor.SaveVMState(this);
-                Kernel.dynamicResources.First(res => res.Name == "INTERUPT").ReleaseResource(new InterruptResourceElement(Father));
+                ReleaseResource("INTERUPT", new InterruptResourceElement(Father));
                 return true;
             }
             return false;  

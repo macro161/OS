@@ -28,7 +28,7 @@ namespace MOS.OS
                 case 0:
                     Pointer = 1;
                     Log.Info("Waiting for interrupt resource.");
-                    Kernel.dynamicResources.First(res => res.Name == "INTERUPT").AskForResource(this);
+                    AskForResource("INTERUPT");
 
                     break;
                 case 1:
@@ -40,20 +40,15 @@ namespace MOS.OS
                     Pointer = 0;
                     Log.Info("Identifying interrupt.");
                     if (PI > 0|| SI == 3)
-                        Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT")
-                            .ReleaseResource(new InterruptResourceElement(null, "notIO", Element.JobGoverner, null));
+                        ReleaseResource("FROMINTERUPT", new InterruptResourceElement(null, "notIO", Element.JobGoverner, null));
                     else if(SI == 1)
-                        Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT")
-                            .ReleaseResource(new InterruptResourceElement(null, "input", Element.JobGoverner, null));
+                        ReleaseResource("FROMINTERUPT", new InterruptResourceElement(null, "input", Element.JobGoverner, null));
                     else if (SI == 2)
-                        Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT")
-                            .ReleaseResource(new InterruptResourceElement(null, "output", Element.JobGoverner, null));
+                        ReleaseResource("FROMINTERUPT", new InterruptResourceElement(null, "output", Element.JobGoverner, null));
                     else if (SI == 4)
-                        Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT")
-                            .ReleaseResource(new InterruptResourceElement(null, "byp", Element.JobGoverner, null));
+                        ReleaseResource("FROMINTERUPT", new InterruptResourceElement(null, "byp", Element.JobGoverner, null));
                     else if (TI == 0)
-                        Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT")
-                            .ReleaseResource(new InterruptResourceElement(null, "timer", Element.JobGoverner, null));
+                        ReleaseResource("FROMINTERUPT", new InterruptResourceElement(null, "timer", Element.JobGoverner, null));
                     break;
             }
         }

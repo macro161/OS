@@ -26,13 +26,13 @@ namespace MOS.OS
             {
                 case 0:
                     Pointer = 1;
-                    Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").AskForResource(this);
+                    AskForResource("TASKINDISK");
                     break;
                 case 1:
                     if (!(Element.Value == "0"))
                     {
                         JobGovernor jg = new JobGovernor(Kernel, this, 80, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>(Resources.Where(res => res.Name == "TASKINDISK")));
-                        Kernel.ready.Add(jg);
+                        jg.CreateProcess();
                         Childrens.Add(jg);
                         jg.TaskInDiskElement = Element;
                         Log.Info("Creating Job Governor.");
@@ -42,7 +42,7 @@ namespace MOS.OS
                         Console.WriteLine();
                         Element.Sender.DeleteProcess();
                     }
-                    Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").AskForResource(this);
+                    AskForResource("TASKINDISK");
                     break;
             }
         }

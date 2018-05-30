@@ -31,25 +31,25 @@ namespace MOS.OS
                 case 0:
                     Pointer = 1;
                     Log.Info("Waiting for task in supervisory.");
-                    Kernel.dynamicResources.First(res => res.Name == "TASKNAMEINSUPERVISORY").AskForResource(this);
+                    AskForResource("TASKNAMEINSUPERVISORY");
                     break;
                 case 1:
                     Pointer = 2;
-                    Kernel.dynamicResources.First(res => res.Name == "TASKCODEINSUPERVISORY").AskForResource(this);
+                    AskForResource("TASKCODEINSUPERVISORY");
                     break;
                 case 2:
                     Pointer = 3;
-                    Kernel.dynamicResources.First(res => res.Name == "TASKDATAINSUPERVISORY").AskForResource(this);
+                    AskForResource("TASKDATAINSUPERVISORY");
                     break;
                 case 3:
                     Pointer = 4;
                     Log.Info("Waiting for task in Hard Disk.");
-                    Kernel.staticResources.First(res => res.Key.Name == "EXTERNALMEMORY").Key.AskForResource(this);
+                    AskForResource("EXTERNALMEMORY");
                     break;
                 case 4:
                     Pointer = 5;
                     Log.Info("Waiting for Channel 4.");
-                    Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.AskForResource(this);
+                    AskForResource("CHAN4");
                     break;
                 case 5:
                     Log.Info("Loading program into Hard Disk.");
@@ -64,12 +64,12 @@ namespace MOS.OS
                         cd.XCHG(new Program(PropElement.Lines[0], DataElement.Lines, CodeElement.Lines));
                     }
                     Kernel.ProgramList = HardDisk.GetNames();
-                    Kernel.staticResources.First(res => res.Key.Name == "CHAN4").Key.ReleaseResource();
+                    ReleaseResource("CHAN4");
                     break;
                 case 6:
                     Pointer = 0;
                     Log.Info("Task in Hard Disk.");
-                    Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").ReleaseResource(new ResourceElement(value : PropElement.Lines[0]));
+                    ReleaseResource("TASKINDISK", new ResourceElement(value : PropElement.Lines[0]));
                     break;
             }
         }

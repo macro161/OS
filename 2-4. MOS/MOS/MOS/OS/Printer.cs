@@ -28,12 +28,12 @@ namespace MOS.OS
             {
                 case 0:
                     Pointer = 1;
-                    Kernel.dynamicResources.First(res => res.Name == "LINEINMEMORY").AskForResource(this);
+                    AskForResource("LINEINMEMORY");
                     
                     break;
                 case 1:
                     Pointer = 2;
-                    Kernel.staticResources.First(res => res.Key.Name == "CHAN3").Key.AskForResource(this);
+                    AskForResource("CHAN3");
 
                     break;
                 case 2:
@@ -48,7 +48,7 @@ namespace MOS.OS
                     }
                     
                     Print(message);
-                    Kernel.staticResources.First(res => res.Key.Name == "CHAN3").Key.ReleaseResource();
+                    ReleaseResource("CHAN3");
 
                     break;
             }

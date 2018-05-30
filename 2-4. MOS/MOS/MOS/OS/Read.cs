@@ -25,7 +25,7 @@ namespace MOS.OS
                 case 0:
                     flashData = new List<string>();
                     Pointer = 1;
-                    Kernel.dynamicResources.First(res => res.Name == "FILEINPUT").AskForResource(this);
+                    AskForResource("FILEINPUT");
                     break;
                 case 1:
                     Pointer = 2;
@@ -38,13 +38,13 @@ namespace MOS.OS
                     {
                         flashData.Add(line);
                     }
-                    Kernel.staticResources.First(res => res.Key.Name == "SUPERVISORYMEMORY").Key.AskForResource(this);
+                    AskForResource("SUPERVISORYMEMORY");
                     break;
                 case 2:
                     Pointer = 0;
                     Log.Info("Loading programs into Supervisory memory");
                     SupervisoryMemory.Memory = flashData;
-                    Kernel.dynamicResources.First(res => res.Name == "TASKINSUPERVISORY").ReleaseResource(new ResourceElement());
+                    ReleaseResource("TASKINSUPERVISORY", new ResourceElement());
                     break;
             }
         }

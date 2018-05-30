@@ -26,19 +26,19 @@ namespace MOS.OS
             {
                 case 0:
                     Pointer = 1;
-                    Kernel.dynamicResources.First(res => res.Name == "BEEPER").AskForResource(this);
+                    AskForResource("BEEPER");
 
                     break;
                 case 1:
                     Pointer = 2;
-                    Kernel.staticResources.First(res => res.Key.Name == "CHAN1").Key.AskForResource(this);
+                    AskForResource("CHAN1");
 
                     break;
                 case 2:
 
                     Beep(Pointer);
                     Pointer = 0;
-                    Kernel.staticResources.First(res => res.Key.Name == "CHAN1").Key.ReleaseResource();
+                    ReleaseResource("CHAN1");
                     break;
             }
 

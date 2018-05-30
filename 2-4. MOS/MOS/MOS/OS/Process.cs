@@ -46,6 +46,25 @@ namespace MOS.OS
             return false;
         }
 
+        public void AskForResource(string resource)
+        {
+            if (Kernel.dynamicResources.Any(res => res.Name == resource))
+            {
+                Kernel.dynamicResources.First(res => res.Name == resource).AskForResource(this);
+            }
+            if (Kernel.staticResources.Any(res => res.Key.Name == resource))
+            {
+                Kernel.staticResources.First(res => res.Key.Name == resource).Key.AskForResource(this);
+            }
+        }
+        public void ReleaseResource (string resource)
+        {
+            Kernel.staticResources.First(res => res.Key.Name == resource).Key.ReleaseResource();
+        }
+        public void ReleaseResource(string resource, ResourceElement elem)
+        {
+            Kernel.dynamicResources.First(res => res.Name == resource).ReleaseResource(elem);
+        }
         public void DeleteProcess()
         {
             Log.Info("Deleting " + Name + " Process");
@@ -81,7 +100,10 @@ namespace MOS.OS
             }
         }
 
-        public void CreateProcess(Process father, int status, int priority, List<ResourceElement> resourceElements, string Name ) { }
+        public void CreateProcess()
+        {
+            Kernel.ready.Add(this);
+        }
 
         public void StopProcess() {
             if (Status == (int)ProcessState.Blocked)
@@ -93,6 +115,10 @@ namespace MOS.OS
             {
                 Status = (int)ProcessState.ReadyStopped;
             }
+            if (Kernel.ready.Contains(this))
+            {
+               // Kernel.ready.Remove(this);
+            } 
         }
 
         public void ActivateProcess()
@@ -106,6 +132,7 @@ namespace MOS.OS
             {
                 Status = (int)ProcessState.Ready;
             }
+            //Kernel.ready.Add(this);
         }
     }
 }

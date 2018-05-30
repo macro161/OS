@@ -47,7 +47,6 @@ namespace MOS.OS
 
         public override void Run()
         {
-            Log.Info($"{name} process is running.");
             switch (Pointer)
             {
                 case 0:
@@ -56,25 +55,25 @@ namespace MOS.OS
                     Pointer = 1;
                     counter++;
                     name += counter.ToString();
-                    Kernel.staticResources.First(res => res.Key.Name == "USERMEMORY").Key.AskForResource(this);
+                    AskForResource("USERMEMORY");
                     break;
                 case 1:
                     Log.Info("Getting memory.");
                     Pointer = 2;
                     _ptr = RealMachine.RealMachine.memory.getMemory();
-                    if (_ptr == "0") // edge case scenario/ needs fix
+                    if (_ptr == "0") 
                     {
                         Log.Info("We are out of memory");
-                        Resource resource = Kernel.staticResources.First(res => res.Key.Name == "USERMEMORY").Key;
-                        Kernel.staticResources[resource] = true;
-                        Kernel.staticResources.First(res => res.Key.Name == "USERMEMORY").Key.AskForResource(this);
+                        ReleaseResource("USERMEMORY");
+                        AskForResource("USERMEMORY");
                     }
-                    Kernel.dynamicResources.First(res => res.Name == "LOADERPACKET").ReleaseResource(new MemoryInfoResourceElement(_ptr, TaskInDiskElement.Value, sender : this));
+                    ReleaseResource("LOADERPACKET", new MemoryInfoResourceElement(_ptr, TaskInDiskElement.Value, sender : this));
+                    ReleaseResource("USERMEMORY");
                     break;
                 case 2:
                     Log.Info("Waiting for Loader.");
                     Pointer = 3;
-                    Kernel.dynamicResources.First(res => res.Name == "FROMLOADER").AskForResource(this);
+                    AskForResource("FROMLOADER");
                     break;
                 case 3:
                     Pointer = 4;
@@ -82,11 +81,11 @@ namespace MOS.OS
                     Process vm = new VirtualMachine.VirtualMachine(Kernel, this, 50, (int)ProcessState.Ready, new List<Resource>(), Guid.NewGuid(), 0, TaskInDiskElement.Value);
                     Descriptor = new Descriptor(_ptr);
                     Descriptor.LoadVMState((VirtualMachine.VirtualMachine)vm);
-                    Kernel.ready.Add(vm);
+                    vm.CreateProcess();
                     Childrens.Add(vm);
                     _vmForm = MOS.Program.RunVM(this);
                     
-                    Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
+                    AskForResource("FROMINTERUPT");
                     break;
                 case 4:
                     Log.Info("Dealing with interrupt");
@@ -96,33 +95,33 @@ namespace MOS.OS
                     {
                         Childrens[0].DeleteProcess();
                         Childrens.RemoveAt(0);
-                        Kernel.dynamicResources.First(res => res.Name == "TASKINDISK").ReleaseResource(new ResourceElement(value : "0", sender: this));
+                        ReleaseResource("TASKINDISK", new ResourceElement(value : "0", sender: this));
                     }
                     else if (value == "input")
                     {
                         Pointer = 5;
                         Log.Info("Waiting for input.");
-                        Kernel.dynamicResources.First(res => res.Name == "LINEFROMUSER").AskForResource(this);
+                        AskForResource("LINEFROMUSER");
                     }
                     else if(value == "timer")
                     {
                         Descriptor.TI.TI = 10;
                         Childrens[0].Status = (int)ProcessState.Ready;
-                        Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
+                        AskForResource("FROMINTERUPT");
 
                     }
                     else if(value == "output")
                     {
                         Pointer = 6;
                         Log.Info("Printing.");
-                        Kernel.dynamicResources.First(res => res.Name == "LINEINMEMORY").ReleaseResource(new IOResourceElements("", memoryByte: Descriptor.R4.R.ToHex(), lenght: Descriptor.R3.R, resourceGUI : _vmForm));
+                        ReleaseResource("LINEINMEMORY", new IOResourceElements("", memoryByte: Descriptor.R4.R.ToHex(), lenght: Descriptor.R3.R, resourceGUI : _vmForm));
 
                     }
                     else if (value == "byp")
                     {
                         Pointer = 7;
                         Log.Info("Beeping.");
-                        Kernel.dynamicResources.First(res => res.Name == "BEEPER").ReleaseResource();
+                        ReleaseResource("BEEPER");
                     }
                     break;
                 case 5:
@@ -142,21 +141,21 @@ namespace MOS.OS
                         RealMachine.RealMachine.memory.WriteAt(byteToWrite / 16, byteToWrite % 16, line.Substring(4 * i, 4));
                         byteToWrite++;
                     }
-                    Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
+                    AskForResource("FROMINTERUPT");
                     break;
                 case 6:
                     Pointer = 4;
                     if (Descriptor.TI.TI <= 0)
                         Descriptor.TI.TI = 10;
                     Childrens[0].Status = (int)ProcessState.Ready;
-                    Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
+                    AskForResource("FROMINTERUPT");
                     break;
                 case 7:
                     Pointer = 4;
                     if (Descriptor.TI.TI <= 0)
                         Descriptor.TI.TI = 10;
                     Childrens[0].Status = (int)ProcessState.Ready;
-                    Kernel.dynamicResources.First(res => res.Name == "FROMINTERUPT").AskForResource(this);
+                    AskForResource("FROMINTERUPT");
                     break;
 
             }

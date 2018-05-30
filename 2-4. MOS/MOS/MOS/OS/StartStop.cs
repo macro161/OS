@@ -49,15 +49,15 @@ namespace MOS.OS
             Resource userMemory = new MemoryResource(Kernel, "USERMEMORY", this);
 
             //Statinių resursų pridėjimas į sąrašą
-            Kernel.staticResources.Add(mosEnd, false);
-            Kernel.staticResources.Add(outputStream, true);
-            Kernel.staticResources.Add(supervisoryMemory, true);
-            Kernel.staticResources.Add(externalMemory, true);
-            Kernel.staticResources.Add(chanOne, true);
-            Kernel.staticResources.Add(chanTwo, true);
-            Kernel.staticResources.Add(chanThree, true);
-            Kernel.staticResources.Add(chanFour, true);
-            Kernel.staticResources.Add(userMemory, true);
+            mosEnd.CreateStaticResource();
+            outputStream.CreateStaticResource();
+            supervisoryMemory.CreateStaticResource();
+            externalMemory.CreateStaticResource();
+            chanOne.CreateStaticResource();
+            chanTwo.CreateStaticResource();
+            chanThree.CreateStaticResource();
+            chanFour.CreateStaticResource();
+            userMemory.CreateStaticResource();
 
             //Dinaminių resursų sukūrimas
             Resource filePath = new Resource(Kernel, "FILEINPUT", this);
@@ -75,19 +75,19 @@ namespace MOS.OS
             Resource beep = new Resource(Kernel,"BEEPER", this);
 
             //Dinaminių resursų pridėjimas prie sąrašo.
-            Kernel.dynamicResources.Add(filePath);
-            Kernel.dynamicResources.Add(taskInSupervisory);
-            Kernel.dynamicResources.Add(taskNameInSupervisory);
-            Kernel.dynamicResources.Add(taskDataInSupervisory);
-            Kernel.dynamicResources.Add(taskCodeInSupervisory);
-            Kernel.dynamicResources.Add(taskInDisk);
-            Kernel.dynamicResources.Add(loaderPacket);
-            Kernel.dynamicResources.Add(fromLoader);
-            Kernel.dynamicResources.Add(fromInterrupt);
-            Kernel.dynamicResources.Add(interrupt);
-            Kernel.dynamicResources.Add(lineInMemory);
-            Kernel.dynamicResources.Add(lineFromUser);
-            Kernel.dynamicResources.Add(beep);
+            filePath.CreateDynamicResource();
+            taskInSupervisory.CreateDynamicResource();
+            taskNameInSupervisory.CreateDynamicResource();
+            taskDataInSupervisory.CreateDynamicResource();
+            taskCodeInSupervisory.CreateDynamicResource();
+            taskInDisk.CreateDynamicResource();
+            loaderPacket.CreateDynamicResource();
+            fromLoader.CreateDynamicResource();
+            fromInterrupt.CreateDynamicResource();
+            interrupt.CreateDynamicResource();
+            lineInMemory.CreateDynamicResource();
+            lineFromUser.CreateDynamicResource();
+            beep.CreateDynamicResource();
 
         }
 
@@ -100,7 +100,7 @@ namespace MOS.OS
                     Log.Info("Initializing system resources and processes.");
                     InitSystemProcesesAndResources();
                     Pointer++;
-                    Kernel.staticResources.First(res => res.Key.Name == "MOSEND").Key.AskForResource(this);
+                    AskForResource("MOSEND");
                     break;
                 case 1:
                     Log.Info("Exiting");
