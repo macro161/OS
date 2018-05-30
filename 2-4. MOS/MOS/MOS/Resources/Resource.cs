@@ -17,6 +17,7 @@ namespace MOS.Resources
         public Kernel Kernel { get; private set; }
         public Guid Id { get; private set; }
         public List<ResourceElement> Elements { get; set; }
+
         public Resource(Kernel kernel, string name, Process creator)
         {
             Kernel = kernel;
@@ -39,9 +40,16 @@ namespace MOS.Resources
         {
             Elements.Add(resElement);
         }
+
         public void ReleaseResource()
         {
             Kernel.staticResources[this] = true;
         }
+
+        public void CreateResource() { }
+
+        public void DeleteResource() { }
+
+
     }
 }

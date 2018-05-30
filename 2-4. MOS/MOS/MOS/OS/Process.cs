@@ -81,5 +81,12 @@ namespace MOS.OS
             }
         }
 
+        public void CreateProcess() { }
+
+        public void StopProcess() { }
+
+        public void ActivateProcess() { }
+
+
     }
 }
