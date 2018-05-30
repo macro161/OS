@@ -8,8 +8,10 @@ using MOS.Enums;
 
 namespace MOS.Resources
 {
-    public class Resource
+    public abstract class Resource
     {
+        Resource resource;
+
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public string Name { get; private set; }
         public Process Creator { get; private set; }
@@ -46,13 +48,47 @@ namespace MOS.Resources
             Kernel.staticResources[this] = true;
         }
 
-        public void CreateResource(Kernel kernel, string name, Process father) { }
-
-        public void DeleteResource()
+        public void CreateResource(Kernel kernel, string name, Process creator, bool isStatic)
         {
-
+            resource.Kernel = kernel;
+            resource.Name = name;
+            resource.Creator = creator;
+            resource.Id = Guid.NewGuid();
+            
+            resource.Creator.Resources.Add(resource); 
+            
+            
+            if (isStatic == true)
+            {
+                kernel.staticResources.Add(resource,true);
+            }
+            else {
+                kernel.dynamicResources.Add(resource);
+            }
         }
 
 
+        public void DeleteResource()
+        {
+            Creator.Resources.Remove(this);
+            Elements = null;
+
+            foreach (Process awaiter in Awaiters)
+            {
+                awaiter.ActivateProcess();
+            }
+
+            if (Kernel.dynamicResources.Contains(this))
+            {
+                Kernel.dynamicResources.Remove(this);
+            }
+            else {
+                Kernel.staticResources.Remove(this);
+            }
+
+            
+        }
+
+   
     }
 }

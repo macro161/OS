@@ -11,6 +11,8 @@ namespace MOS.OS
 {
     public abstract class Process
     {
+        Process process;
+
         public int Priority { get; set; }
         public int Status { get; set; }
         public List<Resource> Resources = new List<Resource>();
@@ -81,7 +83,25 @@ namespace MOS.OS
             }
         }
 
-        public void CreateProcess(Process father, int status, int priority, List<ResourceElement> resourceElements, string Name ) { }
+        public void CreateProcess(Kernel kernel, Process father, int priority, int status, List<Resource> resources, int pointer, string name)
+        {
+            process.Kernel = kernel;
+            process.Priority = priority;
+            process.Status = status;
+            process.Resources = resources;
+            process.Id = Guid.NewGuid();
+            process.Pointer = pointer;
+            process.Childrens = new List<Process>();
+            process.Name = name;
+            process.Father = father;
+
+            kernel.ready.Add(process);
+            father.Childrens.Add(process);
+            foreach (Process child in Childrens)
+            {
+                child.Father = process;
+            }
+        }
 
         public void StopProcess() {
             if (Status == (int)ProcessState.Blocked)
@@ -93,6 +113,8 @@ namespace MOS.OS
             {
                 Status = (int)ProcessState.ReadyStopped;
             }
+
+
         }
 
         public void ActivateProcess()
