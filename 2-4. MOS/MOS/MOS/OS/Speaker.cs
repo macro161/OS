@@ -12,8 +12,11 @@ namespace MOS.OS
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public Speaker(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "Read") { }
+        public Speaker(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources)  { }
 
+        public Speaker()
+        {
+        }
 
         public override void DecrementPriority()
         {

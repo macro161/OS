@@ -12,44 +12,44 @@ namespace MOS.OS
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public StartStop(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "StartStop")
+        public StartStop(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) 
         {
 
         }
 
         public void InitSystemProcesesAndResources() //nezinojau ka prie to poiterio rasyt tai 0 parasiau
         {
-            Read read = new Read(Kernel, this, 99, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
-            JCL jcl = new JCL(Kernel, this, 98, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
-            JobToDisk jobToDisk = new JobToDisk(Kernel, this, 97, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
-            Loader loader = new Loader(Kernel, this, 96, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
-            MainProc mainProc = new MainProc(Kernel, this, 95, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
-            Interupt interupt = new Interupt(Kernel, this, 94, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
-            Speaker speaker = new Speaker(Kernel, this, 93, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
-            Printer printer = new Printer(Kernel, this, 92, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            Read read = new Read() ;// = new Read(Kernel, this, 99, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            JCL jcl = new JCL(); ;// = new JCL(Kernel, this, 98, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            JobToDisk jobToDisk = new JobToDisk();// = new JobToDisk(Kernel, this, 97, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            Loader loader = new Loader();// = new Loader(Kernel, this, 96, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            MainProc mainProc = new MainProc();// = new MainProc(Kernel, this, 95, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            Interupt interupt = new Interupt();// = new Interupt(Kernel, this, 94, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            Speaker speaker = new Speaker();// = new Speaker(Kernel, this, 93, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
+            Printer printer = new Printer();// = new Printer(Kernel, this, 92, (int)ProcessState.Ready, Guid.NewGuid(), 0, new List<Resource>());
 
-            Kernel.ready.Add(read);
-            Kernel.ready.Add(jcl);
-            Kernel.ready.Add(jobToDisk);
-            Kernel.ready.Add(loader);
-            Kernel.ready.Add(mainProc);
-            Kernel.ready.Add(interupt);
-            Kernel.ready.Add(speaker);
-            Kernel.ready.Add(printer);
+            read.CreateProcess(Kernel,this,99, (int)ProcessState.Ready, new List<Resource>(), 0);
+            jcl.CreateProcess(Kernel, this, 98, (int)ProcessState.Ready, new List<Resource>(), 0);
+            jobToDisk.CreateProcess(Kernel, this, 97, (int)ProcessState.Ready, new List<Resource>(), 0);
+            loader.CreateProcess(Kernel, this, 96, (int)ProcessState.Ready, new List<Resource>(), 0);
+            mainProc.CreateProcess(Kernel, this, 95, (int)ProcessState.Ready, new List<Resource>(), 0);
+            interupt.CreateProcess(Kernel, this, 94, (int)ProcessState.Ready, new List<Resource>(), 0);
+            speaker.CreateProcess(Kernel, this, 93, (int)ProcessState.Ready, new List<Resource>(), 0);
+            printer.CreateProcess(Kernel, this, 92, (int)ProcessState.Ready, new List<Resource>(), 0);
 
             //Statinių resursų sukūrimas
-            Resource mosEnd = new Resource(Kernel, "MOSEND", this);
-            Resource outputStream = new Resource(Kernel, "OUTPUTSTREAM", this);
-            Resource supervisoryMemory = new Resource(Kernel, "SUPERVISORYMEMORY", this);
-            Resource externalMemory = new Resource(Kernel, "EXTERNALMEMORY", this);
-            Resource chanOne = new Resource(Kernel, "CHAN1", this);
-            Resource chanTwo = new Resource(Kernel, "CHAN2", this);
-            Resource chanThree = new Resource(Kernel, "CHAN3", this);
-            Resource chanFour = new Resource(Kernel, "CHAN4", this);
-            Resource userMemory = new MemoryResource(Kernel, "USERMEMORY", this);
+            Resource mosEnd = new Resource();// = new Resource(Kernel, "MOSEND", this);
+            Resource outputStream = new Resource();// = new Resource(Kernel, "OUTPUTSTREAM", this);
+            Resource supervisoryMemory = new Resource();// = new Resource(Kernel, "SUPERVISORYMEMORY", this);
+            Resource externalMemory = new Resource();// = new Resource(Kernel, "EXTERNALMEMORY", this);
+            Resource chanOne = new Resource();// = new Resource(Kernel, "CHAN1", this);
+            Resource chanTwo = new Resource();// = new Resource(Kernel, "CHAN2", this);
+            Resource chanThree = new Resource();// = new Resource(Kernel, "CHAN3", this);
+            Resource chanFour = new Resource();// = new Resource(Kernel, "CHAN4", this);
+            Resource userMemory = new Resource();// = new MemoryResource(Kernel, "USERMEMORY", this);
 
             //Statinių resursų pridėjimas į sąrašą
-            Kernel.staticResources.Add(mosEnd, false);
+            /*Kernel.staticResources.Add(mosEnd, false);
             Kernel.staticResources.Add(outputStream, true);
             Kernel.staticResources.Add(supervisoryMemory, true);
             Kernel.staticResources.Add(externalMemory, true);
@@ -57,7 +57,17 @@ namespace MOS.OS
             Kernel.staticResources.Add(chanTwo, true);
             Kernel.staticResources.Add(chanThree, true);
             Kernel.staticResources.Add(chanFour, true);
-            Kernel.staticResources.Add(userMemory, true);
+            Kernel.staticResources.Add(userMemory, true);*/
+
+            mosEnd.CreateResource(Kernel,"MOSEND", this, true);
+            outputStream.CreateResource(Kernel, "OUTPUTSTREAM", this, true);
+            supervisoryMemory.CreateResource(Kernel, "SUPERVISORYMEMORY", this, true);
+            externalMemory.CreateResource(Kernel, "EXTERNALMEMORY", this, true);
+            chanOne.CreateResource(Kernel, "CHAN1", this, true);
+            chanTwo.CreateResource(Kernel, "CHAN2", this, true);
+            chanThree.CreateResource(Kernel, "CHAN3", this, true);
+            chanFour.CreateResource(Kernel, "CHAN4", this, true);
+            userMemory.CreateResource(Kernel, "USERMEMORY", this, true);
 
             //Dinaminių resursų sukūrimas
             Resource filePath = new Resource(Kernel, "FILEINPUT", this);

@@ -9,9 +9,9 @@ using MOS.Resources;
 
 namespace MOS.OS
 {
-    public abstract class Process
+    public class Process
     {
-        Process process;
+        Process process = new Process();
 
         public int Priority { get; set; }
         public int Status { get; set; }
@@ -24,22 +24,14 @@ namespace MOS.OS
         public string Name { get; private set; }
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public Process(Kernel kernel, Process father, int priority, int status, List<Resource> resources, Guid id, int pointer, string name)
+        public Process()
         {
-            Kernel = kernel;
-            Priority = priority;
-            Status = status;
-            Resources = resources;
-            Id = id;
-            Pointer = pointer;
-            Childrens = new List<Process>();
-            Name = name;
-            Father = father;
+            
         }
 
-        public abstract void Run();
+        public  void Run();
 
-        public abstract void DecrementPriority();
+        public void DecrementPriority();
 
         public bool CheckIfReady()
         {
@@ -83,7 +75,7 @@ namespace MOS.OS
             }
         }
 
-        public void CreateProcess(Kernel kernel, Process father, int priority, int status, List<Resource> resources, int pointer, string name)
+        public void CreateProcess(Kernel kernel, Process father, int priority, int status, List<Resource> resources, int pointer)
         {
             process.Kernel = kernel;
             process.Priority = priority;
@@ -92,7 +84,7 @@ namespace MOS.OS
             process.Id = Guid.NewGuid();
             process.Pointer = pointer;
             process.Childrens = new List<Process>();
-            process.Name = name;
+          
             process.Father = father;
 
             kernel.ready.Add(process);

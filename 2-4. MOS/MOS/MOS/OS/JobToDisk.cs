@@ -15,8 +15,11 @@ namespace MOS.OS
         public ProgramInfoResourceElement DataElement { get; set; }
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public JobToDisk(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "JobToDisk") { }
-        
+        public JobToDisk(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) { }
+
+        public JobToDisk()
+        {
+        }
 
         public override void DecrementPriority()
         {

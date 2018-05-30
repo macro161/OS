@@ -11,15 +11,18 @@ namespace MOS.OS
     {
         public InterruptResourceElement Element { get; set; }
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        public Interupt(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "Interupt") { }
-        
+        public Interupt(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources)  { }
 
-        public override void DecrementPriority()
+        public Interupt()
+        {
+        }
+
+        public void DecrementPriority()
         {
 
         }
 
-        public override void Run()
+        public void Run()
         {
             Log.Info("Iterrupt process is running.");
 

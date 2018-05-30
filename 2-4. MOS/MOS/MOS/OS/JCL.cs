@@ -16,14 +16,18 @@ namespace MOS.OS
         private List<Program> _programs = new List<Program>();
         
 
-        public JCL(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "JCL") { }
-        
-        public override void DecrementPriority()
+        public JCL(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) { }
+
+        public JCL()
+        {
+        }
+
+        public void DecrementPriority()
         {
 
         }
 
-        public override void Run()
+        public void Run()
         {
             Log.Info("JCL process is running.");
             switch(Pointer)

@@ -25,7 +25,7 @@ namespace MOS.VirtualMachine
 
         private int sharedTrack;
 
-        public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf, Kernel kernel, Process father, int priority, int status, List<Resource> resources, Guid id, int pointer, string name) : base(kernel, father, priority, status, resources, id, pointer, name)
+        public VirtualMachine(PTR_Reg ptr, R_Reg r1, R_Reg r2, R_Reg r3, R_Reg r4, IC_Reg ic, SF_Reg sf, Kernel kernel, Process father, int priority, int status, List<Resource> resources, Guid id, int pointer, string name) 
         {
             R1 = r1;
             R2 = r2;
@@ -36,7 +36,7 @@ namespace MOS.VirtualMachine
             PTR = ptr;
             pt = new PageTable(PTR.PTR);
         }
-        public VirtualMachine(Kernel kernel, Process father, int priority, int status, List<Resource> resources, Guid id, int pointer, string name) : base(kernel, father, priority, status, resources, id, pointer, name)
+        public VirtualMachine(Kernel kernel, Process father, int priority, int status, List<Resource> resources, Guid id, int pointer, string name)
         {
         IC = new IC_Reg();
         MODE = new Mode_Reg();

@@ -12,7 +12,11 @@ namespace MOS.OS
         public ResourceElement Element { get; set; }
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public Read(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "Read") { }
+        public Read(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources)  { }
+
+        public Read()
+        {
+        }
 
         public List<String> flashData;
 
@@ -47,6 +51,11 @@ namespace MOS.OS
                     Kernel.dynamicResources.First(res => res.Name == "TASKINSUPERVISORY").ReleaseResource(new ResourceElement());
                     break;
             }
+        }
+
+        internal void CreateProcess()
+        {
+            throw new NotImplementedException();
         }
 
         public override void DecrementPriority()

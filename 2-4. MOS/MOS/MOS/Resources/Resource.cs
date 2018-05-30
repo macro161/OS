@@ -8,7 +8,7 @@ using MOS.Enums;
 
 namespace MOS.Resources
 {
-    public abstract class Resource
+    public class Resource
     {
         Resource resource;
 
@@ -28,6 +28,10 @@ namespace MOS.Resources
             Awaiters = new List<Process>();
             Id = Guid.NewGuid();
             Elements = new List<ResourceElement>();
+        }
+
+        public Resource()
+        {
         }
 
         public void AskForResource(Process process)

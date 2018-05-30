@@ -15,10 +15,15 @@ namespace MOS.OS
         public IOResourceElements Element { get; set; }
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        public Printer(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources) : base(kernel, father, priority, status, resources, id, pointer, "Printer") { }
+        public Printer(Kernel kernel, Process father, int priority, int status, Guid id, int pointer, List<Resource> resources)  { }
 
         public override void DecrementPriority()
         {
+        }
+
+        public Printer()
+        {
+
         }
 
         public override void Run()
@@ -61,5 +66,10 @@ namespace MOS.OS
             meh.Add(line);
             Element.ResourceGUI.jg.VMList  = meh;
         }
+
+        /*public static implicit operator Printer(Speaker v)
+        {
+            throw new NotImplementedException();
+        }*/
     }
 }
